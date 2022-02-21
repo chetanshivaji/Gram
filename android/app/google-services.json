@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "221118467263",
+    "project_id": "gramtry-7a07a",
+    "storage_bucket": "gramtry-7a07a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221118467263:android:effc4010cce71183a94a0a",
+        "android_client_info": {
+          "package_name": "com.example.money"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221118467263-206em4pu8u9khogp6unbmr08fdjg1oea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxXZsweakuYy5HBQnsU5tmlUVq7rp4gzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221118467263-206em4pu8u9khogp6unbmr08fdjg1oea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221118467263:android:93a0115c427c05eca94a0a",
+        "android_client_info": {
+          "package_name": "com.example.moneyGram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221118467263-206em4pu8u9khogp6unbmr08fdjg1oea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxXZsweakuYy5HBQnsU5tmlUVq7rp4gzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221118467263-206em4pu8u9khogp6unbmr08fdjg1oea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
