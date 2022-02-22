@@ -1,9 +1,8 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
@@ -53,6 +52,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   int houseTax = 0;
   String waterName = "";
   String houseName = "";
+  void _sendSMS(String message, List<String> recipents) async {
+    String _result = await sendSMS(message: message, recipients: recipents)
+        .catchError((onError) {
+      print(onError);
+    });
+    print(_result);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +220,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           Expanded(
             child: Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (widget.formType == "HOUSE") {
                     if (_formKey.currentState!.validate()) {
                       // If the form is valid, display a snackbar. In the real world,
@@ -282,6 +288,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       );
                     }
                   }
+
+                  String message = "This is a test message!";
+                  List<String> recipents = [mobile];
+
+                  _sendSMS(message, recipents);
                 },
                 child: const Text(
                   'Submit',
