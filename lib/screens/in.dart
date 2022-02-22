@@ -93,7 +93,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .then(
                         (value) {
                           var y = value.data();
-                          return y!["name"];
+                          if (y!["houseGiven"] == true) {
+                            return paidMsg;
+                          } else
+                            return y!["name"];
                         },
                       );
                     } catch (e) {
@@ -130,7 +133,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .then(
                         (value) {
                           var y = value.data();
-                          return y!["name"];
+                          if (y!["waterGiven"] == true) {
+                            return paidMsg;
+                          } else
+                            return y!["name"];
                         },
                       );
                     } catch (e) {
@@ -163,6 +169,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 }
                 if (name == "") {
                   return "Please enter correct number/Number not found in database";
+                }
+                if (name == paidMsg) {
+                  return "Already paid for this User";
                 }
                 mobile = value;
                 //check if it is only number
