@@ -253,6 +253,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         subtitleSuccess,
                         getRightIcon(),
                       );
+                      String message = "This is a test message!";
+                      List<String> recipents = [mobile];
+                      _sendSMS(message, recipents);
                     }
                     // Validate returns true if the form is valid, or false otherwise.
                   } else {
@@ -286,13 +289,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         subtitleSuccess,
                         getRightIcon(),
                       );
+
+                      String message = "This is a test message!";
+                      List<String> recipents = [mobile];
+                      _sendSMS(message, recipents);
                     }
                   }
-
-                  String message = "This is a test message!";
-                  List<String> recipents = [mobile];
-
-                  _sendSMS(message, recipents);
                 },
                 child: const Text(
                   'Submit',
