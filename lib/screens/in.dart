@@ -1,6 +1,9 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
@@ -19,8 +22,37 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
-  String mobile = "";
   String tax = "";
+  String mobile = "";
+
+  void updateFormulaValues(String newEntryAmount, String typeInOut) async {
+    int total = await FirebaseFirestore.instance
+        .collection(colletionName_forumla)
+        .doc(documentName_formula)
+        .get()
+        .then((value) {
+      var y = value.data();
+      return (typeInOut == "in") ? y!["totalIn"] : y!["totalOut"];
+    });
+
+    //update formula
+    if (typeInOut == "in") {
+      FirebaseFirestore.instance
+          .collection("formula")
+          .doc("calculation")
+          .update({'totalIn': (total + int.parse(newEntryAmount))});
+    } else {
+      FirebaseFirestore.instance
+          .collection("formula")
+          .doc("calculation")
+          .update({'totalOut': (total + int.parse(newEntryAmount))});
+    }
+  }
+
+  int waterTax = 0;
+  int houseTax = 0;
+  String waterName = "";
+  String houseName = "";
 
   @override
   Widget build(BuildContext context) {
@@ -35,26 +67,86 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           ),
           Expanded(
             child: TextFormField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.person),
-                  hintText: "Enter name",
-                  labelText: "Name *"),
-              // The validator receives the text that the user has entered.
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+              onChanged: (text) async {
+                if (text.length == 10) {
+                  if (widget.formType == "HOUSE") {
+                    try {
+                      houseTax = await FirebaseFirestore.instance
+                          .collection(dbYear)
+                          .doc(text)
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          return y!["house"];
+                        },
+                      );
+                    } catch (e) {
+                      print(e);
+                    }
+
+                    try {
+                      houseName = await FirebaseFirestore.instance
+                          .collection(dbYear)
+                          .doc(text)
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          return y!["name"];
+                        },
+                      );
+                    } catch (e) {
+                      print(e);
+                    }
+
+                    setState(
+                      () {
+                        name = houseName;
+                        tax = houseTax.toString();
+                      },
+                    );
+                  } else {
+                    try {
+                      waterTax = await FirebaseFirestore.instance
+                          .collection(dbYear)
+                          .doc(text)
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          return y!["water"];
+                        },
+                      );
+                    } catch (e) {
+                      print(e);
+                    }
+
+                    try {
+                      waterName = await FirebaseFirestore.instance
+                          .collection(dbYear)
+                          .doc(text)
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          return y!["name"];
+                        },
+                      );
+                    } catch (e) {
+                      print(e);
+                    }
+
+                    setState(
+                      () {
+                        name = waterName;
+                        tax = waterTax.toString();
+                      },
+                    );
+                  }
                 }
-                name = value;
-                return null;
               },
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          Expanded(
-            child: TextFormField(
+
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -69,6 +161,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 if (value.length != 10) {
                   return "Please enter 10 digits!";
                 }
+                if (name == "") {
+                  return "Please enter correct number/Number not found in database";
+                }
                 mobile = value;
                 //check if it is only number
                 return null;
@@ -79,27 +174,29 @@ class HouseWaterFormState extends State<HouseWaterForm> {
             padding: EdgeInsets.only(top: 20),
           ),
           Expanded(
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.attach_money),
-                  hintText: "Enter Tax",
-                  labelText: "Tax *"),
-              // The validator receives the text that the user has entered.
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                tax = value;
-                /*
-                //check if it is only number  
-                if (value.digit) {
-                  return 'Please enter some text';
-                }
-                */
-                return null;
-              },
+            child: ListTile(
+                leading: Icon(Icons.person),
+                title: Text(
+                  "Name = $name",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          Expanded(
+            child: ListTile(
+              leading: Icon(Icons.attach_money),
+              title: Text(
+                "Tax = $tax",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           Padding(
@@ -127,6 +224,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           'user': userMail,
                         },
                       );
+                      FirebaseFirestore.instance
+                          .collection(dbYear)
+                          .doc(mobile)
+                          .update({'houseGiven': true});
+
                       updateFormulaValues(tax,
                           "in"); //fetch exisiting value from formula and update new value.
 
@@ -156,6 +258,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           'user': userMail,
                         },
                       );
+                      FirebaseFirestore.instance
+                          .collection(dbYear)
+                          .doc(mobile)
+                          .update({'waterGiven': true});
+
                       updateFormulaValues(tax,
                           "in"); //fetch exisiting value from formula and update new value.
                       showAlertDialog(

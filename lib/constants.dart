@@ -6,6 +6,11 @@ String kSubtitleSuccess = "Try again with correct username & password";
 String colletionName_forumla = "formula";
 String documentName_formula = "calculation";
 
+String housePendingType = "houseGiven";
+String waterPendingType = "waterGiven";
+
+String dbYear = "mainDb2021";
+
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,

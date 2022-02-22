@@ -1,10 +1,3 @@
-//TODO: 4. register, sign in screens. auth.
-//TODO: 5. data upload, download.
-
-//TODO: 1. DONE pending doesn't need extra income section
-//TODO: 2. DONE In Extra income section needs space from top.
-//TODO: 3. DONE Amount should only be number. text filed only number keyboard.
-
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/welcome_screen.dart';
