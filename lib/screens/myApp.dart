@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/screens/search_pending.dart';
 import 'package:money/util.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'in.dart';
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
         title: const Text('Grampanchyat'),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, searchScreen.id);
+            },
             icon: Icon(Icons.search),
           ),
           IconButton(

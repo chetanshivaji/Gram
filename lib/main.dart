@@ -8,6 +8,7 @@ import 'screens/in.dart';
 import 'screens/out.dart';
 import 'screens/pending.dart';
 import 'screens/report.dart';
+import 'screens/search_pending.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
@@ -41,6 +42,7 @@ void main() async {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
+        searchScreen.id: (context) => searchScreen(),
       },
     ),
   );

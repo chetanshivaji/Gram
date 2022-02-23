@@ -129,7 +129,7 @@ Widget formulaNew(int totalIn, int totalOut) {
 Icon getWrongIcon() {
   return Icon(
     Icons.cancel,
-    size: 100.0,
+    size: 50.0,
     color: Colors.red,
   );
 }
@@ -137,7 +137,7 @@ Icon getWrongIcon() {
 Icon getRightIcon() {
   return Icon(
     Icons.done,
-    size: 100.0,
+    size: 50.0,
     color: Colors.green,
   );
 }
