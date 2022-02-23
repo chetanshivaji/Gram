@@ -253,7 +253,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         subtitleSuccess,
                         getRightIcon(),
                       );
-                      String message = "This is a test message!";
+                      String message =
+                          "Dear $name $mobile, Thanks for paying House tax $tax, Received!";
                       List<String> recipents = [mobile];
                       _sendSMS(message, recipents);
                     }
@@ -290,7 +291,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         getRightIcon(),
                       );
 
-                      String message = "This is a test message!";
+                      String message =
+                          "Dear $name $mobile, Thanks for paying Water tax $tax, Received!";
                       List<String> recipents = [mobile];
                       _sendSMS(message, recipents);
                     }
