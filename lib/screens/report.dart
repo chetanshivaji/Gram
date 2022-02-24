@@ -1,7 +1,8 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class outList extends StatelessWidget {
   String outType = "";
@@ -290,27 +291,74 @@ class formulaLive extends StatelessWidget {
   }
 }
 
-class reportMoney extends StatefulWidget {
-  static String id = "reportscreen";
-  reportMoney({Key? key}) : super(key: key);
+class reportContainer extends StatefulWidget {
+  String reportType = "";
+  reportContainer({Key? key, this.reportType = "HOUSE"}) : super(key: key);
 
   @override
-  _reportMoneyState createState() => _reportMoneyState();
+  _reportContainerState createState() => _reportContainerState();
 }
 
-class _reportMoneyState extends State<reportMoney> {
-  String pageName = "REPORT";
-  var items = [
-    'Date',
-    'H to L',
-    'L to H',
-  ];
-  // Initial Selected Value
-  String dropdownvalue = "Date";
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    //Date picker
+DateTime fromDate = DateTime.now();
+DateTime toDate = DateTime.now();
+String sFromDate = DateTime.now().day.toString() +
+    "/" +
+    DateTime.now().month.toString() +
+    "/" +
+    DateTime.now().year.toString();
+String sToDate = DateTime.now().day.toString() +
+    "/" +
+    DateTime.now().month.toString() +
+    "/" +
+    DateTime.now().year.toString();
+String dropdownvalue = "Date";
+var items = [
+  'Date',
+  'H to L',
+  'L to H',
+];
+
+class _reportContainerState extends State<reportContainer> {
+  Future<void> _selectFromDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: fromDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+
+    if (pickedDate != null && pickedDate != fromDate)
+      setState(
+        () {
+          sFromDate = pickedDate!.day.toString() +
+              "/" +
+              pickedDate.month.toString() +
+              "/" +
+              pickedDate.year.toString();
+        },
+      );
   }
-  Widget reportContainer(String reportType) {
+
+  Future<void> _selectToDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: fromDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+
+    if (pickedDate != null && pickedDate != fromDate)
+      setState(
+        () {
+          sToDate = pickedDate!.day.toString() +
+              "/" +
+              pickedDate.month.toString() +
+              "/" +
+              pickedDate.year.toString();
+        },
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       color: Colors.grey[350],
@@ -321,12 +369,19 @@ class _reportMoneyState extends State<reportMoney> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Expanded(
-                child: SfDateRangePicker(
-                  view: DateRangePickerView.month,
-                  monthViewSettings:
-                      DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
-                  onSelectionChanged: _onSelectionChanged,
-                  selectionMode: DateRangePickerSelectionMode.range,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _selectFromDate(context);
+                  },
+                  child: Text("From:$sFromDate"),
+                ),
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _selectToDate(context);
+                  },
+                  child: Text("To:$sToDate"),
                 ),
               ),
               Expanded(
@@ -340,14 +395,14 @@ class _reportMoneyState extends State<reportMoney> {
                     Icons.download,
                     size: 30.0,
                   ),
-                  color: getColor(reportType),
+                  color: getColor(widget.reportType),
                   tooltip: "Download Report",
                 ),
               ),
               Expanded(
                 child: DropdownButton(
                   style: TextStyle(
-                    backgroundColor: getColor(reportType),
+                    backgroundColor: getColor(widget.reportType),
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                   dropdownColor: clrBlue,
@@ -376,6 +431,7 @@ class _reportMoneyState extends State<reportMoney> {
                     setState(
                       () {
                         dropdownvalue = newValue!;
+                        print(dropdownvalue);
                       },
                     );
                   },
@@ -384,15 +440,43 @@ class _reportMoneyState extends State<reportMoney> {
             ],
           ),
           Expanded(
-            child: (reportType == "inHouse") ||
-                    (reportType == "inWater") ||
-                    (reportType == "inExtra")
-                ? inList(inType: reportType)
-                : outList(outType: reportType),
+            child: (widget.reportType == "inHouse") ||
+                    (widget.reportType == "inWater") ||
+                    (widget.reportType == "inExtra")
+                ? inList(inType: widget.reportType)
+                : outList(outType: widget.reportType),
           ),
         ],
       ),
     );
+  }
+}
+
+class reportMoney extends StatefulWidget {
+  static String id = "reportscreen";
+  reportMoney({Key? key}) : super(key: key);
+
+  @override
+  _reportMoneyState createState() => _reportMoneyState();
+}
+
+class _reportMoneyState extends State<reportMoney> {
+  String pageName = "REPORT";
+
+  // Initial Selected Value
+
+  Future<void> _selectFromDate(BuildContext context) async {}
+
+  Future<void> _selectToDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: toDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != toDate)
+      setState(() {
+        sToDate = pickedDate.toString();
+      });
   }
 
   List<Icon> lsIcons = [
@@ -408,22 +492,22 @@ class _reportMoneyState extends State<reportMoney> {
   Widget build(BuildContext context) {
     lsWidget.add(
       Expanded(
-        child: reportContainer('inHouse'),
+        child: reportContainer(reportType: 'inHouse'),
       ),
     );
     lsWidget.add(
       Expanded(
-        child: reportContainer('inWater'),
+        child: reportContainer(reportType: 'inWater'),
       ),
     );
     lsWidget.add(
       Expanded(
-        child: reportContainer('inExtra'),
+        child: reportContainer(reportType: 'inExtra'),
       ),
     );
     lsWidget.add(
       Expanded(
-        child: reportContainer('out'),
+        child: reportContainer(reportType: 'out'),
       ),
     );
 
