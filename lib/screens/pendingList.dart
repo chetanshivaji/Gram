@@ -30,41 +30,47 @@ class pendingList extends StatelessWidget {
     return ldataRow;
   }
 
-  DataTable getInHouseWaterTable(
+  SingleChildScrollView getInHouseWaterTable(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-    return DataTable(
-      headingTextStyle: getTableHeadingTextStyle(),
-      columnSpacing: 5.0,
-      border: TableBorder(
-        horizontalInside: BorderSide(
-          width: 1.5,
-          color: Colors.black,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          headingTextStyle: getTableHeadingTextStyle(),
+          columnSpacing: 5.0,
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              width: 1.5,
+              color: Colors.black,
+            ),
+          ),
+          dataTextStyle: TextStyle(
+            color: Colors.indigoAccent,
+          ),
+          columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Name',
+                style: getStyle("PENDING"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Mobile',
+                style: getStyle("PENDING"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'House',
+                style: getStyle("PENDING"),
+              ),
+            ),
+          ],
+          rows: _buildList(context, snapshot.data!.docs),
         ),
       ),
-      dataTextStyle: TextStyle(
-        color: Colors.indigoAccent,
-      ),
-      columns: <DataColumn>[
-        DataColumn(
-          label: Text(
-            'Name',
-            style: getStyle("PENDING"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Mobile',
-            style: getStyle("PENDING"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'House',
-            style: getStyle("PENDING"),
-          ),
-        ),
-      ],
-      rows: _buildList(context, snapshot.data!.docs),
     );
   }
 

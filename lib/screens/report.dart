@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class outList extends StatelessWidget {
   String outType = "";
@@ -24,59 +25,65 @@ class outList extends StatelessWidget {
     return ldataRow;
   }
 
-  DataTable getOutTable(
+  SingleChildScrollView getOutTable(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-    return DataTable(
-      headingTextStyle: getTableHeadingTextStyle(),
-      columnSpacing: 5.0,
-      border: TableBorder(
-        horizontalInside: BorderSide(
-          width: 1.5,
-          color: Colors.black,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          headingTextStyle: getTableHeadingTextStyle(),
+          columnSpacing: 5.0,
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              width: 1.5,
+              color: Colors.black,
+            ),
+          ),
+          dataTextStyle: TextStyle(
+            color: Colors.indigoAccent,
+          ),
+          columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Name',
+                style: getStyle("OUT"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Reason',
+                style: getStyle("OUT"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Amount',
+                style: getStyle("OUT"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'ExtraInfo',
+                style: getStyle("OUT"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Date',
+                style: getStyle("OUT"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'User',
+                style: getStyle("OUT"),
+              ),
+            ),
+          ],
+          rows: _buildList(context, snapshot.data!.docs),
         ),
       ),
-      dataTextStyle: TextStyle(
-        color: Colors.indigoAccent,
-      ),
-      columns: <DataColumn>[
-        DataColumn(
-          label: Text(
-            'Name',
-            style: getStyle("OUT"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Reason',
-            style: getStyle("OUT"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Amount',
-            style: getStyle("OUT"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'ExtraInfo',
-            style: getStyle("OUT"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Date',
-            style: getStyle("OUT"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'User',
-            style: getStyle("OUT"),
-          ),
-        ),
-      ],
-      rows: _buildList(context, snapshot.data!.docs),
     );
   }
 
@@ -128,97 +135,109 @@ class inList extends StatelessWidget {
     return ldataRow;
   }
 
-  DataTable getInExtraTable(
+  SingleChildScrollView getInExtraTable(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-    return DataTable(
-      headingTextStyle: getTableHeadingTextStyle(),
-      columnSpacing: 5.0,
-      border: TableBorder(
-        horizontalInside: BorderSide(
-          width: 1.5,
-          color: Colors.black,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          headingTextStyle: getTableHeadingTextStyle(),
+          columnSpacing: 5.0,
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              width: 1.5,
+              color: Colors.black,
+            ),
+          ),
+          dataTextStyle: TextStyle(
+            color: Colors.indigoAccent,
+          ),
+          columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Amount',
+                style: getStyle("IN"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Reason',
+                style: getStyle("IN"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Date',
+                style: getStyle("IN"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'User',
+                style: getStyle("IN"),
+              ),
+            ),
+          ],
+          rows: _buildList(context, snapshot.data!.docs),
         ),
       ),
-      dataTextStyle: TextStyle(
-        color: Colors.indigoAccent,
-      ),
-      columns: <DataColumn>[
-        DataColumn(
-          label: Text(
-            'Amount',
-            style: getStyle("IN"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Reason',
-            style: getStyle("IN"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Date',
-            style: getStyle("IN"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'User',
-            style: getStyle("IN"),
-          ),
-        ),
-      ],
-      rows: _buildList(context, snapshot.data!.docs),
     );
   }
 
-  DataTable getInHouseWaterTable(
+  SingleChildScrollView getInHouseWaterTable(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-    return DataTable(
-      headingTextStyle: getTableHeadingTextStyle(),
-      columnSpacing: 5.0,
-      border: TableBorder(
-        horizontalInside: BorderSide(
-          width: 1.5,
-          color: Colors.black,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          headingTextStyle: getTableHeadingTextStyle(),
+          columnSpacing: 5.0,
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              width: 1.5,
+              color: Colors.black,
+            ),
+          ),
+          dataTextStyle: TextStyle(
+            color: Colors.indigoAccent,
+          ),
+          columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Name',
+                style: getStyle("IN"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Mobile',
+                style: getStyle("IN"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Tax',
+                style: getStyle("IN"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Date',
+                style: getStyle("IN"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'User',
+                style: getStyle("IN"),
+              ),
+            ),
+          ],
+          rows: _buildList(context, snapshot.data!.docs),
         ),
       ),
-      dataTextStyle: TextStyle(
-        color: Colors.indigoAccent,
-      ),
-      columns: <DataColumn>[
-        DataColumn(
-          label: Text(
-            'Name',
-            style: getStyle("IN"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Mobile',
-            style: getStyle("IN"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Tax',
-            style: getStyle("IN"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'Date',
-            style: getStyle("IN"),
-          ),
-        ),
-        DataColumn(
-          label: Text(
-            'User',
-            style: getStyle("IN"),
-          ),
-        ),
-      ],
-      rows: _buildList(context, snapshot.data!.docs),
     );
   }
 
@@ -288,7 +307,9 @@ class _reportMoneyState extends State<reportMoney> {
   ];
   // Initial Selected Value
   String dropdownvalue = "Date";
-
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    //Date picker
+  }
   Widget reportContainer(String reportType) {
     return Container(
       width: double.infinity,
@@ -299,6 +320,15 @@ class _reportMoneyState extends State<reportMoney> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
+              Expanded(
+                child: SfDateRangePicker(
+                  view: DateRangePickerView.month,
+                  monthViewSettings:
+                      DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                  onSelectionChanged: _onSelectionChanged,
+                  selectionMode: DateRangePickerSelectionMode.range,
+                ),
+              ),
               Expanded(
                 child: IconButton(
                   alignment: Alignment.topRight,
