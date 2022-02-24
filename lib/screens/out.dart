@@ -14,22 +14,22 @@ void _onBasicAlertPressed(context) {
 }
 
 // Create a Form widget.
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({Key? key}) : super(key: key);
+class outForm extends StatefulWidget {
+  const outForm({Key? key}) : super(key: key);
 
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  outFormState createState() {
+    return outFormState();
   }
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class MyCustomFormState extends State<MyCustomForm> {
+class outFormState extends State<outForm> {
   final _formKey = GlobalKey<FormState>();
   String name = "";
   String reason = "";
-  String amount = "";
+  int amount = 0;
   String extraInfo = "";
   final _auth = FirebaseAuth.instance;
   @override
@@ -86,7 +86,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter money spent';
                 }
-                amount = value;
+                amount = int.parse(value);
                 return null;
               },
             ),
@@ -141,7 +141,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       'user': userMail,
                     },
                   );
-                  updateFormulaValues(amount,
+                  updateFormulaValues(amount.toString(),
                       "out"); //fetch exisiting value from formula and update new value.
 
                   _onBasicAlertPressed(context);
@@ -173,7 +173,7 @@ class outMoney extends StatelessWidget {
         title: Text(pageName),
         backgroundColor: clrRed,
       ),
-      body: MyCustomForm(),
+      body: outForm(),
     );
   }
 }
