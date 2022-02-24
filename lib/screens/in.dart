@@ -21,7 +21,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
-  String amount = "";
+  int amount = 0;
   String mobile = "";
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
@@ -112,7 +112,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     setState(
                       () {
                         name = houseName;
-                        amount = houseAmount.toString();
+                        amount = houseAmount;
                       },
                     );
                   } else {
@@ -152,7 +152,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     setState(
                       () {
                         name = waterName;
-                        amount = waterAmount.toString();
+                        amount = waterAmount;
                       },
                     );
                   }
@@ -244,7 +244,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .doc(mobile)
                           .update({'houseGiven': true});
 
-                      updateFormulaValues(amount,
+                      updateFormulaValues(amount.toString(),
                           "in"); //fetch exisiting value from formula and update new value.
 
                       showAlertDialog(
@@ -282,7 +282,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .doc(mobile)
                           .update({'waterGiven': true});
 
-                      updateFormulaValues(amount,
+                      updateFormulaValues(amount.toString(),
                           "in"); //fetch exisiting value from formula and update new value.
                       showAlertDialog(
                         context,
@@ -330,7 +330,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
   // not a GlobalKey<HouseWaterFormState>.
   final _formKey = GlobalKey<FormState>();
   String reason = "";
-  String amount = "";
+  int amount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -372,7 +372,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter some text';
                 }
-                amount = value;
+                amount = int.parse(value);
                 /*
                 //check if it is only number  
                 if (value.digit) {
@@ -407,7 +407,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         'user': userMail,
                       },
                     );
-                    updateFormulaValues(amount,
+                    updateFormulaValues(amount.toString(),
                         "in"); //fetch exisiting value from formula and update new value.
                     showAlertDialog(
                         context, titleSuccess, subtitleSuccess, getRightIcon());

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +16,7 @@ class outList extends StatelessWidget {
       List<DataCell> ldataCell = [];
       ldataCell.add(DataCell(Text(l.get("name"))));
       ldataCell.add(DataCell(Text(l.get("reason"))));
-      ldataCell.add(DataCell(Text(l.get("amount"))));
+      ldataCell.add(DataCell(Text(l.get("amount").toString())));
       ldataCell.add(DataCell(Text(l.get("extraInfo"))));
       ldataCell.add(DataCell(Text(l.get("date"))));
       ldataCell.add(DataCell(Text(l.get("user"))));
@@ -141,14 +139,14 @@ class inList extends StatelessWidget {
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
       if (inType == "inExtra") {
-        ldataCell.add(DataCell(Text(l.get("amount"))));
+        ldataCell.add(DataCell(Text(l.get("amount").toString())));
         ldataCell.add(DataCell(Text(l.get("reason"))));
         ldataCell.add(DataCell(Text(l.get("date"))));
         ldataCell.add(DataCell(Text(l.get("user"))));
       } else {
         ldataCell.add(DataCell(Text(l.get("name"))));
         ldataCell.add(DataCell(Text(l.get("mobile"))));
-        ldataCell.add(DataCell(Text(l.get("amount"))));
+        ldataCell.add(DataCell(Text(l.get("amount").toString())));
         ldataCell.add(DataCell(Text(l.get("date"))));
         ldataCell.add(DataCell(Text(l.get("user"))));
       }
@@ -333,7 +331,7 @@ class formulaLive extends StatelessWidget {
 
 class reportContainer extends StatefulWidget {
   String reportType = "";
-  reportContainer({Key? key, this.reportType = "HOUSE"}) : super(key: key);
+  reportContainer({Key? key, this.reportType = "inHouse"}) : super(key: key);
 
   @override
   _reportContainerState createState() => _reportContainerState();

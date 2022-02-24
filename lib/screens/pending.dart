@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'pendingList.dart';
-import 'package:money/constants.dart';
 
 class formulaLive extends StatelessWidget {
   formulaLive({Key? key}) : super(key: key);
@@ -31,25 +30,74 @@ class formulaLive extends StatelessWidget {
   }
 }
 
-class pendingMoney extends StatefulWidget {
-  static String id = "pendingscreen";
-  pendingMoney({Key? key}) : super(key: key);
+class pendingContainer extends StatefulWidget {
+  String pendingType = "";
+  pendingContainer({Key? key, this.pendingType = "houseGiven"})
+      : super(key: key);
 
   @override
-  _pendingMoneyState createState() => _pendingMoneyState();
+  _pendingContainerState createState() => _pendingContainerState();
 }
 
-class _pendingMoneyState extends State<pendingMoney> {
-  String pageName = "PENDING";
-  var items = [
-    'Date',
-    'H to L',
-    'L to H',
-  ];
-  // Initial Selected Value
-  String dropdownvalue = "Date";
+DateTime fromDate = DateTime.now();
+DateTime toDate = DateTime.now();
+String sFromDate = DateTime.now().day.toString() +
+    "/" +
+    DateTime.now().month.toString() +
+    "/" +
+    DateTime.now().year.toString();
+String sToDate = DateTime.now().day.toString() +
+    "/" +
+    DateTime.now().month.toString() +
+    "/" +
+    DateTime.now().year.toString();
+String dropdownvalue = 'H to L';
+var items = [
+  'H to L',
+  'L to H',
+];
 
-  Widget pendingContainer(String reportType) {
+class _pendingContainerState extends State<pendingContainer> {
+  Future<void> _selectFromDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: fromDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+
+    if (pickedDate != null && pickedDate != fromDate)
+      setState(
+        () {
+          sFromDate = pickedDate!.day.toString() +
+              "/" +
+              pickedDate.month.toString() +
+              "/" +
+              pickedDate.year.toString();
+        },
+      );
+  }
+
+  Future<void> _selectToDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: fromDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+
+    if (pickedDate != null && pickedDate != fromDate)
+      setState(
+        () {
+          sToDate = pickedDate!.day.toString() +
+              "/" +
+              pickedDate.month.toString() +
+              "/" +
+              pickedDate.year.toString();
+        },
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       color: Colors.grey[350],
@@ -59,6 +107,22 @@ class _pendingMoneyState extends State<pendingMoney> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _selectFromDate(context);
+                  },
+                  child: Text("From:$sFromDate"),
+                ),
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _selectToDate(context);
+                  },
+                  child: Text("To:$sToDate"),
+                ),
+              ),
               Expanded(
                 child: IconButton(
                   alignment: Alignment.topRight,
@@ -70,14 +134,14 @@ class _pendingMoneyState extends State<pendingMoney> {
                     Icons.download,
                     size: 30.0,
                   ),
-                  color: getColor(reportType),
-                  tooltip: "Download Report",
+                  color: getColor(widget.pendingType),
+                  tooltip: "Download pending",
                 ),
               ),
               Expanded(
                 child: DropdownButton(
                   style: TextStyle(
-                    backgroundColor: getColor(reportType),
+                    backgroundColor: getColor(widget.pendingType),
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                   dropdownColor: clrAmber,
@@ -89,7 +153,7 @@ class _pendingMoneyState extends State<pendingMoney> {
                   // Down Arrow Icon
                   icon: Icon(
                     Icons.sort,
-                    color: Colors.blue,
+                    color: Colors.amber,
                   ),
                   // Array list of items
                   items: items.map(
@@ -113,10 +177,40 @@ class _pendingMoneyState extends State<pendingMoney> {
               ),
             ],
           ),
-          Expanded(child: pendingList(year: dbYear, pendingType: reportType)),
+          Expanded(
+              child: pendingList(
+                  pendingType: widget.pendingType, orderType: dropdownvalue)),
         ],
       ),
     );
+  }
+}
+
+class pendingMoney extends StatefulWidget {
+  static String id = "pendingscreen";
+  pendingMoney({Key? key}) : super(key: key);
+
+  @override
+  _pendingMoneyState createState() => _pendingMoneyState();
+}
+
+class _pendingMoneyState extends State<pendingMoney> {
+  String pageName = "PENDING";
+
+  // Initial Selected Value
+
+  Future<void> _selectFromDate(BuildContext context) async {}
+
+  Future<void> _selectToDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: toDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != toDate)
+      setState(() {
+        sToDate = pickedDate.toString();
+      });
   }
 
   List<Icon> lsIcons = [
@@ -130,12 +224,12 @@ class _pendingMoneyState extends State<pendingMoney> {
   Widget build(BuildContext context) {
     lsWidget.add(
       Expanded(
-        child: pendingContainer(housePendingType),
+        child: pendingContainer(pendingType: 'houseGiven'),
       ),
     );
     lsWidget.add(
       Expanded(
-        child: pendingContainer(waterPendingType),
+        child: pendingContainer(pendingType: 'waterGiven'),
       ),
     );
 
