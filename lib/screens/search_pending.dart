@@ -121,12 +121,12 @@ class _searchScreenState extends State<searchScreen> {
             ),
             ListTile(
               leading: Icon(Icons.attach_money),
-              title: Text("House Tax  = $house"),
+              title: Text("House Amount  = $house"),
               trailing: (houseGiven == true) ? getRightIcon() : getWrongIcon(),
             ),
             ListTile(
               leading: Icon(Icons.attach_money),
-              title: Text("Water Tax  = $water"),
+              title: Text("Water Amount  = $water"),
               trailing: (waterGiven == true) ? getRightIcon() : getWrongIcon(),
             ),
           ],

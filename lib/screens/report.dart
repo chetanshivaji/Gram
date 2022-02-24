@@ -6,7 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class outList extends StatelessWidget {
   String outType = "";
-  outList({Key? key, this.outType = "out"}) : super(key: key);
+  String orderType = "";
+  outList({Key? key, this.outType = "out", this.orderType = "date"})
+      : super(key: key);
 
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
@@ -90,8 +92,25 @@ class outList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot<Object?>> stm;
+    if (orderType == "L to H") {
+      stm = FirebaseFirestore.instance
+          .collection(outType)
+          .orderBy('amount', descending: false)
+          .snapshots();
+    } else if (orderType == "H to L") {
+      stm = FirebaseFirestore.instance
+          .collection(outType)
+          .orderBy('amount', descending: true)
+          .snapshots();
+    } else {
+      stm = FirebaseFirestore.instance
+          .collection(outType)
+          .orderBy('date', descending: true)
+          .snapshots();
+    }
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection(outType).snapshots(),
+      stream: stm,
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -110,7 +129,10 @@ class outList extends StatelessWidget {
 
 class inList extends StatelessWidget {
   String inType = "";
-  inList({Key? key, this.inType = "inHouse"}) : super(key: key);
+  String orderType = "";
+
+  inList({Key? key, this.inType = "inHouse", this.orderType = "date"})
+      : super(key: key);
 
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
@@ -126,7 +148,7 @@ class inList extends StatelessWidget {
       } else {
         ldataCell.add(DataCell(Text(l.get("name"))));
         ldataCell.add(DataCell(Text(l.get("mobile"))));
-        ldataCell.add(DataCell(Text(l.get("tax"))));
+        ldataCell.add(DataCell(Text(l.get("amount"))));
         ldataCell.add(DataCell(Text(l.get("date"))));
         ldataCell.add(DataCell(Text(l.get("user"))));
       }
@@ -219,7 +241,7 @@ class inList extends StatelessWidget {
             ),
             DataColumn(
               label: Text(
-                'Tax',
+                'Amount',
                 style: getStyle("IN"),
               ),
             ),
@@ -244,8 +266,26 @@ class inList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot<Object?>> stm;
+    if (orderType == "L to H") {
+      stm = FirebaseFirestore.instance
+          .collection(inType)
+          .orderBy('amount', descending: false)
+          .snapshots();
+    } else if (orderType == "H to L") {
+      stm = FirebaseFirestore.instance
+          .collection(inType)
+          .orderBy('amount', descending: true)
+          .snapshots();
+    } else {
+      stm = FirebaseFirestore.instance
+          .collection(inType)
+          .orderBy('date', descending: true)
+          .snapshots();
+    }
+
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection(inType).snapshots(),
+      stream: stm,
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -431,7 +471,6 @@ class _reportContainerState extends State<reportContainer> {
                     setState(
                       () {
                         dropdownvalue = newValue!;
-                        print(dropdownvalue);
                       },
                     );
                   },
@@ -443,8 +482,8 @@ class _reportContainerState extends State<reportContainer> {
             child: (widget.reportType == "inHouse") ||
                     (widget.reportType == "inWater") ||
                     (widget.reportType == "inExtra")
-                ? inList(inType: widget.reportType)
-                : outList(outType: widget.reportType),
+                ? inList(inType: widget.reportType, orderType: dropdownvalue)
+                : outList(outType: widget.reportType, orderType: dropdownvalue),
           ),
         ],
       ),

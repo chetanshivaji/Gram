@@ -21,7 +21,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
-  String tax = "";
+  String amount = "";
   String mobile = "";
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
@@ -48,8 +48,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     }
   }
 
-  int waterTax = 0;
-  int houseTax = 0;
+  int waterAmount = 0;
+  int houseAmount = 0;
   String waterName = "";
   String houseName = "";
   void _sendSMS(String message, List<String> recipents) async {
@@ -77,7 +77,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 if (text.length == 10) {
                   if (widget.formType == "HOUSE") {
                     try {
-                      houseTax = await FirebaseFirestore.instance
+                      houseAmount = await FirebaseFirestore.instance
                           .collection(dbYear)
                           .doc(text)
                           .get()
@@ -112,12 +112,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     setState(
                       () {
                         name = houseName;
-                        tax = houseTax.toString();
+                        amount = houseAmount.toString();
                       },
                     );
                   } else {
                     try {
-                      waterTax = await FirebaseFirestore.instance
+                      waterAmount = await FirebaseFirestore.instance
                           .collection(dbYear)
                           .doc(text)
                           .get()
@@ -152,7 +152,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     setState(
                       () {
                         name = waterName;
-                        tax = waterTax.toString();
+                        amount = waterAmount.toString();
                       },
                     );
                   }
@@ -206,7 +206,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
             child: ListTile(
               leading: Icon(Icons.attach_money),
               title: Text(
-                "Tax = $tax",
+                "Amount = $amount",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -234,7 +234,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         {
                           'name': name,
                           'mobile': mobile,
-                          'tax': tax,
+                          'amount': amount,
                           'date': DateTime.now().toString(),
                           'user': userMail,
                         },
@@ -244,7 +244,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .doc(mobile)
                           .update({'houseGiven': true});
 
-                      updateFormulaValues(tax,
+                      updateFormulaValues(amount,
                           "in"); //fetch exisiting value from formula and update new value.
 
                       showAlertDialog(
@@ -254,7 +254,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         getRightIcon(),
                       );
                       String message =
-                          "Dear $name $mobile, Thanks for paying House tax $tax, Received!";
+                          "Dear $name $mobile, Thanks for paying House amount $amount, Received!";
                       List<String> recipents = [mobile];
                       _sendSMS(message, recipents);
                     }
@@ -272,7 +272,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         {
                           'name': name,
                           'mobile': mobile,
-                          'tax': tax,
+                          'amount': amount,
                           'date': DateTime.now().toString(),
                           'user': userMail,
                         },
@@ -282,7 +282,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .doc(mobile)
                           .update({'waterGiven': true});
 
-                      updateFormulaValues(tax,
+                      updateFormulaValues(amount,
                           "in"); //fetch exisiting value from formula and update new value.
                       showAlertDialog(
                         context,
@@ -292,7 +292,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       );
 
                       String message =
-                          "Dear $name $mobile, Thanks for paying Water tax $tax, Received!";
+                          "Dear $name $mobile, Thanks for paying Water amount $amount, Received!";
                       List<String> recipents = [mobile];
                       _sendSMS(message, recipents);
                     }
