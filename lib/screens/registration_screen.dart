@@ -125,7 +125,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Navigator.pushNamed(context, MyApp.id);
                       }
                     } catch (e) {
-                      print(e); //treat exception caught
+                      print(e);
+                      Navigator.pop(context);
+                      showAlertDialog(context, "registeration error",
+                          e.toString(), getWrongIcon());
+                      //treat exception caught
                     }
                   },
                   minWidth: 200.0,
