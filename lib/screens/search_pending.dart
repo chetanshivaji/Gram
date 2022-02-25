@@ -4,7 +4,7 @@ import 'package:money/constants.dart';
 import 'package:money/util.dart';
 
 class searchScreen extends StatefulWidget {
-  static String id = "registerationscreen";
+  static String id = "searchscreen";
   const searchScreen({Key? key}) : super(key: key);
   @override
   _searchScreenState createState() => _searchScreenState();
