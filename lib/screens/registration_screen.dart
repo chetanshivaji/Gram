@@ -126,9 +126,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       }
                     } catch (e) {
                       print(e);
-                      Navigator.pop(context);
                       showAlertDialog(context, "registeration error",
                           e.toString(), getWrongIcon());
+                      Navigator.pop(context);
                       //treat exception caught
                     }
                   },

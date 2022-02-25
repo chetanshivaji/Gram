@@ -95,8 +95,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     } catch (e) {
                       print(e); //treat exception caught
-                      showAlertDialog(context, kTitleSuccess, kSubtitleSuccess,
-                          getWrongIcon());
+                      showAlertDialog(
+                          context, kTitleSuccess, e.toString(), getWrongIcon());
                     }
                   },
                   minWidth: 200.0,
