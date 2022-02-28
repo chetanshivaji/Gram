@@ -8,6 +8,7 @@ import 'pending.dart';
 import 'report.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 class MyApp extends StatelessWidget {
   static String id = "myappscreen";
@@ -32,20 +33,25 @@ class MyApp extends StatelessWidget {
             onPressed: () async {
               //clean database for testing purpose, with no entries and db ready.
               List collections = ['inExtra', "inWater", "inHouse", "out"];
-              for (var col in collections) {
-                var collection = FirebaseFirestore.instance.collection(col);
-                var snapshots = await collection.get();
-                for (var doc in snapshots.docs) {
-                  await doc.reference.delete();
+              for (var each in items) {
+                for (var col in collections) {
+                  var collection =
+                      FirebaseFirestore.instance.collection(col + each);
+                  var snapshots = await collection.get();
+                  for (var doc in snapshots.docs) {
+                    await doc.reference.delete();
+                  }
                 }
               }
               //clean mainDb2021 set houseGiven & waterGiven to false
-              var collection =
-                  FirebaseFirestore.instance.collection("mainDb2021");
-              var snapshots = await collection.get();
-              for (var doc in snapshots.docs) {
-                await doc.reference
-                    .update({"houseGiven": false, "waterGiven": false});
+              for (var each in items) {
+                var collection =
+                    FirebaseFirestore.instance.collection(dbYear + each);
+                var snapshots = await collection.get();
+                for (var doc in snapshots.docs) {
+                  await doc.reference
+                      .update({"houseGiven": false, "waterGiven": false});
+                }
               }
 
               //clean formula
