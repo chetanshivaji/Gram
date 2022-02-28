@@ -14,6 +14,18 @@ In future developement.
 
 
 
+# TODO
+1. pdf/excel downloading for pending and report page.
+2. access control from admin to allow entry of getting involved in users of app.
+3. bug fixes eg. return on mismatch password from registeration screen, corner cases, wrong input. no internet connectivity messages. pop messages correction .
+4. multi year support.
+5. upload icon with proof of transcation for "in, out" pages.
+6. section wise formula.
+7. date wise display of records pending and report.
+8. ios app testing on real ios device.
+
+# DONE
+
 
 
 
