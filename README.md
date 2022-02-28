@@ -23,6 +23,9 @@ In future developement.
 6. Section wise formula.
 7. Date wise display of records pending and report.
 8. ios app testing on real ios device.
+9. Make language independent add Marathi
+10. App version after clicking on info
+11. Pending send notifcation.
 
 # DONE
 

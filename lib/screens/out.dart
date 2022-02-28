@@ -40,6 +40,10 @@ class outFormState extends State<outForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          yearTile(clr: clrRed),
           Expanded(
             child: TextFormField(
               decoration: InputDecoration(
@@ -131,7 +135,9 @@ class outFormState extends State<outForm> {
                     );
                   }
 
-                  FirebaseFirestore.instance.collection("out").add(
+                  FirebaseFirestore.instance
+                      .collection("out" + dropdownvalue)
+                      .add(
                     {
                       'name': name,
                       'reason': reason,

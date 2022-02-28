@@ -35,6 +35,10 @@ class _searchScreenState extends State<searchScreen> {
       body: Container(
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
+            yearTile(clr: Colors.blue),
             Row(
               children: <Widget>[
                 Expanded(
@@ -82,7 +86,7 @@ class _searchScreenState extends State<searchScreen> {
                         //search DB
                         try {
                           await FirebaseFirestore.instance
-                              .collection(dbYear)
+                              .collection(dbYear + dropdownvalue)
                               .doc(mobile)
                               .get()
                               .then(
@@ -90,10 +94,10 @@ class _searchScreenState extends State<searchScreen> {
                               var y = value.data();
 
                               _house = y!["house"];
-                              _houseGiven = y!["houseGiven"];
-                              _water = y!["water"];
-                              _waterGiven = y!["waterGiven"];
-                              _name = y!["name"];
+                              _houseGiven = y["houseGiven"];
+                              _water = y["water"];
+                              _waterGiven = y["waterGiven"];
+                              _name = y["name"];
                             },
                           );
                         } catch (e) {

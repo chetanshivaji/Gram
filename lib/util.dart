@@ -142,6 +142,75 @@ Icon getRightIcon() {
   );
 }
 
+String dropdownvalue = "2021";
+
+var items = [
+  "2012",
+  "2013",
+  "2014",
+  "2015",
+  "2016",
+  "2017",
+  "2018",
+  "2019",
+  "2020",
+  "2021",
+  "2022",
+];
+
+class yearTile extends StatefulWidget {
+  Color clr = Colors.blue;
+  yearTile({Key? key, this.clr = Colors.blue}) : super(key: key);
+
+  @override
+  _yearTileState createState() => _yearTileState();
+}
+
+class _yearTileState extends State<yearTile> {
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(Icons.date_range),
+      title: Text(
+        "Year",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      trailing: DropdownButton(
+        borderRadius: BorderRadius.circular(12.0),
+        dropdownColor: widget.clr,
+
+        alignment: Alignment.topLeft,
+
+        // Initial Value
+        value: dropdownvalue,
+        // Down Arrow Icon
+        icon: Icon(
+          Icons.sort,
+          color: widget.clr,
+        ),
+        // Array list of items
+        items: items.map(
+          (String items) {
+            return DropdownMenuItem(
+              value: items,
+              child: Text(items),
+            );
+          },
+        ).toList(),
+        // After selecting the desired option,it will
+        // change button value to selected value
+        onChanged: (String? newValue) {
+          setState(
+            () {
+              dropdownvalue = newValue!;
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
 void showAlertDialog(
     BuildContext context, String title, String subtitle, Widget img) {
   // set up the buttons
@@ -220,7 +289,6 @@ Widget tabScffold(
   return DefaultTabController(
     length: len,
     child: Scaffold(
-      backgroundColor: clr,
       appBar: AppBar(
         bottom: TabBar(
           tabs: lsTabs,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:money/constants.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:money/constants.dart';
+
 import 'package:flutter_sms/flutter_sms.dart';
 
 // Create a Form widget.
@@ -71,6 +72,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
+          yearTile(clr: clrGreen),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
           Expanded(
             child: TextFormField(
               onChanged: (text) async {
@@ -78,7 +83,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   if (widget.formType == "HOUSE") {
                     try {
                       houseAmount = await FirebaseFirestore.instance
-                          .collection(dbYear)
+                          .collection(dbYear + dropdownvalue)
                           .doc(text)
                           .get()
                           .then(
@@ -93,7 +98,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
                     try {
                       houseName = await FirebaseFirestore.instance
-                          .collection(dbYear)
+                          .collection(dbYear + dropdownvalue)
                           .doc(text)
                           .get()
                           .then(
@@ -102,7 +107,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           if (y!["houseGiven"] == true) {
                             return paidMsg;
                           } else
-                            return y!["name"];
+                            return y["name"];
                         },
                       );
                     } catch (e) {
@@ -118,7 +123,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   } else {
                     try {
                       waterAmount = await FirebaseFirestore.instance
-                          .collection(dbYear)
+                          .collection(dbYear + dropdownvalue)
                           .doc(text)
                           .get()
                           .then(
@@ -133,7 +138,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
                     try {
                       waterName = await FirebaseFirestore.instance
-                          .collection(dbYear)
+                          .collection(dbYear + dropdownvalue)
                           .doc(text)
                           .get()
                           .then(
@@ -142,7 +147,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           if (y!["waterGiven"] == true) {
                             return paidMsg;
                           } else
-                            return y!["name"];
+                            return y["name"];
                         },
                       );
                     } catch (e) {
@@ -230,7 +235,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           content: Text('Processing Data'),
                         ),
                       );
-                      FirebaseFirestore.instance.collection("inHouse").add(
+                      FirebaseFirestore.instance
+                          .collection("inHouse" + dropdownvalue)
+                          .add(
                         {
                           'name': name,
                           'mobile': mobile,
@@ -240,7 +247,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       FirebaseFirestore.instance
-                          .collection(dbYear)
+                          .collection(dbYear + dropdownvalue)
                           .doc(mobile)
                           .update({'houseGiven': true});
 
@@ -268,7 +275,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           content: Text('Processing Data'),
                         ),
                       );
-                      FirebaseFirestore.instance.collection("inWater").add(
+                      FirebaseFirestore.instance
+                          .collection("inWater" + dropdownvalue)
+                          .add(
                         {
                           'name': name,
                           'mobile': mobile,
@@ -278,7 +287,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       FirebaseFirestore.instance
-                          .collection(dbYear)
+                          .collection(dbYear + dropdownvalue)
                           .doc(mobile)
                           .update({'waterGiven': true});
 
@@ -340,6 +349,10 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          yearTile(clr: clrGreen),
           Padding(padding: EdgeInsets.only(top: 20)),
           Expanded(
             child: TextFormField(
@@ -399,7 +412,9 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         content: Text('Processing Data'),
                       ),
                     );
-                    FirebaseFirestore.instance.collection("inExtra").add(
+                    FirebaseFirestore.instance
+                        .collection("inExtra" + dropdownvalue)
+                        .add(
                       {
                         'reason': reason,
                         'amount': amount,

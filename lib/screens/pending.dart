@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'pendingList.dart';
+import 'dart:io';
+import 'package:money/util.dart';
+import 'package:money/constants.dart';
 
 class formulaLive extends StatelessWidget {
   formulaLive({Key? key}) : super(key: key);
@@ -51,8 +54,8 @@ String sToDate = DateTime.now().day.toString() +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
-String dropdownvalue = 'H to L';
-var items = [
+String dropdownvaluePending = 'H to L';
+var itemsSort = [
   'H to L',
   'L to H',
 ];
@@ -68,7 +71,7 @@ class _pendingContainerState extends State<pendingContainer> {
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
-          sFromDate = pickedDate!.day.toString() +
+          sFromDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
@@ -87,7 +90,7 @@ class _pendingContainerState extends State<pendingContainer> {
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
-          sToDate = pickedDate!.day.toString() +
+          sToDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
@@ -104,9 +107,13 @@ class _pendingContainerState extends State<pendingContainer> {
       alignment: Alignment.topLeft,
       child: Column(
         children: [
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
+              /*
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
@@ -123,10 +130,44 @@ class _pendingContainerState extends State<pendingContainer> {
                   child: Text("To:$sToDate"),
                 ),
               ),
+              */
+              Expanded(
+                child: DropdownButton(
+                  borderRadius: BorderRadius.circular(12.0),
+                  dropdownColor: clrAmber,
+
+                  alignment: Alignment.topLeft,
+
+                  // Initial Value
+                  value: dropdownvalue,
+                  // Down Arrow Icon
+                  icon: Icon(
+                    Icons.date_range,
+                  ),
+                  // Array list of items
+                  items: items.map(
+                    (String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    },
+                  ).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(
+                      () {
+                        dropdownvalue = newValue!;
+                      },
+                    );
+                  },
+                ),
+              ),
               Expanded(
                 child: IconButton(
                   alignment: Alignment.topRight,
-                  onPressed: () {
+                  onPressed: () async {
                     print(
                         "Download button pressed"); //TODO: later add functionality of download.
                   },
@@ -149,18 +190,17 @@ class _pendingContainerState extends State<pendingContainer> {
                   alignment: Alignment.topRight,
 
                   // Initial Value
-                  value: dropdownvalue,
+                  value: dropdownvaluePending,
                   // Down Arrow Icon
                   icon: Icon(
                     Icons.sort,
-                    color: Colors.amber,
                   ),
                   // Array list of items
-                  items: items.map(
-                    (String items) {
+                  items: itemsSort.map(
+                    (String itemsSort) {
                       return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
+                        value: itemsSort,
+                        child: Text(itemsSort),
                       );
                     },
                   ).toList(),
@@ -169,7 +209,7 @@ class _pendingContainerState extends State<pendingContainer> {
                   onChanged: (String? newValue) {
                     setState(
                       () {
-                        dropdownvalue = newValue!;
+                        dropdownvaluePending = newValue!;
                       },
                     );
                   },
@@ -179,7 +219,9 @@ class _pendingContainerState extends State<pendingContainer> {
           ),
           Expanded(
               child: pendingList(
-                  pendingType: widget.pendingType, orderType: dropdownvalue)),
+                  yearDropDownValue: dropdownvalue,
+                  pendingType: widget.pendingType,
+                  orderType: dropdownvaluePending)),
         ],
       ),
     );

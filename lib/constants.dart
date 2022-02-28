@@ -9,7 +9,7 @@ String documentName_formula = "calculation";
 String housePendingType = "houseGiven";
 String waterPendingType = "waterGiven";
 
-String dbYear = "mainDb2021";
+String dbYear = "mainDb";
 String paidMsg = "paid already";
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
