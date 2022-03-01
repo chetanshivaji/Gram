@@ -26,6 +26,10 @@ In future developement.
 9. Make language independent add Marathi
 10. App version after clicking on info
 11. Pending send notifcation.
+12. Message support on both platforms - Normal msg & Whatsapp msg.
+13. Receipts of payment.
+14. UPI gateway for payment.
+15. Date window for generating report for defined period by user.
 
 # DONE
 
