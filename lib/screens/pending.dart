@@ -1,37 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'pendingList.dart';
-import 'dart:io';
-import 'package:money/util.dart';
+import 'package:money/model/invoice.dart';
+import 'formula.dart';
+import 'package:money/api/pdf_invoice_api.dart';
+import 'package:money/api/pdf_api.dart';
 import 'package:money/constants.dart';
-
-class formulaLive extends StatelessWidget {
-  formulaLive({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection("formula").snapshots(),
-      //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Text("There is no expense");
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading...");
-        }
-
-        DocumentSnapshot ds = snapshot.data!.docs[0];
-        return formulaNew(
-          ds.get("totalIn"),
-          ds.get("totalOut"),
-        );
-      },
-    );
-  }
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class pendingContainer extends StatefulWidget {
   String pendingType = "";
@@ -97,6 +72,42 @@ class _pendingContainerState extends State<pendingContainer> {
               pickedDate.year.toString();
         },
       );
+  }
+
+  Future<List<pendingEntry>> getPendingDataForPdf(
+      String pendingType, String orderType, String yearDropDownValue) async {
+    List<pendingEntry> entries = [];
+    var collection =
+        FirebaseFirestore.instance.collection(dbYear + yearDropDownValue);
+    var snapshots;
+    if (pendingType == housePendingType) {
+      if (orderType == "L to H") {
+        snapshots = await collection.orderBy('house', descending: false).get();
+      } else if (orderType == "H to L") {
+        snapshots = await collection.orderBy('house', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('house', descending: true).get();
+      }
+    } else {
+      if (orderType == "L to H") {
+        snapshots = await collection.orderBy('water', descending: false).get();
+      } else if (orderType == "H to L") {
+        snapshots = await collection.orderBy('water', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('water', descending: true).get();
+      }
+    }
+    for (var doc in snapshots.docs) {
+      await doc.reference.get().then((value) {
+        var y = value.data();
+        entries.add(y!["name"]);
+        entries.add(y!["mobile"]);
+        entries.add(y!["amount"]);
+        entries.add(y!["date"]);
+        entries.add(y!["user"]);
+      });
+    }
+    return entries;
   }
 
   @override
@@ -168,6 +179,71 @@ class _pendingContainerState extends State<pendingContainer> {
                 child: IconButton(
                   alignment: Alignment.topRight,
                   onPressed: () async {
+                    //TODO: update pendingInvoiceItems from DB later.//END - fetch data to display in pdf
+
+                    //START - fetch data to display in pdf
+                    List<pendingEntry> entries = [];
+                    var collection = FirebaseFirestore.instance
+                        .collection(dbYear + dropdownvalue);
+                    var snapshots;
+                    if (widget.pendingType == housePendingType) {
+                      if (dropdownvaluePending == "L to H") {
+                        snapshots = await collection
+                            .orderBy('house', descending: false)
+                            .get();
+                      } else if (dropdownvaluePending == "H to L") {
+                        snapshots = await collection
+                            .orderBy('house', descending: true)
+                            .get();
+                      } else {
+                        snapshots = await collection
+                            .orderBy('house', descending: true)
+                            .get();
+                      }
+                    } else {
+                      if (dropdownvaluePending == "L to H") {
+                        snapshots = await collection
+                            .orderBy('water', descending: false)
+                            .get();
+                      } else if (dropdownvaluePending == "H to L") {
+                        snapshots = await collection
+                            .orderBy('water', descending: true)
+                            .get();
+                      } else {
+                        snapshots = await collection
+                            .orderBy('water', descending: true)
+                            .get();
+                      }
+                    }
+
+                    for (var doc in snapshots.docs) {
+                      try {
+                        await doc.reference.get().then((value) {
+                          var y = value.data();
+                          pendingEntry pe = pendingEntry(
+                              name: y!["name"],
+                              mobile: y!["mobile"].toString(),
+                              amount: (widget.pendingType == housePendingType)
+                                  ? y!["house"].toString()
+                                  : y!["water"].toString());
+                          entries.add(pe);
+                        });
+                      } catch (e) {
+                        print(e);
+                      }
+                    }
+                    final invoice = pendingInvoice(
+                        info: InvoiceInfo(
+                          formula: 'in-10 out-3 remain-7',
+                          year: dbYear,
+                          sortingType: dropdownvaluePending,
+                        ),
+                        pendingInvoiceItems: entries);
+
+                    final pdfFile = await PdfInvoiceApi.generate(
+                        invoice, "PENDING", userMail);
+
+                    PdfApi.openFile(pdfFile);
                     print(
                         "Download button pressed"); //TODO: later add functionality of download.
                   },

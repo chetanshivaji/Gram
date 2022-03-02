@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:money/constants.dart';
 
 int totalIn = 0;
 int totalOut = 0;
@@ -21,35 +19,6 @@ TextStyle getTableHeadingTextStyle() {
     fontWeight: FontWeight.bold,
     fontFamily: "RobotoMono",
   );
-}
-
-void updateFormulaValues(String newEntryAmount, String typeInOut) async {
-  int total = await FirebaseFirestore.instance
-      .collection(colletionName_forumla)
-      .doc(documentName_formula)
-      .get()
-      .then((value) {
-    var y = value.data();
-    return (typeInOut == "in") ? y!["totalIn"] : y!["totalOut"];
-  });
-
-  //update formula
-  if (typeInOut == "in") {
-    FirebaseFirestore.instance
-        .collection("formula")
-        .doc("calculation")
-        .update({'totalIn': (total + int.parse(newEntryAmount))});
-  } else {
-    FirebaseFirestore.instance
-        .collection("formula")
-        .doc("calculation")
-        .update({'totalOut': (total + int.parse(newEntryAmount))});
-  }
-}
-
-Text getFormulaTextStyle(String text) {
-  return Text(text,
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold));
 }
 
 TextStyle getStyle(String type) {
@@ -84,47 +53,6 @@ Color getColor(String type) {
 String titleSuccess = "Success";
 String subtitleSuccess = "Submitted!";
 Image imgSuccess = Image.asset("assets/success.jpeg");
-Widget getForumlaInternalSimple(String type, String value) {
-  return Column(
-    children: <Widget>[
-      Text(type),
-      Divider(height: 2),
-      Text(value),
-    ],
-  );
-}
-
-Widget formulaNew(int totalIn, int totalOut) {
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.green,
-      borderRadius: BorderRadius.circular(6),
-    ),
-    child: Row(
-      children: <Widget>[
-        getForumlaInternalSimple("In", totalIn.toString()),
-        Text(
-          " - ",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        getForumlaInternalSimple("Out", totalOut.toString()),
-        Text(
-          " = ",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          ),
-          textAlign: TextAlign.end,
-        ),
-        getForumlaInternalSimple("Remain", (totalIn - totalOut).toString()),
-      ],
-    ),
-  );
-}
 
 Icon getWrongIcon() {
   return Icon(
@@ -309,3 +237,12 @@ Widget tabScffold(
     ),
   );
 }
+
+/*
+import 'package:intl/intl.dart';
+
+class Utils {
+  static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
+  static formatDate(DateTime date) => DateFormat.yMd().format(date);
+}
+*/
