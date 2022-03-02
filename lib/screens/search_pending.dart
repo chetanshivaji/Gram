@@ -86,7 +86,7 @@ class _searchScreenState extends State<searchScreen> {
                         //search DB
                         try {
                           await FirebaseFirestore.instance
-                              .collection(dbYear + dropdownvalue)
+                              .collection(dbYear + dropdownValueYear)
                               .doc(mobile)
                               .get()
                               .then(

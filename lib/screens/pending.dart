@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money/screens/out.dart';
 import 'package:money/util.dart';
 import 'pendingList.dart';
 import 'package:money/model/invoice.dart';
@@ -29,7 +30,7 @@ String sToDate = DateTime.now().day.toString() +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
-String dropdownvaluePending = 'H to L';
+String dropdownValuePendingSort = 'H to L';
 var itemsSort = [
   'H to L',
   'L to H',
@@ -74,42 +75,7 @@ class _pendingContainerState extends State<pendingContainer> {
       );
   }
 
-  Future<List<pendingEntry>> getPendingDataForPdf(
-      String pendingType, String orderType, String yearDropDownValue) async {
-    List<pendingEntry> entries = [];
-    var collection =
-        FirebaseFirestore.instance.collection(dbYear + yearDropDownValue);
-    var snapshots;
-    if (pendingType == housePendingType) {
-      if (orderType == "L to H") {
-        snapshots = await collection.orderBy('house', descending: false).get();
-      } else if (orderType == "H to L") {
-        snapshots = await collection.orderBy('house', descending: true).get();
-      } else {
-        snapshots = await collection.orderBy('house', descending: true).get();
-      }
-    } else {
-      if (orderType == "L to H") {
-        snapshots = await collection.orderBy('water', descending: false).get();
-      } else if (orderType == "H to L") {
-        snapshots = await collection.orderBy('water', descending: true).get();
-      } else {
-        snapshots = await collection.orderBy('water', descending: true).get();
-      }
-    }
-    for (var doc in snapshots.docs) {
-      await doc.reference.get().then((value) {
-        var y = value.data();
-        entries.add(y!["name"]);
-        entries.add(y!["mobile"]);
-        entries.add(y!["amount"]);
-        entries.add(y!["date"]);
-        entries.add(y!["user"]);
-      });
-    }
-    return entries;
-  }
-
+  //.where('waterGiven', isEqualTo: true)
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -150,7 +116,7 @@ class _pendingContainerState extends State<pendingContainer> {
                   alignment: Alignment.topLeft,
 
                   // Initial Value
-                  value: dropdownvalue,
+                  value: dropdownValueYear,
                   // Down Arrow Icon
                   icon: Icon(
                     Icons.date_range,
@@ -169,7 +135,7 @@ class _pendingContainerState extends State<pendingContainer> {
                   onChanged: (String? newValue) {
                     setState(
                       () {
-                        dropdownvalue = newValue!;
+                        dropdownValueYear = newValue!;
                       },
                     );
                   },
@@ -183,15 +149,17 @@ class _pendingContainerState extends State<pendingContainer> {
 
                     //START - fetch data to display in pdf
                     List<pendingEntry> entries = [];
-                    var collection = FirebaseFirestore.instance
-                        .collection(dbYear + dropdownvalue);
+
                     var snapshots;
                     if (widget.pendingType == housePendingType) {
-                      if (dropdownvaluePending == "L to H") {
+                      var collection = FirebaseFirestore.instance
+                          .collection(dbYear + dropdownValueYear);
+
+                      if (dropdownValuePendingSort == "L to H") {
                         snapshots = await collection
                             .orderBy('house', descending: false)
                             .get();
-                      } else if (dropdownvaluePending == "H to L") {
+                      } else if (dropdownValuePendingSort == "H to L") {
                         snapshots = await collection
                             .orderBy('house', descending: true)
                             .get();
@@ -201,11 +169,14 @@ class _pendingContainerState extends State<pendingContainer> {
                             .get();
                       }
                     } else {
-                      if (dropdownvaluePending == "L to H") {
+                      var collection = FirebaseFirestore.instance
+                          .collection(dbYear + dropdownValueYear);
+
+                      if (dropdownValuePendingSort == "L to H") {
                         snapshots = await collection
                             .orderBy('water', descending: false)
                             .get();
-                      } else if (dropdownvaluePending == "H to L") {
+                      } else if (dropdownValuePendingSort == "H to L") {
                         snapshots = await collection
                             .orderBy('water', descending: true)
                             .get();
@@ -234,10 +205,13 @@ class _pendingContainerState extends State<pendingContainer> {
                     }
                     final invoice = pendingInvoice(
                         info: InvoiceInfo(
-                          formula: 'in-10 out-3 remain-7',
-                          year: dbYear,
-                          sortingType: dropdownvaluePending,
-                        ),
+                            formula:
+                                'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                            year: dropdownValueYear,
+                            sortingType: dropdownValuePendingSort,
+                            taxType: (widget.pendingType == housePendingType)
+                                ? "house"
+                                : "water"),
                         pendingInvoiceItems: entries);
 
                     final pdfFile = await PdfInvoiceApi.generate(
@@ -266,7 +240,7 @@ class _pendingContainerState extends State<pendingContainer> {
                   alignment: Alignment.topRight,
 
                   // Initial Value
-                  value: dropdownvaluePending,
+                  value: dropdownValuePendingSort,
                   // Down Arrow Icon
                   icon: Icon(
                     Icons.sort,
@@ -285,7 +259,7 @@ class _pendingContainerState extends State<pendingContainer> {
                   onChanged: (String? newValue) {
                     setState(
                       () {
-                        dropdownvaluePending = newValue!;
+                        dropdownValuePendingSort = newValue!;
                       },
                     );
                   },
@@ -295,9 +269,9 @@ class _pendingContainerState extends State<pendingContainer> {
           ),
           Expanded(
               child: pendingList(
-                  yearDropDownValue: dropdownvalue,
+                  yearDropDownValue: dropdownValueYear,
                   pendingType: widget.pendingType,
-                  orderType: dropdownvaluePending)),
+                  orderType: dropdownValuePendingSort)),
         ],
       ),
     );

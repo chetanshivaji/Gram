@@ -83,7 +83,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   if (widget.formType == "HOUSE") {
                     try {
                       houseAmount = await FirebaseFirestore.instance
-                          .collection(dbYear + dropdownvalue)
+                          .collection(dbYear + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
@@ -98,7 +98,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
                     try {
                       houseName = await FirebaseFirestore.instance
-                          .collection(dbYear + dropdownvalue)
+                          .collection(dbYear + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
@@ -123,7 +123,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   } else {
                     try {
                       waterAmount = await FirebaseFirestore.instance
-                          .collection(dbYear + dropdownvalue)
+                          .collection(dbYear + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
@@ -138,7 +138,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
                     try {
                       waterName = await FirebaseFirestore.instance
-                          .collection(dbYear + dropdownvalue)
+                          .collection(dbYear + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
@@ -236,7 +236,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         ),
                       );
                       FirebaseFirestore.instance
-                          .collection("inHouse" + dropdownvalue)
+                          .collection("inHouse" + dropdownValueYear)
                           .add(
                         {
                           'name': name,
@@ -247,7 +247,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       FirebaseFirestore.instance
-                          .collection(dbYear + dropdownvalue)
+                          .collection(dbYear + dropdownValueYear)
                           .doc(mobile)
                           .update({'houseGiven': true});
 
@@ -276,7 +276,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         ),
                       );
                       FirebaseFirestore.instance
-                          .collection("inWater" + dropdownvalue)
+                          .collection("inWater" + dropdownValueYear)
                           .add(
                         {
                           'name': name,
@@ -287,7 +287,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       FirebaseFirestore.instance
-                          .collection(dbYear + dropdownvalue)
+                          .collection(dbYear + dropdownValueYear)
                           .doc(mobile)
                           .update({'waterGiven': true});
 
@@ -413,7 +413,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                       ),
                     );
                     FirebaseFirestore.instance
-                        .collection("inExtra" + dropdownvalue)
+                        .collection("inExtra" + dropdownValueYear)
                         .add(
                       {
                         'reason': reason,

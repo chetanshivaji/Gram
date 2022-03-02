@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
 import 'package:money/constants.dart';
+import 'package:money/screens/out.dart';
+import 'package:money/util.dart';
 
 void updateFormulaValues(String newEntryAmount, String typeInOut) async {
   int total = await FirebaseFirestore.instance
@@ -91,6 +94,10 @@ class formulaLive extends StatelessWidget {
         }
 
         DocumentSnapshot ds = snapshot.data!.docs[0];
+        inFormula = ds.get("totalIn");
+        outFormula = ds.get("totalOut");
+        remainFormula = inFormula - outFormula;
+
         return formulaNew(
           ds.get("totalIn"),
           ds.get("totalOut"),

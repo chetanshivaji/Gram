@@ -24,10 +24,12 @@ class InvoiceInfo {
   final String formula;
   final String year;
   final String sortingType;
+  final String taxType;
 
   const InvoiceInfo({
     required this.formula,
     required this.year,
     required this.sortingType,
+    required this.taxType,
   });
 }

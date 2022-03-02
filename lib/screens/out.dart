@@ -137,7 +137,7 @@ class outFormState extends State<outForm> {
                   }
 
                   FirebaseFirestore.instance
-                      .collection("out" + dropdownvalue)
+                      .collection("out" + dropdownValueYear)
                       .add(
                     {
                       'name': name,

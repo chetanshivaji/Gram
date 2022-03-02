@@ -13,6 +13,8 @@ class PdfInvoiceApi {
 
     String pdfName = reportType +
         "_" +
+        invoice.info.taxType +
+        "_" +
         '_Invoice' +
         "_" +
         invoice.info.year +
@@ -29,7 +31,7 @@ class PdfInvoiceApi {
       build: (context) => [
         buildHeader(invoice, pdfName),
         SizedBox(height: 3 * PdfPageFormat.cm),
-        buildTitle(invoice, pdfTitle),
+        buildTitle(invoice, pdfTitle, userMail),
         buildInvoice(invoice),
       ],
       footer: (context) => buildFooter(invoice, userMail, reportType),
@@ -59,7 +61,9 @@ class PdfInvoiceApi {
         ],
       );
 
-  static Widget buildTitle(pendingInvoice invoice, String pdfTitle) => Column(
+  static Widget buildTitle(
+          pendingInvoice invoice, String pdfTitle, String userMail) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -67,11 +71,18 @@ class PdfInvoiceApi {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text(invoice.info.year +
-              "/" +
+          Text("Year =  " +
+              invoice.info.year +
+              "\n" +
+              "Sorting type =  " +
               invoice.info.sortingType +
-              "/" +
-              invoice.info.formula),
+              "\n" +
+              "Calculation =  " +
+              invoice.info.formula +
+              "\n" +
+              "Downloaded by user =  " +
+              userMail +
+              "\n"),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );

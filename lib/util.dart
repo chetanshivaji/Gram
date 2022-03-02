@@ -70,7 +70,11 @@ Icon getRightIcon() {
   );
 }
 
-String dropdownvalue = "2021";
+int remainFormula = 0;
+int inFormula = 0;
+int outFormula = 0;
+
+String dropdownValueYear = "2021";
 
 var items = [
   "2012",
@@ -110,7 +114,7 @@ class _yearTileState extends State<yearTile> {
         alignment: Alignment.topLeft,
 
         // Initial Value
-        value: dropdownvalue,
+        value: dropdownValueYear,
         // Down Arrow Icon
         icon: Icon(
           Icons.sort,
@@ -130,7 +134,7 @@ class _yearTileState extends State<yearTile> {
         onChanged: (String? newValue) {
           setState(
             () {
-              dropdownvalue = newValue!;
+              dropdownValueYear = newValue!;
             },
           );
         },

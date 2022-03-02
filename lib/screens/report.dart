@@ -24,7 +24,7 @@ String sToDate = DateTime.now().day.toString() +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
-String dropdownvalueReport = "Date";
+String dropdownvalueReportSort = "Date";
 var itemsSort = [
   'Date',
   'H to L',
@@ -107,7 +107,7 @@ class _reportContainerState extends State<reportContainer> {
                   alignment: Alignment.topLeft,
 
                   // Initial Value
-                  value: dropdownvalue,
+                  value: dropdownValueYear,
                   // Down Arrow Icon
                   icon: Icon(
                     Icons.date_range,
@@ -126,7 +126,7 @@ class _reportContainerState extends State<reportContainer> {
                   onChanged: (String? newValue) {
                     setState(
                       () {
-                        dropdownvalue = newValue!;
+                        dropdownValueYear = newValue!;
                       },
                     );
                   },
@@ -158,7 +158,7 @@ class _reportContainerState extends State<reportContainer> {
                   alignment: Alignment.topRight,
 
                   // Initial Value
-                  value: dropdownvalueReport,
+                  value: dropdownvalueReportSort,
                   // Down Arrow Icon
                   icon: Icon(
                     Icons.sort,
@@ -178,7 +178,7 @@ class _reportContainerState extends State<reportContainer> {
                   onChanged: (String? newValue) {
                     setState(
                       () {
-                        dropdownvalueReport = newValue!;
+                        dropdownvalueReportSort = newValue!;
                       },
                     );
                   },
@@ -191,13 +191,13 @@ class _reportContainerState extends State<reportContainer> {
                     (widget.reportType == "inWater") ||
                     (widget.reportType == "inExtra")
                 ? inList(
-                    yearDropDownValue: dropdownvalue,
+                    yearDropDownValue: dropdownValueYear,
                     inType: widget.reportType,
-                    orderType: dropdownvalueReport)
+                    orderType: dropdownvalueReportSort)
                 : outList(
-                    yearDropDownValue: dropdownvalue,
+                    yearDropDownValue: dropdownValueYear,
                     outType: widget.reportType,
-                    orderType: dropdownvalueReport),
+                    orderType: dropdownvalueReportSort),
           ),
         ],
       ),
