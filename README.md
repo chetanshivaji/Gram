@@ -27,10 +27,12 @@ In future developement.
 10. App version after clicking on info
 11. Pending send notifcation.
 12. Message support on both platforms - Normal msg & Whatsapp msg.
-13. Receipts of payment.
+13. Receipts of payment.sendig pdf bill.
 14. UPI gateway for payment.
 15. Date window for generating report for defined period by user.
-
+16. serach - single user all years display
+17. addtion of section health tax, & electricity maintaince tax.
+18. 
 # DONE
 
 
