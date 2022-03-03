@@ -32,12 +32,16 @@ In future developement.
 15. Date window for generating report for defined period by user.
 16. serach - single user all years display
 17. addtion of section health tax, & electricity maintaince tax.
-18. 
+18. Notice send button for Pending entries 
+19. language 
+20. app version addition
+21. 
+
 # DONE
 
 
 
-
+Plan-
 
 
 
