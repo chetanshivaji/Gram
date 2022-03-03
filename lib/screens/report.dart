@@ -3,6 +3,10 @@ import 'package:money/util.dart';
 import 'inList.dart';
 import 'outList.dart';
 import 'formula.dart';
+import 'package:money/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/model/invoice.dart';
+import 'package:money/api/pdf_api.dart';
 
 class reportContainer extends StatefulWidget {
   String reportType = "";
@@ -24,7 +28,7 @@ String sToDate = DateTime.now().day.toString() +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
-String dropdownvalueReportSort = "Date";
+String dropdownValueReportSort = "Date";
 var itemsSort = [
   'Date',
   'H to L',
@@ -68,6 +72,200 @@ class _reportContainerState extends State<reportContainer> {
               pickedDate.year.toString();
         },
       );
+  }
+
+  void createPDFReportEntries() async {
+    //START - fetch data to display in pdf
+    List<houseWaterReportEntry> entriesHouseWater = [];
+    List<extraIncomeReportEntry> entriesExtraIncome = [];
+    List<outReportEntry> entriesOut = [];
+
+    var snapshots;
+    if (widget.reportType == "inHouse") {
+      var collection = FirebaseFirestore.instance.collection(
+          widget.reportType + dropdownValueYear); //TODO: need to user where
+
+      if (dropdownValueReportSort == "L to H") {
+        snapshots = await collection.orderBy('amount', descending: false).get();
+      } else if (dropdownValueReportSort == "H to L") {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      }
+    } else if (widget.reportType == "inWater") {
+      var collection = FirebaseFirestore.instance
+          .collection(widget.reportType + dropdownValueYear);
+
+      if (dropdownValueReportSort == "L to H") {
+        snapshots = await collection.orderBy('amount', descending: false).get();
+      } else if (dropdownValueReportSort == "H to L") {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      }
+    } else if (widget.reportType == "inExtra") {
+      var collection = FirebaseFirestore.instance
+          .collection(widget.reportType + dropdownValueYear);
+
+      if (dropdownValueReportSort == "L to H") {
+        snapshots = await collection.orderBy('amount', descending: false).get();
+      } else if (dropdownValueReportSort == "H to L") {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      }
+    } else if (widget.reportType == "out") {
+      var collection = FirebaseFirestore.instance
+          .collection(widget.reportType + dropdownValueYear);
+
+      if (dropdownValueReportSort == "L to H") {
+        snapshots = await collection.orderBy('amount', descending: false).get();
+      } else if (dropdownValueReportSort == "H to L") {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('amount', descending: true).get();
+      }
+    }
+
+    for (var doc in snapshots.docs) {
+      try {
+        await doc.reference.get().then((value) {
+          var y = value.data();
+          switch (widget.reportType) {
+            case "inHouse":
+              {
+                houseWaterReportEntry pe = houseWaterReportEntry(
+                  name: y!["name"],
+                  mobile: y!["mobile"].toString(),
+                  amount: y!["amount"].toString(),
+                  date: y!["date"],
+                  user: y!["user"],
+                );
+                entriesHouseWater.add(pe);
+
+                break;
+              }
+
+            case "inWater":
+              {
+                houseWaterReportEntry pe = houseWaterReportEntry(
+                  name: y!["name"],
+                  mobile: y!["mobile"].toString(),
+                  amount: y!["amount"].toString(),
+                  date: y!["date"],
+                  user: y!["user"],
+                );
+                entriesHouseWater.add(pe);
+
+                break;
+              }
+            case "inExtra":
+              {
+                extraIncomeReportEntry pe = extraIncomeReportEntry(
+                  amount: y!["amount"].toString(),
+                  reason: y!["reason"],
+                  date: y!["date"],
+                  user: y!["user"],
+                );
+                entriesExtraIncome.add(pe);
+
+                break;
+              }
+            case "out":
+              {
+                outReportEntry pe = outReportEntry(
+                  name: y!["name"],
+                  reason: y!["reason"],
+                  amount: y!["amount"].toString(),
+                  extraInfo: y!["extraInfo"],
+                  date: y!["date"],
+                  user: y!["user"],
+                );
+                entriesOut.add(pe);
+                break;
+              }
+          }
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    String taxType = "";
+    var invoice;
+    switch (widget.reportType) {
+      case "inHouse":
+        {
+          taxType = "House";
+          invoice = reportHouseWaterInvoice(
+              info: InvoiceInfo(
+                formula:
+                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                year: dropdownValueYear,
+                sortingType: dropdownValueReportSort,
+                taxType: taxType,
+              ),
+              houseWaterReportInvoiceItems: entriesHouseWater);
+          break;
+        }
+
+      case "inWater":
+        {
+          taxType = "Water";
+          invoice = reportHouseWaterInvoice(
+              info: InvoiceInfo(
+                formula:
+                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                year: dropdownValueYear,
+                sortingType: dropdownValueReportSort,
+                taxType: taxType,
+              ),
+              houseWaterReportInvoiceItems: entriesHouseWater);
+          break;
+        }
+
+      case "inExtra":
+        {
+          taxType = "InExtra";
+          invoice = reportExtraInvoice(
+              info: InvoiceInfo(
+                formula:
+                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                year: dropdownValueYear,
+                sortingType: dropdownValueReportSort,
+                taxType: taxType,
+              ),
+              extraIncomeReportInvoiceItems: entriesExtraIncome);
+
+          break;
+        }
+
+      case "out":
+        {
+          taxType = "Out";
+          invoice = reportOutInvoice(
+              info: InvoiceInfo(
+                formula:
+                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                year: dropdownValueYear,
+                sortingType: dropdownValueReportSort,
+                taxType: taxType,
+              ),
+              outReportInvoiceItems: entriesOut);
+          break;
+        }
+
+      default:
+        {
+          taxType = "InvalidSomethingWrong";
+          ;
+        }
+        break;
+    }
+
+    final pdfFile = await invoice.generate("REPORT", userMail);
+    PdfApi.openFile(pdfFile);
+    //END - fetch data to display in pdf
   }
 
   @override
@@ -135,9 +333,10 @@ class _reportContainerState extends State<reportContainer> {
               Expanded(
                 child: IconButton(
                   alignment: Alignment.topRight,
-                  onPressed: () {
-                    print(
-                        "Download button pressed"); //TODO: later add functionality of download.
+                  onPressed: () async {
+                    createPDFReportEntries();
+
+                    print("Download button pressed");
                   },
                   icon: Icon(
                     Icons.download,
@@ -158,7 +357,7 @@ class _reportContainerState extends State<reportContainer> {
                   alignment: Alignment.topRight,
 
                   // Initial Value
-                  value: dropdownvalueReportSort,
+                  value: dropdownValueReportSort,
                   // Down Arrow Icon
                   icon: Icon(
                     Icons.sort,
@@ -178,7 +377,7 @@ class _reportContainerState extends State<reportContainer> {
                   onChanged: (String? newValue) {
                     setState(
                       () {
-                        dropdownvalueReportSort = newValue!;
+                        dropdownValueReportSort = newValue!;
                       },
                     );
                   },
@@ -193,11 +392,11 @@ class _reportContainerState extends State<reportContainer> {
                 ? inList(
                     yearDropDownValue: dropdownValueYear,
                     inType: widget.reportType,
-                    orderType: dropdownvalueReportSort)
+                    orderType: dropdownValueReportSort)
                 : outList(
                     yearDropDownValue: dropdownValueYear,
                     outType: widget.reportType,
-                    orderType: dropdownvalueReportSort),
+                    orderType: dropdownValueReportSort),
           ),
         ],
       ),

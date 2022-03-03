@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:money/screens/out.dart';
+
 import 'package:money/util.dart';
 import 'pendingList.dart';
 import 'package:money/model/invoice.dart';
 import 'formula.dart';
-import 'package:money/api/pdf_invoice_api.dart';
+
 import 'package:money/api/pdf_api.dart';
 import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -73,6 +73,68 @@ class _pendingContainerState extends State<pendingContainer> {
               pickedDate.year.toString();
         },
       );
+  }
+
+  void createPDFPendingEntries() async {
+    //START - fetch data to display in pdf
+    List<pendingEntry> entries = [];
+
+    var snapshots;
+    if (widget.pendingType == housePendingType) {
+      var collection =
+          FirebaseFirestore.instance.collection(dbYear + dropdownValueYear);
+
+      if (dropdownValuePendingSort == "L to H") {
+        snapshots = await collection.orderBy('house', descending: false).get();
+      } else if (dropdownValuePendingSort == "H to L") {
+        snapshots = await collection.orderBy('house', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('house', descending: true).get();
+      }
+    } else {
+      var collection =
+          FirebaseFirestore.instance.collection(dbYear + dropdownValueYear);
+
+      if (dropdownValuePendingSort == "L to H") {
+        snapshots = await collection.orderBy('water', descending: false).get();
+      } else if (dropdownValuePendingSort == "H to L") {
+        snapshots = await collection.orderBy('water', descending: true).get();
+      } else {
+        snapshots = await collection.orderBy('water', descending: true).get();
+      }
+    }
+
+    for (var doc in snapshots.docs) {
+      try {
+        await doc.reference.get().then((value) {
+          var y = value.data();
+          pendingEntry pe = pendingEntry(
+              name: y!["name"],
+              mobile: y!["mobile"].toString(),
+              amount: (widget.pendingType == housePendingType)
+                  ? y!["house"].toString()
+                  : y!["water"].toString());
+          entries.add(pe);
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    final invoice = pendingInvoice(
+        info: InvoiceInfo(
+            formula:
+                'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+            year: dropdownValueYear,
+            sortingType: dropdownValuePendingSort,
+            taxType:
+                (widget.pendingType == housePendingType) ? "house" : "water"),
+        pendingInvoiceItems: entries);
+
+    final pdfFile = await invoice.generate("PENDING", userMail);
+
+    PdfApi.openFile(pdfFile);
+    //END - fetch data to display in pdf
   }
 
   //.where('waterGiven', isEqualTo: true)
@@ -145,81 +207,11 @@ class _pendingContainerState extends State<pendingContainer> {
                 child: IconButton(
                   alignment: Alignment.topRight,
                   onPressed: () async {
-                    //TODO: update pendingInvoiceItems from DB later.//END - fetch data to display in pdf
+                    //TODO: update pendingInvoiceItems from DB later.
 
-                    //START - fetch data to display in pdf
-                    List<pendingEntry> entries = [];
+                    createPDFPendingEntries();
 
-                    var snapshots;
-                    if (widget.pendingType == housePendingType) {
-                      var collection = FirebaseFirestore.instance
-                          .collection(dbYear + dropdownValueYear);
-
-                      if (dropdownValuePendingSort == "L to H") {
-                        snapshots = await collection
-                            .orderBy('house', descending: false)
-                            .get();
-                      } else if (dropdownValuePendingSort == "H to L") {
-                        snapshots = await collection
-                            .orderBy('house', descending: true)
-                            .get();
-                      } else {
-                        snapshots = await collection
-                            .orderBy('house', descending: true)
-                            .get();
-                      }
-                    } else {
-                      var collection = FirebaseFirestore.instance
-                          .collection(dbYear + dropdownValueYear);
-
-                      if (dropdownValuePendingSort == "L to H") {
-                        snapshots = await collection
-                            .orderBy('water', descending: false)
-                            .get();
-                      } else if (dropdownValuePendingSort == "H to L") {
-                        snapshots = await collection
-                            .orderBy('water', descending: true)
-                            .get();
-                      } else {
-                        snapshots = await collection
-                            .orderBy('water', descending: true)
-                            .get();
-                      }
-                    }
-
-                    for (var doc in snapshots.docs) {
-                      try {
-                        await doc.reference.get().then((value) {
-                          var y = value.data();
-                          pendingEntry pe = pendingEntry(
-                              name: y!["name"],
-                              mobile: y!["mobile"].toString(),
-                              amount: (widget.pendingType == housePendingType)
-                                  ? y!["house"].toString()
-                                  : y!["water"].toString());
-                          entries.add(pe);
-                        });
-                      } catch (e) {
-                        print(e);
-                      }
-                    }
-                    final invoice = pendingInvoice(
-                        info: InvoiceInfo(
-                            formula:
-                                'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
-                            year: dropdownValueYear,
-                            sortingType: dropdownValuePendingSort,
-                            taxType: (widget.pendingType == housePendingType)
-                                ? "house"
-                                : "water"),
-                        pendingInvoiceItems: entries);
-
-                    final pdfFile = await PdfInvoiceApi.generate(
-                        invoice, "PENDING", userMail);
-
-                    PdfApi.openFile(pdfFile);
-                    print(
-                        "Download button pressed"); //TODO: later add functionality of download.
+                    print("Download button pressed");
                   },
                   icon: Icon(
                     Icons.download,
