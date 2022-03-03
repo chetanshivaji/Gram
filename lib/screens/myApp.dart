@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
               //clean mainDb2021 set houseGiven & waterGiven to false
               for (var each in items) {
                 var collection =
-                    FirebaseFirestore.instance.collection(dbYear + each);
+                    FirebaseFirestore.instance.collection(dbYearPrefix + each);
                 var snapshots = await collection.get();
                 for (var doc in snapshots.docs) {
                   await doc.reference

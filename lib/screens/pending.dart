@@ -81,8 +81,8 @@ class _pendingContainerState extends State<pendingContainer> {
 
     var snapshots;
     if (widget.pendingType == housePendingType) {
-      var collection =
-          FirebaseFirestore.instance.collection(dbYear + dropdownValueYear);
+      var collection = FirebaseFirestore.instance
+          .collection(dbYearPrefix + dropdownValueYear);
 
       if (dropdownValuePendingSort == "L to H") {
         snapshots = await collection.orderBy('house', descending: false).get();
@@ -92,8 +92,8 @@ class _pendingContainerState extends State<pendingContainer> {
         snapshots = await collection.orderBy('house', descending: true).get();
       }
     } else {
-      var collection =
-          FirebaseFirestore.instance.collection(dbYear + dropdownValueYear);
+      var collection = FirebaseFirestore.instance
+          .collection(dbYearPrefix + dropdownValueYear);
 
       if (dropdownValuePendingSort == "L to H") {
         snapshots = await collection.orderBy('water', descending: false).get();

@@ -86,34 +86,34 @@ class pendingList extends StatelessWidget {
     if (pendingType == housePendingType) {
       if (orderType == "L to H") {
         stm = FirebaseFirestore.instance
-            .collection(dbYear + yearDropDownValue)
+            .collection(dbYearPrefix + yearDropDownValue)
             .orderBy('house', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
         stm = FirebaseFirestore.instance
-            .collection(dbYear + yearDropDownValue)
+            .collection(dbYearPrefix + yearDropDownValue)
             .orderBy('house', descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
-            .collection(dbYear + yearDropDownValue)
+            .collection(dbYearPrefix + yearDropDownValue)
             .orderBy('house', descending: true)
             .snapshots();
       }
     } else {
       if (orderType == "L to H") {
         stm = FirebaseFirestore.instance
-            .collection(dbYear + yearDropDownValue)
+            .collection(dbYearPrefix + yearDropDownValue)
             .orderBy('water', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
         stm = FirebaseFirestore.instance
-            .collection(dbYear + yearDropDownValue)
+            .collection(dbYearPrefix + yearDropDownValue)
             .orderBy('water', descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
-            .collection(dbYear + yearDropDownValue)
+            .collection(dbYearPrefix + yearDropDownValue)
             .orderBy('water', descending: true)
             .snapshots();
       }
