@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money/constants.dart';
-import 'package:money/util.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/util.dart';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";
@@ -29,7 +30,33 @@ class pendingList extends StatelessWidget {
         } else {
           ldataCell.add(DataCell(Text(l.get("water").toString())));
         }
+        ldataCell.add(
+          DataCell(
+            IconButton(
+              onPressed: () {
+                String name = l.get("name");
+                String mobile = l.get("mobile").toString();
+                String amount = "";
+                if (pendingType == housePendingType) {
+                  amount = l.get("house").toString();
+                } else {
+                  amount = l.get("water").toString();
+                }
 
+                String notificationMessage =
+                    "Dear $name,$mobile Notice - please pay pending $amount to Grampanchyat";
+                List<String> listMobile = [l.get("mobile").toString()];
+                sendTextToPhone(notificationMessage, listMobile);
+              },
+              icon: Icon(
+                Icons.notifications_active_outlined,
+                color: Colors.red,
+              ),
+              splashColor: Colors.blue,
+              tooltip: "Send notification to Pay",
+            ),
+          ),
+        );
         ldataRow.add(DataRow(cells: ldataCell));
       }
     }
@@ -70,6 +97,12 @@ class pendingList extends StatelessWidget {
             DataColumn(
               label: Text(
                 'Amount',
+                style: getStyle("PENDING"),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Notify',
                 style: getStyle("PENDING"),
               ),
             ),

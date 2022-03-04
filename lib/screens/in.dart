@@ -3,7 +3,6 @@ import 'package:money/constants.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'formula.dart';
-import 'package:flutter_sms/flutter_sms.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
@@ -53,13 +52,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   int houseAmount = 0;
   String waterName = "";
   String houseName = "";
-  void _sendSMS(String message, List<String> recipents) async {
-    String _result = await sendSMS(message: message, recipients: recipents)
-        .catchError((onError) {
-      print(onError);
-    });
-    print(_result);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +255,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       String message =
                           "Dear $name $mobile, Thanks for paying House amount $amount, Received!";
                       List<String> recipents = [mobile];
-                      _sendSMS(message, recipents);
+                      sendTextToPhone(message, recipents);
                     }
                     // Validate returns true if the form is valid, or false otherwise.
                   } else {
@@ -303,7 +295,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       String message =
                           "Dear $name $mobile, Thanks for paying Water amount $amount, Received!";
                       List<String> recipents = [mobile];
-                      _sendSMS(message, recipents);
+                      sendTextToPhone(message, recipents);
                     }
                   }
                 },

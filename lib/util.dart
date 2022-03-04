@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 
 int totalIn = 0;
 int totalOut = 0;
@@ -19,6 +20,14 @@ TextStyle getTableHeadingTextStyle() {
     fontWeight: FontWeight.bold,
     fontFamily: "RobotoMono",
   );
+}
+
+void sendTextToPhone(String message, List<String> recipents) async {
+  String _result = await sendSMS(message: message, recipients: recipents)
+      .catchError((onError) {
+    print(onError);
+  });
+  print(_result);
 }
 
 TextStyle getStyle(String type) {
