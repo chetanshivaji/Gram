@@ -37,14 +37,17 @@ class pendingList extends StatelessWidget {
                 String name = l.get("name");
                 String mobile = l.get("mobile").toString();
                 String amount = "";
+                String notifyTaxType = "";
                 if (pendingType == housePendingType) {
                   amount = l.get("house").toString();
+                  notifyTaxType = "House Tax";
                 } else {
                   amount = l.get("water").toString();
+                  notifyTaxType = "Water Tax";
                 }
 
                 String notificationMessage =
-                    "Dear $name,$mobile Notice - please pay pending $amount to Grampanchyat";
+                    "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat";
                 List<String> listMobile = [l.get("mobile").toString()];
                 sendTextToPhone(notificationMessage, listMobile);
               },
