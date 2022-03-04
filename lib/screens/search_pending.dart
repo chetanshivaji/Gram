@@ -138,19 +138,26 @@ class _searchScreenState extends State<searchScreen> {
                       if (_formKey2.currentState!.validate()) {
                         var ldr = await _buildListPending();
                         //search DB
-                        try {
-                          await FirebaseFirestore.instance
-                              .collection(dbYearPrefix + dropdownValueYear)
-                              .doc(mobile)
-                              .get()
-                              .then(
-                            (value) {
-                              var y = value.data();
-                              _name = y!["name"];
-                            },
-                          );
-                        } catch (e) {
-                          print(e);
+                        for (var yr in items) {
+                          try {
+                            _name = await FirebaseFirestore.instance
+                                .collection(dbYearPrefix + yr)
+                                .doc(mobile)
+                                .get()
+                                .then(
+                              (value) {
+                                var y = value.data();
+                                if (y != null) {
+                                  //_name = y["name"];
+                                  return y["name"];
+                                }
+                                return "";
+                              },
+                            );
+                            if (_name != "") break;
+                          } catch (e) {
+                            print(e);
+                          }
                         }
                         setState(
                           () {
