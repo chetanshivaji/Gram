@@ -35,7 +35,7 @@ class pendingList extends StatelessWidget {
         ldataCell.add(
           DataCell(
             IconButton(
-              onPressed: () {
+              onPressed: () async {
                 String name = l.get("name");
                 String mobile = l.get("mobile").toString();
                 String amount = "";
@@ -53,9 +53,11 @@ class pendingList extends StatelessWidget {
                 String mobileWhatsApp = l.get("mobile").toString();
                 List<String> listMobile = [mobileWhatsApp];
                 if (textMsgEnabled)
-                  sendTextToPhone(notificationMessage, listMobile);
+                  await sendTextToPhone(notificationMessage, listMobile);
+
                 if (whatsUpEnabled)
-                  launchWhatsApp(notificationMessage, "+91" + mobileWhatsApp);
+                  await launchWhatsApp(
+                      notificationMessage, "+91" + mobileWhatsApp);
               },
               icon: Icon(
                 Icons.notifications_active_outlined,

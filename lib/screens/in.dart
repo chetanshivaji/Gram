@@ -273,20 +273,14 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       updateFormulaValues(amount.toString(),
                           "in"); //fetch exisiting value from formula and update new value.
 
-                      showAlertDialog(
-                        context,
-                        titleSuccess,
-                        subtitleSuccess,
-                        getRightIcon(),
-                      );
-
                       String message =
                           "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!";
                       List<String> recipents = [mobile];
-                      if (textMsgEnabled) sendTextToPhone(message, recipents);
+                      if (textMsgEnabled)
+                        await sendTextToPhone(message, recipents);
 
                       if (whatsUpEnabled)
-                        launchWhatsApp(message, "+91" + mobile);
+                        await launchWhatsApp(message, "+91" + mobile);
 
                       if (receiptPdf)
                         await createPDFInHouseWaterReceiptEntries();
@@ -295,8 +289,15 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           "$name $typeSubmit Tax receipt for year $dropdownValueYear";
                       String body = "Please find attached receipt, Thank you!";
                       String attachment = gReceiptPdfName;
-                      sendEmail(subject, body, email, attachment);
+                      await sendEmail(subject, body, email, attachment);
                     }
+                    showAlertDialog(
+                      context,
+                      titleSuccess,
+                      subtitleSuccess,
+                      getRightIcon(),
+                    );
+
                     // Validate returns true if the form is valid, or false otherwise.
                   }
                 },
