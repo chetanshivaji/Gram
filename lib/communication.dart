@@ -3,10 +3,12 @@ import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 // For Flutter applications, you'll most likely want to use
 // the url_launcher package.
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 bool whatsUpEnabled = false;
 bool textMsgEnabled = false;
+bool receiptPdf = true;
+
 void launchWhatsApp(String whatsAppMsg, String phoneNumber) async {
   final link = WhatsAppUnilink(
     phoneNumber: phoneNumber,
@@ -26,6 +28,20 @@ void sendTextToPhone(String message, List<String> recipents) async {
   print(_result);
 }
 
+void sendEmail(
+    String subject, String body, String recipients, String attachment) async {
+  final Email email = Email(
+    subject: subject,
+    body: body,
+    recipients: [recipients],
+    //cc: ['cc@example.com'],
+    //bcc: ['bcc@example.com'],
+    attachmentPaths: [attachment],
+    isHTML: false,
+  );
+
+  await FlutterEmailSender.send(email);
+}
 //***************START Mail ****************************/
 /*
 class EmailSender extends StatefulWidget {

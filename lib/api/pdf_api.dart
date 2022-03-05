@@ -6,6 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
+String gReceiptPdfName = "";
+
 class PdfApi {
   static Future<File> saveDocument({
     required String name,
@@ -16,6 +18,8 @@ class PdfApi {
     final dir = await getApplicationDocumentsDirectory();
     final file = File('${dir.path}/$name');
 
+    gReceiptPdfName =
+        await '${dir.path}/$name'; //for sending attachmenet to mail.
     await file.writeAsBytes(bytes);
 
     return file;

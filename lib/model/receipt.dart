@@ -69,7 +69,7 @@ abstract class receipt {
       footer: (context) => buildFooter(userMail, reportType),
     ));
 
-    return PdfApi.saveDocument(name: pdfName, pdf: pdf);
+    return await PdfApi.saveDocument(name: pdfName, pdf: pdf);
   }
 
   Widget buildHeader(String pdfName) => Column(

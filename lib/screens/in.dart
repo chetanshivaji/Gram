@@ -24,8 +24,16 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
+  String email = "";
   int amount = 0;
+
   String mobile = "";
+  int waterAmount = 0;
+  int houseAmount = 0;
+  String waterName = "";
+  String houseName = "";
+  String waterEmail = "";
+  String houseEmail = "";
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
     int total = await FirebaseFirestore.instance
@@ -51,12 +59,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     }
   }
 
-  int waterAmount = 0;
-  int houseAmount = 0;
-  String waterName = "";
-  String houseName = "";
-
-  void createPDFInHouseReceiptEntries() async {
+  Future<void> createPDFInHouseWaterReceiptEntries() async {
     //START - fetch data to display in pdf
 
     final receipt = receivedReceipt(
@@ -72,6 +75,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     final pdfFile = await receipt.generate("IN", userMail);
 
     PdfApi.openFile(pdfFile);
+    return;
     //END - fetch data to display in pdf
   }
 
@@ -92,36 +96,27 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           ),
           Expanded(
             child: TextFormField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.mobile_friendly),
+                  hintText: "Enter mobile number",
+                  labelText: "Mobile *"),
+
               onChanged: (text) async {
                 if (text.length == 10) {
                   if (widget.formType == "HOUSE") {
                     try {
-                      houseAmount = await FirebaseFirestore.instance
+                      await FirebaseFirestore.instance
                           .collection(dbYearPrefix + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
                         (value) {
                           var y = value.data();
-                          return y!["house"];
-                        },
-                      );
-                    } catch (e) {
-                      print(e);
-                    }
-
-                    try {
-                      houseName = await FirebaseFirestore.instance
-                          .collection(dbYearPrefix + dropdownValueYear)
-                          .doc(text)
-                          .get()
-                          .then(
-                        (value) {
-                          var y = value.data();
-                          if (y!["houseGiven"] == true) {
-                            return paidMsg;
-                          } else
-                            return y["name"];
+                          houseName = y!["name"];
+                          houseEmail = y["email"];
+                          houseAmount = y["house"];
                         },
                       );
                     } catch (e) {
@@ -132,36 +127,21 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       () {
                         name = houseName;
                         amount = houseAmount;
+                        email = houseEmail;
                       },
                     );
                   } else {
                     try {
-                      waterAmount = await FirebaseFirestore.instance
+                      await FirebaseFirestore.instance
                           .collection(dbYearPrefix + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
                         (value) {
                           var y = value.data();
-                          return y!["water"];
-                        },
-                      );
-                    } catch (e) {
-                      print(e);
-                    }
-
-                    try {
-                      waterName = await FirebaseFirestore.instance
-                          .collection(dbYearPrefix + dropdownValueYear)
-                          .doc(text)
-                          .get()
-                          .then(
-                        (value) {
-                          var y = value.data();
-                          if (y!["waterGiven"] == true) {
-                            return paidMsg;
-                          } else
-                            return y["name"];
+                          waterAmount = y!["water"];
+                          waterName = y["name"];
+                          waterEmail = y["email"];
                         },
                       );
                     } catch (e) {
@@ -172,18 +152,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       () {
                         name = waterName;
                         amount = waterAmount;
+                        email = waterEmail;
                       },
                     );
                   }
                 }
               },
 
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.mobile_friendly),
-                  hintText: "Enter mobile number",
-                  labelText: "Mobile *"),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -223,6 +198,20 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           ),
           Expanded(
             child: ListTile(
+                leading: Icon(Icons.person),
+                title: Text(
+                  "Mail = $email",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          Expanded(
+            child: ListTile(
               leading: Icon(Icons.attach_money),
               title: Text(
                 "Amount = $amount",
@@ -240,7 +229,23 @@ class HouseWaterFormState extends State<HouseWaterForm> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  String inTypeSubmit = "";
+                  String inTypeGiven = "";
+                  String typeSubmit = "";
+
                   if (widget.formType == "HOUSE") {
+                    //house
+                    inTypeSubmit = "inHouse";
+                    inTypeGiven = 'houseGiven';
+                    typeSubmit = 'House';
+                  } else {
+                    //water
+                    inTypeSubmit = "inWater";
+                    inTypeGiven = 'waterGiven';
+                    typeSubmit = 'Water';
+                  }
+
+                  {
                     if (_formKey.currentState!.validate()) {
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
@@ -250,7 +255,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         ),
                       );
                       FirebaseFirestore.instance
-                          .collection("inHouse" + dropdownValueYear)
+                          .collection(inTypeSubmit + dropdownValueYear)
                           .add(
                         {
                           'name': name,
@@ -263,7 +268,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       FirebaseFirestore.instance
                           .collection(dbYearPrefix + dropdownValueYear)
                           .doc(mobile)
-                          .update({'houseGiven': true});
+                          .update({inTypeGiven: true});
 
                       updateFormulaValues(amount.toString(),
                           "in"); //fetch exisiting value from formula and update new value.
@@ -274,59 +279,25 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         subtitleSuccess,
                         getRightIcon(),
                       );
+
                       String message =
-                          "Dear $name $mobile, Thanks for paying House amount $amount, Received!";
+                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!";
                       List<String> recipents = [mobile];
                       if (textMsgEnabled) sendTextToPhone(message, recipents);
+
                       if (whatsUpEnabled)
                         launchWhatsApp(message, "+91" + mobile);
 
-                      createPDFInHouseReceiptEntries();
+                      if (receiptPdf)
+                        await createPDFInHouseWaterReceiptEntries();
+
+                      String subject =
+                          "$name $typeSubmit Tax receipt for year $dropdownValueYear";
+                      String body = "Please find attached receipt, Thank you!";
+                      String attachment = gReceiptPdfName;
+                      sendEmail(subject, body, email, attachment);
                     }
                     // Validate returns true if the form is valid, or false otherwise.
-                  } else {
-                    if (_formKey.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Processing Data'),
-                        ),
-                      );
-                      FirebaseFirestore.instance
-                          .collection("inWater" + dropdownValueYear)
-                          .add(
-                        {
-                          'name': name,
-                          'mobile': mobile,
-                          'amount': amount,
-                          'date': DateTime.now().toString(),
-                          'user': userMail,
-                        },
-                      );
-                      FirebaseFirestore.instance
-                          .collection(dbYearPrefix + dropdownValueYear)
-                          .doc(mobile)
-                          .update({'waterGiven': true});
-
-                      updateFormulaValues(amount.toString(),
-                          "in"); //fetch exisiting value from formula and update new value.
-                      showAlertDialog(
-                        context,
-                        titleSuccess,
-                        subtitleSuccess,
-                        getRightIcon(),
-                      );
-
-                      String message =
-                          "Dear $name $mobile, Thanks for paying Water amount $amount, Received!";
-                      List<String> recipents = [mobile];
-                      if (textMsgEnabled) sendTextToPhone(message, recipents);
-                      if (whatsUpEnabled)
-                        launchWhatsApp(message, "+91" + mobile);
-
-                      createPDFInHouseReceiptEntries();
-                    }
                   }
                 },
                 child: const Text(
