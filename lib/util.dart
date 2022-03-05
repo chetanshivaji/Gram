@@ -22,14 +22,6 @@ TextStyle getTableHeadingTextStyle() {
   );
 }
 
-void sendTextToPhone(String message, List<String> recipents) async {
-  String _result = await sendSMS(message: message, recipients: recipents)
-      .catchError((onError) {
-    print(onError);
-  });
-  print(_result);
-}
-
 TextStyle getStyle(String type) {
   if (type == "IN") {
     return TextStyle(

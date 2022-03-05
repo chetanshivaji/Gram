@@ -29,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onChanged: (value) {
                 email = value;
               },
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: 'Enter your email',
                 contentPadding:

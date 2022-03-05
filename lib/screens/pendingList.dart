@@ -3,6 +3,8 @@ import 'package:money/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
+import 'package:money/communication.dart';
+import 'dart:io';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";
@@ -48,8 +50,12 @@ class pendingList extends StatelessWidget {
 
                 String notificationMessage =
                     "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat";
-                List<String> listMobile = [l.get("mobile").toString()];
-                sendTextToPhone(notificationMessage, listMobile);
+                String mobileWhatsApp = l.get("mobile").toString();
+                List<String> listMobile = [mobileWhatsApp];
+                if (textMsgEnabled)
+                  sendTextToPhone(notificationMessage, listMobile);
+                if (whatsUpEnabled)
+                  launchWhatsApp(notificationMessage, "+91" + mobileWhatsApp);
               },
               icon: Icon(
                 Icons.notifications_active_outlined,

@@ -3,6 +3,9 @@ import 'package:money/constants.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'formula.dart';
+import 'package:money/communication.dart';
+import 'package:money/api/pdf_api.dart';
+import 'package:money/model/receipt.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
@@ -52,6 +55,25 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   int houseAmount = 0;
   String waterName = "";
   String houseName = "";
+
+  void createPDFInHouseReceiptEntries() async {
+    //START - fetch data to display in pdf
+
+    final receipt = receivedReceipt(
+      info: receiptInfo(
+          date: DateTime.now().toString(),
+          name: name,
+          amount: amount.toString(),
+          mobile: mobile,
+          userMail: userMail,
+          taxType: (widget.formType == "HOUSE") ? "house" : "water"),
+    );
+
+    final pdfFile = await receipt.generate("IN", userMail);
+
+    PdfApi.openFile(pdfFile);
+    //END - fetch data to display in pdf
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +277,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       String message =
                           "Dear $name $mobile, Thanks for paying House amount $amount, Received!";
                       List<String> recipents = [mobile];
-                      sendTextToPhone(message, recipents);
+                      if (textMsgEnabled) sendTextToPhone(message, recipents);
+                      if (whatsUpEnabled)
+                        launchWhatsApp(message, "+91" + mobile);
+
+                      createPDFInHouseReceiptEntries();
                     }
                     // Validate returns true if the form is valid, or false otherwise.
                   } else {
@@ -295,7 +321,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       String message =
                           "Dear $name $mobile, Thanks for paying Water amount $amount, Received!";
                       List<String> recipents = [mobile];
-                      sendTextToPhone(message, recipents);
+                      if (textMsgEnabled) sendTextToPhone(message, recipents);
+                      if (whatsUpEnabled)
+                        launchWhatsApp(message, "+91" + mobile);
+
+                      createPDFInHouseReceiptEntries();
                     }
                   }
                 },
