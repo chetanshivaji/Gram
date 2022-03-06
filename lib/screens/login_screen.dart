@@ -53,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 8.0,
             ),
             TextField(
+              obscureText: true,
               onChanged: (value) {
                 password = value;
               },

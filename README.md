@@ -15,8 +15,9 @@ In future developement.
 
 
 # TODO
-
-2. Access control from admin to allow entry of getting involved in users of app.
+1. Forgot password.
+2. Seperate admin and main app.  Installing one should not uninstall other. 
+3. Access control from admin to allow entry of getting involved in users of app.
 3. Push upload receipt button for out transcation.
 3. Bug fixes eg. return on mismatch password from registeration screen, corner cases, wrong input. no internet connectivity messages. pop messages correction .
 1. Registeration of user for perticular grampanchayat.
