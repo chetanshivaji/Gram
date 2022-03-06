@@ -15,31 +15,30 @@ In future developement.
 
 
 # TODO
-1. Pdf/excel downloading for pending and report page.
+
 2. Access control from admin to allow entry of getting involved in users of app.
+3. Push upload receipt button for out transcation.
 3. Bug fixes eg. return on mismatch password from registeration screen, corner cases, wrong input. no internet connectivity messages. pop messages correction .
-4. Multi year support.
+1. Registeration of user for perticular grampanchayat.
 5. Upload icon with proof of transcation for "in, out" pages. May be download icon in report page against each transcation. May need to use storage from firebase.
 6. Section wise formula.
 7. Date wise display of records pending and report.
 8. ios app testing on real ios device.
 9. Make language independent add Marathi
 10. App version after clicking on info
-11. Pending send notifcation.
-12. Message support on both platforms - Normal msg & Whatsapp msg.
-13. Receipts of payment.sendig pdf bill.
 14. UPI gateway for payment.
 15. Date window for generating report for defined period by user.
-16. serach - single user all years display
 17. addtion of section health tax, & electricity maintaince tax.
-18. Notice send button for Pending entries 
-19. language 
 20. app version addition
 21. 
 
 # DONE
-
-
+1. Pdf/excel downloading for pending and report page.
+4. Multi year support.
+11. Pending send notifcation.18. Notice send button for Pending entries 
+12. Message support on both platforms - Normal msg & Whatsapp msg.
+13. Receipts of payment.sendig pdf bill.
+16. serach - single user all years display
 
 Plan-
 
