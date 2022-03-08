@@ -24,52 +24,51 @@ class pendingList extends StatelessWidget {
 
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
-      if (l.get(pendingType) == false) {
-        ldataCell.add(DataCell(Text(l.get("name"))));
-        ldataCell.add(DataCell(Text(l.get("mobile").toString())));
-        if (pendingType == housePendingType) {
-          ldataCell.add(DataCell(Text(l.get("house").toString())));
-        } else {
-          ldataCell.add(DataCell(Text(l.get("water").toString())));
-        }
-        ldataCell.add(
-          DataCell(
-            IconButton(
-              onPressed: () async {
-                String name = l.get("name");
-                String mobile = l.get("mobile").toString();
-                String amount = "";
-                String notifyTaxType = "";
-                if (pendingType == housePendingType) {
-                  amount = l.get("house").toString();
-                  notifyTaxType = "House Tax";
-                } else {
-                  amount = l.get("water").toString();
-                  notifyTaxType = "Water Tax";
-                }
 
-                String notificationMessage =
-                    "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat";
-                String mobileWhatsApp = l.get("mobile").toString();
-                List<String> listMobile = [mobileWhatsApp];
-                if (textMsgEnabled)
-                  await sendTextToPhone(notificationMessage, listMobile);
-
-                if (whatsUpEnabled)
-                  await launchWhatsApp(
-                      notificationMessage, "+91" + mobileWhatsApp);
-              },
-              icon: Icon(
-                Icons.notifications_active_outlined,
-                color: Colors.red,
-              ),
-              splashColor: Colors.blue,
-              tooltip: "Send notification to Pay",
-            ),
-          ),
-        );
-        ldataRow.add(DataRow(cells: ldataCell));
+      ldataCell.add(DataCell(Text(l.get("name"))));
+      ldataCell.add(DataCell(Text(l.get("mobile").toString())));
+      if (pendingType == housePendingType) {
+        ldataCell.add(DataCell(Text(l.get("house").toString())));
+      } else {
+        ldataCell.add(DataCell(Text(l.get("water").toString())));
       }
+      ldataCell.add(
+        DataCell(
+          IconButton(
+            onPressed: () async {
+              String name = l.get("name");
+              String mobile = l.get("mobile").toString();
+              String amount = "";
+              String notifyTaxType = "";
+              if (pendingType == housePendingType) {
+                amount = l.get("house").toString();
+                notifyTaxType = "House Tax";
+              } else {
+                amount = l.get("water").toString();
+                notifyTaxType = "Water Tax";
+              }
+
+              String notificationMessage =
+                  "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat";
+              String mobileWhatsApp = l.get("mobile").toString();
+              List<String> listMobile = [mobileWhatsApp];
+              if (textMsgEnabled)
+                await sendTextToPhone(notificationMessage, listMobile);
+
+              if (whatsUpEnabled)
+                await launchWhatsApp(
+                    notificationMessage, "+91" + mobileWhatsApp);
+            },
+            icon: Icon(
+              Icons.notifications_active_outlined,
+              color: Colors.red,
+            ),
+            splashColor: Colors.blue,
+            tooltip: "Send notification to Pay",
+          ),
+        ),
+      );
+      ldataRow.add(DataRow(cells: ldataCell));
     }
     return ldataRow;
   }
@@ -131,16 +130,19 @@ class pendingList extends StatelessWidget {
       if (orderType == "L to H") {
         stm = FirebaseFirestore.instance
             .collection(dbYearPrefix + yearDropDownValue)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
         stm = FirebaseFirestore.instance
             .collection(dbYearPrefix + yearDropDownValue)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
             .collection(dbYearPrefix + yearDropDownValue)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .snapshots();
       }
@@ -148,16 +150,19 @@ class pendingList extends StatelessWidget {
       if (orderType == "L to H") {
         stm = FirebaseFirestore.instance
             .collection(dbYearPrefix + yearDropDownValue)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
         stm = FirebaseFirestore.instance
             .collection(dbYearPrefix + yearDropDownValue)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
             .collection(dbYearPrefix + yearDropDownValue)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .snapshots();
       }

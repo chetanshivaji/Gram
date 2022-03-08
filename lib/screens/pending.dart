@@ -85,22 +85,40 @@ class _pendingContainerState extends State<pendingContainer> {
           .collection(dbYearPrefix + dropdownValueYear);
 
       if (dropdownValuePendingSort == "L to H") {
-        snapshots = await collection.orderBy('house', descending: false).get();
+        snapshots = await collection
+            .where('houseGiven', isEqualTo: false)
+            .orderBy('house', descending: false)
+            .get();
       } else if (dropdownValuePendingSort == "H to L") {
-        snapshots = await collection.orderBy('house', descending: true).get();
+        snapshots = await collection
+            .where('houseGiven', isEqualTo: false)
+            .orderBy('house', descending: true)
+            .get();
       } else {
-        snapshots = await collection.orderBy('house', descending: true).get();
+        snapshots = await collection
+            .where('houseGiven', isEqualTo: false)
+            .orderBy('house', descending: true)
+            .get();
       }
     } else {
       var collection = FirebaseFirestore.instance
           .collection(dbYearPrefix + dropdownValueYear);
 
       if (dropdownValuePendingSort == "L to H") {
-        snapshots = await collection.orderBy('water', descending: false).get();
+        snapshots = await collection
+            .where('waterGiven', isEqualTo: false)
+            .orderBy('water', descending: false)
+            .get();
       } else if (dropdownValuePendingSort == "H to L") {
-        snapshots = await collection.orderBy('water', descending: true).get();
+        snapshots = await collection
+            .where('waterGiven', isEqualTo: false)
+            .orderBy('water', descending: true)
+            .get();
       } else {
-        snapshots = await collection.orderBy('water', descending: true).get();
+        snapshots = await collection
+            .where('waterGiven', isEqualTo: false)
+            .orderBy('water', descending: true)
+            .get();
       }
     }
 
