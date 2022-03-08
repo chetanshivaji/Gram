@@ -15,6 +15,9 @@ In future developement.
 
 
 # TODO
+1. organinze database, collection -> doc-> innerCollection.
+2. admin and security rules.
+3. create indeices from firebase index tab.
 1. Forgot password.
 2. Seperate admin and main app.  Installing one should not uninstall other. 
 3. Access control from admin to allow entry of getting involved in users of app.
