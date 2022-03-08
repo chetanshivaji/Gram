@@ -4,7 +4,6 @@ import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/communication.dart';
-import 'dart:io';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";
@@ -129,40 +128,52 @@ class pendingList extends StatelessWidget {
     if (pendingType == housePendingType) {
       if (orderType == "L to H") {
         stm = FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            .where('houseGiven', isEqualTo: false)
+            //.where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
         stm = FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            .where('houseGiven', isEqualTo: false)
+            //.where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            .where('houseGiven', isEqualTo: false)
+            //.where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .snapshots();
       }
     } else {
       if (orderType == "L to H") {
         stm = FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            .where('waterGiven', isEqualTo: false)
+            //.where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
         stm = FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            .where('waterGiven', isEqualTo: false)
+            //.where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            .where('waterGiven', isEqualTo: false)
+            //.where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .snapshots();
       }

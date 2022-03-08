@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:money/constants.dart';
-import 'package:money/screens/out.dart';
+
 import 'package:money/util.dart';
 
 void updateFormulaValues(String newEntryAmount, String typeInOut) async {
+  var ls = await getLoggedInUserVillagePin();
+
   int total = await FirebaseFirestore.instance
+      .collection(ls[0] + ls[1])
+      .doc(mainDb)
       .collection(colletionName_forumla)
       .doc(documentName_formula)
       .get()
@@ -18,11 +22,15 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
   //update formula
   if (typeInOut == "in") {
     FirebaseFirestore.instance
+        .collection(ls[0] + ls[1])
+        .doc(mainDb)
         .collection("formula")
         .doc("calculation")
         .update({'totalIn': (total + int.parse(newEntryAmount))});
   } else {
     FirebaseFirestore.instance
+        .collection(ls[0] + ls[1])
+        .doc(mainDb)
         .collection("formula")
         .doc("calculation")
         .update({'totalOut': (total + int.parse(newEntryAmount))});
@@ -82,7 +90,11 @@ class formulaLive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection("formula").snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection(village + pin)
+          .doc(mainDb)
+          .collection("formula")
+          .snapshots(),
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {

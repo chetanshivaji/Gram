@@ -36,13 +36,15 @@ class _searchScreenState extends State<searchScreen> {
 
   Future<List<DataRow>> _buildListPending() async {
     List<DataRow> ldataRow = [];
-
+    var ls = await getLoggedInUserVillagePin();
     for (var yr in items) {
       List<DataCell> ldataCell = [];
       //search DB
       try {
-        var collection =
-            FirebaseFirestore.instance.collection(dbYearPrefix + yr);
+        var collection = FirebaseFirestore.instance
+            .collection(ls[0] + ls[1])
+            .doc(mainDb)
+            .collection(dbYearPrefix + yr);
         var doc = await collection.doc(mobile).get();
 
         await doc.reference.get().then(
@@ -135,12 +137,15 @@ class _searchScreenState extends State<searchScreen> {
                       'Submit',
                     ),
                     onPressed: () async {
+                      var ls = await getLoggedInUserVillagePin();
                       if (_formKey2.currentState!.validate()) {
                         var ldr = await _buildListPending();
                         //search DB
                         for (var yr in items) {
                           try {
                             _name = await FirebaseFirestore.instance
+                                .collection(ls[0] + ls[1])
+                                .doc(mainDb)
                                 .collection(dbYearPrefix + yr)
                                 .doc(mobile)
                                 .get()
@@ -236,146 +241,3 @@ class _searchScreenState extends State<searchScreen> {
     );
   }
 }
-
-
-/*
-class searchScreen extends StatefulWidget {
-  static String id = "searchscreen";
-  const searchScreen({Key? key}) : super(key: key);
-  @override
-  _searchScreenState createState() => _searchScreenState();
-}
-
-class _searchScreenState extends State<searchScreen> {
-  String mobile = "";
-  int house = 0;
-  int water = 0;
-  bool houseGiven = false;
-  bool waterGiven = false;
-  String name = "";
-
-  String _mobile = "";
-  int _house = 0;
-  int _water = 0;
-  bool _houseGiven = false;
-  bool _waterGiven = false;
-  String _name = "";
-  String name = "";
-
-  final _formKey2 = GlobalKey<FormState>();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Search"),
-      ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
-            yearTile(clr: Colors.blue),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: Form(
-                    key: _formKey2,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          icon: Icon(Icons.mobile_friendly),
-                          hintText: "Enter mobile number to search details",
-                          labelText: "Mobile *"),
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter number';
-                        }
-                        if (value.length != 10) {
-                          return "Please enter 10 digits!";
-                        }
-                        mobile = value;
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    child: const Text(
-                      'Submit',
-                    ),
-                    onPressed: () async {
-                      if (_formKey2.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Processing Data'),
-                          ),
-                        );
-
-                        //search DB
-                        try {
-                          await FirebaseFirestore.instance
-                              .collection(dbYearPrefix + dropdownValueYear)
-                              .doc(mobile)
-                              .get()
-                              .then(
-                            (value) {
-                              var y = value.data();
-
-                              _house = y!["house"];
-                              _houseGiven = y["houseGiven"];
-                              _water = y["water"];
-                              _waterGiven = y["waterGiven"];
-                              _name = y["name"];
-                            },
-                          );
-                        } catch (e) {
-                          print(e);
-                        }
-
-                        setState(
-                          () {
-                            name = _name;
-                            house = _house;
-                            houseGiven = _houseGiven;
-                            water = _water;
-                            waterGiven = _waterGiven;
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Name  = $name"),
-            ),
-            ListTile(
-              leading: Icon(Icons.attach_money),
-              title: Text("House Amount  = $house"),
-              trailing: (houseGiven == true) ? getRightIcon() : getWrongIcon(),
-            ),
-            ListTile(
-              leading: Icon(Icons.attach_money),
-              title: Text("Water Amount  = $water"),
-              trailing: (waterGiven == true) ? getRightIcon() : getWrongIcon(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-*/

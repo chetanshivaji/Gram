@@ -32,11 +32,14 @@ class MyApp extends StatelessWidget {
             tooltip: "Cleans database for testing purpose, like fresh DB",
             onPressed: () async {
               //clean database for testing purpose, with no entries and db ready.
+              var ls = await getLoggedInUserVillagePin();
               List collections = ['inExtra', "inWater", "inHouse", "out"];
               for (var each in items) {
                 for (var col in collections) {
-                  var collection =
-                      FirebaseFirestore.instance.collection(col + each);
+                  var collection = FirebaseFirestore.instance
+                      .collection(ls[0] + ls[1])
+                      .doc(mainDb)
+                      .collection(col + each);
                   var snapshots = await collection.get();
                   for (var doc in snapshots.docs) {
                     await doc.reference.delete();
@@ -45,8 +48,10 @@ class MyApp extends StatelessWidget {
               }
               //clean mainDb2021 set houseGiven & waterGiven to false
               for (var each in items) {
-                var collection =
-                    FirebaseFirestore.instance.collection(dbYearPrefix + each);
+                var collection = FirebaseFirestore.instance
+                    .collection(ls[0] + ls[1])
+                    .doc(mainDb)
+                    .collection(dbYearPrefix + each);
                 var snapshots = await collection.get();
                 for (var doc in snapshots.docs) {
                   await doc.reference
@@ -56,6 +61,8 @@ class MyApp extends StatelessWidget {
 
               //clean formula
               FirebaseFirestore.instance
+                  .collection(ls[0] + ls[1])
+                  .doc(mainDb)
                   .collection('formula')
                   .doc("calculation")
                   .update({'totalIn': 0, 'totalOut': 0});

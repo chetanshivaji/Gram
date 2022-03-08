@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sms/flutter_sms.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 int totalIn = 0;
 int totalOut = 0;
 int totalBalance = 0;
+String mainDb = "mainDb";
+String village = "";
+String pin = "";
 
 Color clrGreen = Color(0xFFc8e6c9); //in
 
@@ -13,6 +18,27 @@ Color clrAmber = Color(0xFFF7E5B4); //pending
 
 Color clrBlue = Color(0xFF7E57E2); //report indigo;
 String userMail = "";
+
+bool userApproved = false;
+int userAccessLevel = 0;
+
+Future<List<String>> getLoggedInUserVillagePin() async {
+  List<String> lsVillagePin = [];
+  String? email = FirebaseAuth.instance.currentUser!.email;
+  String village = "";
+  String pin = "";
+
+  await FirebaseFirestore.instance.collection('users').doc(email).get().then(
+    (value) {
+      var y = value.data();
+      village = y!['village'];
+      pin = y['pin'];
+      lsVillagePin.add(village);
+      lsVillagePin.add(pin);
+    },
+  );
+  return lsVillagePin;
+}
 
 TextStyle getTableHeadingTextStyle() {
   return TextStyle(
@@ -168,6 +194,88 @@ void showAlertDialog(
     actions: [
       cancelButton, //pops once return to same page
       continueButton, //pops twice returns to home page
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+void showRegLoginAlertDialogSuccess(
+    BuildContext context, String title, String subtitle) {
+  // set up the buttons
+
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {},
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    //TODO: print success or failure and image, depending on processing
+    content: submitPop(title, subtitle, getRightIcon()),
+    actions: [
+      okButton, //pops twice returns to home page
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+void onePopAlert(BuildContext context, String title, String subtitle) {
+  // set up the buttons
+
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    //TODO: print success or failure and image, depending on processing
+    content: submitPop(title, subtitle, getWrongIcon()),
+    actions: [
+      okButton, //pops twice returns to home page
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+void showRegLoginAlertDialogFail(
+    BuildContext context, String title, String subtitle) {
+  // set up the buttons
+
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.pop(context);
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    //TODO: print success or failure and image, depending on processing
+    content: submitPop(title, subtitle, getWrongIcon()),
+    actions: [
+      okButton, //pops twice returns to home page
     ],
   );
   // show the dialog

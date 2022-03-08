@@ -36,7 +36,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseEmail = "";
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
+    var ls = await getLoggedInUserVillagePin();
     int total = await FirebaseFirestore.instance
+        .collection(ls[0] + ls[1])
+        .doc(mainDb)
         .collection(colletionName_forumla)
         .doc(documentName_formula)
         .get()
@@ -48,11 +51,15 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     //update formula
     if (typeInOut == "in") {
       FirebaseFirestore.instance
+          .collection(ls[0] + ls[1])
+          .doc(mainDb)
           .collection("formula")
           .doc("calculation")
           .update({'totalIn': (total + int.parse(newEntryAmount))});
     } else {
       FirebaseFirestore.instance
+          .collection(ls[0] + ls[1])
+          .doc(mainDb)
           .collection("formula")
           .doc("calculation")
           .update({'totalOut': (total + int.parse(newEntryAmount))});
@@ -105,9 +112,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
               onChanged: (text) async {
                 if (text.length == 10) {
+                  var ls = await getLoggedInUserVillagePin();
                   if (widget.formType == "HOUSE") {
                     try {
                       await FirebaseFirestore.instance
+                          .collection(ls[0] + ls[1])
+                          .doc(mainDb)
                           .collection(dbYearPrefix + dropdownValueYear)
                           .doc(text)
                           .get()
@@ -133,6 +143,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   } else {
                     try {
                       await FirebaseFirestore.instance
+                          .collection(ls[0] + ls[1])
+                          .doc(mainDb)
                           .collection(dbYearPrefix + dropdownValueYear)
                           .doc(text)
                           .get()
@@ -254,7 +266,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           content: Text('Processing Data'),
                         ),
                       );
+                      var ls = await getLoggedInUserVillagePin();
                       FirebaseFirestore.instance
+                          .collection(ls[0] + ls[1])
+                          .doc(mainDb)
                           .collection(inTypeSubmit + dropdownValueYear)
                           .add(
                         {
@@ -266,6 +281,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       FirebaseFirestore.instance
+                          .collection(ls[0] + ls[1])
+                          .doc(mainDb)
                           .collection(dbYearPrefix + dropdownValueYear)
                           .doc(mobile)
                           .update({inTypeGiven: true});
@@ -406,7 +423,10 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         content: Text('Processing Data'),
                       ),
                     );
+                    var ls = await getLoggedInUserVillagePin();
                     FirebaseFirestore.instance
+                        .collection(ls[0] + ls[1])
+                        .doc(mainDb)
                         .collection("inExtra" + dropdownValueYear)
                         .add(
                       {

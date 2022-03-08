@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:money/constants.dart';
 import 'package:money/util.dart';
-import 'myApp.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = "registerationscreen";
@@ -14,7 +15,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String email = "";
   String password = "";
   String reEnterPassword = "";
-
+  String village = "";
+  String pin = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +100,54 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
             SizedBox(
+              height: 8.0,
+            ),
+            TextField(
+              onChanged: (value) {
+                village = value;
+              },
+              decoration: InputDecoration(
+                hintText: 'Enter village name',
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            TextField(
+              onChanged: (value) {
+                pin = value;
+              },
+              decoration: InputDecoration(
+                hintText: 'Enter village pin',
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                ),
+              ),
+            ),
+            SizedBox(
               height: 24.0,
             ),
             Padding(
@@ -122,13 +172,59 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               email: email, password: password);
                       if (newUser != null) {
                         userMail = email;
-                        Navigator.pushNamed(context, MyApp.id);
+
+                        //Add entry of new user to users, village pin
+                        await FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(email)
+                            .set(
+                          {'village': village, "pin": pin},
+                        );
+
+                        var usersRef = await FirebaseFirestore.instance
+                            .collection(village + pin)
+                            .doc("pendingApproval");
+
+                        usersRef.get().then(
+                              (docSnapshot) => {
+                                if (docSnapshot.exists)
+                                  {
+                                    //if allready present
+                                    showAlertDialog(
+                                        context,
+                                        "PRESENT",
+                                        "Entry already present, can not add",
+                                        Icon(Icons.person_search_rounded))
+                                  }
+                                else
+                                  {
+                                    //if entry not present in db then add
+                                    FirebaseFirestore.instance
+                                        .collection(village + pin)
+                                        .doc("pendingApproval")
+                                        .collection("pending")
+                                        .doc(email)
+                                        .set(
+                                      {
+                                        'approved': false,
+                                        'accessLevel':
+                                            0, //access level set by admin decided type of use, eg .viewer, collector, admin, spender
+                                        'mail': email,
+                                      },
+                                    ),
+                                    showAlertDialog(context, titleSuccess,
+                                        subtitleSuccess, getRightIcon()),
+                                  }
+                              },
+                            );
+                        //Navigator.pushNamed(context, MyApp.id);
                       }
+                      showRegLoginAlertDialogSuccess(
+                          context, kTitleLoginSuccess, kSubTitleLoginSuccess);
                     } catch (e) {
-                      print(e);
-                      showAlertDialog(context, "registeration error",
-                          e.toString(), getWrongIcon());
-                      Navigator.pop(context);
+                      showRegLoginAlertDialogFail(
+                          context, "Registeration Failed", e.toString());
+
                       //treat exception caught
                     }
                   },

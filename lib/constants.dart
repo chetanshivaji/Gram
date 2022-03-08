@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-String kTitleSuccess = "Login/registeration failed";
-String kSubtitleSuccess = "Try again with correct username & password";
-
+String kTitleFail = "Login/registeration failed";
+String kSubtitleFail = "Try again with correct username & password";
+String kTitleLoginSuccess = "login success";
+String kSubTitleLoginSuccess = "login success";
 String colletionName_forumla = "formula";
 String documentName_formula = "calculation";
 

@@ -3,7 +3,7 @@ import 'package:money/util.dart';
 import 'inList.dart';
 import 'outList.dart';
 import 'formula.dart';
-import 'package:money/constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/model/invoice.dart';
 import 'package:money/api/pdf_api.dart';
@@ -79,11 +79,14 @@ class _reportContainerState extends State<reportContainer> {
     List<houseWaterReportEntry> entriesHouseWater = [];
     List<extraIncomeReportEntry> entriesExtraIncome = [];
     List<outReportEntry> entriesOut = [];
-
+    var ls = await getLoggedInUserVillagePin();
     var snapshots;
     if (widget.reportType == "inHouse") {
-      var collection = FirebaseFirestore.instance.collection(
-          widget.reportType + dropdownValueYear); //TODO: need to user where
+      var collection = FirebaseFirestore.instance
+          .collection(ls[0] + ls[1])
+          .doc(mainDb)
+          .collection(
+              widget.reportType + dropdownValueYear); //TODO: need to user where
 
       if (dropdownValueReportSort == "L to H") {
         snapshots = await collection.orderBy('amount', descending: false).get();
@@ -94,6 +97,8 @@ class _reportContainerState extends State<reportContainer> {
       }
     } else if (widget.reportType == "inWater") {
       var collection = FirebaseFirestore.instance
+          .collection(ls[0] + ls[1])
+          .doc(mainDb)
           .collection(widget.reportType + dropdownValueYear);
 
       if (dropdownValueReportSort == "L to H") {
@@ -105,6 +110,8 @@ class _reportContainerState extends State<reportContainer> {
       }
     } else if (widget.reportType == "inExtra") {
       var collection = FirebaseFirestore.instance
+          .collection(ls[0] + ls[1])
+          .doc(mainDb)
           .collection(widget.reportType + dropdownValueYear);
 
       if (dropdownValueReportSort == "L to H") {
@@ -116,6 +123,8 @@ class _reportContainerState extends State<reportContainer> {
       }
     } else if (widget.reportType == "out") {
       var collection = FirebaseFirestore.instance
+          .collection(ls[0] + ls[1])
+          .doc(mainDb)
           .collection(widget.reportType + dropdownValueYear);
 
       if (dropdownValueReportSort == "L to H") {

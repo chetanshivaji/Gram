@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'myApp.dart';
 import 'package:money/util.dart';
 import 'package:money/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = "loginscreen";
@@ -93,12 +94,40 @@ class _LoginScreenState extends State<LoginScreen> {
                           email: email, password: password);
                       if (newUser != null) {
                         userMail = email;
-                        Navigator.pushNamed(context, MyApp.id);
+                        //START Get users village and pin info. from user list.
+                        var ls = await getLoggedInUserVillagePin();
+                        village = ls[0];
+                        pin = ls[1];
+                        //END Get users village and pin info. from user list.
+                        //START From village and pin get user approved and accessLevel
+                        await FirebaseFirestore.instance
+                            .collection(ls[0] + ls[1])
+                            .doc('pendingApproval')
+                            .collection("pending")
+                            .doc(email)
+                            .get()
+                            .then(
+                          (value) {
+                            var y = value.data();
+                            userApproved = y!['approved'];
+                            userAccessLevel = y['accessLevel'];
+                          },
+                        );
+                        if (userApproved == false) {
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pop(context);
+                          onePopAlert(context, "Yet to be approved by Admin",
+                              "Try After sometime Or remind admin to approve.");
+                        } else {
+                          Navigator.pushNamed(context, MyApp.id);
+                          showRegLoginAlertDialogSuccess(context,
+                              kTitleLoginSuccess, kSubTitleLoginSuccess);
+                        }
                       }
+                      //END From village and pin get user approved and accessLevel
                     } catch (e) {
-                      print(e); //treat exception caught
-                      showAlertDialog(
-                          context, kTitleSuccess, e.toString(), getWrongIcon());
+                      showRegLoginAlertDialogFail(
+                          context, kTitleFail, e.toString());
                     }
                   },
                   minWidth: 200.0,

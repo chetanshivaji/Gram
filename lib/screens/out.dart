@@ -118,7 +118,7 @@ class outFormState extends State<outForm> {
           Expanded(
             child: Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
                     // If the form is valid, display a snackbar. In the real world,
@@ -135,8 +135,10 @@ class outFormState extends State<outForm> {
                       getRightIcon(),
                     );
                   }
-
+                  var ls = await getLoggedInUserVillagePin();
                   FirebaseFirestore.instance
+                      .collection(ls[0] + ls[1])
+                      .doc(mainDb)
                       .collection("out" + dropdownValueYear)
                       .add(
                     {

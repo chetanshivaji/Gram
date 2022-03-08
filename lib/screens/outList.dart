@@ -100,16 +100,22 @@ class outList extends StatelessWidget {
     Stream<QuerySnapshot<Object?>> stm;
     if (orderType == "L to H") {
       stm = FirebaseFirestore.instance
+          .collection(village + pin)
+          .doc(mainDb)
           .collection(outType + yearDropDownValue)
           .orderBy('amount', descending: false)
           .snapshots();
     } else if (orderType == "H to L") {
       stm = FirebaseFirestore.instance
+          .collection(village + pin)
+          .doc(mainDb)
           .collection(outType + yearDropDownValue)
           .orderBy('amount', descending: true)
           .snapshots();
     } else {
       stm = FirebaseFirestore.instance
+          .collection(village + pin)
+          .doc(mainDb)
           .collection(outType + yearDropDownValue)
           .orderBy('date', descending: true)
           .snapshots();
