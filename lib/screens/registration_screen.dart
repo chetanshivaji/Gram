@@ -159,8 +159,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: MaterialButton(
                   onPressed: () async {
                     if (password != reEnterPassword) {
-                      showRegLoginAlertDialogFail(
-                          context, titlePassMismatch, subtitlePassMismatch);
+                      popAlert(context, titlePassMismatch, subtitlePassMismatch,
+                          getWrongIcon(), 1);
+                      return;
                     }
                     //Implement registration functionality.
                     try {
@@ -187,11 +188,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 if (docSnapshot.exists)
                                   {
                                     //if allready present
-                                    showRegLoginAlertDialogFail(
-                                      context,
-                                      "PRESENT",
-                                      "Entry already present, can not add",
-                                    )
+                                    popAlert(
+                                        context,
+                                        "PRESENT",
+                                        "Entry already present, can not add",
+                                        getWrongIcon(),
+                                        1)
                                   }
                                 else
                                   {
@@ -209,17 +211,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         'mail': email,
                                       },
                                     ),
-                                    showRegAlertDialogSuccess(
+                                    popAlert(
                                         context,
                                         kTitleRegisterationSuccess,
-                                        kSubTitleRegisterationSuccess),
+                                        kSubTitleRegisterationSuccess,
+                                        getRightIcon(),
+                                        2),
                                   }
                               },
                             );
                       }
                     } catch (e) {
-                      showRegLoginAlertDialogFail(
-                          context, kTitleRegisterationFailed, e.toString());
+                      popAlert(context, kTitleRegisterationFailed, e.toString(),
+                          getWrongIcon(), 2);
+                      return;
                       //treat exception caught
                     }
                   },

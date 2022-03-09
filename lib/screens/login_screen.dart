@@ -127,19 +127,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushNamed(context, MyApp.id);
                           }
                         } catch (e) {
-                          showRegLoginAlertDialogFail(
-                              context, kTitleFail, e.toString());
+                          popAlert(context, kTitleFail, e.toString(),
+                              getWrongIcon(), 2);
                         }
                       } else {
-                        onePopAlert(
-                          context,
-                          "Yet to be approved by Admin",
-                          "Try After sometime Or remind admin to approve.",
-                        );
+                        popAlert(
+                            context,
+                            "Yet to be approved by Admin",
+                            "Try After sometime Or remind admin to approve.",
+                            getWrongIcon(),
+                            1);
+                        return;
                       }
                     } catch (e) {
-                      showRegLoginAlertDialogFail(
-                          context, kTitleFail, e.toString());
+                      popAlert(
+                          context, kTitleFail, e.toString(), getWrongIcon(), 2);
+                      return;
                     }
                   },
                   minWidth: 200.0,

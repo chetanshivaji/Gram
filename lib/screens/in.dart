@@ -308,12 +308,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       String attachment = gReceiptPdfName;
                       await sendEmail(subject, body, email, attachment);
                     }
-                    showAlertDialog(
-                      context,
-                      titleSuccess,
-                      subtitleSuccess,
-                      getRightIcon(),
-                    );
+                    popAlert(context, titleSuccess, subtitleSuccess,
+                        getRightIcon(), 1);
 
                     // Validate returns true if the form is valid, or false otherwise.
                   }
@@ -438,8 +434,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                     );
                     updateFormulaValues(amount.toString(),
                         "in"); //fetch exisiting value from formula and update new value.
-                    showAlertDialog(
-                        context, titleSuccess, subtitleSuccess, getRightIcon());
+                    popAlert(context, titleSuccess, subtitleSuccess,
+                        getRightIcon(), 1);
                   }
                 },
                 child: const Text(

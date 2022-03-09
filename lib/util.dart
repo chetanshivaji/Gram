@@ -170,118 +170,27 @@ class _yearTileState extends State<yearTile> {
   }
 }
 
-void showAlertDialog(
-    BuildContext context, String title, String subtitle, Widget img) {
-  // set up the buttons
-  Widget cancelButton = TextButton(
-    child: Text("Cancel"),
-    onPressed: () {
-      Navigator.pop(context);
-    },
-  );
-  Widget continueButton = TextButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.pop(context);
-      Navigator.pop(context);
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    //TODO: print success or failure and image, depending on processing
-    content: submitPop(title, subtitle, img),
-    actions: [
-      cancelButton, //pops once return to same page
-      continueButton, //pops twice returns to home page
-    ],
-  );
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-void showRegAlertDialogSuccess(
-    BuildContext context, String title, String subtitle) {
-  // set up the buttons
+void popAlert(BuildContext context, String title, String subtitle,
+    Widget imgRightWrong, int popCount) {
+  //shows alert dialog
+  //paramaters, title, subtitle, imgRightWrong:image with right or wrong icon, popCount: how many times navigate back
 
   Widget okButton = TextButton(
     child: Text("OK"),
     onPressed: () {
-      Navigator.pop(context);
-      Navigator.pop(context);
+      for (int i = 0; i < popCount; i++) {
+        Navigator.pop(context);
+      }
     },
   );
 
-  // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    //TODO: print success or failure and image, depending on processing
-    content: submitPop(title, subtitle, getRightIcon()),
+    content: submitPop(title, subtitle, imgRightWrong),
     actions: [
       okButton, //pops twice returns to home page
     ],
   );
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
 
-void onePopAlert(BuildContext context, String title, String subtitle) {
-  // set up the buttons
-
-  Widget okButton = TextButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.pop(context);
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    //TODO: print success or failure and image, depending on processing
-    content: submitPop(title, subtitle, getWrongIcon()),
-    actions: [
-      okButton, //pops twice returns to home page
-    ],
-  );
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-void showRegLoginAlertDialogFail(
-    BuildContext context, String title, String subtitle) {
-  // set up the buttons
-
-  Widget okButton = TextButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.pop(context);
-      Navigator.pop(context);
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    //TODO: print success or failure and image, depending on processing
-    content: submitPop(title, subtitle, getWrongIcon()),
-    actions: [
-      okButton, //pops twice returns to home page
-    ],
-  );
-  // show the dialog
   showDialog(
     context: context,
     builder: (BuildContext context) {

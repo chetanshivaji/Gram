@@ -128,11 +128,12 @@ class outFormState extends State<outForm> {
                         content: Text('Processing Data'),
                       ),
                     );
-                    showAlertDialog(
+                    popAlert(
                       context,
                       titleSuccess,
                       subtitleSuccess,
                       getRightIcon(),
+                      1,
                     );
                   }
                   var ls = await getLoggedInUserVillagePin();
