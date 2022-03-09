@@ -109,6 +109,7 @@ class _searchScreenState extends State<searchScreen> {
                   child: Form(
                     key: _formKey2,
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           icon: Icon(Icons.mobile_friendly),
