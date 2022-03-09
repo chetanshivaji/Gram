@@ -35,6 +35,7 @@ class outFormState extends State<outForm> {
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    bool onPressedOut = false;
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -120,7 +121,9 @@ class outFormState extends State<outForm> {
               child: ElevatedButton(
                 onPressed: () async {
                   // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate() &&
+                      onPressedOut == false) {
+                    onPressedOut = true;
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -128,34 +131,33 @@ class outFormState extends State<outForm> {
                         content: Text('Processing Data'),
                       ),
                     );
+
+                    var ls = await getLoggedInUserVillagePin();
+                    await FirebaseFirestore.instance
+                        .collection(ls[0] + ls[1])
+                        .doc(mainDb)
+                        .collection("out" + dropdownValueYear)
+                        .add(
+                      {
+                        'name': name,
+                        'reason': reason,
+                        'amount': amount,
+                        'extraInfo': extraInfo,
+                        'date': DateTime.now().toString(),
+                        'user': userMail,
+                      },
+                    );
+                    updateFormulaValues(amount.toString(),
+                        "out"); //fetch exisiting value from formula and update new value.
+
                     popAlert(
                       context,
                       titleSuccess,
                       subtitleSuccess,
                       getRightIcon(),
-                      1,
+                      2,
                     );
                   }
-                  var ls = await getLoggedInUserVillagePin();
-                  FirebaseFirestore.instance
-                      .collection(ls[0] + ls[1])
-                      .doc(mainDb)
-                      .collection("out" + dropdownValueYear)
-                      .add(
-                    {
-                      'name': name,
-                      'reason': reason,
-                      'amount': amount,
-                      'extraInfo': extraInfo,
-                      'date': DateTime.now().toString(),
-                      'user': userMail,
-                    },
-                  );
-                  updateFormulaValues(amount.toString(),
-                      "out"); //fetch exisiting value from formula and update new value.
-
-                  _onBasicAlertPressed(context);
-                  Navigator.pop(context);
                 },
                 child: const Text(
                   'Submit',
