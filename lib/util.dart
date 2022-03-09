@@ -211,7 +211,9 @@ void showRegLoginAlertDialogSuccess(
 
   Widget okButton = TextButton(
     child: Text("OK"),
-    onPressed: () {},
+    onPressed: () {
+      Navigator.pop(context);
+    },
   );
 
   // set up the AlertDialog

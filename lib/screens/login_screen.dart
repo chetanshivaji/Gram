@@ -88,43 +88,54 @@ class _LoginScreenState extends State<LoginScreen> {
                 elevation: 5.0,
                 child: MaterialButton(
                   onPressed: () async {
+                    bool approvedUser = false;
                     //Implement registration functionality.
                     try {
-                      final newUser = await _auth.signInWithEmailAndPassword(
-                          email: email, password: password);
-                      if (newUser != null) {
-                        userMail = email;
-                        //START Get users village and pin info. from user list.
-                        var ls = await getLoggedInUserVillagePin();
-                        village = ls[0];
-                        pin = ls[1];
-                        //END Get users village and pin info. from user list.
-                        //START From village and pin get user approved and accessLevel
+                      try {
+                        //check if email trying to login is admin.
                         await FirebaseFirestore.instance
-                            .collection(ls[0] + ls[1])
-                            .doc('pendingApproval')
-                            .collection("pending")
+                            .collection("users")
                             .doc(email)
                             .get()
                             .then(
                           (value) {
                             var y = value.data();
-                            userApproved = y!['approved'];
-                            userAccessLevel = y['accessLevel'];
+                            village = y!["village"];
+                            pin = y["pin"];
                           },
                         );
-                        if (userApproved == false) {
-                          FirebaseAuth.instance.signOut();
-                          Navigator.pop(context);
-                          onePopAlert(context, "Yet to be approved by Admin",
-                              "Try After sometime Or remind admin to approve.");
-                        } else {
+                        approvedUser = await FirebaseFirestore.instance
+                            .collection(village + pin)
+                            .doc('pendingApproval')
+                            .collection('pending')
+                            .doc(email)
+                            .get()
+                            .then(
+                          (value) {
+                            var y = value.data();
+                            return y!["approved"];
+                          },
+                        );
+                      } catch (e) {
+                        print(e);
+                      }
+                      if (approvedUser == true) {
+                        final newUser = await _auth.signInWithEmailAndPassword(
+                            email: email, password: password);
+                        if (newUser != null) {
+                          userMail = email;
+
                           Navigator.pushNamed(context, MyApp.id);
                           showRegLoginAlertDialogSuccess(context,
                               kTitleLoginSuccess, kSubTitleLoginSuccess);
                         }
+                      } else {
+                        onePopAlert(
+                          context,
+                          "Yet to be approved by Admin",
+                          "Try After sometime Or remind admin to approve.",
+                        );
                       }
-                      //END From village and pin get user approved and accessLevel
                     } catch (e) {
                       showRegLoginAlertDialogFail(
                           context, kTitleFail, e.toString());
