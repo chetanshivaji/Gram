@@ -267,7 +267,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         ),
                       );
                       var ls = await getLoggedInUserVillagePin();
-                      FirebaseFirestore.instance
+                      await FirebaseFirestore.instance
                           .collection(ls[0] + ls[1])
                           .doc(mainDb)
                           .collection(inTypeSubmit + dropdownValueYear)
@@ -280,7 +280,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           'user': userMail,
                         },
                       );
-                      FirebaseFirestore.instance
+                      await FirebaseFirestore.instance
                           .collection(ls[0] + ls[1])
                           .doc(mainDb)
                           .collection(dbYearPrefix + dropdownValueYear)
