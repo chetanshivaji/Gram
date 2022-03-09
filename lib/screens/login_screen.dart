@@ -91,41 +91,44 @@ class _LoginScreenState extends State<LoginScreen> {
                     bool approvedUser = false;
                     //Implement registration functionality.
                     try {
-                      try {
-                        //check if email trying to login is admin.
-                        await FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(email)
-                            .get()
-                            .then(
-                          (value) {
-                            var y = value.data();
-                            village = y!["village"];
-                            pin = y["pin"];
-                          },
-                        );
-                        approvedUser = await FirebaseFirestore.instance
-                            .collection(village + pin)
-                            .doc('pendingApproval')
-                            .collection('pending')
-                            .doc(email)
-                            .get()
-                            .then(
-                          (value) {
-                            var y = value.data();
-                            return y!["approved"];
-                          },
-                        );
-                      } catch (e) {
-                        print(e);
-                      }
-                      if (approvedUser == true) {
-                        final newUser = await _auth.signInWithEmailAndPassword(
-                            email: email, password: password);
-                        if (newUser != null) {
-                          userMail = email;
+                      //check if email trying to login is admin.
+                      await FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(email)
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          village = y!["village"];
+                          pin = y["pin"];
+                        },
+                      );
+                      approvedUser = await FirebaseFirestore.instance
+                          .collection(village + pin)
+                          .doc('pendingApproval')
+                          .collection('pending')
+                          .doc(email)
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          return y!["approved"];
+                        },
+                      );
 
-                          Navigator.pushNamed(context, MyApp.id);
+                      if (approvedUser == true) {
+                        try {
+                          final newUser =
+                              await _auth.signInWithEmailAndPassword(
+                                  email: email, password: password);
+                          if (newUser != null) {
+                            userMail = email;
+
+                            Navigator.pushNamed(context, MyApp.id);
+                          }
+                        } catch (e) {
+                          showRegLoginAlertDialogFail(
+                              context, kTitleFail, e.toString());
                         }
                       } else {
                         onePopAlert(

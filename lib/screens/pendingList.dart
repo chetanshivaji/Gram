@@ -131,7 +131,7 @@ class pendingList extends StatelessWidget {
             .collection(village + pin)
             .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            //.where('houseGiven', isEqualTo: false)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
@@ -139,7 +139,7 @@ class pendingList extends StatelessWidget {
             .collection(village + pin)
             .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            //.where('houseGiven', isEqualTo: false)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .snapshots();
       } else {
@@ -147,7 +147,7 @@ class pendingList extends StatelessWidget {
             .collection(village + pin)
             .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            //.where('houseGiven', isEqualTo: false)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .snapshots();
       }
@@ -157,7 +157,7 @@ class pendingList extends StatelessWidget {
             .collection(village + pin)
             .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            //.where('waterGiven', isEqualTo: false)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: false)
             .snapshots();
       } else if (orderType == "H to L") {
@@ -165,7 +165,7 @@ class pendingList extends StatelessWidget {
             .collection(village + pin)
             .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            //.where('waterGiven', isEqualTo: false)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .snapshots();
       } else {
@@ -173,7 +173,7 @@ class pendingList extends StatelessWidget {
             .collection(village + pin)
             .doc(mainDb)
             .collection(dbYearPrefix + yearDropDownValue)
-            //.where('waterGiven', isEqualTo: false)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .snapshots();
       }

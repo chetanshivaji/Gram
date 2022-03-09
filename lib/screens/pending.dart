@@ -88,17 +88,17 @@ class _pendingContainerState extends State<pendingContainer> {
 
       if (dropdownValuePendingSort == "L to H") {
         snapshots = await collection
-            //.where('houseGiven', isEqualTo: false)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: false)
             .get();
       } else if (dropdownValuePendingSort == "H to L") {
         snapshots = await collection
-            //.where('houseGiven', isEqualTo: false)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .get();
       } else {
         snapshots = await collection
-            //.where('houseGiven', isEqualTo: false)
+            .where('houseGiven', isEqualTo: false)
             .orderBy('house', descending: true)
             .get();
       }
@@ -110,17 +110,17 @@ class _pendingContainerState extends State<pendingContainer> {
 
       if (dropdownValuePendingSort == "L to H") {
         snapshots = await collection
-            //.where('waterGiven', isEqualTo: false)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: false)
             .get();
       } else if (dropdownValuePendingSort == "H to L") {
         snapshots = await collection
-            //.where('waterGiven', isEqualTo: false)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .get();
       } else {
         snapshots = await collection
-            //.where('waterGiven', isEqualTo: false)
+            .where('waterGiven', isEqualTo: false)
             .orderBy('water', descending: true)
             .get();
       }
@@ -159,7 +159,7 @@ class _pendingContainerState extends State<pendingContainer> {
     //END - fetch data to display in pdf
   }
 
-  ////.where('waterGiven', isEqualTo: true)
+  //.where('waterGiven', isEqualTo: true)
   @override
   Widget build(BuildContext context) {
     return Container(
