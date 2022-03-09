@@ -12,8 +12,8 @@ String kSubTitleRegisterationSuccess =
 
 String kTitleRegisterationFailed = "Registeration Fail";
 
-String title = "Password mismatch";
-String subtitle = "passwrod and re entered password should match";
+String titlePassMismatch = "Password mismatch";
+String subtitlePassMismatch = "passwrod and re entered password should match";
 
 String colletionName_forumla = "formula";
 String documentName_formula = "calculation";
