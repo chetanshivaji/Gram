@@ -205,13 +205,14 @@ void showAlertDialog(
   );
 }
 
-void showRegLoginAlertDialogSuccess(
+void showRegAlertDialogSuccess(
     BuildContext context, String title, String subtitle) {
   // set up the buttons
 
   Widget okButton = TextButton(
     child: Text("OK"),
     onPressed: () {
+      Navigator.pop(context);
       Navigator.pop(context);
     },
   );

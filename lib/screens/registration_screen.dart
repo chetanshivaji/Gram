@@ -159,11 +159,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: MaterialButton(
                   onPressed: () async {
                     if (password != reEnterPassword) {
-                      String title = "Password mismatch";
-                      String subtitle =
-                          "passwrod and re entered password should match";
-                      showAlertDialog(context, title, subtitle, getWrongIcon());
-                      //TODO: return if mismatch passwords.
+                      showRegLoginAlertDialogFail(
+                          context, titlePassMismatch, subtitlePassMismatch);
                     }
                     //Implement registration functionality.
                     try {
@@ -190,11 +187,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 if (docSnapshot.exists)
                                   {
                                     //if allready present
-                                    showAlertDialog(
-                                        context,
-                                        "PRESENT",
-                                        "Entry already present, can not add",
-                                        Icon(Icons.person_search_rounded))
+                                    showRegLoginAlertDialogFail(
+                                      context,
+                                      "PRESENT",
+                                      "Entry already present, can not add",
+                                    )
                                   }
                                 else
                                   {
@@ -212,19 +209,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         'mail': email,
                                       },
                                     ),
-                                    showAlertDialog(context, titleSuccess,
-                                        subtitleSuccess, getRightIcon()),
+                                    showRegAlertDialogSuccess(
+                                        context,
+                                        kTitleRegisterationSuccess,
+                                        kSubTitleRegisterationSuccess),
                                   }
                               },
                             );
-                        //Navigator.pushNamed(context, MyApp.id);
                       }
-                      showRegLoginAlertDialogSuccess(
-                          context, kTitleLoginSuccess, kSubTitleLoginSuccess);
                     } catch (e) {
                       showRegLoginAlertDialogFail(
-                          context, "Registeration Failed", e.toString());
-
+                          context, kTitleRegisterationFailed, e.toString());
                       //treat exception caught
                     }
                   },

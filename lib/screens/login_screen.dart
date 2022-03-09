@@ -126,8 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           userMail = email;
 
                           Navigator.pushNamed(context, MyApp.id);
-                          showRegLoginAlertDialogSuccess(context,
-                              kTitleLoginSuccess, kSubTitleLoginSuccess);
                         }
                       } else {
                         onePopAlert(
