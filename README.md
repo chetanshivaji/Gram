@@ -17,7 +17,7 @@ In future developement.
 # TODO
 					
 1. who wil notify
-2. login only once. 
+
 3. who reminded
 4. recyler tile
 5. ternary operator Recycler list
@@ -25,9 +25,9 @@ In future developement.
 7. why search slow
 8. forgot password
 9. if no entry in db no error.
-10. change access level
+10. change access level smartly
 11. Check in registeration from main app, if village and pin exist.
-1. Use Profile button.
+
 2. Auto disapprove all users except admin. admin should approve users after certain period.
 3. Subscrption implementation. stopping process at end of subscription period.
 4. Detailed report at end of year.
@@ -43,7 +43,7 @@ In future developement.
 8. ios app testing on real ios device.
 9. Make language independent add Marathi
 10. App version after clicking on info
-14. UPI gateway for payment.
+
 15. Date window for generating report for defined period by user.
 17. addtion of section health tax, & electricity maintaince tax etc.
 
