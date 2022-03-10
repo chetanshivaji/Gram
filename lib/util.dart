@@ -20,7 +20,7 @@ Color clrBlue = Color(0xFF7E57E2); //report indigo;
 String userMail = "";
 bool userApproved = false;
 
-String access = "viewer";
+String access = "Viewer";
 enum accessLevel {
   Viewer,
   Collector,

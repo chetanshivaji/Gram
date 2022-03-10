@@ -207,7 +207,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       {
                                         'approved': false,
                                         'accessLevel':
-                                            0, //access level set by admin decided type of use, eg .viewer, collector, admin, spender
+                                            "Viewer", //access level set by admin decided type of use, eg .viewer, collector, admin, spender
                                         'mail': email,
                                       },
                                     ),
