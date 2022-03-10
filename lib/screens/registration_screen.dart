@@ -189,8 +189,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           );
 
                           var usersRef = await FirebaseFirestore.instance
-                              .collection(village + pin)
-                              .doc("pendingApproval");
+                              .collection('users')
+                              .doc(email);
 
                           usersRef.get().then(
                                 (docSnapshot) => {
@@ -207,12 +207,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   else
                                     {
                                       //if entry not present in db then add
-                                      FirebaseFirestore.instance
-                                          .collection(village + pin)
-                                          .doc("pendingApproval")
-                                          .collection("pending")
-                                          .doc(email)
-                                          .set(
+                                      usersRef.set(
                                         {
                                           'approved': false,
                                           'accessLevel':

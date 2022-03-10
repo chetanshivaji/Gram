@@ -37,9 +37,7 @@ List<String> accessItems = [
 Future<String> getUserAccessLevel(BuildContext context, String email) async {
   try {
     String usreAccessLevel = await FirebaseFirestore.instance
-        .collection(village + pin)
-        .doc('pendingApproval')
-        .collection('pending')
+        .collection("users")
         .doc(email)
         .get()
         .then(

@@ -113,9 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         );
                         approvedUser = await FirebaseFirestore.instance
-                            .collection(village + pin)
-                            .doc('pendingApproval')
-                            .collection('pending')
+                            .collection('users')
                             .doc(email)
                             .get()
                             .then(
