@@ -12,151 +12,179 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formLoginKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
   String email = "";
   String password = "";
 
   @override
   Widget build(BuildContext context) {
-    bool pressed = false;
+    bool pressed = true;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            TextField(
-              onChanged: (value) {
-                email = value;
-              },
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                hintText: 'Enter your email',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.lightBlueAccent, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            TextField(
-              obscureText: true,
-              onChanged: (value) {
-                password = value;
-              },
-              decoration: InputDecoration(
-                hintText: 'Enter your password.',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.lightBlueAccent, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 24.0,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                elevation: 5.0,
-                child: MaterialButton(
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
+        child: Form(
+          key: _formLoginKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter email';
+                  }
+                  email = value;
+                  return null;
+                },
+                decoration: InputDecoration(
+                  icon: Icon(Icons.email),
+                  labelText: "Email *",
+                  hintText: 'Enter your email',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
-                  onPressed: () async {
-                    if (pressed == false) {
-                      //To ensure only on press
-                      pressed = true;
-                      bool approvedUser = false;
-                      //Implement registration functionality.
-                      try {
-                        //check if email trying to login is admin.
-                        await FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(email)
-                            .get()
-                            .then(
-                          (value) {
-                            var y = value.data();
-                            village = y!["village"];
-                            pin = y["pin"];
-                          },
-                        );
-                        approvedUser = await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(email)
-                            .get()
-                            .then(
-                          (value) {
-                            var y = value.data();
-                            access = y!["accessLevel"];
-                            return y["approved"];
-                          },
-                        );
-
-                        if (approvedUser == true) {
-                          try {
-                            final newUser =
-                                await _auth.signInWithEmailAndPassword(
-                                    email: email, password: password);
-                            if (newUser != null) {
-                              userMail = email;
-                              Navigator.pushNamed(context, MyApp.id);
-                            }
-                          } catch (e) {
-                            popAlert(context, kTitleFail, e.toString(),
-                                getWrongIcon(), 2);
-                          }
-                        } else {
-                          popAlert(
-                              context,
-                              "Yet to be approved by Admin",
-                              "Try After sometime Or remind admin to approve.",
-                              getWrongIcon(),
-                              1);
-                          return;
-                        }
-                      } catch (e) {
-                        popAlert(context, kTitleFail, e.toString(),
-                            getWrongIcon(), 2);
-                        return;
-                      }
-                    }
-                  },
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.lightBlueAccent, width: 1.0),
+                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                  ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 8.0,
+              ),
+              TextFormField(
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter password minimum 6 character';
+                  }
+                  password = value;
+                  return null;
+                },
+                decoration: InputDecoration(
+                  icon: Icon(Icons.password),
+                  labelText: "Password *",
+                  hintText: 'Enter your password.',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.lightBlueAccent, width: 1.0),
+                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 24.0,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                child: Material(
+                  color: Colors.lightBlueAccent,
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  elevation: 5.0,
+                  child: MaterialButton(
+                    minWidth: 200.0,
+                    height: 42.0,
+                    child: Text(
+                      'Log In',
+                    ),
+                    onPressed: pressed
+                        ? () async {
+                            if (_formLoginKey.currentState!.validate()) {
+                              bool approvedUser = false;
+                              try {
+                                //check if email trying to login is admin.
+                                bool res = await FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(email)
+                                    .get()
+                                    .then(
+                                  (value) async {
+                                    if (!value.exists) {
+                                      //if allready present
+                                      popAlert(
+                                        context,
+                                        "No Present",
+                                        "Email not present",
+                                        getWrongIcon(),
+                                        2,
+                                      );
+                                      return false;
+                                    } else {
+                                      var y = value.data();
+                                      access = y!["accessLevel"];
+                                      village = y["village"];
+                                      pin = y["pin"];
+                                      approvedUser = y["approved"];
+                                      return true;
+                                    }
+                                  },
+                                );
+                                if (!res) return;
+
+                                if (approvedUser == true) {
+                                  final newUser =
+                                      await _auth.signInWithEmailAndPassword(
+                                    email: email,
+                                    password: password,
+                                  );
+                                  if (newUser != null) {
+                                    userMail = email;
+                                    Navigator.pushNamed(
+                                      context,
+                                      MyApp.id,
+                                    );
+                                  }
+                                } else {
+                                  popAlert(
+                                    context,
+                                    "Yet to be approved by Admin",
+                                    "Try After sometime Or remind admin to approve.",
+                                    getWrongIcon(),
+                                    1,
+                                  );
+                                  return;
+                                }
+                              } catch (e) {
+                                popAlert(
+                                  context,
+                                  kTitleFail,
+                                  e.toString(),
+                                  getWrongIcon(),
+                                  2,
+                                );
+                                return;
+                              }
+                              pressed = false;
+                            }
+                          }
+                        : null,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

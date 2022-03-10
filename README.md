@@ -26,7 +26,7 @@ In future developement.
 8. forgot password
 9. if no entry in db no error.
 10. change access level
-
+11. Check in registeration from main app, if village and pin exist.
 1. Use Profile button.
 2. Auto disapprove all users except admin. admin should approve users after certain period.
 3. Subscrption implementation. stopping process at end of subscription period.
