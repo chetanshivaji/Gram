@@ -318,7 +318,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           "in"); //fetch exisiting value from formula and update new value.
 
                       String message =
-                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!";
+                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received! --$email";
                       List<String> recipents = [mobile];
                       if (textMsgEnabled)
                         await sendTextToPhone(message, recipents);
@@ -330,7 +330,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
                       String subject =
                           "$name $typeSubmit Tax receipt for year $dropdownValueYear";
-                      String body = "Please find attached receipt, Thank you!";
+                      String body =
+                          "Please find attached receipt, Thank you!--Regards,\n $email";
                       String attachment = gReceiptPdfName;
                       await sendEmail(subject, body, email, attachment);
 

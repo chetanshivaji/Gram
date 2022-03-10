@@ -18,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool pressed = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -87,69 +88,73 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 elevation: 5.0,
                 child: MaterialButton(
-                  onPressed: () async {
-                    bool approvedUser = false;
-                    //Implement registration functionality.
-                    try {
-                      //check if email trying to login is admin.
-                      await FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(email)
-                          .get()
-                          .then(
-                        (value) {
-                          var y = value.data();
-                          village = y!["village"];
-                          pin = y["pin"];
-                        },
-                      );
-                      approvedUser = await FirebaseFirestore.instance
-                          .collection(village + pin)
-                          .doc('pendingApproval')
-                          .collection('pending')
-                          .doc(email)
-                          .get()
-                          .then(
-                        (value) {
-                          var y = value.data();
-                          access = y!["accessLevel"];
-                          return y["approved"];
-                        },
-                      );
-
-                      if (approvedUser == true) {
-                        try {
-                          final newUser =
-                              await _auth.signInWithEmailAndPassword(
-                                  email: email, password: password);
-                          if (newUser != null) {
-                            userMail = email;
-                            Navigator.pushNamed(context, MyApp.id);
-                          }
-                        } catch (e) {
-                          popAlert(context, kTitleFail, e.toString(),
-                              getWrongIcon(), 2);
-                        }
-                      } else {
-                        popAlert(
-                            context,
-                            "Yet to be approved by Admin",
-                            "Try After sometime Or remind admin to approve.",
-                            getWrongIcon(),
-                            1);
-                        return;
-                      }
-                    } catch (e) {
-                      popAlert(
-                          context, kTitleFail, e.toString(), getWrongIcon(), 2);
-                      return;
-                    }
-                  },
                   minWidth: 200.0,
                   height: 42.0,
                   child: Text(
                     'Log In',
                   ),
+                  onPressed: () async {
+                    if (pressed == false) {
+                      //To ensure only on press
+                      pressed = true;
+                      bool approvedUser = false;
+                      //Implement registration functionality.
+                      try {
+                        //check if email trying to login is admin.
+                        await FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(email)
+                            .get()
+                            .then(
+                          (value) {
+                            var y = value.data();
+                            village = y!["village"];
+                            pin = y["pin"];
+                          },
+                        );
+                        approvedUser = await FirebaseFirestore.instance
+                            .collection(village + pin)
+                            .doc('pendingApproval')
+                            .collection('pending')
+                            .doc(email)
+                            .get()
+                            .then(
+                          (value) {
+                            var y = value.data();
+                            access = y!["accessLevel"];
+                            return y["approved"];
+                          },
+                        );
+
+                        if (approvedUser == true) {
+                          try {
+                            final newUser =
+                                await _auth.signInWithEmailAndPassword(
+                                    email: email, password: password);
+                            if (newUser != null) {
+                              userMail = email;
+                              Navigator.pushNamed(context, MyApp.id);
+                            }
+                          } catch (e) {
+                            popAlert(context, kTitleFail, e.toString(),
+                                getWrongIcon(), 2);
+                          }
+                        } else {
+                          popAlert(
+                              context,
+                              "Yet to be approved by Admin",
+                              "Try After sometime Or remind admin to approve.",
+                              getWrongIcon(),
+                              1);
+                          return;
+                        }
+                      } catch (e) {
+                        popAlert(context, kTitleFail, e.toString(),
+                            getWrongIcon(), 2);
+                        return;
+                      }
+                    }
+                  },
                 ),
               ),
             ),

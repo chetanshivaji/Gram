@@ -48,15 +48,19 @@ class pendingList extends StatelessWidget {
               }
 
               String notificationMessage =
-                  "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat";
+                  "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat  -- $userMail"; //who is reminding
               String mobileWhatsApp = l.get("mobile").toString();
               List<String> listMobile = [mobileWhatsApp];
               if (textMsgEnabled)
                 await sendTextToPhone(notificationMessage, listMobile);
 
-              if (whatsUpEnabled)
+              if (whatsUpEnabled) if (mobileWhatsApp.contains("+91")) {
                 await launchWhatsApp(
                     notificationMessage, "+91" + mobileWhatsApp);
+              } else {
+                //For foreign numbers stored, and phone numbers directly with country extension.
+                await launchWhatsApp(notificationMessage, mobileWhatsApp);
+              }
             },
             icon: Icon(
               Icons.notifications_active_outlined,

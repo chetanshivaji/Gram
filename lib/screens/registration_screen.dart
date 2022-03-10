@@ -19,6 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String pin = "";
   @override
   Widget build(BuildContext context) {
+    bool pressed = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -157,83 +158,86 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 elevation: 5.0,
                 child: MaterialButton(
-                  onPressed: () async {
-                    if (password != reEnterPassword) {
-                      popAlert(context, titlePassMismatch, subtitlePassMismatch,
-                          getWrongIcon(), 1);
-                      return;
-                    }
-                    //Implement registration functionality.
-                    try {
-                      final newUser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
-                      if (newUser != null) {
-                        userMail = email;
-
-                        //Add entry of new user to users, village pin
-                        await FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(email)
-                            .set(
-                          {'village': village, "pin": pin},
-                        );
-
-                        var usersRef = await FirebaseFirestore.instance
-                            .collection(village + pin)
-                            .doc("pendingApproval");
-
-                        usersRef.get().then(
-                              (docSnapshot) => {
-                                if (docSnapshot.exists)
-                                  {
-                                    //if allready present
-                                    popAlert(
-                                        context,
-                                        "PRESENT",
-                                        "Entry already present, can not add",
-                                        getWrongIcon(),
-                                        1)
-                                  }
-                                else
-                                  {
-                                    //if entry not present in db then add
-                                    FirebaseFirestore.instance
-                                        .collection(village + pin)
-                                        .doc("pendingApproval")
-                                        .collection("pending")
-                                        .doc(email)
-                                        .set(
-                                      {
-                                        'approved': false,
-                                        'accessLevel':
-                                            "Viewer", //access level set by admin decided type of use, eg .viewer, collector, admin, spender
-                                        'mail': email,
-                                      },
-                                    ),
-                                    popAlert(
-                                        context,
-                                        kTitleRegisterationSuccess,
-                                        kSubTitleRegisterationSuccess,
-                                        getRightIcon(),
-                                        2),
-                                  }
-                              },
-                            );
-                      }
-                    } catch (e) {
-                      popAlert(context, kTitleRegisterationFailed, e.toString(),
-                          getWrongIcon(), 2);
-                      return;
-                      //treat exception caught
-                    }
-                  },
                   minWidth: 200.0,
                   height: 42.0,
                   child: Text(
                     'Register',
                     style: TextStyle(color: Colors.white),
                   ),
+                  onPressed: () async {
+                    if (pressed == false) {
+                      pressed = true;
+                      if (password != reEnterPassword) {
+                        popAlert(context, titlePassMismatch,
+                            subtitlePassMismatch, getWrongIcon(), 1);
+                        return;
+                      }
+                      //Implement registration functionality.
+                      try {
+                        final newUser =
+                            await _auth.createUserWithEmailAndPassword(
+                                email: email, password: password);
+                        if (newUser != null) {
+                          userMail = email;
+
+                          //Add entry of new user to users, village pin
+                          await FirebaseFirestore.instance
+                              .collection("users")
+                              .doc(email)
+                              .set(
+                            {'village': village, "pin": pin},
+                          );
+
+                          var usersRef = await FirebaseFirestore.instance
+                              .collection(village + pin)
+                              .doc("pendingApproval");
+
+                          usersRef.get().then(
+                                (docSnapshot) => {
+                                  if (docSnapshot.exists)
+                                    {
+                                      //if allready present
+                                      popAlert(
+                                          context,
+                                          "PRESENT",
+                                          "Entry already present, can not add",
+                                          getWrongIcon(),
+                                          1)
+                                    }
+                                  else
+                                    {
+                                      //if entry not present in db then add
+                                      FirebaseFirestore.instance
+                                          .collection(village + pin)
+                                          .doc("pendingApproval")
+                                          .collection("pending")
+                                          .doc(email)
+                                          .set(
+                                        {
+                                          'approved': false,
+                                          'accessLevel':
+                                              "Viewer", //access level set by admin decided type of use, eg .viewer, collector, admin, spender
+                                          'mail': email,
+                                        },
+                                      ),
+                                      popAlert(
+                                          context,
+                                          kTitleRegisterationSuccess,
+                                          kSubTitleRegisterationSuccess,
+                                          getRightIcon(),
+                                          2),
+                                    }
+                                },
+                              );
+                        }
+                      } catch (e) {
+                        popAlert(context, kTitleRegisterationFailed,
+                            e.toString(), getWrongIcon(), 2);
+                        return;
+                        //treat exception caught
+                      }
+                    }
+                  },
                 ),
               ),
             ),
