@@ -15,15 +15,16 @@ In future developement.
 
 
 # TODO
-1. organinze database, collection -> doc-> innerCollection.
-2. admin and security rules.
-3. create indeices from firebase index tab.
+1. Use Profile button.
+2. Auto disapprove all users except admin. admin should approve users after certain period.
+3. Subscrption implementation. stopping process at end of subscription period.
+4. Detailed report at end of year.
+2. security rules.
+3. create indeices from firebase index tab.Half Done
 1. Forgot password.
-2. Seperate admin and main app.  Installing one should not uninstall other. 
-3. Access control from admin to allow entry of getting involved in users of app.
 3. Push upload receipt button for out transcation.
 3. Bug fixes eg. return on mismatch password from registeration screen, corner cases, wrong input. no internet connectivity messages. pop messages correction .
-1. Registeration of user for perticular grampanchayat.
+
 5. Upload icon with proof of transcation for "in, out" pages. May be download icon in report page against each transcation. May need to use storage from firebase.
 6. Section wise formula.
 7. Date wise display of records pending and report.
@@ -32,9 +33,9 @@ In future developement.
 10. App version after clicking on info
 14. UPI gateway for payment.
 15. Date window for generating report for defined period by user.
-17. addtion of section health tax, & electricity maintaince tax.
-20. app version addition
-21. 
+17. addtion of section health tax, & electricity maintaince tax etc.
+
+
 
 # DONE
 1. Pdf/excel downloading for pending and report page.
@@ -43,6 +44,11 @@ In future developement.
 12. Message support on both platforms - Normal msg & Whatsapp msg.
 13. Receipts of payment.sendig pdf bill.
 16. serach - single user all years display
+1. organinze database, collection -> doc-> innerCollection.
+2. Admin profile.
+2. Seperate admin and main app.  Installing one should not uninstall other. 
+3. Access control from admin to allow entry of getting involved in users of app.
+1. Registeration of user for perticular grampanchayat.
 
 Plan-
 
