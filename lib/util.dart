@@ -18,9 +18,43 @@ Color clrAmber = Color(0xFFF7E5B4); //pending
 
 Color clrBlue = Color(0xFF7E57E2); //report indigo;
 String userMail = "";
-
 bool userApproved = false;
-int userAccessLevel = 0;
+
+String access = "viewer";
+enum accessLevel {
+  Viewer,
+  Collector,
+  Spender,
+  SuperUser,
+}
+List<String> accessItems = [
+  "Viewer",
+  "Collector",
+  "Spender",
+  "SuperUser",
+];
+
+Future<String> getUserAccessLevel(BuildContext context, String email) async {
+  try {
+    String usreAccessLevel = await FirebaseFirestore.instance
+        .collection(village + pin)
+        .doc('pendingApproval')
+        .collection('pending')
+        .doc(email)
+        .get()
+        .then(
+      (value) {
+        var y = value.data();
+        return y!["accessLevel"];
+      },
+    );
+    return usreAccessLevel;
+  } catch (e) {
+    popAlert(context, 'Fetch Fail', "User access level fetch failure",
+        getWrongIcon(), 1);
+    return "Viewer"; //Return viewer by default
+  }
+}
 
 Future<List<String>> getLoggedInUserVillagePin() async {
   List<String> lsVillagePin = [];

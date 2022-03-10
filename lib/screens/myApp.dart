@@ -165,8 +165,11 @@ class MyApp extends StatelessWidget {
               title: Text('In'),
               tileColor: clrGreen, //green
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                Navigator.pushNamed(context, inMoney.id);
+              onTap: () async {
+                String access = await getUserAccessLevel(context, userMail);
+                if (access == accessItems[accessLevel.Collector.index] ||
+                    access == accessItems[accessLevel.SuperUser.index])
+                  Navigator.pushNamed(context, inMoney.id);
               },
             ),
             ListTile(
@@ -174,8 +177,11 @@ class MyApp extends StatelessWidget {
               title: Text('Out'),
               tileColor: clrRed, //red
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                Navigator.pushNamed(context, outMoney.id);
+              onTap: () async {
+                String access = await getUserAccessLevel(context, userMail);
+                if (access == accessItems[accessLevel.Spender.index] ||
+                    access == accessItems[accessLevel.SuperUser.index])
+                  Navigator.pushNamed(context, outMoney.id);
               },
             ),
             ListTile(
@@ -183,8 +189,13 @@ class MyApp extends StatelessWidget {
               title: Text('Pending'),
               tileColor: clrAmber, //amber
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                Navigator.pushNamed(context, pendingMoney.id);
+              onTap: () async {
+                String access = await getUserAccessLevel(context, userMail);
+                if (access == accessItems[accessLevel.Spender.index] ||
+                    access == accessItems[accessLevel.Collector.index] ||
+                    access == accessItems[accessLevel.SuperUser.index] ||
+                    access == accessItems[accessLevel.Viewer.index])
+                  Navigator.pushNamed(context, pendingMoney.id);
               },
             ),
             ListTile(
@@ -192,8 +203,14 @@ class MyApp extends StatelessWidget {
               title: Text('Report'),
               tileColor: clrBlue, //amber
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                Navigator.pushNamed(context, reportMoney.id);
+              onTap: () async {
+                String access = await getUserAccessLevel(context,
+                    userMail); //admin can change access rights for user any time, although logged in.
+                if (access == accessItems[accessLevel.Spender.index] ||
+                    access == accessItems[accessLevel.Collector.index] ||
+                    access == accessItems[accessLevel.SuperUser.index] ||
+                    access == accessItems[accessLevel.Viewer.index])
+                  Navigator.pushNamed(context, reportMoney.id);
               },
             ),
           ],

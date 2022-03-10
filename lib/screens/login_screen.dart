@@ -112,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           .then(
                         (value) {
                           var y = value.data();
-                          return y!["approved"];
+                          access = y!["accessLevel"];
+                          return y["approved"];
                         },
                       );
 
@@ -123,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   email: email, password: password);
                           if (newUser != null) {
                             userMail = email;
-
                             Navigator.pushNamed(context, MyApp.id);
                           }
                         } catch (e) {
