@@ -6,11 +6,12 @@ import 'in.dart';
 import 'out.dart';
 import 'pending.dart';
 import 'report.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyApp extends StatelessWidget {
   static String id = "myappscreen";
   MyApp({Key? key}) : super(key: key);
-
+  String welcomeString = "Welcome! $userMail\n$access from $village $pin";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,36 +35,27 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-          child: Row(
-        mainAxisSize: MainAxisSize.min,
+      body: Row(
         children: <Widget>[
-          const SizedBox(
-            width: 20.0,
-            height: 100.0,
+          Text(
+            welcomeString,
           ),
-          const Text(
-            '',
-            style: TextStyle(fontSize: 43.0),
-          ),
-          const SizedBox(
-            width: 20.0,
-            height: 100.0,
-          ),
-          DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 40.0,
-              fontFamily: 'Canterbury',
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                ScaleAnimatedText('TRUST'),
-                ScaleAnimatedText('TRUTH'),
-              ],
-            ),
-          ),
+          /*
+      DefaultTextStyle(
+        style: const TextStyle(
+          fontSize: 40.0,
+          fontFamily: 'Canterbury',
+        ),
+        child: AnimatedTextKit(
+          animatedTexts: [
+            ScaleAnimatedText('TRUST'),
+            ScaleAnimatedText('TRUTH'),
+          ],
+        ),
+      ),
+      */
         ],
-      )),
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -97,8 +89,10 @@ class MyApp extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
                 String access = await getUserAccessLevel(context, userMail);
-                if (access == accessItems[accessLevel.Collector.index] ||
-                    access == accessItems[accessLevel.SuperUser.index])
+                bool isApproved = await getApproval(context);
+                if (isApproved &&
+                    (access == accessItems[accessLevel.Collector.index] ||
+                        access == accessItems[accessLevel.SuperUser.index]))
                   Navigator.pushNamed(context, inMoney.id);
               },
             ),
@@ -109,8 +103,10 @@ class MyApp extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
                 String access = await getUserAccessLevel(context, userMail);
-                if (access == accessItems[accessLevel.Spender.index] ||
-                    access == accessItems[accessLevel.SuperUser.index])
+                bool isApproved = await getApproval(context);
+                if (isApproved &&
+                    (access == accessItems[accessLevel.Spender.index] ||
+                        access == accessItems[accessLevel.SuperUser.index]))
                   Navigator.pushNamed(context, outMoney.id);
               },
             ),
@@ -121,10 +117,12 @@ class MyApp extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
                 String access = await getUserAccessLevel(context, userMail);
-                if (access == accessItems[accessLevel.Spender.index] ||
-                    access == accessItems[accessLevel.Collector.index] ||
-                    access == accessItems[accessLevel.SuperUser.index] ||
-                    access == accessItems[accessLevel.Viewer.index])
+                bool isApproved = await getApproval(context);
+                if (isApproved &&
+                    (access == accessItems[accessLevel.Spender.index] ||
+                        access == accessItems[accessLevel.Collector.index] ||
+                        access == accessItems[accessLevel.SuperUser.index] ||
+                        access == accessItems[accessLevel.Viewer.index]))
                   Navigator.pushNamed(context, pendingMoney.id);
               },
             ),
@@ -136,10 +134,12 @@ class MyApp extends StatelessWidget {
               onTap: () async {
                 String access = await getUserAccessLevel(context,
                     userMail); //admin can change access rights for user any time, although logged in.
-                if (access == accessItems[accessLevel.Spender.index] ||
-                    access == accessItems[accessLevel.Collector.index] ||
-                    access == accessItems[accessLevel.SuperUser.index] ||
-                    access == accessItems[accessLevel.Viewer.index])
+                bool isApproved = await getApproval(context);
+                if (isApproved &&
+                    (access == accessItems[accessLevel.Spender.index] ||
+                        access == accessItems[accessLevel.Collector.index] ||
+                        access == accessItems[accessLevel.SuperUser.index] ||
+                        access == accessItems[accessLevel.Viewer.index]))
                   Navigator.pushNamed(context, reportMoney.id);
               },
             ),

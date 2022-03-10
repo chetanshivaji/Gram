@@ -30,67 +30,74 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter email';
-                  }
-                  email = value;
-                  return null;
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.email),
-                  labelText: "Email *",
-                  hintText: 'Enter your email',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.lightBlueAccent, width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+              Padding(
+                padding: EdgeInsets.only(top: 60),
+              ),
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter email';
+                    }
+                    email = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.email),
+                    labelText: "Email *",
+                    hintText: 'Enter your email',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.lightBlueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 8.0,
               ),
-              TextFormField(
-                obscureText: true,
-                keyboardType: TextInputType.text,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter password minimum 6 character';
-                  }
-                  password = value;
-                  return null;
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.password),
-                  labelText: "Password *",
-                  hintText: 'Enter your password.',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.lightBlueAccent, width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+              Expanded(
+                child: TextFormField(
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter password minimum 6 character';
+                    }
+                    password = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.password),
+                    labelText: "Password *",
+                    hintText: 'Enter your password.',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.lightBlueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
                   ),
                 ),
               ),

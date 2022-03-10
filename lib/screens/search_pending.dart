@@ -126,6 +126,9 @@ class _searchScreenState extends State<searchScreen> {
                         if (value.length != 10) {
                           return "Please enter 10 digits!";
                         }
+                        if (!isNumeric(value)) {
+                          return 'Please nubmers only';
+                        }
                         mobile = value;
                         return null;
                       },

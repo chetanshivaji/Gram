@@ -33,6 +33,38 @@ List<String> accessItems = [
   "Spender",
   "SuperUser",
 ];
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.tryParse(s) != null;
+}
+
+Future<bool> getApproval(BuildContext context) async {
+  bool isApproved = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userMail)
+      .get()
+      .then(
+    (value) async {
+      if (!value.exists) {
+        //if allready present
+        popAlert(
+          context,
+          "No Present",
+          "Email not present",
+          getWrongIcon(),
+          2,
+        );
+        return false;
+      } else {
+        var y = value.data();
+        return y!["approved"];
+      }
+    },
+  );
+  return isApproved;
+}
 
 Future<String> getUserAccessLevel(BuildContext context, String email) async {
   try {

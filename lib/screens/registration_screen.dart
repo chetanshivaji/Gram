@@ -31,167 +31,184 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter email';
-                  }
-                  email = value;
-                  return null;
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.email),
-                  labelText: "Email *",
-                  hintText: 'Enter your email',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+              Padding(
+                padding: EdgeInsets.only(top: 60),
+              ),
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter email';
+                    }
+                    email = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.email),
+                    labelText: "Email *",
+                    hintText: 'Enter your email',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 8.0,
               ),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter minimum 6 digit password';
-                  }
-                  password = value;
-                  return null;
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.password),
-                  labelText: "Password *",
-                  hintText: 'Enter your password',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter minimum 6 digit password';
-                  }
-                  reEnterPassword = value;
-                  return null;
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.password),
-                  labelText: "Password *",
-                  hintText: 'Re enter your password again',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter minimum 6 digit password';
+                    }
+                    password = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.password),
+                    labelText: "Password *",
+                    hintText: 'Enter your password',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 8.0,
               ),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter village name';
-                  }
-                  village = value;
-                  return null;
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.holiday_village),
-                  labelText: "Village *",
-                  hintText: 'Enter village name',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter minimum 6 digit password';
+                    }
+                    reEnterPassword = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.password),
+                    labelText: "Password *",
+                    hintText: 'Re enter your password again',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 height: 8.0,
               ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter village pin';
-                  }
-                  pin = value;
-                  return null;
-                },
-                decoration: InputDecoration(
-                  icon: Icon(Icons.pin),
-                  labelText: "Pin *",
-                  hintText: 'Enter village pin',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter village name';
+                    }
+                    village = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.holiday_village),
+                    labelText: "Village *",
+                    hintText: 'Enter village name',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.blueAccent, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                ),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter village pin';
+                    }
+                    if (!isNumeric(value)) {
+                      return 'Please nubmers only';
+                    }
+
+                    pin = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.pin),
+                    labelText: "Pin *",
+                    hintText: 'Enter village pin',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
                   ),
                 ),
               ),
@@ -263,7 +280,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   kTitleRegisterationFailed,
                                   e.toString(),
                                   getWrongIcon(),
-                                  2,
+                                  1,
                                 );
                                 return;
                                 //treat exception caught

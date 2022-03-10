@@ -183,6 +183,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 if (name == "") {
                   return "Please enter correct number/Number not found in database";
                 }
+                if (!isNumeric(value)) {
+                  return 'Please nubmers only';
+                }
 
                 mobile = value;
                 //check if it is only number
@@ -420,6 +423,9 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter some text';
+                }
+                if (!isNumeric(value)) {
+                  return 'Please nubmers only';
                 }
                 amount = int.parse(value);
                 /*

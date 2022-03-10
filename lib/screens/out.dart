@@ -92,6 +92,9 @@ class outFormState extends State<outForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter money spent';
                 }
+                if (!isNumeric(value)) {
+                  return 'Please nubmers only';
+                }
                 amount = int.parse(value);
                 return null;
               },
