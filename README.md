@@ -15,6 +15,18 @@ In future developement.
 
 
 # TODO
+					
+1. who wil notify
+2. login only once. 
+3. who reminded
+4. recyler tile
+5. ternary operator Recycler list
+6. First in transcation no email bug
+7. why search slow
+8. forgot password
+9. if no entry in db no error.
+10. change access level
+
 1. Use Profile button.
 2. Auto disapprove all users except admin. admin should approve users after certain period.
 3. Subscrption implementation. stopping process at end of subscription period.
