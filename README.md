@@ -46,6 +46,14 @@ In future developement.
 
 Plan-
 
+# TEST
+1. Test correct functionality works.
+2. Try with wrong inputs, empty inputs, try to put some inputs which will chagne functionality and behaviour of app.
+3. Try using big numbers.
+4. Think of Efficient UI(tables, button, ease of use, minimum clicks to do some functionality), 
+5. multiple types of devices after rotating devices screen orientation.
+6. Play, Tinker, Play, Tinker.
+7. Ask why this why that while using app.
 
 
 
@@ -63,9 +71,3 @@ Plan-
 
 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
