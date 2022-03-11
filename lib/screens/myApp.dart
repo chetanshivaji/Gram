@@ -7,29 +7,31 @@ import 'out.dart';
 import 'pending.dart';
 import 'report.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 class MyApp extends StatelessWidget {
   static String id = "myappscreen";
   MyApp({Key? key}) : super(key: key);
-  String welcomeString = "Welcome! $userMail\n$access from $village $pin";
+
   @override
   Widget build(BuildContext context) {
+    String welcomeString = "Welcome! $userMail\n$access from $village $pin";
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Grampanchyat'),
+        title: Text(appMainLabel),
         actions: <Widget>[
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, searchScreen.id);
             },
-            tooltip: "Search user tax paid details",
+            tooltip: txtSearchToolTip,
             icon: Icon(Icons.search),
           ),
           IconButton(
-            tooltip: "Log out",
+            tooltip: kTitleSignOut,
             onPressed: () {
-              popLogOutAlert(context, "SignOut", "Do you want to log out?",
-                  Icon(Icons.power_settings_new));
+              popLogOutAlert(context, kTitleSignOut,
+                  kSubtitleLogOutConfirmation, Icon(Icons.power_settings_new));
             },
             icon: Icon(Icons.power_settings_new),
           ),
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Money Management',
+                    dHeading,
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.yellow,
@@ -84,7 +86,7 @@ class MyApp extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.add_box),
-              title: Text('In'),
+              title: Text(dIn),
               tileColor: clrGreen, //green
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
@@ -98,7 +100,7 @@ class MyApp extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.outbond_outlined),
-              title: Text('Out'),
+              title: Text(dOut),
               tileColor: clrRed, //red
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
@@ -112,7 +114,7 @@ class MyApp extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.pending_actions),
-              title: Text('Pending'),
+              title: Text(dPending),
               tileColor: clrAmber, //amber
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
@@ -128,7 +130,7 @@ class MyApp extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.report),
-              title: Text('Report'),
+              title: Text(dReport),
               tileColor: clrBlue, //amber
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {

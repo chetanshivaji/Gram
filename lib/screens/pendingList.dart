@@ -4,6 +4,7 @@ import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/communication.dart';
+import 'package:money/constants.dart';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";
@@ -14,7 +15,7 @@ class pendingList extends StatelessWidget {
       {Key? key,
       this.yearDropDownValue = "2021",
       this.pendingType = "houseGiven",
-      this.orderType = "date"})
+      this.orderType = 'date'})
       : super(key: key);
 
   List<DataRow> _buildList(
@@ -24,32 +25,32 @@ class pendingList extends StatelessWidget {
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
 
-      ldataCell.add(DataCell(Text(l.get("name"))));
-      ldataCell.add(DataCell(Text(l.get("mobile").toString())));
+      ldataCell.add(DataCell(Text(l.get(keyName))));
+      ldataCell.add(DataCell(Text(l.get(keyMobile).toString())));
       if (pendingType == housePendingType) {
-        ldataCell.add(DataCell(Text(l.get("house").toString())));
+        ldataCell.add(DataCell(Text(l.get(keyHouse).toString())));
       } else {
-        ldataCell.add(DataCell(Text(l.get("water").toString())));
+        ldataCell.add(DataCell(Text(l.get(keyWater).toString())));
       }
       ldataCell.add(
         DataCell(
           IconButton(
             onPressed: () async {
-              String name = l.get("name");
-              String mobile = l.get("mobile").toString();
+              String name = l.get(keyName);
+              String mobile = l.get(keyMobile).toString();
               String amount = "";
               String notifyTaxType = "";
               if (pendingType == housePendingType) {
-                amount = l.get("house").toString();
+                amount = l.get(keyHouse).toString();
                 notifyTaxType = "House Tax";
               } else {
-                amount = l.get("water").toString();
+                amount = l.get(keyWater).toString();
                 notifyTaxType = "Water Tax";
               }
 
               String notificationMessage =
                   "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat  -- $userMail"; //who is reminding
-              String mobileWhatsApp = l.get("mobile").toString();
+              String mobileWhatsApp = l.get(keyMobile).toString();
               List<String> listMobile = [mobileWhatsApp];
               if (textMsgEnabled)
                 await sendTextToPhone(notificationMessage, listMobile);
@@ -67,7 +68,7 @@ class pendingList extends StatelessWidget {
               color: Colors.red,
             ),
             splashColor: Colors.blue,
-            tooltip: "Send notification to Pay",
+            tooltip: txtNotifyToPay,
           ),
         ),
       );
@@ -97,26 +98,26 @@ class pendingList extends StatelessWidget {
           columns: <DataColumn>[
             DataColumn(
               label: Text(
-                'Name',
-                style: getStyle("PENDING"),
+                tableHeadingName,
+                style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                'Mobile',
-                style: getStyle("PENDING"),
+                tableHeadingMobile,
+                style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                'Amount',
-                style: getStyle("PENDING"),
+                tableHeadingAmount,
+                style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                'Notify',
-                style: getStyle("PENDING"),
+                tableHeadingNotify,
+                style: getStyle(actPending),
               ),
             ),
           ],
@@ -130,55 +131,55 @@ class pendingList extends StatelessWidget {
   Widget build(BuildContext context) {
     Stream<QuerySnapshot<Object?>> stm;
     if (pendingType == housePendingType) {
-      if (orderType == "L to H") {
+      if (orderType == txtLtoH) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
-            .doc(mainDb)
-            .collection(dbYearPrefix + yearDropDownValue)
-            .where('houseGiven', isEqualTo: false)
-            .orderBy('house', descending: false)
+            .doc(docMainDb)
+            .collection(docMainDb + yearDropDownValue)
+            .where(keyHouseGiven, isEqualTo: false)
+            .orderBy(keyHouse, descending: false)
             .snapshots();
-      } else if (orderType == "H to L") {
+      } else if (orderType == txtHtoL) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
-            .doc(mainDb)
-            .collection(dbYearPrefix + yearDropDownValue)
-            .where('houseGiven', isEqualTo: false)
-            .orderBy('house', descending: true)
+            .doc(docMainDb)
+            .collection(docMainDb + yearDropDownValue)
+            .where(keyHouseGiven, isEqualTo: false)
+            .orderBy(keyHouse, descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
-            .doc(mainDb)
-            .collection(dbYearPrefix + yearDropDownValue)
-            .where('houseGiven', isEqualTo: false)
-            .orderBy('house', descending: true)
+            .doc(docMainDb)
+            .collection(docMainDb + yearDropDownValue)
+            .where(keyHouseGiven, isEqualTo: false)
+            .orderBy(keyHouse, descending: true)
             .snapshots();
       }
     } else {
-      if (orderType == "L to H") {
+      if (orderType == txtLtoH) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
-            .doc(mainDb)
-            .collection(dbYearPrefix + yearDropDownValue)
-            .where('waterGiven', isEqualTo: false)
-            .orderBy('water', descending: false)
+            .doc(docMainDb)
+            .collection(docMainDb + yearDropDownValue)
+            .where(keyWaterGiven, isEqualTo: false)
+            .orderBy(keyWater, descending: false)
             .snapshots();
-      } else if (orderType == "H to L") {
+      } else if (orderType == txtHtoL) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
-            .doc(mainDb)
-            .collection(dbYearPrefix + yearDropDownValue)
-            .where('waterGiven', isEqualTo: false)
-            .orderBy('water', descending: true)
+            .doc(docMainDb)
+            .collection(docMainDb + yearDropDownValue)
+            .where(keyWaterGiven, isEqualTo: false)
+            .orderBy(keyWater, descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
-            .doc(mainDb)
-            .collection(dbYearPrefix + yearDropDownValue)
-            .where('waterGiven', isEqualTo: false)
-            .orderBy('water', descending: true)
+            .doc(docMainDb)
+            .collection(docMainDb + yearDropDownValue)
+            .where(keyWaterGiven, isEqualTo: false)
+            .orderBy(keyWater, descending: true)
             .snapshots();
       }
     }
@@ -188,11 +189,11 @@ class pendingList extends StatelessWidget {
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Text("There is no expense");
+          return Text(msgNoExpense);
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading");
+          return Text(msgLoading);
         }
 
         return getInHouseWaterTable(context, snapshot);

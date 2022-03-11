@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:money/constants.dart';
-
 import 'package:money/util.dart';
+import 'package:money/constants.dart';
 
 void updateFormulaValues(String newEntryAmount, String typeInOut) async {
   var ls = await getLoggedInUserVillagePin();
 
   int total = await FirebaseFirestore.instance
       .collection(ls[0] + ls[1])
-      .doc(mainDb)
-      .collection(colletionName_forumla)
-      .doc(documentName_formula)
+      .doc(docMainDb)
+      .collection(collFormula)
+      .doc(docCalcultion)
       .get()
       .then((value) {
     var y = value.data();
-    return (typeInOut == "in") ? y!["totalIn"] : y!["totalOut"];
+    return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
   });
 
   //update formula
   if (typeInOut == "in") {
     FirebaseFirestore.instance
         .collection(ls[0] + ls[1])
-        .doc(mainDb)
-        .collection("formula")
-        .doc("calculation")
-        .update({'totalIn': (total + int.parse(newEntryAmount))});
+        .doc(docMainDb)
+        .collection(collFormula)
+        .doc(docCalcultion)
+        .update({keyTotalIn: (total + int.parse(newEntryAmount))});
   } else {
     FirebaseFirestore.instance
         .collection(ls[0] + ls[1])
-        .doc(mainDb)
-        .collection("formula")
-        .doc("calculation")
-        .update({'totalOut': (total + int.parse(newEntryAmount))});
+        .doc(docMainDb)
+        .collection(collFormula)
+        .doc(docCalcultion)
+        .update({keyTotalOut: (total + int.parse(newEntryAmount))});
   }
 }
 
@@ -71,7 +69,7 @@ Widget formulaNew(int totalIn, int totalOut) {
         ),
         getForumlaInternalSimple("Out", totalOut.toString()),
         Text(
-          " = ",
+          equals,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 30,
@@ -92,27 +90,27 @@ class formulaLive extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection(village + pin)
-          .doc(mainDb)
-          .collection("formula")
+          .doc(docMainDb)
+          .collection(collFormula)
           .snapshots(),
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Text("There is no expense");
+          return Text(msgNoExpense);
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading...");
+          return Text(msgLoading);
         }
 
         DocumentSnapshot ds = snapshot.data!.docs[0];
-        inFormula = ds.get("totalIn");
-        outFormula = ds.get("totalOut");
+        inFormula = ds.get(keyTotalIn);
+        outFormula = ds.get(keyTotalOut);
         remainFormula = inFormula - outFormula;
 
         return formulaNew(
-          ds.get("totalIn"),
-          ds.get("totalOut"),
+          ds.get(keyTotalIn),
+          ds.get(keyTotalOut),
         );
       },
     );

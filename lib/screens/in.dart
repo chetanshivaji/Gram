@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:money/constants.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'formula.dart';
 import 'package:money/communication.dart';
 import 'package:money/api/pdf_api.dart';
 import 'package:money/model/receipt.dart';
+import 'package:money/constants.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
@@ -39,30 +39,30 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     var ls = await getLoggedInUserVillagePin();
     int total = await FirebaseFirestore.instance
         .collection(ls[0] + ls[1])
-        .doc(mainDb)
-        .collection(colletionName_forumla)
-        .doc(documentName_formula)
+        .doc(docMainDb)
+        .collection(collFormula)
+        .doc(docCalcultion)
         .get()
         .then((value) {
       var y = value.data();
-      return (typeInOut == "in") ? y!["totalIn"] : y!["totalOut"];
+      return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
     });
 
     //update formula
     if (typeInOut == "in") {
       FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
-          .collection("formula")
-          .doc("calculation")
-          .update({'totalIn': (total + int.parse(newEntryAmount))});
+          .doc(docMainDb)
+          .collection(collFormula)
+          .doc(docCalcultion)
+          .update({keyTotalIn: (total + int.parse(newEntryAmount))});
     } else {
       FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
-          .collection("formula")
-          .doc("calculation")
-          .update({'totalOut': (total + int.parse(newEntryAmount))});
+          .doc(docMainDb)
+          .collection(collFormula)
+          .doc(docCalcultion)
+          .update({keyTotalOut: (total + int.parse(newEntryAmount))});
     }
   }
 
@@ -76,10 +76,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           amount: amount.toString(),
           mobile: mobile,
           userMail: userMail,
-          taxType: (widget.formType == "HOUSE") ? "house" : "water"),
+          taxType: (widget.formType == "HOUSE") ? keyHouse : keyWater),
     );
 
-    final pdfFile = await receipt.generate("IN", userMail);
+    final pdfFile = await receipt.generate(actIn, userMail);
 
     PdfApi.openFile(pdfFile);
     return;
@@ -108,8 +108,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.mobile_friendly),
-                  hintText: "Enter mobile number",
-                  labelText: "Mobile *"),
+                  hintText: msgEnterMobileNumber,
+                  labelText: labelMobile),
 
               onChanged: (text) async {
                 if (text.length == 10) {
@@ -118,16 +118,16 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     try {
                       await FirebaseFirestore.instance
                           .collection(ls[0] + ls[1])
-                          .doc(mainDb)
-                          .collection(dbYearPrefix + dropdownValueYear)
+                          .doc(docMainDb)
+                          .collection(docMainDb + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
                         (value) {
                           var y = value.data();
-                          houseName = y!["name"];
-                          houseEmail = y["email"];
-                          houseAmount = y["house"];
+                          houseName = y![keyName];
+                          houseEmail = y[keyEmail];
+                          houseAmount = y[keyHouse];
                         },
                       );
                     } catch (e) {
@@ -145,16 +145,16 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     try {
                       await FirebaseFirestore.instance
                           .collection(ls[0] + ls[1])
-                          .doc(mainDb)
-                          .collection(dbYearPrefix + dropdownValueYear)
+                          .doc(docMainDb)
+                          .collection(docMainDb + dropdownValueYear)
                           .doc(text)
                           .get()
                           .then(
                         (value) {
                           var y = value.data();
-                          waterAmount = y!["water"];
-                          waterName = y["name"];
-                          waterEmail = y["email"];
+                          waterAmount = y![keyWater];
+                          waterName = y[keyName];
+                          waterEmail = y[keyEmail];
                         },
                       );
                     } catch (e) {
@@ -175,16 +175,16 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter number';
+                  return msgOnlyNumber;
                 }
                 if (value.length != 10) {
-                  return "Please enter 10 digits!";
+                  return msgTenDigitNumber;
                 }
                 if (name == "") {
-                  return "Please enter correct number/Number not found in database";
+                  return msgNumberNotFoundInDb;
                 }
                 if (!isNumeric(value)) {
-                  return 'Please nubmers only';
+                  return msgOnlyNumber;
                 }
 
                 mobile = value;
@@ -250,12 +250,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   if (widget.formType == "HOUSE") {
                     //house
                     inTypeSubmit = "inHouse";
-                    inTypeGiven = 'houseGiven';
+                    inTypeGiven = keyHouseGiven;
                     typeSubmit = 'House';
                   } else {
                     //water
                     inTypeSubmit = "inWater";
-                    inTypeGiven = 'waterGiven';
+                    inTypeGiven = keyWaterGiven;
                     typeSubmit = 'Water';
                   }
 
@@ -267,20 +267,20 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     var ls = await getLoggedInUserVillagePin();
                     bool paid = await FirebaseFirestore.instance
                         .collection(ls[0] + ls[1])
-                        .doc(mainDb)
-                        .collection(dbYearPrefix + dropdownValueYear)
+                        .doc(docMainDb)
+                        .collection(docMainDb + dropdownValueYear)
                         .doc(mobile.toString())
                         .get()
                         .then(
                       (value) {
                         var y = value.data();
                         if (widget.formType == "HOUSE") {
-                          if (y!["houseGiven"] == true) {
+                          if (y![keyHouseGiven] == true) {
                             return true;
                           } else
                             return false;
                         } else {
-                          if (y!["waterGiven"] == true) {
+                          if (y![keyWaterGiven] == true) {
                             return true;
                           } else
                             return false;
@@ -288,32 +288,32 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       },
                     );
                     if (paid == true) {
-                      popAlert(context, 'Already Paid', "", getWrongIcon(), 2);
+                      popAlert(context, paidMsg, "", getWrongIcon(), 2);
                       return;
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Processing Data'),
+                        SnackBar(
+                          content: Text(msgProcessingData),
                         ),
                       );
 
                       await FirebaseFirestore.instance
                           .collection(ls[0] + ls[1])
-                          .doc(mainDb)
+                          .doc(docMainDb)
                           .collection(inTypeSubmit + dropdownValueYear)
                           .add(
                         {
-                          'name': name,
-                          'mobile': mobile,
-                          'amount': amount,
-                          'date': DateTime.now().toString(),
-                          'user': userMail,
+                          keyName: name,
+                          keyMobile: mobile,
+                          keyAmount: amount,
+                          keyDate: DateTime.now().toString(),
+                          keyUser: userMail,
                         },
                       );
                       await FirebaseFirestore.instance
                           .collection(ls[0] + ls[1])
-                          .doc(mainDb)
-                          .collection(dbYearPrefix + dropdownValueYear)
+                          .doc(docMainDb)
+                          .collection(docMainDb + dropdownValueYear)
                           .doc(mobile)
                           .update({inTypeGiven: true});
 
@@ -345,8 +345,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     // Validate returns true if the form is valid, or false otherwise.
                   }
                 },
-                child: const Text(
-                  'Submit',
+                child: Text(
+                  bLabelSubmit,
                 ),
               ),
             ),
@@ -399,7 +399,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.text_snippet),
                   hintText: "Income Reason",
-                  labelText: "Reason *"),
+                  labelText: labelReason),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -418,14 +418,14 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.attach_money),
                   hintText: "Enter amount",
-                  labelText: "Amount *"),
+                  labelText: labelAmount),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter amount';
                 }
                 if (!isNumeric(value)) {
-                  return 'Please nubmers only';
+                  return msgOnlyNumber;
                 }
                 amount = int.parse(value);
                 /*
@@ -452,21 +452,21 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Processing Data'),
+                      SnackBar(
+                        content: Text(msgProcessingData),
                       ),
                     );
                     var ls = await getLoggedInUserVillagePin();
                     FirebaseFirestore.instance
                         .collection(ls[0] + ls[1])
-                        .doc(mainDb)
+                        .doc(docMainDb)
                         .collection("inExtra" + dropdownValueYear)
                         .add(
                       {
-                        'reason': reason,
-                        'amount': amount,
-                        'date': DateTime.now().toString(),
-                        'user': userMail,
+                        keyReason: reason,
+                        keyAmount: amount,
+                        keyDate: DateTime.now().toString(),
+                        keyUser: userMail,
                       },
                     );
                     updateFormulaValues(amount.toString(),
@@ -476,8 +476,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         getRightIcon(), 2);
                   }
                 },
-                child: const Text(
-                  'Submit',
+                child: Text(
+                  bLabelSubmit,
                 ),
               ),
             ),
@@ -492,7 +492,7 @@ class inMoney extends StatelessWidget {
   static String id = "inscreen";
   inMoney({Key? key}) : super(key: key);
 
-  String pageName = "IN";
+  String pageName = actIn;
   List<Icon> lsIcons = [
     Icon(Icons.home, color: Colors.black),
     Icon(Icons.water, color: Colors.black),

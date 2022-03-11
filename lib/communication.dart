@@ -4,6 +4,7 @@ import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 // the url_launcher package.
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:money/constants.dart';
 
 bool whatsUpEnabled = true;
 bool textMsgEnabled = true;

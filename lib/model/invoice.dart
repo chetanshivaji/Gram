@@ -5,6 +5,7 @@ import 'package:money/api/pdf_api.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:money/constants.dart';
 
 //********************END HouseWater report invoice****************************** */
 
@@ -88,24 +89,28 @@ abstract class Invoice {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text("Year =  " +
+          Text(labelYear +
+              equals +
               info.year +
-              "\n" +
-              "Sorting type =  " +
+              endL +
+              txtSortingType +
+              equals +
               info.sortingType +
-              "\n" +
-              "Calculation =  " +
+              endL +
+              txtCalculation +
+              equals +
               info.formula +
-              "\n" +
-              "Downloaded by user =  " +
+              endL +
+              txtDownloadedByUser +
+              equals +
               userMail +
-              "\n"),
+              endL),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
   Widget buildInvoice(String reportType) {
-    return Text("Something wrong in building INVOICE main class");
+    return Text(msgInvoidBuildFail);
   }
 
   static Widget buildFooter(String userMail, String reportType) => Column(
@@ -172,9 +177,9 @@ class pendingInvoice extends Invoice {
     var data;
 
     headers = [
-      'Name',
-      'Mobile',
-      'Amount',
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingAmount,
     ];
     data = pendingInvoiceItems.map((item) {
       return [
@@ -219,11 +224,11 @@ class reportHouseWaterInvoice extends Invoice {
     var data;
 
     headers = [
-      'Name',
-      'Mobile',
-      'Amount',
-      'Date',
-      'User',
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingAmount,
+      tableHeadingDate,
+      tableHeadingUser,
     ];
     data = houseWaterReportInvoiceItems.map((item) {
       return [
@@ -269,10 +274,10 @@ class reportExtraInvoice extends Invoice {
     var data;
 
     headers = [
-      'Amount',
-      'Reason',
-      'Date',
-      'User',
+      tableHeadingAmount,
+      tableHeadingReason,
+      tableHeadingDate,
+      tableHeadingUser,
     ];
     data = extraIncomeReportInvoiceItems.map((item) {
       return [
@@ -320,12 +325,12 @@ class reportOutInvoice extends Invoice {
     var data;
 
     headers = [
-      'Name',
-      'Reason',
-      'Amount',
-      'ExtraInfo',
-      'Date',
-      'User',
+      tableHeadingName,
+      tableHeadingReason,
+      tableHeadingAmount,
+      tableHeadingExtraInfo,
+      tableHeadingDate,
+      tableHeadingUser,
     ];
     data = outReportInvoiceItems.map((item) {
       return [

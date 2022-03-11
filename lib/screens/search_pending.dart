@@ -5,6 +5,7 @@ import 'package:money/util.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
+import 'package:money/constants.dart';
 
 class searchScreen extends StatefulWidget {
   static String id = "searchscreen";
@@ -43,8 +44,8 @@ class _searchScreenState extends State<searchScreen> {
       try {
         var collection = FirebaseFirestore.instance
             .collection(ls[0] + ls[1])
-            .doc(mainDb)
-            .collection(dbYearPrefix + yr);
+            .doc(docMainDb)
+            .collection(docMainDb + yr);
         var doc = await collection.doc(mobile).get();
 
         await doc.reference.get().then(
@@ -58,25 +59,25 @@ class _searchScreenState extends State<searchScreen> {
             ldataCell.add(
               DataCell(
                 Text(
-                  y!["house"].toString(),
+                  y![keyHouse].toString(),
                 ),
               ),
             );
             ldataCell.add(
               DataCell(
-                y["houseGiven"] ? getRightIcon() : getWrongIcon(),
+                y[keyHouseGiven] ? getRightIcon() : getWrongIcon(),
               ),
             );
             ldataCell.add(
               DataCell(
                 Text(
-                  y["water"].toString(),
+                  y[keyWater].toString(),
                 ),
               ),
             );
             ldataCell.add(
               DataCell(
-                y["waterGiven"] ? getRightIcon() : getWrongIcon(),
+                y[keyWaterGiven] ? getRightIcon() : getWrongIcon(),
               ),
             );
           },
@@ -113,21 +114,21 @@ class _searchScreenState extends State<searchScreen> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           icon: Icon(Icons.mobile_friendly),
-                          hintText: "Enter mobile number to search details",
-                          labelText: "Mobile *"),
+                          hintText: msgEnterMobileNumber,
+                          labelText: labelMobile),
                       // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return msgEnterMobileNumber;
                         }
                         if (value == null || value.isEmpty) {
-                          return 'Please enter number';
+                          return msgOnlyNumber;
                         }
                         if (value.length != 10) {
-                          return "Please enter 10 digits!";
+                          return msgTenDigitNumber;
                         }
                         if (!isNumeric(value)) {
-                          return 'Please nubmers only';
+                          return msgOnlyNumber;
                         }
                         mobile = value;
                         return null;
@@ -137,8 +138,8 @@ class _searchScreenState extends State<searchScreen> {
                 ),
                 Expanded(
                   child: ElevatedButton(
-                    child: const Text(
-                      'Submit',
+                    child: Text(
+                      bLabelSubmit,
                     ),
                     onPressed: () async {
                       var ls = await getLoggedInUserVillagePin();
@@ -149,16 +150,16 @@ class _searchScreenState extends State<searchScreen> {
                           try {
                             _name = await FirebaseFirestore.instance
                                 .collection(ls[0] + ls[1])
-                                .doc(mainDb)
-                                .collection(dbYearPrefix + yr)
+                                .doc(docMainDb)
+                                .collection(docMainDb + yr)
                                 .doc(mobile)
                                 .get()
                                 .then(
                               (value) {
                                 var y = value.data();
                                 if (y != null) {
-                                  //_name = y["name"];
-                                  return y["name"];
+                                  //_name = y[keyName];
+                                  return y[keyName];
                                 }
                                 return "";
                               },
@@ -190,32 +191,32 @@ class _searchScreenState extends State<searchScreen> {
                                   columns: <DataColumn>[
                                     DataColumn(
                                       label: Text(
-                                        'Year',
-                                        style: getStyle("PENDING"),
+                                        tableHeadingYear,
+                                        style: getStyle(actPending),
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'House',
-                                        style: getStyle("PENDING"),
+                                        tableHeadingHouse,
+                                        style: getStyle(actPending),
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Status',
-                                        style: getStyle("PENDING"),
+                                        tableHeadingStatus,
+                                        style: getStyle(actPending),
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Water',
-                                        style: getStyle("PENDING"),
+                                        tableHeadingWater,
+                                        style: getStyle(actPending),
                                       ),
                                     ),
                                     DataColumn(
                                       label: Text(
-                                        'Status',
-                                        style: getStyle("PENDING"),
+                                        tableHeadingStatus,
+                                        style: getStyle(actPending),
                                       ),
                                     ),
                                   ],
@@ -234,7 +235,7 @@ class _searchScreenState extends State<searchScreen> {
             ListTile(
               leading: Icon(Icons.person),
               title: Text(
-                "Name  = $name",
+                "$txtName$equals$name",
                 style: getTableHeadingTextStyle(),
               ),
             ),

@@ -4,6 +4,7 @@ import 'myApp.dart';
 import 'package:money/util.dart';
 import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = "loginscreen";
@@ -38,15 +39,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter email';
+                      return msgEnterUserMail;
                     }
                     email = value;
                     return null;
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.email),
-                    labelText: "Email *",
-                    hintText: 'Enter your email',
+                    labelText: labelEmail,
+                    hintText: msgEnterUserMail,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -74,15 +75,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter password minimum 6 character';
+                      return msgEnterPassword;
                     }
                     password = value;
                     return null;
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.password),
-                    labelText: "Password *",
-                    hintText: 'Enter your password.',
+                    labelText: labelPassword,
+                    hintText: msgEnterPassword,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -114,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     minWidth: 200.0,
                     height: 42.0,
                     child: Text(
-                      'Log In',
+                      bLabelLogin,
                     ),
                     onPressed: pressed
                         ? () async {
@@ -123,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               try {
                                 //check if email trying to login is admin.
                                 bool res = await FirebaseFirestore.instance
-                                    .collection('users')
+                                    .collection(collUsers)
                                     .doc(email)
                                     .get()
                                     .then(
@@ -132,18 +133,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                       //if allready present
                                       popAlert(
                                         context,
-                                        "No Present",
-                                        "Email not present",
+                                        kTitleNotPresent,
+                                        kSubTitleEmailPresent,
                                         getWrongIcon(),
                                         2,
                                       );
                                       return false;
                                     } else {
                                       var y = value.data();
-                                      access = y!["accessLevel"];
-                                      village = y["village"];
-                                      pin = y["pin"];
-                                      approvedUser = y["approved"];
+                                      access = y![keyAccessLevel];
+                                      village = y[keyVillage];
+                                      pin = y[keyPin];
+                                      approvedUser = y[keyApproved];
                                       return true;
                                     }
                                   },
@@ -166,8 +167,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 } else {
                                   popAlert(
                                     context,
-                                    "Yet to be approved by Admin",
-                                    "Try After sometime Or remind admin to approve.",
+                                    kTitleYetToApproveByAdmin,
+                                    kSubTitelYetToApproveByAdmin,
                                     getWrongIcon(),
                                     1,
                                   );

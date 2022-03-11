@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-
 import 'package:money/util.dart';
 import 'pendingList.dart';
 import 'package:money/model/invoice.dart';
 import 'formula.dart';
-
 import 'package:money/api/pdf_api.dart';
-import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 class pendingContainer extends StatefulWidget {
   String pendingType = "";
-  pendingContainer({Key? key, this.pendingType = "houseGiven"})
+  pendingContainer({Key? key, this.pendingType = 'houseGiven'})
       : super(key: key);
 
   @override
@@ -30,10 +28,10 @@ String sToDate = DateTime.now().day.toString() +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
-String dropdownValuePendingSort = 'H to L';
+String dropdownValuePendingSort = txtHtoL;
 var itemsSort = [
-  'H to L',
-  'L to H',
+  txtHtoL,
+  txtLtoH,
 ];
 
 class _pendingContainerState extends State<pendingContainer> {
@@ -83,45 +81,45 @@ class _pendingContainerState extends State<pendingContainer> {
     if (widget.pendingType == housePendingType) {
       var collection = FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
-          .collection(dbYearPrefix + dropdownValueYear);
+          .doc(docMainDb)
+          .collection(docMainDb + dropdownValueYear);
 
-      if (dropdownValuePendingSort == "L to H") {
+      if (dropdownValuePendingSort == txtLtoH) {
         snapshots = await collection
-            .where('houseGiven', isEqualTo: false)
-            .orderBy('house', descending: false)
+            .where(keyHouseGiven, isEqualTo: false)
+            .orderBy(keyHouse, descending: false)
             .get();
-      } else if (dropdownValuePendingSort == "H to L") {
+      } else if (dropdownValuePendingSort == txtHtoL) {
         snapshots = await collection
-            .where('houseGiven', isEqualTo: false)
-            .orderBy('house', descending: true)
+            .where(keyHouseGiven, isEqualTo: false)
+            .orderBy(keyHouse, descending: true)
             .get();
       } else {
         snapshots = await collection
-            .where('houseGiven', isEqualTo: false)
-            .orderBy('house', descending: true)
+            .where(keyHouseGiven, isEqualTo: false)
+            .orderBy(keyHouse, descending: true)
             .get();
       }
     } else {
       var collection = FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
-          .collection(dbYearPrefix + dropdownValueYear);
+          .doc(docMainDb)
+          .collection(docMainDb + dropdownValueYear);
 
-      if (dropdownValuePendingSort == "L to H") {
+      if (dropdownValuePendingSort == txtLtoH) {
         snapshots = await collection
-            .where('waterGiven', isEqualTo: false)
-            .orderBy('water', descending: false)
+            .where(keyWaterGiven, isEqualTo: false)
+            .orderBy(keyWater, descending: false)
             .get();
-      } else if (dropdownValuePendingSort == "H to L") {
+      } else if (dropdownValuePendingSort == txtHtoL) {
         snapshots = await collection
-            .where('waterGiven', isEqualTo: false)
-            .orderBy('water', descending: true)
+            .where(keyWaterGiven, isEqualTo: false)
+            .orderBy(keyWater, descending: true)
             .get();
       } else {
         snapshots = await collection
-            .where('waterGiven', isEqualTo: false)
-            .orderBy('water', descending: true)
+            .where(keyWaterGiven, isEqualTo: false)
+            .orderBy(keyWater, descending: true)
             .get();
       }
     }
@@ -131,11 +129,11 @@ class _pendingContainerState extends State<pendingContainer> {
         await doc.reference.get().then((value) {
           var y = value.data();
           pendingEntry pe = pendingEntry(
-              name: y!["name"],
-              mobile: y!["mobile"].toString(),
+              name: y![keyName],
+              mobile: y![keyMobile].toString(),
               amount: (widget.pendingType == housePendingType)
-                  ? y!["house"].toString()
-                  : y!["water"].toString());
+                  ? y![keyHouse].toString()
+                  : y![keyWater].toString());
           entries.add(pe);
         });
       } catch (e) {
@@ -146,20 +144,20 @@ class _pendingContainerState extends State<pendingContainer> {
     final invoice = pendingInvoice(
         info: InvoiceInfo(
             formula:
-                'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
             year: dropdownValueYear,
             sortingType: dropdownValuePendingSort,
             taxType:
-                (widget.pendingType == housePendingType) ? "house" : "water"),
+                (widget.pendingType == housePendingType) ? keyHouse : keyWater),
         pendingInvoiceItems: entries);
 
-    final pdfFile = await invoice.generate("PENDING", userMail);
+    final pdfFile = await invoice.generate(actPending, userMail);
 
     PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
   }
 
-  //.where('waterGiven', isEqualTo: true)
+  //.where(keyWaterGiven, isEqualTo: true)
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -232,15 +230,13 @@ class _pendingContainerState extends State<pendingContainer> {
                     //TODO: update pendingInvoiceItems from DB later.
 
                     createPDFPendingEntries();
-
-                    print("Download button pressed");
                   },
                   icon: Icon(
                     Icons.download,
                     size: 30.0,
                   ),
                   color: getColor(widget.pendingType),
-                  tooltip: "Download pending",
+                  tooltip: txtDownloadPending,
                 ),
               ),
               Expanded(
@@ -301,7 +297,7 @@ class pendingMoney extends StatefulWidget {
 }
 
 class _pendingMoneyState extends State<pendingMoney> {
-  String pageName = "PENDING";
+  String pageName = actPending;
 
   // Initial Selected Value
 
@@ -330,12 +326,12 @@ class _pendingMoneyState extends State<pendingMoney> {
   Widget build(BuildContext context) {
     lsWidget.add(
       Expanded(
-        child: pendingContainer(pendingType: 'houseGiven'),
+        child: pendingContainer(pendingType: keyHouseGiven),
       ),
     );
     lsWidget.add(
       Expanded(
-        child: pendingContainer(pendingType: 'waterGiven'),
+        child: pendingContainer(pendingType: keyWaterGiven),
       ),
     );
 

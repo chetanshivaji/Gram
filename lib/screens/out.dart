@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'formula.dart';
-
-void _onBasicAlertPressed(context) {
-  Alert(
-    context: context,
-    title: "Success",
-    desc: "Submission is recorded",
-    image: Image.asset("assets/success.jpeg"),
-  ).show();
-}
+import 'package:money/constants.dart';
 
 // Create a Form widget.
 class outForm extends StatefulWidget {
@@ -50,13 +41,13 @@ class outFormState extends State<outForm> {
             child: TextFormField(
               decoration: InputDecoration(
                 icon: Icon(Icons.person),
-                hintText: "Enter your name",
-                labelText: "Your Name *",
+                hintText: msgEnterFullName,
+                labelText: labelName,
               ),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return msgEnterFullName;
                 }
                 name = value;
                 return null;
@@ -67,12 +58,12 @@ class outFormState extends State<outForm> {
             child: TextFormField(
               decoration: InputDecoration(
                   icon: Icon(Icons.mobile_friendly),
-                  hintText: "Reason for spending money",
-                  labelText: "Reason *"),
+                  hintText: msgMoneySpendingReason,
+                  labelText: labelReason),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Reason';
+                  return msgMoneySpendingReason;
                 }
                 reason = value;
                 return null;
@@ -84,16 +75,16 @@ class outFormState extends State<outForm> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 icon: Icon(Icons.attach_money),
-                hintText: "Money Spent",
-                labelText: "Amount *",
+                hintText: msgMoneySpent,
+                labelText: labelAmount,
               ),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter money spent';
+                  return msgMoneySpent;
                 }
                 if (!isNumeric(value)) {
-                  return 'Please nubmers only';
+                  return msgOnlyNumber;
                 }
                 amount = int.parse(value);
                 return null;
@@ -104,8 +95,8 @@ class outFormState extends State<outForm> {
             child: TextFormField(
               decoration: InputDecoration(
                 icon: Icon(Icons.info_outline),
-                hintText: "Extra Infomation",
-                labelText: "Extra information",
+                hintText: labelExtraInfo,
+                labelText: labelExtraInfo,
               ),
               validator: (value) {
                 extraInfo = value.toString();
@@ -130,24 +121,24 @@ class outFormState extends State<outForm> {
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Processing Data'),
+                      SnackBar(
+                        content: Text(msgProcessingData),
                       ),
                     );
 
                     var ls = await getLoggedInUserVillagePin();
                     await FirebaseFirestore.instance
                         .collection(ls[0] + ls[1])
-                        .doc(mainDb)
+                        .doc(docMainDb)
                         .collection("out" + dropdownValueYear)
                         .add(
                       {
-                        'name': name,
-                        'reason': reason,
-                        'amount': amount,
-                        'extraInfo': extraInfo,
-                        'date': DateTime.now().toString(),
-                        'user': userMail,
+                        keyName: name,
+                        keyReason: reason,
+                        keyAmount: amount,
+                        keyExtraInfo: extraInfo,
+                        keyDate: DateTime.now().toString(),
+                        keyUser: userMail,
                       },
                     );
                     updateFormulaValues(amount.toString(),
@@ -162,8 +153,8 @@ class outFormState extends State<outForm> {
                     );
                   }
                 },
-                child: const Text(
-                  'Submit',
+                child: Text(
+                  bLabelSubmit,
                 ),
               ),
             ),
@@ -179,7 +170,7 @@ class outMoney extends StatelessWidget {
 
   outMoney({Key? key}) : super(key: key);
 
-  String pageName = "OUT";
+  String pageName = actOut;
 
   @override
   Widget build(BuildContext context) {

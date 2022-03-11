@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 class outList extends StatelessWidget {
   String outType = "";
@@ -11,7 +12,7 @@ class outList extends StatelessWidget {
       {Key? key,
       this.yearDropDownValue = "2021",
       this.outType = "out",
-      this.orderType = "date"})
+      this.orderType = 'date'})
       : super(key: key);
 
   List<DataRow> _buildList(
@@ -20,12 +21,12 @@ class outList extends StatelessWidget {
 
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
-      ldataCell.add(DataCell(Text(l.get("name"))));
-      ldataCell.add(DataCell(Text(l.get("reason"))));
-      ldataCell.add(DataCell(Text(l.get("amount").toString())));
-      ldataCell.add(DataCell(Text(l.get("extraInfo"))));
-      ldataCell.add(DataCell(Text(l.get("date"))));
-      ldataCell.add(DataCell(Text(l.get("user"))));
+      ldataCell.add(DataCell(Text(l.get(keyName))));
+      ldataCell.add(DataCell(Text(l.get(keyReason))));
+      ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
+      ldataCell.add(DataCell(Text(l.get(keyExtraInfo))));
+      ldataCell.add(DataCell(Text(l.get(keyDate))));
+      ldataCell.add(DataCell(Text(l.get(keyUser))));
 
       ldataRow.add(DataRow(cells: ldataCell));
     }
@@ -53,38 +54,38 @@ class outList extends StatelessWidget {
           columns: <DataColumn>[
             DataColumn(
               label: Text(
-                'Name',
-                style: getStyle("OUT"),
+                tableHeadingName,
+                style: getStyle(actOut),
               ),
             ),
             DataColumn(
               label: Text(
-                'Reason',
-                style: getStyle("OUT"),
+                tableHeadingReason,
+                style: getStyle(actOut),
               ),
             ),
             DataColumn(
               label: Text(
-                'Amount',
-                style: getStyle("OUT"),
+                tableHeadingAmount,
+                style: getStyle(actOut),
               ),
             ),
             DataColumn(
               label: Text(
-                'ExtraInfo',
-                style: getStyle("OUT"),
+                tableHeadingExtraInfo,
+                style: getStyle(actOut),
               ),
             ),
             DataColumn(
               label: Text(
-                'Date',
-                style: getStyle("OUT"),
+                tableHeadingDate,
+                style: getStyle(actOut),
               ),
             ),
             DataColumn(
               label: Text(
-                'User',
-                style: getStyle("OUT"),
+                tableHeadingUser,
+                style: getStyle(actOut),
               ),
             ),
           ],
@@ -97,26 +98,26 @@ class outList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot<Object?>> stm;
-    if (orderType == "L to H") {
+    if (orderType == txtLtoH) {
       stm = FirebaseFirestore.instance
           .collection(village + pin)
-          .doc(mainDb)
+          .doc(docMainDb)
           .collection(outType + yearDropDownValue)
-          .orderBy('amount', descending: false)
+          .orderBy(keyAmount, descending: false)
           .snapshots();
-    } else if (orderType == "H to L") {
+    } else if (orderType == txtHtoL) {
       stm = FirebaseFirestore.instance
           .collection(village + pin)
-          .doc(mainDb)
+          .doc(docMainDb)
           .collection(outType + yearDropDownValue)
-          .orderBy('amount', descending: true)
+          .orderBy(keyAmount, descending: true)
           .snapshots();
     } else {
       stm = FirebaseFirestore.instance
           .collection(village + pin)
-          .doc(mainDb)
+          .doc(docMainDb)
           .collection(outType + yearDropDownValue)
-          .orderBy('date', descending: true)
+          .orderBy(keyDate, descending: true)
           .snapshots();
     }
     return StreamBuilder<QuerySnapshot>(
@@ -124,11 +125,11 @@ class outList extends StatelessWidget {
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Text("There is no expense");
+          return Text(msgNoExpense);
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading");
+          return Text(msgLoading);
         }
 
         return getOutTable(context, snapshot);

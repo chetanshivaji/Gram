@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 int totalIn = 0;
 int totalOut = 0;
 int totalBalance = 0;
-String mainDb = "mainDb";
+
 String village = "";
 String pin = "";
 
@@ -42,7 +42,7 @@ bool isNumeric(String s) {
 
 Future<bool> getApproval(BuildContext context) async {
   bool isApproved = await FirebaseFirestore.instance
-      .collection('users')
+      .collection(collUsers)
       .doc(userMail)
       .get()
       .then(
@@ -51,15 +51,15 @@ Future<bool> getApproval(BuildContext context) async {
         //if allready present
         popAlert(
           context,
-          "No Present",
-          "Email not present",
+          kTitleNotPresent,
+          kSubTitleEmailPresent,
           getWrongIcon(),
           2,
         );
         return false;
       } else {
         var y = value.data();
-        return y!["approved"];
+        return y![keyApproved];
       }
     },
   );
@@ -69,19 +69,18 @@ Future<bool> getApproval(BuildContext context) async {
 Future<String> getUserAccessLevel(BuildContext context, String email) async {
   try {
     String usreAccessLevel = await FirebaseFirestore.instance
-        .collection("users")
+        .collection(collUsers)
         .doc(email)
         .get()
         .then(
       (value) {
         var y = value.data();
-        return y!["accessLevel"];
+        return y![keyAccessLevel];
       },
     );
     return usreAccessLevel;
   } catch (e) {
-    popAlert(context, 'Fetch Fail', "User access level fetch failure",
-        getWrongIcon(), 1);
+    popAlert(context, txtFetchFailFromDb, "", getWrongIcon(), 1);
     return "Viewer"; //Return viewer by default
   }
 }
@@ -92,11 +91,11 @@ Future<List<String>> getLoggedInUserVillagePin() async {
   String village = "";
   String pin = "";
 
-  await FirebaseFirestore.instance.collection('users').doc(email).get().then(
+  await FirebaseFirestore.instance.collection(collUsers).doc(email).get().then(
     (value) {
       var y = value.data();
-      village = y!['village'];
-      pin = y['pin'];
+      village = y![keyVillage];
+      pin = y[keyPin];
       lsVillagePin.add(village);
       lsVillagePin.add(pin);
     },
@@ -108,16 +107,16 @@ TextStyle getTableHeadingTextStyle() {
   return TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.bold,
-    fontFamily: "RobotoMono",
+    fontFamily: tableHeadingFontFamily,
   );
 }
 
 TextStyle getStyle(String type) {
-  if (type == "IN") {
+  if (type == actIn) {
     return TextStyle(
       color: Colors.green[900],
     );
-  } else if (type == "PENDING") {
+  } else if (type == actPending) {
     return TextStyle(
       color: Colors.amber[900],
     );
@@ -129,20 +128,18 @@ TextStyle getStyle(String type) {
 }
 
 Color getColor(String type) {
-  if ((type == "IN") ||
+  if ((type == actIn) ||
       (type == "inHouse") ||
       (type == "inWater") ||
       (type == "inExtra")) {
     return Colors.green;
-  } else if (type == "PENDING") {
+  } else if (type == actPending) {
     return Color(0xFFFF8F00); //Amber type
   } else {
     return Colors.red;
   }
 }
 
-String titleSuccess = "Success";
-String subtitleSuccess = "Submitted!";
 Image imgSuccess = Image.asset("assets/success.jpeg");
 
 Icon getWrongIcon() {
@@ -195,7 +192,7 @@ class _yearTileState extends State<yearTile> {
     return ListTile(
       leading: Icon(Icons.date_range),
       title: Text(
-        "Year",
+        labelYear,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       trailing: DropdownButton(
@@ -239,14 +236,14 @@ void popLogOutAlert(
   //shows alert dialog
   //paramaters, title, subtitle, imgRightWrong:image with right or wrong icon, popCount: how many times navigate back
   Widget cancelButton = TextButton(
-    child: Text("cancel"),
+    child: Text(optCancel),
     onPressed: () {
       Navigator.pop(context);
     },
   );
 
   Widget okButton = TextButton(
-    child: Text("OK"),
+    child: Text(optOk),
     onPressed: () {
       FirebaseAuth.instance.signOut();
       Navigator.pop(context); //main screen of app
@@ -277,7 +274,7 @@ void popAlert(BuildContext context, String title, String subtitle,
   //paramaters, title, subtitle, imgRightWrong:image with right or wrong icon, popCount: how many times navigate back
 
   Widget okButton = TextButton(
-    child: Text("OK"),
+    child: Text(optOk),
     onPressed: () {
       for (int i = 0; i < popCount; i++) {
         Navigator.pop(context);

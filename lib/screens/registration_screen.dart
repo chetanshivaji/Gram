@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:money/constants.dart';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = "registerationscreen";
@@ -39,15 +39,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter email';
+                      return msgEnterUserMail;
                     }
                     email = value;
                     return null;
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.email),
-                    labelText: "Email *",
-                    hintText: 'Enter your email',
+                    labelText: labelEmail,
+                    hintText: msgEnterUserMail,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -75,15 +75,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter minimum 6 digit password';
+                      return msgEnterPassword;
                     }
                     password = value;
                     return null;
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.password),
-                    labelText: "Password *",
-                    hintText: 'Enter your password',
+                    labelText: labelPassword,
+                    hintText: msgEnterPassword,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -111,15 +111,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter minimum 6 digit password';
+                      return msgEnterPassword;
                     }
                     reEnterPassword = value;
                     return null;
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.password),
-                    labelText: "Password *",
-                    hintText: 'Re enter your password again',
+                    labelText: labelPassword,
+                    hintText: msgReEnterPassword,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -146,15 +146,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter village name';
+                      return msgEnterVillageName;
                     }
                     village = value;
                     return null;
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.holiday_village),
-                    labelText: "Village *",
-                    hintText: 'Enter village name',
+                    labelText: labelVillage,
+                    hintText: msgEnterVillageName,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -181,10 +181,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter village pin';
+                      return msgEnterVillagePin;
                     }
                     if (!isNumeric(value)) {
-                      return 'Please nubmers only';
+                      return msgOnlyNumber;
                     }
 
                     pin = value;
@@ -192,8 +192,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.pin),
-                    labelText: "Pin *",
-                    hintText: 'Enter village pin',
+                    labelText: labelPin,
+                    hintText: msgEnterVillagePin,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -225,7 +225,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     minWidth: 200.0,
                     height: 42.0,
                     child: Text(
-                      'Register',
+                      bLabelRegiter,
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: pressed
@@ -251,18 +251,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   userMail = email;
                                   //Add entry of new user to users, village pin
                                   await FirebaseFirestore.instance
-                                      .collection('users')
+                                      .collection(collUsers)
                                       .doc(email)
                                       .set(
                                     {
-                                      'village': village,
-                                      "pin": pin,
-                                      'approved': false,
-                                      'accessLevel': accessItems[accessLevel
+                                      keyVillage: village,
+                                      keyPin: pin,
+                                      keyApproved: false,
+                                      keyAccessLevel: accessItems[accessLevel
                                           .Viewer
                                           .index], //access level set by admin decided type of use, eg .viewer, collector, admin, spender
-                                      'mail': email,
-                                      'isAdmin': false,
+                                      keyMail: email,
+                                      keyIsAdmin: false,
                                     },
                                   );
                                   popAlert(

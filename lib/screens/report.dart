@@ -7,6 +7,7 @@ import 'formula.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/model/invoice.dart';
 import 'package:money/api/pdf_api.dart';
+import 'package:money/constants.dart';
 
 class reportContainer extends StatefulWidget {
   String reportType = "";
@@ -30,9 +31,9 @@ String sToDate = DateTime.now().day.toString() +
     DateTime.now().year.toString();
 String dropdownValueReportSort = "Date";
 var itemsSort = [
-  'Date',
-  'H to L',
-  'L to H',
+  tableHeadingDate,
+  txtHtoL,
+  txtLtoH,
 ];
 
 class _reportContainerState extends State<reportContainer> {
@@ -84,55 +85,59 @@ class _reportContainerState extends State<reportContainer> {
     if (widget.reportType == "inHouse") {
       var collection = FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
+          .doc(docMainDb)
           .collection(
               widget.reportType + dropdownValueYear); //TODO: need to user where
 
-      if (dropdownValueReportSort == "L to H") {
-        snapshots = await collection.orderBy('amount', descending: false).get();
-      } else if (dropdownValueReportSort == "H to L") {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+      if (dropdownValueReportSort == txtLtoH) {
+        snapshots =
+            await collection.orderBy(keyAmount, descending: false).get();
+      } else if (dropdownValueReportSort == txtHtoL) {
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
     } else if (widget.reportType == "inWater") {
       var collection = FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
+          .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
 
-      if (dropdownValueReportSort == "L to H") {
-        snapshots = await collection.orderBy('amount', descending: false).get();
-      } else if (dropdownValueReportSort == "H to L") {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+      if (dropdownValueReportSort == txtLtoH) {
+        snapshots =
+            await collection.orderBy(keyAmount, descending: false).get();
+      } else if (dropdownValueReportSort == txtHtoL) {
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
     } else if (widget.reportType == "inExtra") {
       var collection = FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
+          .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
 
-      if (dropdownValueReportSort == "L to H") {
-        snapshots = await collection.orderBy('amount', descending: false).get();
-      } else if (dropdownValueReportSort == "H to L") {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+      if (dropdownValueReportSort == txtLtoH) {
+        snapshots =
+            await collection.orderBy(keyAmount, descending: false).get();
+      } else if (dropdownValueReportSort == txtHtoL) {
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
     } else if (widget.reportType == "out") {
       var collection = FirebaseFirestore.instance
           .collection(ls[0] + ls[1])
-          .doc(mainDb)
+          .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
 
-      if (dropdownValueReportSort == "L to H") {
-        snapshots = await collection.orderBy('amount', descending: false).get();
-      } else if (dropdownValueReportSort == "H to L") {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+      if (dropdownValueReportSort == txtLtoH) {
+        snapshots =
+            await collection.orderBy(keyAmount, descending: false).get();
+      } else if (dropdownValueReportSort == txtHtoL) {
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy('amount', descending: true).get();
+        snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
     }
 
@@ -144,11 +149,11 @@ class _reportContainerState extends State<reportContainer> {
             case "inHouse":
               {
                 houseWaterReportEntry pe = houseWaterReportEntry(
-                  name: y!["name"],
-                  mobile: y!["mobile"].toString(),
-                  amount: y!["amount"].toString(),
-                  date: y!["date"],
-                  user: y!["user"],
+                  name: y![keyName],
+                  mobile: y![keyMobile].toString(),
+                  amount: y![keyAmount].toString(),
+                  date: y![keyDate],
+                  user: y![keyUser],
                 );
                 entriesHouseWater.add(pe);
 
@@ -158,11 +163,11 @@ class _reportContainerState extends State<reportContainer> {
             case "inWater":
               {
                 houseWaterReportEntry pe = houseWaterReportEntry(
-                  name: y!["name"],
-                  mobile: y!["mobile"].toString(),
-                  amount: y!["amount"].toString(),
-                  date: y!["date"],
-                  user: y!["user"],
+                  name: y![keyName],
+                  mobile: y![keyMobile].toString(),
+                  amount: y![keyAmount].toString(),
+                  date: y![keyDate],
+                  user: y![keyUser],
                 );
                 entriesHouseWater.add(pe);
 
@@ -171,10 +176,10 @@ class _reportContainerState extends State<reportContainer> {
             case "inExtra":
               {
                 extraIncomeReportEntry pe = extraIncomeReportEntry(
-                  amount: y!["amount"].toString(),
-                  reason: y!["reason"],
-                  date: y!["date"],
-                  user: y!["user"],
+                  amount: y![keyAmount].toString(),
+                  reason: y![keyReason],
+                  date: y![keyDate],
+                  user: y![keyUser],
                 );
                 entriesExtraIncome.add(pe);
 
@@ -183,12 +188,12 @@ class _reportContainerState extends State<reportContainer> {
             case "out":
               {
                 outReportEntry pe = outReportEntry(
-                  name: y!["name"],
-                  reason: y!["reason"],
-                  amount: y!["amount"].toString(),
-                  extraInfo: y!["extraInfo"],
-                  date: y!["date"],
-                  user: y!["user"],
+                  name: y![keyName],
+                  reason: y![keyReason],
+                  amount: y![keyAmount].toString(),
+                  extraInfo: y![keyExtraInfo],
+                  date: y![keyDate],
+                  user: y![keyUser],
                 );
                 entriesOut.add(pe);
                 break;
@@ -209,7 +214,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
-                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -224,7 +229,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
-                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -239,7 +244,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportExtraInvoice(
               info: InvoiceInfo(
                 formula:
-                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -255,7 +260,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportOutInvoice(
               info: InvoiceInfo(
                 formula:
-                    'InMoney=$inFormula; OutMoney=$outFormula; RemainingMoney=$remainFormula',
+                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -272,7 +277,7 @@ class _reportContainerState extends State<reportContainer> {
         break;
     }
 
-    final pdfFile = await invoice.generate("REPORT", userMail);
+    final pdfFile = await invoice.generate(actReport, userMail);
     PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
   }
@@ -344,15 +349,13 @@ class _reportContainerState extends State<reportContainer> {
                   alignment: Alignment.topRight,
                   onPressed: () async {
                     createPDFReportEntries();
-
-                    print("Download button pressed");
                   },
                   icon: Icon(
                     Icons.download,
                     size: 30.0,
                   ),
                   color: getColor(widget.reportType),
-                  tooltip: "Download Report",
+                  tooltip: txtDownloadReport,
                 ),
               ),
               Expanded(
@@ -422,7 +425,7 @@ class reportMoney extends StatefulWidget {
 }
 
 class _reportMoneyState extends State<reportMoney> {
-  String pageName = "REPORT";
+  String pageName = actReport;
 
   // Initial Selected Value
 

@@ -9,6 +9,7 @@ import 'screens/out.dart';
 import 'screens/pending.dart';
 import 'screens/report.dart';
 import 'screens/search_pending.dart';
+import 'package:money/constants.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
@@ -31,7 +32,7 @@ void main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "GramPanchayat",
+      title: appMainLabel,
       initialRoute: WelcomeScreen.id,
       routes: {
         MyApp.id: (context) => MyApp(),

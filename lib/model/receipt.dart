@@ -5,6 +5,7 @@ import 'package:money/api/pdf_api.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:money/constants.dart';
 
 //********************END HouseWater report invoice****************************** */
 
@@ -34,6 +35,15 @@ abstract class receipt {
   //year date, name, mobile, amount, tax type, userMail(reciver).
   //Gram Details, - village, taluka, district, state, pin,
   //Stamp, Signature
+  String getReceipt(receiptInfo info) {
+    return "Dear " +
+        info.name +
+        " received " +
+        info.taxType +
+        " tax amount of Rs. " +
+        info.amount +
+        "Thank you!";
+  }
 
   Future<File> generate(String reportType, String userMail) async {
     final pdf = Document();
@@ -58,13 +68,9 @@ abstract class receipt {
         SizedBox(height: 3 * PdfPageFormat.cm),
         buildTitle(pdfTitle),
         buildInvoice(reportType),
-        pw.Text("Dear " +
-            info.name +
-            " received " +
-            info.taxType +
-            " tax amount of Rs. " +
-            info.amount +
-            "Thank you!"),
+        pw.Text(
+          getReceipt(info),
+        ),
       ],
       footer: (context) => buildFooter(userMail, reportType),
     ));
@@ -101,27 +107,32 @@ abstract class receipt {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text("Year =  " +
+          Text(labelYear +
+              equals +
               info.date +
-              "\n" +
-              "TaxType =  " +
+              endL +
+              txtTaxType +
+              equals +
               info.taxType +
-              "\n" +
-              "Name =  " +
+              endL +
+              tableHeadingName +
+              equals +
               info.name +
-              "\n" +
-              "Mobile =  " +
+              endL +
+              tableHeadingMobile +
+              equals +
               info.mobile +
-              "\n" +
-              "Downloaded by user =  " +
+              endL +
+              txtDownloadedByUser +
+              equals +
               info.userMail +
-              "\n"),
+              endL),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
   Widget buildInvoice(String reportType) {
-    return Text("Something wrong in building RECEIPT main class");
+    return Text(msgInvoidBuildFail);
   }
 
   static Widget buildFooter(String userMail, String reportType) => Column(
@@ -187,8 +198,8 @@ class pendingReceipt extends receipt {
 
     headers = [
       'TaxType',
-      'Mobile',
-      'Amount',
+      tableHeadingMobile,
+      tableHeadingAmount,
     ];
     data = pendingInvoiceItems.map((item) {
       return [
@@ -230,11 +241,11 @@ class receivedReceipt extends receipt {
     var data;
 
     headers = [
-      'Name',
-      'Mobile',
-      'Amount',
-      'Date',
-      'User',
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingAmount,
+      tableHeadingDate,
+      tableHeadingUser,
     ];
     List<List<dynamic>> lld = [
       [info.name, info.mobile, info.amount, info.date, info.userMail],
