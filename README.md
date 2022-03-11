@@ -15,9 +15,8 @@ In future developement.
 
 
 # TODO
-					
-1. who wil notify
-
+1. After back button press clear search result
+2. who wil notify
 3. who reminded
 4. recyler tile
 5. ternary operator Recycler list

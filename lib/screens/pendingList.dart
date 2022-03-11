@@ -14,8 +14,8 @@ class pendingList extends StatelessWidget {
   pendingList(
       {Key? key,
       this.yearDropDownValue = "2021",
-      this.pendingType = "houseGiven",
-      this.orderType = 'date'})
+      this.pendingType = keyHouseGiven,
+      this.orderType = keyDate})
       : super(key: key);
 
   List<DataRow> _buildList(

@@ -129,9 +129,9 @@ TextStyle getStyle(String type) {
 
 Color getColor(String type) {
   if ((type == actIn) ||
-      (type == "inHouse") ||
-      (type == "inWater") ||
-      (type == "inExtra")) {
+      (type == collPrefixInHouse) ||
+      (type == collPrefixInWater) ||
+      (type == collPrefixInExtra)) {
     return Colors.green;
   } else if (type == actPending) {
     return Color(0xFFFF8F00); //Amber type

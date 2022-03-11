@@ -11,8 +11,8 @@ class inList extends StatelessWidget {
   inList(
       {Key? key,
       this.yearDropDownValue = "2021",
-      this.inType = "inHouse",
-      this.orderType = 'date'})
+      this.inType = collPrefixInHouse,
+      this.orderType = keyDate})
       : super(key: key);
 
   List<DataRow> _buildList(
@@ -21,7 +21,7 @@ class inList extends StatelessWidget {
 
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
-      if (inType == "inExtra") {
+      if (inType == collPrefixInExtra) {
         ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
         ldataCell.add(DataCell(Text(l.get(keyReason))));
         ldataCell.add(DataCell(Text(l.get(keyDate))));
@@ -183,7 +183,7 @@ class inList extends StatelessWidget {
           return Text(msgLoading);
         }
 
-        return (inType == "inExtra")
+        return (inType == collPrefixInExtra)
             ? getInExtraTable(context, snapshot)
             : getInHouseWaterTable(context, snapshot);
       },

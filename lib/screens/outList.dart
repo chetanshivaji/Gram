@@ -11,8 +11,8 @@ class outList extends StatelessWidget {
   outList(
       {Key? key,
       this.yearDropDownValue = "2021",
-      this.outType = "out",
-      this.orderType = 'date'})
+      this.outType = collPrefixOut,
+      this.orderType = keyDate})
       : super(key: key);
 
   List<DataRow> _buildList(

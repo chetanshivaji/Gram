@@ -10,7 +10,7 @@ import 'package:money/constants.dart';
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
   String formType = "";
-  HouseWaterForm({Key? key, this.formType = "HOUSE"}) : super(key: key);
+  HouseWaterForm({Key? key, this.formType = txtTaxTypeHouse}) : super(key: key);
 
   @override
   HouseWaterFormState createState() {
@@ -36,9 +36,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseEmail = "";
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
-    var ls = await getLoggedInUserVillagePin();
+    //var ls = await getLoggedInUserVillagePin();
     int total = await FirebaseFirestore.instance
-        .collection(ls[0] + ls[1])
+        //.collection(ls[0] + ls[1])
+        .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)
         .doc(docCalcultion)
@@ -51,14 +52,16 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     //update formula
     if (typeInOut == "in") {
       FirebaseFirestore.instance
-          .collection(ls[0] + ls[1])
+          //.collection(ls[0] + ls[1])
+          .collection(village + pin)
           .doc(docMainDb)
           .collection(collFormula)
           .doc(docCalcultion)
           .update({keyTotalIn: (total + int.parse(newEntryAmount))});
     } else {
       FirebaseFirestore.instance
-          .collection(ls[0] + ls[1])
+          //.collection(ls[0] + ls[1])
+          .collection(village + pin)
           .doc(docMainDb)
           .collection(collFormula)
           .doc(docCalcultion)
@@ -76,7 +79,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           amount: amount.toString(),
           mobile: mobile,
           userMail: userMail,
-          taxType: (widget.formType == "HOUSE") ? keyHouse : keyWater),
+          taxType: (widget.formType == txtTaxTypeHouse) ? keyHouse : keyWater),
     );
 
     final pdfFile = await receipt.generate(actIn, userMail);
@@ -113,11 +116,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
               onChanged: (text) async {
                 if (text.length == 10) {
-                  var ls = await getLoggedInUserVillagePin();
-                  if (widget.formType == "HOUSE") {
+                  //var ls = await getLoggedInUserVillagePin();
+                  if (widget.formType == txtTaxTypeHouse) {
                     try {
                       await FirebaseFirestore.instance
-                          .collection(ls[0] + ls[1])
+                          //.collection(ls[0] + ls[1])
+                          .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
                           .doc(text)
@@ -144,7 +148,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   } else {
                     try {
                       await FirebaseFirestore.instance
-                          .collection(ls[0] + ls[1])
+                          //.collection(ls[0] + ls[1])
+                          .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
                           .doc(text)
@@ -247,16 +252,16 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   String inTypeGiven = "";
                   String typeSubmit = "";
 
-                  if (widget.formType == "HOUSE") {
+                  if (widget.formType == txtTaxTypeHouse) {
                     //house
-                    inTypeSubmit = "inHouse";
+                    inTypeSubmit = collPrefixInHouse;
                     inTypeGiven = keyHouseGiven;
-                    typeSubmit = 'House';
+                    typeSubmit = txtTaxTypeHouse;
                   } else {
                     //water
-                    inTypeSubmit = "inWater";
+                    inTypeSubmit = collPrefixInWater;
                     inTypeGiven = keyWaterGiven;
-                    typeSubmit = 'Water';
+                    typeSubmit = txtTaxTypeWater;
                   }
 
                   if (_formKey.currentState!.validate() &&
@@ -264,9 +269,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     onPressedHouseWater = true;
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
-                    var ls = await getLoggedInUserVillagePin();
+                    //var ls = await getLoggedInUserVillagePin();
                     bool paid = await FirebaseFirestore.instance
-                        .collection(ls[0] + ls[1])
+                        //.collection(ls[0] + ls[1])
+                        .collection(village + pin)
                         .doc(docMainDb)
                         .collection(docMainDb + dropdownValueYear)
                         .doc(mobile.toString())
@@ -274,7 +280,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         .then(
                       (value) {
                         var y = value.data();
-                        if (widget.formType == "HOUSE") {
+                        if (widget.formType == txtTaxTypeHouse) {
                           if (y![keyHouseGiven] == true) {
                             return true;
                           } else
@@ -298,7 +304,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       );
 
                       await FirebaseFirestore.instance
-                          .collection(ls[0] + ls[1])
+                          //.collection(ls[0] + ls[1])
+                          .collection(village + pin)
                           .doc(docMainDb)
                           .collection(inTypeSubmit + dropdownValueYear)
                           .add(
@@ -311,7 +318,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       await FirebaseFirestore.instance
-                          .collection(ls[0] + ls[1])
+                          //.collection(ls[0] + ls[1])
+                          .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
                           .doc(mobile)
@@ -398,12 +406,12 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.text_snippet),
-                  hintText: "Income Reason",
+                  hintText: msgExtraIncomeReasom,
                   labelText: labelReason),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return msgExtraIncomeReasom;
                 }
                 reason = value;
                 return null;
@@ -417,12 +425,12 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.attach_money),
-                  hintText: "Enter amount",
+                  hintText: msgExtraIncomeAmount,
                   labelText: labelAmount),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter amount';
+                  return msgExtraIncomeAmount;
                 }
                 if (!isNumeric(value)) {
                   return msgOnlyNumber;
@@ -456,11 +464,12 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         content: Text(msgProcessingData),
                       ),
                     );
-                    var ls = await getLoggedInUserVillagePin();
+                    //var ls = await getLoggedInUserVillagePin();
                     FirebaseFirestore.instance
-                        .collection(ls[0] + ls[1])
+                        //.collection(ls[0] + ls[1])
+                        .collection(village + pin)
                         .doc(docMainDb)
-                        .collection("inExtra" + dropdownValueYear)
+                        .collection(collPrefixInExtra + dropdownValueYear)
                         .add(
                       {
                         keyReason: reason,
@@ -499,15 +508,19 @@ class inMoney extends StatelessWidget {
     Icon(Icons.foundation_outlined, color: Colors.black),
   ];
   List<Widget> lsWidget = <Widget>[];
-  List<String> lsText = ["Home", "Water", "Extra Income"];
+  List<String> lsText = [
+    txtTaxTypeHouse,
+    txtTaxTypeWater,
+    txtTaxTypeExtraIncome
+  ];
 
   @override
   Widget build(BuildContext context) {
     lsWidget.add(
-      HouseWaterForm(formType: "HOUSE"),
+      HouseWaterForm(formType: txtTaxTypeHouse),
     );
     lsWidget.add(
-      HouseWaterForm(formType: "WATER"),
+      HouseWaterForm(formType: txtTaxTypeWater),
     );
     lsWidget.add(
       ExtraIncomeForm(),

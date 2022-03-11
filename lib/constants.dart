@@ -30,6 +30,9 @@ String msgTenDigitNumber = "Please enter 10 digits!";
 String msgEnterFullName = "Enter Full Name";
 String msgEnterHouseTax = "Enter House tax";
 String msgHouseTaxAmount = 'Please enter house tax amount';
+String msgExtraIncomeAmount = 'Please enter Extra Income amount';
+String msgExtraIncomeReasom = 'Please enter Extra Income reason';
+
 String msgWaterTax = "Enter Water tax";
 String msgProcessingData = 'Processing Data';
 String msgAlreadyRemoved = "Allready Removed";
@@ -51,6 +54,7 @@ String bLabelAdminRegiter = 'Admin Register';
 String bLabelSubmit = 'Submit';
 String bLabelLogin = 'Log In';
 String bLabelRegiter = 'Register';
+String bLabelSearch = "Search";
 
 //Drawer sections
 String dAddEntry = 'addEntry';
@@ -131,9 +135,22 @@ String txtDownloadReport = "Download Report";
 String txtNotifyToPay = "Send notification to Pay";
 String txtName = "Name";
 String txtFetchFailFromDb = "Fetch Fail From Db";
+const String txtTaxTypeHouse = "House";
+String txtTaxTypeWater = "Water";
+String txtTaxTypeExtraIncome = "Extra Income";
+
 //collection strings
 String collUsers = 'users';
 String collFormula = 'formula';
+
+const String collPrefixInHouse = "inHouse";
+const String collPrefixInWater = "inWater";
+const String collPrefixInExtra = "inExtra";
+const String collPrefixOut = "out";
+
+String txtFIn = "In";
+String txtFOut = "Out";
+String txtFRemain = "Remain";
 
 //doc strings
 String docVillageInfo = "villageInfo";
@@ -157,7 +174,7 @@ String keyAccess = "access";
 String keyAddress = 'address';
 String keyAdminMail = 'adminMail';
 String keyHouse = 'house';
-String keyHouseGiven = 'houseGiven';
+const String keyHouseGiven = 'houseGiven';
 String keyWater = 'water';
 String keyWaterGiven = 'waterGiven';
 String keyMobile = "mobile";
@@ -167,7 +184,7 @@ String keyTotalBalance = 'totalBalance';
 String keyTotalIn = 'totalIn';
 String keyTotalOut = 'totalOut';
 String keyAmount = "amount";
-String keyDate = "date";
+const String keyDate = "date";
 String keyUser = "user";
 String keyReason = "reason";
 String keyExtraInfo = "extraInfo";

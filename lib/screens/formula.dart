@@ -4,10 +4,11 @@ import 'package:money/util.dart';
 import 'package:money/constants.dart';
 
 void updateFormulaValues(String newEntryAmount, String typeInOut) async {
-  var ls = await getLoggedInUserVillagePin();
+  //var ls = await getLoggedInUserVillagePin();
 
   int total = await FirebaseFirestore.instance
-      .collection(ls[0] + ls[1])
+      //.collection(ls[0] + ls[1])
+      .collection(village + pin)
       .doc(docMainDb)
       .collection(collFormula)
       .doc(docCalcultion)
@@ -20,14 +21,16 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
   //update formula
   if (typeInOut == "in") {
     FirebaseFirestore.instance
-        .collection(ls[0] + ls[1])
+        //.collection(ls[0] + ls[1])
+        .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)
         .doc(docCalcultion)
         .update({keyTotalIn: (total + int.parse(newEntryAmount))});
   } else {
     FirebaseFirestore.instance
-        .collection(ls[0] + ls[1])
+        //.collection(ls[0] + ls[1])
+        .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)
         .doc(docCalcultion)
@@ -58,7 +61,7 @@ Widget formulaNew(int totalIn, int totalOut) {
     ),
     child: Row(
       children: <Widget>[
-        getForumlaInternalSimple("In", totalIn.toString()),
+        getForumlaInternalSimple(txtFIn, totalIn.toString()),
         Text(
           " - ",
           style: TextStyle(
@@ -67,7 +70,7 @@ Widget formulaNew(int totalIn, int totalOut) {
           ),
           textAlign: TextAlign.center,
         ),
-        getForumlaInternalSimple("Out", totalOut.toString()),
+        getForumlaInternalSimple(txtFOut, totalOut.toString()),
         Text(
           equals,
           style: TextStyle(
@@ -76,7 +79,7 @@ Widget formulaNew(int totalIn, int totalOut) {
           ),
           textAlign: TextAlign.end,
         ),
-        getForumlaInternalSimple("Remain", (totalIn - totalOut).toString()),
+        getForumlaInternalSimple(txtFRemain, (totalIn - totalOut).toString()),
       ],
     ),
   );

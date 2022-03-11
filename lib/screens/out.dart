@@ -126,11 +126,12 @@ class outFormState extends State<outForm> {
                       ),
                     );
 
-                    var ls = await getLoggedInUserVillagePin();
+                    //var ls = await getLoggedInUserVillagePin();
                     await FirebaseFirestore.instance
-                        .collection(ls[0] + ls[1])
+                        //.collection(ls[0] + ls[1])
+                        .collection(village + pin)
                         .doc(docMainDb)
-                        .collection("out" + dropdownValueYear)
+                        .collection(collPrefixOut + dropdownValueYear)
                         .add(
                       {
                         keyName: name,
@@ -142,7 +143,7 @@ class outFormState extends State<outForm> {
                       },
                     );
                     updateFormulaValues(amount.toString(),
-                        "out"); //fetch exisiting value from formula and update new value.
+                        collPrefixOut); //fetch exisiting value from formula and update new value.
 
                     popAlert(
                       context,

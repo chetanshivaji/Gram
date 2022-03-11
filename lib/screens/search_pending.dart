@@ -15,8 +15,8 @@ class searchScreen extends StatefulWidget {
 }
 
 SingleChildScrollView objSearchList = SingleChildScrollView();
-String _name = "";
-String name = "";
+
+String name = ""; //TODO: check if need to remove this
 
 class _searchScreenState extends State<searchScreen> {
   String mobile = "";
@@ -26,24 +26,20 @@ class _searchScreenState extends State<searchScreen> {
   bool waterGiven = false;
   String name = "";
 
-  String _mobile = "";
-  int _house = 0;
-  int _water = 0;
-  bool _houseGiven = false;
-  bool _waterGiven = false;
   String _name = "";
 
   final _formKey2 = GlobalKey<FormState>();
 
   Future<List<DataRow>> _buildListPending() async {
     List<DataRow> ldataRow = [];
-    var ls = await getLoggedInUserVillagePin();
+    //var ls = await getLoggedInUserVillagePin();
     for (var yr in items) {
       List<DataCell> ldataCell = [];
       //search DB
       try {
         var collection = FirebaseFirestore.instance
-            .collection(ls[0] + ls[1])
+            //.collection(ls[0] + ls[1])
+            .collection(village + pin)
             .doc(docMainDb)
             .collection(docMainDb + yr);
         var doc = await collection.doc(mobile).get();
@@ -95,7 +91,7 @@ class _searchScreenState extends State<searchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search"),
+        title: Text(bLabelSearch),
       ),
       body: Container(
         child: Column(
@@ -142,14 +138,15 @@ class _searchScreenState extends State<searchScreen> {
                       bLabelSubmit,
                     ),
                     onPressed: () async {
-                      var ls = await getLoggedInUserVillagePin();
+                      //var ls = await getLoggedInUserVillagePin();
                       if (_formKey2.currentState!.validate()) {
                         var ldr = await _buildListPending();
                         //search DB
                         for (var yr in items) {
                           try {
                             _name = await FirebaseFirestore.instance
-                                .collection(ls[0] + ls[1])
+                                //.collection(ls[0] + ls[1])
+                                .collection(village + pin)
                                 .doc(docMainDb)
                                 .collection(docMainDb + yr)
                                 .doc(mobile)

@@ -11,7 +11,8 @@ import 'package:money/constants.dart';
 
 class reportContainer extends StatefulWidget {
   String reportType = "";
-  reportContainer({Key? key, this.reportType = "inHouse"}) : super(key: key);
+  reportContainer({Key? key, this.reportType = collPrefixInHouse})
+      : super(key: key);
 
   @override
   _reportContainerState createState() => _reportContainerState();
@@ -80,11 +81,12 @@ class _reportContainerState extends State<reportContainer> {
     List<houseWaterReportEntry> entriesHouseWater = [];
     List<extraIncomeReportEntry> entriesExtraIncome = [];
     List<outReportEntry> entriesOut = [];
-    var ls = await getLoggedInUserVillagePin();
+    //var ls = await getLoggedInUserVillagePin();
     var snapshots;
-    if (widget.reportType == "inHouse") {
+    if (widget.reportType == collPrefixInHouse) {
       var collection = FirebaseFirestore.instance
-          .collection(ls[0] + ls[1])
+          //.collection(ls[0] + ls[1])
+          .collection(village + pin)
           .doc(docMainDb)
           .collection(
               widget.reportType + dropdownValueYear); //TODO: need to user where
@@ -97,9 +99,10 @@ class _reportContainerState extends State<reportContainer> {
       } else {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
-    } else if (widget.reportType == "inWater") {
+    } else if (widget.reportType == collPrefixInWater) {
       var collection = FirebaseFirestore.instance
-          .collection(ls[0] + ls[1])
+          //.collection(ls[0] + ls[1])
+          .collection(village + pin)
           .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
 
@@ -111,9 +114,10 @@ class _reportContainerState extends State<reportContainer> {
       } else {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
-    } else if (widget.reportType == "inExtra") {
+    } else if (widget.reportType == collPrefixInExtra) {
       var collection = FirebaseFirestore.instance
-          .collection(ls[0] + ls[1])
+          //.collection(ls[0] + ls[1])
+          .collection(village + pin)
           .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
 
@@ -125,9 +129,10 @@ class _reportContainerState extends State<reportContainer> {
       } else {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
-    } else if (widget.reportType == "out") {
+    } else if (widget.reportType == collPrefixOut) {
       var collection = FirebaseFirestore.instance
-          .collection(ls[0] + ls[1])
+          //.collection(ls[0] + ls[1])
+          .collection(village + pin)
           .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
 
@@ -143,63 +148,65 @@ class _reportContainerState extends State<reportContainer> {
 
     for (var doc in snapshots.docs) {
       try {
-        await doc.reference.get().then((value) {
-          var y = value.data();
-          switch (widget.reportType) {
-            case "inHouse":
-              {
-                houseWaterReportEntry pe = houseWaterReportEntry(
-                  name: y![keyName],
-                  mobile: y![keyMobile].toString(),
-                  amount: y![keyAmount].toString(),
-                  date: y![keyDate],
-                  user: y![keyUser],
-                );
-                entriesHouseWater.add(pe);
+        await doc.reference.get().then(
+          (value) {
+            var y = value.data();
+            switch (widget.reportType) {
+              case collPrefixInHouse:
+                {
+                  houseWaterReportEntry pe = houseWaterReportEntry(
+                    name: y![keyName],
+                    mobile: y![keyMobile].toString(),
+                    amount: y![keyAmount].toString(),
+                    date: y![keyDate],
+                    user: y![keyUser],
+                  );
+                  entriesHouseWater.add(pe);
 
-                break;
-              }
+                  break;
+                }
 
-            case "inWater":
-              {
-                houseWaterReportEntry pe = houseWaterReportEntry(
-                  name: y![keyName],
-                  mobile: y![keyMobile].toString(),
-                  amount: y![keyAmount].toString(),
-                  date: y![keyDate],
-                  user: y![keyUser],
-                );
-                entriesHouseWater.add(pe);
+              case collPrefixInWater:
+                {
+                  houseWaterReportEntry pe = houseWaterReportEntry(
+                    name: y![keyName],
+                    mobile: y![keyMobile].toString(),
+                    amount: y![keyAmount].toString(),
+                    date: y![keyDate],
+                    user: y![keyUser],
+                  );
+                  entriesHouseWater.add(pe);
 
-                break;
-              }
-            case "inExtra":
-              {
-                extraIncomeReportEntry pe = extraIncomeReportEntry(
-                  amount: y![keyAmount].toString(),
-                  reason: y![keyReason],
-                  date: y![keyDate],
-                  user: y![keyUser],
-                );
-                entriesExtraIncome.add(pe);
+                  break;
+                }
+              case collPrefixInExtra:
+                {
+                  extraIncomeReportEntry pe = extraIncomeReportEntry(
+                    amount: y![keyAmount].toString(),
+                    reason: y![keyReason],
+                    date: y![keyDate],
+                    user: y![keyUser],
+                  );
+                  entriesExtraIncome.add(pe);
 
-                break;
-              }
-            case "out":
-              {
-                outReportEntry pe = outReportEntry(
-                  name: y![keyName],
-                  reason: y![keyReason],
-                  amount: y![keyAmount].toString(),
-                  extraInfo: y![keyExtraInfo],
-                  date: y![keyDate],
-                  user: y![keyUser],
-                );
-                entriesOut.add(pe);
-                break;
-              }
-          }
-        });
+                  break;
+                }
+              case collPrefixOut:
+                {
+                  outReportEntry pe = outReportEntry(
+                    name: y![keyName],
+                    reason: y![keyReason],
+                    amount: y![keyAmount].toString(),
+                    extraInfo: y![keyExtraInfo],
+                    date: y![keyDate],
+                    user: y![keyUser],
+                  );
+                  entriesOut.add(pe);
+                  break;
+                }
+            }
+          },
+        );
       } catch (e) {
         print(e);
       }
@@ -208,9 +215,9 @@ class _reportContainerState extends State<reportContainer> {
     String taxType = "";
     var invoice;
     switch (widget.reportType) {
-      case "inHouse":
+      case collPrefixInHouse:
         {
-          taxType = "House";
+          taxType = txtTaxTypeHouse;
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
@@ -223,9 +230,9 @@ class _reportContainerState extends State<reportContainer> {
           break;
         }
 
-      case "inWater":
+      case collPrefixInWater:
         {
-          taxType = "Water";
+          taxType = txtTaxTypeWater;
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
@@ -238,9 +245,9 @@ class _reportContainerState extends State<reportContainer> {
           break;
         }
 
-      case "inExtra":
+      case collPrefixInExtra:
         {
-          taxType = "InExtra";
+          taxType = collPrefixInExtra;
           invoice = reportExtraInvoice(
               info: InvoiceInfo(
                 formula:
@@ -254,9 +261,9 @@ class _reportContainerState extends State<reportContainer> {
           break;
         }
 
-      case "out":
+      case collPrefixOut:
         {
-          taxType = "Out";
+          taxType = collPrefixOut;
           invoice = reportOutInvoice(
               info: InvoiceInfo(
                 formula:
@@ -314,7 +321,7 @@ class _reportContainerState extends State<reportContainer> {
               Expanded(
                 child: DropdownButton(
                   borderRadius: BorderRadius.circular(12.0),
-                  dropdownColor: clrAmber,
+                  dropdownColor: clrBlue,
 
                   alignment: Alignment.topLeft,
 
@@ -398,9 +405,9 @@ class _reportContainerState extends State<reportContainer> {
             ],
           ),
           Expanded(
-            child: (widget.reportType == "inHouse") ||
-                    (widget.reportType == "inWater") ||
-                    (widget.reportType == "inExtra")
+            child: (widget.reportType == collPrefixInHouse) ||
+                    (widget.reportType == collPrefixInWater) ||
+                    (widget.reportType == collPrefixInExtra)
                 ? inList(
                     yearDropDownValue: dropdownValueYear,
                     inType: widget.reportType,
@@ -450,7 +457,12 @@ class _reportMoneyState extends State<reportMoney> {
     Icon(Icons.outbond, color: Colors.black),
   ];
   List<Widget> lsWidget = <Widget>[];
-  List<String> lsText = ["Home", "Water", "Extra Income", "Out"];
+  List<String> lsText = [
+    txtTaxTypeHouse,
+    txtTaxTypeWater,
+    "Extra Income",
+    collPrefixOut
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -461,17 +473,17 @@ class _reportMoneyState extends State<reportMoney> {
     );
     lsWidget.add(
       Expanded(
-        child: reportContainer(reportType: 'inWater'),
+        child: reportContainer(reportType: collPrefixInWater),
       ),
     );
     lsWidget.add(
       Expanded(
-        child: reportContainer(reportType: 'inExtra'),
+        child: reportContainer(reportType: collPrefixInExtra),
       ),
     );
     lsWidget.add(
       Expanded(
-        child: reportContainer(reportType: 'out'),
+        child: reportContainer(reportType: collPrefixOut),
       ),
     );
 
