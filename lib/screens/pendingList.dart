@@ -85,7 +85,6 @@ class pendingList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           headingTextStyle: getTableHeadingTextStyle(),
-          columnSpacing: 5.0,
           border: TableBorder(
             horizontalInside: BorderSide(
               width: 1.5,
@@ -99,12 +98,14 @@ class pendingList extends StatelessWidget {
             DataColumn(
               label: Text(
                 tableHeadingName,
+                textAlign: TextAlign.center,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
                 tableHeadingMobile,
+                textAlign: TextAlign.center,
                 style: getStyle(actPending),
               ),
             ),

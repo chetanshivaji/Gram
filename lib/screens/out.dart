@@ -175,7 +175,12 @@ class outMoney extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pageName),
+        title: Text(
+          pageName,
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         backgroundColor: clrRed,
       ),
       body: outForm(),

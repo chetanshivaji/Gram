@@ -14,9 +14,12 @@ class searchScreen extends StatefulWidget {
   _searchScreenState createState() => _searchScreenState();
 }
 
-SingleChildScrollView objSearchList = SingleChildScrollView();
+//SingleChildScrollView objSearchList = SingleChildScrollView();
+List<DataRow> gLdr = [];
 
 String name = ""; //TODO: check if need to remove this
+MaterialStateProperty<Color> clrButton =
+    MaterialStateProperty.all<Color>(Colors.red);
 
 class _searchScreenState extends State<searchScreen> {
   String mobile = "";
@@ -37,42 +40,45 @@ class _searchScreenState extends State<searchScreen> {
       List<DataCell> ldataCell = [];
       //search DB
       try {
-        var collection = FirebaseFirestore.instance
+        await FirebaseFirestore.instance
             .collection(village + pin)
             .doc(docMainDb)
-            .collection(docMainDb + yr);
-        var doc = await collection.doc(mobile).get();
-
-        await doc.reference.get().then(
+            .collection(docMainDb + yr)
+            .doc(mobile)
+            .get()
+            .then(
           (value) {
             var y = value.data();
 
-            ldataCell.add(DataCell(Text(
-              yr + " -> ",
-              style: getTableHeadingTextStyle(),
-            )));
             ldataCell.add(
               DataCell(
                 Text(
-                  y![keyHouse].toString(),
+                  yr + " -> ",
+                  style: getTableHeadingTextStyle(),
                 ),
               ),
             );
             ldataCell.add(
-              DataCell(
-                y[keyHouseGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
-              ),
+              DataCell(Row(
+                children: <Widget>[
+                  Text(
+                    y![keyHouse].toString(),
+                  ),
+                  y[keyHouseGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
+                ],
+              )),
             );
+
             ldataCell.add(
               DataCell(
-                Text(
-                  y[keyWater].toString(),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      y[keyWater].toString(),
+                    ),
+                    y[keyWaterGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
+                  ],
                 ),
-              ),
-            );
-            ldataCell.add(
-              DataCell(
-                y[keyWaterGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
               ),
             );
           },
@@ -83,11 +89,14 @@ class _searchScreenState extends State<searchScreen> {
         print(e);
       }
     }
+
     return ldataRow;
   }
 
   @override
   Widget build(BuildContext context) {
+    bool pressed = true;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(bLabelSearch),
@@ -133,95 +142,52 @@ class _searchScreenState extends State<searchScreen> {
                 ),
                 Expanded(
                   child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: clrButton,
+                    ),
                     child: Text(
                       bLabelSubmit,
                     ),
-                    onPressed: () async {
-                      if (_formKey2.currentState!.validate()) {
-                        var ldr = await _buildListPending();
-                        //search DB
-                        for (var yr in items) {
-                          try {
-                            _name = await FirebaseFirestore.instance
-                                .collection(village + pin)
-                                .doc(docMainDb)
-                                .collection(docMainDb + yr)
-                                .doc(mobile)
-                                .get()
-                                .then(
-                              (value) {
-                                var y = value.data();
-                                if (y != null) {
-                                  //_name = y[keyName];
-                                  return y[keyName];
+                    onPressed: pressed
+                        ? () async {
+                            if (_formKey2.currentState!.validate()) {
+                              var ldr = await _buildListPending();
+                              //search DB
+                              for (var yr in items) {
+                                try {
+                                  _name = await FirebaseFirestore.instance
+                                      .collection(village + pin)
+                                      .doc(docMainDb)
+                                      .collection(docMainDb + yr)
+                                      .doc(mobile)
+                                      .get()
+                                      .then(
+                                    (value) {
+                                      var y = value.data();
+                                      if (y != null) {
+                                        //_name = y[keyName];
+                                        return y[keyName];
+                                      }
+                                      return "";
+                                    },
+                                  );
+                                  if (_name != "") break;
+                                } catch (e) {
+                                  print(e);
                                 }
-                                return "";
-                              },
-                            );
-                            if (_name != "") break;
-                          } catch (e) {
-                            print(e);
+                              }
+                              setState(
+                                () {
+                                  name = _name;
+                                  gLdr = ldr;
+                                  clrButton = MaterialStateProperty.all<Color>(
+                                      Colors.yellow);
+                                },
+                              );
+                            }
+                            pressed = false;
                           }
-                        }
-                        setState(
-                          () {
-                            name = _name;
-                            objSearchList = SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: DataTable(
-                                  headingTextStyle: getTableHeadingTextStyle(),
-                                  columnSpacing: 5.0,
-                                  border: TableBorder(
-                                    horizontalInside: BorderSide(
-                                      width: 1.5,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  dataTextStyle: TextStyle(
-                                    color: Colors.indigoAccent,
-                                  ),
-                                  columns: <DataColumn>[
-                                    DataColumn(
-                                      label: Text(
-                                        tableHeadingYear,
-                                        style: getStyle(actPending),
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        tableHeadingHouse,
-                                        style: getStyle(actPending),
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        tableHeadingStatus,
-                                        style: getStyle(actPending),
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        tableHeadingWater,
-                                        style: getStyle(actPending),
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        tableHeadingStatus,
-                                        style: getStyle(actPending),
-                                      ),
-                                    ),
-                                  ],
-                                  rows: ldr,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    },
+                        : null,
                   ),
                 ),
               ],
@@ -233,7 +199,47 @@ class _searchScreenState extends State<searchScreen> {
                 style: getTableHeadingTextStyle(),
               ),
             ),
-            Expanded(child: objSearchList),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    headingTextStyle: getTableHeadingTextStyle(),
+                    border: TableBorder(
+                      horizontalInside: BorderSide(
+                        width: 1.5,
+                        color: Colors.black,
+                      ),
+                    ),
+                    dataTextStyle: TextStyle(
+                      color: Colors.indigoAccent,
+                    ),
+                    columns: <DataColumn>[
+                      DataColumn(
+                        label: Text(
+                          tableHeadingYear,
+                          style: getStyle(actPending),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          tableHeadingHouse,
+                          style: getStyle(actPending),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          tableHeadingWater,
+                          style: getStyle(actPending),
+                        ),
+                      ),
+                    ],
+                    rows: gLdr,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

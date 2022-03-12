@@ -47,7 +47,6 @@ class inList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           headingTextStyle: getTableHeadingTextStyle(),
-          columnSpacing: 5.0,
           border: TableBorder(
             horizontalInside: BorderSide(
               width: 1.5,
@@ -97,7 +96,6 @@ class inList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           headingTextStyle: getTableHeadingTextStyle(),
-          columnSpacing: 5.0,
           border: TableBorder(
             horizontalInside: BorderSide(
               width: 1.5,

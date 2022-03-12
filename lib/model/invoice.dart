@@ -47,15 +47,17 @@ abstract class Invoice {
     String pdfTitle = pdfName;
     pdfName = pdfName + ".pdf";
 
-    pdf.addPage(MultiPage(
-      build: (context) => [
-        buildHeader(pdfName),
-        SizedBox(height: 3 * PdfPageFormat.cm),
-        buildTitle(pdfTitle, userMail),
-        buildInvoice(reportType),
-      ],
-      footer: (context) => buildFooter(userMail, reportType),
-    ));
+    pdf.addPage(
+      MultiPage(
+        build: (context) => [
+          buildHeader(pdfName),
+          SizedBox(height: 3 * PdfPageFormat.cm),
+          buildTitle(pdfTitle, userMail),
+          buildInvoice(reportType),
+        ],
+        footer: (context) => buildFooter(userMail, reportType),
+      ),
+    );
 
     return PdfApi.saveDocument(name: pdfName, pdf: pdf);
   }
