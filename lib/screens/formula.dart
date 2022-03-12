@@ -10,10 +10,12 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
       .collection(collFormula)
       .doc(docCalcultion)
       .get()
-      .then((value) {
-    var y = value.data();
-    return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
-  });
+      .then(
+    (value) {
+      var y = value.data();
+      return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
+    },
+  );
 
   //update formula
   if (typeInOut == "in") {
@@ -22,20 +24,30 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
         .doc(docMainDb)
         .collection(collFormula)
         .doc(docCalcultion)
-        .update({keyTotalIn: (total + int.parse(newEntryAmount))});
+        .update(
+      {
+        keyTotalIn: (total + int.parse(newEntryAmount)),
+      },
+    );
   } else {
     FirebaseFirestore.instance
         .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)
         .doc(docCalcultion)
-        .update({keyTotalOut: (total + int.parse(newEntryAmount))});
+        .update(
+      {
+        keyTotalOut: (total + int.parse(newEntryAmount)),
+      },
+    );
   }
 }
 
 Text getFormulaTextStyle(String text) {
-  return Text(text,
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold));
+  return Text(
+    text,
+    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+  );
 }
 
 Widget getForumlaInternalSimple(String type, String value) {

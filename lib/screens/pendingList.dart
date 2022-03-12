@@ -72,7 +72,9 @@ class pendingList extends StatelessWidget {
           ),
         ),
       );
-      ldataRow.add(DataRow(cells: ldataCell));
+      ldataRow.add(
+        DataRow(cells: ldataCell),
+      );
     }
     return ldataRow;
   }

@@ -59,14 +59,16 @@ class _searchScreenState extends State<searchScreen> {
               ),
             );
             ldataCell.add(
-              DataCell(Row(
-                children: <Widget>[
-                  Text(
-                    y![keyHouse].toString(),
-                  ),
-                  y[keyHouseGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
-                ],
-              )),
+              DataCell(
+                Row(
+                  children: <Widget>[
+                    Text(
+                      y![keyHouse].toString(),
+                    ),
+                    y[keyHouseGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
+                  ],
+                ),
+              ),
             );
 
             ldataCell.add(

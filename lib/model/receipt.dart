@@ -62,18 +62,20 @@ abstract class receipt {
     String pdfTitle = pdfName;
     pdfName = pdfName + ".pdf";
 
-    pdf.addPage(MultiPage(
-      build: (context) => [
-        buildHeader(pdfName),
-        SizedBox(height: 3 * PdfPageFormat.cm),
-        buildTitle(pdfTitle),
-        buildInvoice(reportType),
-        pw.Text(
-          getReceipt(info),
-        ),
-      ],
-      footer: (context) => buildFooter(userMail, reportType),
-    ));
+    pdf.addPage(
+      MultiPage(
+        build: (context) => [
+          buildHeader(pdfName),
+          SizedBox(height: 3 * PdfPageFormat.cm),
+          buildTitle(pdfTitle),
+          buildInvoice(reportType),
+          pw.Text(
+            getReceipt(info),
+          ),
+        ],
+        footer: (context) => buildFooter(userMail, reportType),
+      ),
+    );
 
     return await PdfApi.saveDocument(name: pdfName, pdf: pdf);
   }
@@ -176,7 +178,9 @@ abstract class receipt {
       width: width,
       child: Row(
         children: [
-          Expanded(child: Text(title, style: style)),
+          Expanded(
+            child: Text(title, style: style),
+          ),
           Text(value, style: unite ? style : null),
         ],
       ),

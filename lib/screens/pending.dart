@@ -37,10 +37,11 @@ var itemsSort = [
 class _pendingContainerState extends State<pendingContainer> {
   Future<void> _selectFromDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: fromDate,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
+      context: context,
+      initialDate: fromDate,
+      firstDate: DateTime(2015),
+      lastDate: DateTime(2050),
+    );
 
     if (pickedDate != null && pickedDate != fromDate)
       setState(
@@ -56,10 +57,11 @@ class _pendingContainerState extends State<pendingContainer> {
 
   Future<void> _selectToDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: fromDate,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
+      context: context,
+      initialDate: fromDate,
+      firstDate: DateTime(2015),
+      lastDate: DateTime(2050),
+    );
 
     if (pickedDate != null && pickedDate != fromDate)
       setState(
@@ -126,16 +128,18 @@ class _pendingContainerState extends State<pendingContainer> {
 
     for (var doc in snapshots.docs) {
       try {
-        await doc.reference.get().then((value) {
-          var y = value.data();
-          pendingEntry pe = pendingEntry(
-              name: y![keyName],
-              mobile: y![keyMobile].toString(),
-              amount: (widget.pendingType == housePendingType)
-                  ? y![keyHouse].toString()
-                  : y![keyWater].toString());
-          entries.add(pe);
-        });
+        await doc.reference.get().then(
+          (value) {
+            var y = value.data();
+            pendingEntry pe = pendingEntry(
+                name: y![keyName],
+                mobile: y![keyMobile].toString(),
+                amount: (widget.pendingType == housePendingType)
+                    ? y![keyHouse].toString()
+                    : y![keyWater].toString());
+            entries.add(pe);
+          },
+        );
       } catch (e) {
         popAlert(
             context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
@@ -279,10 +283,11 @@ class _pendingContainerState extends State<pendingContainer> {
             ],
           ),
           Expanded(
-              child: pendingList(
-                  yearDropDownValue: dropdownValueYear,
-                  pendingType: widget.pendingType,
-                  orderType: dropdownValuePendingSort)),
+            child: pendingList(
+                yearDropDownValue: dropdownValueYear,
+                pendingType: widget.pendingType,
+                orderType: dropdownValuePendingSort),
+          ),
         ],
       ),
     );
@@ -311,9 +316,11 @@ class _pendingMoneyState extends State<pendingMoney> {
         firstDate: DateTime(2015),
         lastDate: DateTime(2050));
     if (pickedDate != null && pickedDate != toDate)
-      setState(() {
-        sToDate = pickedDate.toString();
-      });
+      setState(
+        () {
+          sToDate = pickedDate.toString();
+        },
+      );
   }
 
   List<Icon> lsIcons = [

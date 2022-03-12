@@ -442,9 +442,11 @@ class _reportMoneyState extends State<reportMoney> {
         firstDate: DateTime(2015),
         lastDate: DateTime(2050));
     if (pickedDate != null && pickedDate != toDate)
-      setState(() {
-        sToDate = pickedDate.toString();
-      });
+      setState(
+        () {
+          sToDate = pickedDate.toString();
+        },
+      );
   }
 
   List<Icon> lsIcons = [

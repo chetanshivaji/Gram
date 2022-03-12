@@ -29,8 +29,12 @@ class MyApp extends StatelessWidget {
           IconButton(
             tooltip: kTitleSignOut,
             onPressed: () {
-              popLogOutAlert(context, kTitleSignOut,
-                  kSubtitleLogOutConfirmation, Icon(Icons.power_settings_new));
+              popLogOutAlert(
+                context,
+                kTitleSignOut,
+                kSubtitleLogOutConfirmation,
+                Icon(Icons.power_settings_new),
+              );
             },
             icon: Icon(Icons.power_settings_new),
           ),

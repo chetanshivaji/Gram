@@ -43,10 +43,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         .collection(collFormula)
         .doc(docCalcultion)
         .get()
-        .then((value) {
-      var y = value.data();
-      return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
-    });
+        .then(
+      (value) {
+        var y = value.data();
+        return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
+      },
+    );
 
     //update formula
     if (typeInOut == "in") {
@@ -55,14 +57,22 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           .doc(docMainDb)
           .collection(collFormula)
           .doc(docCalcultion)
-          .update({keyTotalIn: (total + int.parse(newEntryAmount))});
+          .update(
+        {
+          keyTotalIn: (total + int.parse(newEntryAmount)),
+        },
+      );
     } else {
       FirebaseFirestore.instance
           .collection(village + pin)
           .doc(docMainDb)
           .collection(collFormula)
           .doc(docCalcultion)
-          .update({keyTotalOut: (total + int.parse(newEntryAmount))});
+          .update(
+        {
+          keyTotalOut: (total + int.parse(newEntryAmount)),
+        },
+      );
     }
   }
 
@@ -198,28 +208,30 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           ),
           Expanded(
             child: ListTile(
-                leading: Icon(Icons.person),
-                title: Text(
-                  "Name = $name",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )),
+              leading: Icon(Icons.person),
+              title: Text(
+                "Name = $name",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
           Expanded(
             child: ListTile(
-                leading: Icon(Icons.person),
-                title: Text(
-                  "Mail = $email",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )),
+              leading: Icon(Icons.person),
+              title: Text(
+                "Mail = $email",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),
@@ -317,7 +329,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             .doc(docMainDb)
                             .collection(docMainDb + dropdownValueYear)
                             .doc(mobile)
-                            .update({inTypeGiven: true});
+                            .update(
+                          {inTypeGiven: true},
+                        );
 
                         updateFormulaValues(amount.toString(),
                             "in"); //fetch exisiting value from formula and update new value.
@@ -406,7 +420,9 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
             padding: EdgeInsets.only(top: 20),
           ),
           yearTile(clr: clrGreen),
-          Padding(padding: EdgeInsets.only(top: 20)),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
           Expanded(
             child: TextFormField(
               decoration: InputDecoration(

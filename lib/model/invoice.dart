@@ -156,7 +156,9 @@ abstract class Invoice {
       width: width,
       child: Row(
         children: [
-          Expanded(child: Text(title, style: style)),
+          Expanded(
+            child: Text(title, style: style),
+          ),
           Text(value, style: unite ? style : null),
         ],
       ),
@@ -183,13 +185,15 @@ class pendingInvoice extends Invoice {
       tableHeadingMobile,
       tableHeadingAmount,
     ];
-    data = pendingInvoiceItems.map((item) {
-      return [
-        item.name,
-        item.mobile,
-        item.amount,
-      ];
-    }).toList();
+    data = pendingInvoiceItems.map(
+      (item) {
+        return [
+          item.name,
+          item.mobile,
+          item.amount,
+        ];
+      },
+    ).toList();
 
     return Table.fromTextArray(
       headers: headers,
@@ -232,15 +236,17 @@ class reportHouseWaterInvoice extends Invoice {
       tableHeadingDate,
       tableHeadingUser,
     ];
-    data = houseWaterReportInvoiceItems.map((item) {
-      return [
-        item.name,
-        item.mobile,
-        item.amount,
-        item.date,
-        item.user,
-      ];
-    }).toList();
+    data = houseWaterReportInvoiceItems.map(
+      (item) {
+        return [
+          item.name,
+          item.mobile,
+          item.amount,
+          item.date,
+          item.user,
+        ];
+      },
+    ).toList();
 
     return Table.fromTextArray(
       headers: headers,
@@ -334,16 +340,18 @@ class reportOutInvoice extends Invoice {
       tableHeadingDate,
       tableHeadingUser,
     ];
-    data = outReportInvoiceItems.map((item) {
-      return [
-        item.name,
-        item.reason,
-        item.amount,
-        item.extraInfo,
-        item.date,
-        item.user,
-      ];
-    }).toList();
+    data = outReportInvoiceItems.map(
+      (item) {
+        return [
+          item.name,
+          item.reason,
+          item.amount,
+          item.extraInfo,
+          item.date,
+          item.user,
+        ];
+      },
+    ).toList();
 
     return Table.fromTextArray(
       headers: headers,
