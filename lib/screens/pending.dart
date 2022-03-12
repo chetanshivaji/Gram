@@ -137,7 +137,8 @@ class _pendingContainerState extends State<pendingContainer> {
           entries.add(pe);
         });
       } catch (e) {
-        print(e);
+        popAlert(
+            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
       }
     }
 

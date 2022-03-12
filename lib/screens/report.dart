@@ -204,7 +204,8 @@ class _reportContainerState extends State<reportContainer> {
           },
         );
       } catch (e) {
-        print(e);
+        popAlert(
+            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
       }
     }
 

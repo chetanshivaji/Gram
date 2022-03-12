@@ -129,7 +129,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                     } catch (e) {
-                      print(e);
+                      popAlert(context, kTitleTryCatchFail, e.toString(),
+                          getWrongIcon(50.0), 1);
                     }
 
                     setState(
@@ -156,7 +157,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                     } catch (e) {
-                      print(e);
+                      popAlert(context, kTitleTryCatchFail, e.toString(),
+                          getWrongIcon(50.0), 1);
                     }
 
                     setState(
@@ -489,8 +491,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                           getRightIcon(50.0), 2);
                     } catch (e) {
                       onPressedInExtra = false;
-                      popAlert(
-                          context, "", e.toString(), getRightIcon(50.0), 2);
+                      popAlert(context, kTitleTryCatchFail, e.toString(),
+                          getWrongIcon(50.0), 1);
                     }
                   }
                 },

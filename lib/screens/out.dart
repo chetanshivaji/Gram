@@ -125,31 +125,36 @@ class outFormState extends State<outForm> {
                         content: Text(msgProcessingData),
                       ),
                     );
+                    try {
+                      await FirebaseFirestore.instance
+                          .collection(village + pin)
+                          .doc(docMainDb)
+                          .collection(collPrefixOut + dropdownValueYear)
+                          .add(
+                        {
+                          keyName: name,
+                          keyReason: reason,
+                          keyAmount: amount,
+                          keyExtraInfo: extraInfo,
+                          keyDate: DateTime.now().toString(),
+                          keyUser: userMail,
+                        },
+                      );
+                      updateFormulaValues(amount.toString(),
+                          collPrefixOut); //fetch exisiting value from formula and update new value.
 
-                    await FirebaseFirestore.instance
-                        .collection(village + pin)
-                        .doc(docMainDb)
-                        .collection(collPrefixOut + dropdownValueYear)
-                        .add(
-                      {
-                        keyName: name,
-                        keyReason: reason,
-                        keyAmount: amount,
-                        keyExtraInfo: extraInfo,
-                        keyDate: DateTime.now().toString(),
-                        keyUser: userMail,
-                      },
-                    );
-                    updateFormulaValues(amount.toString(),
-                        collPrefixOut); //fetch exisiting value from formula and update new value.
-
-                    popAlert(
-                      context,
-                      titleSuccess,
-                      subtitleSuccess,
-                      getRightIcon(50.0),
-                      2,
-                    );
+                      popAlert(
+                        context,
+                        titleSuccess,
+                        subtitleSuccess,
+                        getRightIcon(50.0),
+                        2,
+                      );
+                    } catch (e) {
+                      onPressedOut = false;
+                      popAlert(context, kTitleTryCatchFail, e.toString(),
+                          getWrongIcon(50.0), 1);
+                    }
                   }
                 },
                 child: Text(

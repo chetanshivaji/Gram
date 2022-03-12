@@ -192,7 +192,8 @@ String keyExtraInfo = "extraInfo";
 
 String scafBeginInfoApproveRemove =
     "Please approve or remove clicking toggle icon";
-
+String kTitleTryCatchFail =
+    "Fail"; //dont know reason. some failure in try catch
 //From util oldies
 String registerSubtitleSuccess = "Register success!";
 String registerSuccess = "Admin and village regsitered successfully";

@@ -86,7 +86,8 @@ class _searchScreenState extends State<searchScreen> {
 
         ldataRow.add(DataRow(cells: ldataCell));
       } catch (e) {
-        print(e);
+        popAlert(
+            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
       }
     }
 
@@ -175,7 +176,8 @@ class _searchScreenState extends State<searchScreen> {
                                   );
                                   if (_name != "") break;
                                 } catch (e) {
-                                  print(e);
+                                  popAlert(context, kTitleTryCatchFail,
+                                      e.toString(), getWrongIcon(50.0), 1);
                                 }
                               }
                               setState(
