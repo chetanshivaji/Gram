@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String welcomeString = "Welcome! $userMail\n$access from $village $pin";
     return Scaffold(
       appBar: AppBar(
         title: Text(appMainLabel),
@@ -37,12 +36,10 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
+      /*
       body: Row(
         children: <Widget>[
-          Text(
-            welcomeString,
-          ),
-          /*
+          
       DefaultTextStyle(
         style: const TextStyle(
           fontSize: 40.0,
@@ -55,9 +52,10 @@ class MyApp extends StatelessWidget {
           ],
         ),
       ),
-      */
+      
         ],
       ),
+      */
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

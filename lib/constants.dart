@@ -41,7 +41,6 @@ String msgNoExpense = "There is no expense";
 String msgLoading = "loading...";
 String msgMoneySpendingReason = "Reason for spending money";
 String msgMoneySpent = "Enter Money Spent";
-String welcomeString = "Welcome! $userMail\n$access from $village $pin";
 
 String msgNotAdmin = "notAdmin";
 String msgInvoidBuildFail = "Something wrong in building INVOICE";
