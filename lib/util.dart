@@ -145,15 +145,15 @@ Image imgSuccess = Image.asset("assets/success.jpeg");
 Icon getWrongIcon(double iconSize) {
   return Icon(
     Icons.cancel,
-    size: 30.0,
+    size: iconSize,
     color: Colors.red,
   );
 }
 
-Icon getRightIcon(50.0) {
+Icon getRightIcon(double iconSize) {
   return Icon(
     Icons.done,
-    size: 30.0,
+    size: iconSize,
     color: Colors.green,
   );
 }
