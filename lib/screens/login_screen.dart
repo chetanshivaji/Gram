@@ -17,10 +17,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
   String email = "";
   String password = "";
+  bool onPressedLogin = false;
 
   @override
   Widget build(BuildContext context) {
-    bool pressed = true;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -41,7 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.isEmpty) {
                       return msgEnterUserMail;
                     }
-                    email = value;
+                    email = value
+                        .toLowerCase(); //to avoid issue by upper case email typing.
                     return null;
                   },
                   decoration: InputDecoration(
@@ -117,77 +118,79 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       bLabelLogin,
                     ),
-                    onPressed: pressed
-                        ? () async {
-                            if (_formLoginKey.currentState!.validate()) {
-                              bool approvedUser = false;
-                              try {
-                                //check if email trying to login is admin.
-                                bool res = await FirebaseFirestore.instance
-                                    .collection(collUsers)
-                                    .doc(email)
-                                    .get()
-                                    .then(
-                                  (value) async {
-                                    if (!value.exists) {
-                                      //if allready present
-                                      popAlert(
-                                        context,
-                                        kTitleNotPresent,
-                                        kSubTitleEmailPresent,
-                                        getWrongIcon(50.0),
-                                        2,
-                                      );
-                                      return false;
-                                    } else {
-                                      var y = value.data();
-                                      access = y![keyAccessLevel];
-                                      village = y[keyVillage];
-                                      pin = y[keyPin];
-                                      approvedUser = y[keyApproved];
-                                      return true;
-                                    }
-                                  },
-                                );
-                                if (!res) return;
-
-                                if (approvedUser == true) {
-                                  final newUser =
-                                      await _auth.signInWithEmailAndPassword(
-                                    email: email,
-                                    password: password,
-                                  );
-                                  if (newUser != null) {
-                                    userMail = email;
-                                    Navigator.pushNamed(
-                                      context,
-                                      MyApp.id,
-                                    );
-                                  }
-                                } else {
-                                  popAlert(
-                                    context,
-                                    kTitleYetToApproveByAdmin,
-                                    kSubTitelYetToApproveByAdmin,
-                                    getWrongIcon(50.0),
-                                    1,
-                                  );
-                                  return;
-                                }
-                              } catch (e) {
+                    onPressed: () async {
+                      if (_formLoginKey.currentState!.validate() &&
+                          onPressedLogin == false) {
+                        onPressedLogin = true;
+                        bool approvedUser = false;
+                        try {
+                          //check if email trying to login is admin.
+                          bool res = await FirebaseFirestore.instance
+                              .collection(collUsers)
+                              .doc(email)
+                              .get()
+                              .then(
+                            (value) async {
+                              if (!value.exists) {
+                                onPressedLogin = false;
+                                //if allready present
                                 popAlert(
                                   context,
-                                  kTitleFail,
-                                  e.toString(),
+                                  kTitleNotPresent,
+                                  kSubTitleEmailPresent,
                                   getWrongIcon(50.0),
                                   2,
                                 );
-                                return;
+                                return false;
+                              } else {
+                                var y = value.data();
+                                access = y![keyAccessLevel];
+                                village = y[keyVillage];
+                                pin = y[keyPin];
+                                approvedUser = y[keyApproved];
+                                return true;
                               }
-                              pressed = false;
+                            },
+                          );
+                          if (!res) return;
+
+                          if (approvedUser == true) {
+                            final newUser =
+                                await _auth.signInWithEmailAndPassword(
+                              email: email,
+                              password: password,
+                            );
+                            if (newUser != null) {
+                              userMail = email;
+                              Navigator.pushNamed(
+                                context,
+                                MyApp.id,
+                              );
                             }
+                          } else {
+                            onPressedLogin = false;
+                            popAlert(
+                              context,
+                              kTitleYetToApproveByAdmin,
+                              kSubTitelYetToApproveByAdmin,
+                              getWrongIcon(50.0),
+                              1,
+                            );
+                            return;
                           }
-                        : null,
+                        } catch (e) {
+                          onPressedLogin = false;
+                          popAlert(
+                            context,
+                            kTitleFail,
+                            e.toString(),
+                            getWrongIcon(50.0),
+                            2,
+                          );
+                          return;
+                        }
+                      }
+                    },
                   ),
                 ),
               ),

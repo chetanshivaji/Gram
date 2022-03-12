@@ -464,7 +464,7 @@ class _reportMoneyState extends State<reportMoney> {
   Widget build(BuildContext context) {
     lsWidget.add(
       Expanded(
-        child: reportContainer(reportType: 'inHouse'),
+        child: reportContainer(reportType: collPrefixInHouse),
       ),
     );
     lsWidget.add(

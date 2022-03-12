@@ -18,9 +18,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String reEnterPassword = "";
   String village = "";
   String pin = "";
+  bool onPressedRegister = false;
   @override
   Widget build(BuildContext context) {
-    bool pressed = true;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -41,7 +41,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     if (value == null || value.isEmpty) {
                       return msgEnterUserMail;
                     }
-                    email = value;
+                    email = value.toLowerCase();
                     return null;
                   },
                   decoration: InputDecoration(
@@ -228,68 +228,68 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       bLabelRegiter,
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: pressed
-                        ? () async {
-                            if (_formRegKey.currentState!.validate()) {
-                              if (password != reEnterPassword) {
-                                popAlert(
-                                  context,
-                                  titlePassMismatch,
-                                  subtitlePassMismatch,
-                                  getWrongIcon(50.0),
-                                  1,
-                                );
-                                return;
-                              }
-                              try {
-                                final newUser =
-                                    await _auth.createUserWithEmailAndPassword(
-                                  email: email,
-                                  password: password,
-                                );
-                                if (newUser != null) {
-                                  userMail = email;
-                                  //Add entry of new user to users, village pin
-                                  await FirebaseFirestore.instance
-                                      .collection(collUsers)
-                                      .doc(email)
-                                      .set(
-                                    {
-                                      keyVillage: village,
-                                      keyPin: pin,
-                                      keyApproved: false,
-                                      keyAccessLevel: accessItems[accessLevel
-                                          .Viewer
-                                          .index], //access level set by admin decided type of use, eg .viewer, collector, admin, spender
-                                      keyMail: email,
-                                      keyIsAdmin: false,
-                                    },
-                                  );
-                                  popAlert(
-                                    context,
-                                    kTitleRegisterationSuccess,
-                                    kSubTitleRegisterationSuccess,
-                                    getRightIcon(50.0),
-                                    2,
-                                  );
-                                  return;
-                                }
-                              } catch (e) {
-                                popAlert(
-                                  context,
-                                  kTitleRegisterationFailed,
-                                  e.toString(),
-                                  getWrongIcon(50.0),
-                                  1,
-                                );
-                                return;
-                                //treat exception caught
-                              }
-
-                              pressed = false;
-                            }
+                    onPressed: () async {
+                      if (_formRegKey.currentState!.validate() &&
+                          onPressedRegister == false) {
+                        onPressedRegister = true;
+                        if (password != reEnterPassword) {
+                          onPressedRegister =
+                              false; //if fail before on press succeed, it should be able to come back in again.
+                          popAlert(
+                            context,
+                            titlePassMismatch,
+                            subtitlePassMismatch,
+                            getWrongIcon(50.0),
+                            1,
+                          );
+                          return;
+                        }
+                        try {
+                          final newUser =
+                              await _auth.createUserWithEmailAndPassword(
+                            email: email,
+                            password: password,
+                          );
+                          if (newUser != null) {
+                            userMail = email;
+                            //Add entry of new user to users, village pin
+                            await FirebaseFirestore.instance
+                                .collection(collUsers)
+                                .doc(email)
+                                .set(
+                              {
+                                keyVillage: village,
+                                keyPin: pin,
+                                keyApproved: false,
+                                keyAccessLevel: accessItems[accessLevel.Viewer
+                                    .index], //access level set by admin decided type of use, eg .viewer, collector, admin, spender
+                                keyMail: email,
+                                keyIsAdmin: false,
+                              },
+                            );
+                            popAlert(
+                              context,
+                              kTitleRegisterationSuccess,
+                              kSubTitleRegisterationSuccess,
+                              getRightIcon(50.0),
+                              2,
+                            );
+                            return;
                           }
-                        : null,
+                        } catch (e) {
+                          onPressedRegister = false;
+                          popAlert(
+                            context,
+                            kTitleRegisterationFailed,
+                            e.toString(),
+                            getWrongIcon(50.0),
+                            1,
+                          );
+                          return;
+                          //treat exception caught
+                        }
+                      }
+                    },
                   ),
                 ),
               ),

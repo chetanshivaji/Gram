@@ -21,6 +21,7 @@ class HouseWaterForm extends StatefulWidget {
 // Create a corresponding State class.
 // This class holds data related to the form.
 class HouseWaterFormState extends State<HouseWaterForm> {
+  bool onPressedHouseWater = false;
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
@@ -87,7 +88,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
   @override
   Widget build(BuildContext context) {
-    bool onPressedHouseWater = false;
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -259,94 +259,101 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
                   if (_formKey.currentState!.validate() &&
                       onPressedHouseWater == false) {
-                    onPressedHouseWater = true;
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
+                    try {
+                      onPressedHouseWater = true;
+                      // If the form is valid, display a snackbar. In the real world,
+                      // you'd often call a server or save the information in a database.
 
-                    bool paid = await FirebaseFirestore.instance
-                        .collection(village + pin)
-                        .doc(docMainDb)
-                        .collection(docMainDb + dropdownValueYear)
-                        .doc(mobile.toString())
-                        .get()
-                        .then(
-                      (value) {
-                        var y = value.data();
-                        if (widget.formType == txtTaxTypeHouse) {
-                          if (y![keyHouseGiven] == true) {
-                            return true;
-                          } else
-                            return false;
-                        } else {
-                          if (y![keyWaterGiven] == true) {
-                            return true;
-                          } else
-                            return false;
-                        }
-                      },
-                    );
-                    if (paid == true) {
-                      popAlert(context, paidMsg, "", getWrongIcon(50.0), 2);
-                      return;
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(msgProcessingData),
-                        ),
-                      );
-
-                      await FirebaseFirestore.instance
-                          .collection(village + pin)
-                          .doc(docMainDb)
-                          .collection(inTypeSubmit + dropdownValueYear)
-                          .add(
-                        {
-                          keyName: name,
-                          keyMobile: mobile,
-                          keyAmount: amount,
-                          keyDate: DateTime.now().toString(),
-                          keyUser: userMail,
-                        },
-                      );
-                      await FirebaseFirestore.instance
+                      bool paid = await FirebaseFirestore.instance
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
-                          .doc(mobile)
-                          .update({inTypeGiven: true});
+                          .doc(mobile.toString())
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          if (widget.formType == txtTaxTypeHouse) {
+                            if (y![keyHouseGiven] == true) {
+                              return true;
+                            } else
+                              return false;
+                          } else {
+                            if (y![keyWaterGiven] == true) {
+                              return true;
+                            } else
+                              return false;
+                          }
+                        },
+                      );
+                      if (paid == true) {
+                        onPressedHouseWater = false;
+                        popAlert(context, paidMsg, "", getWrongIcon(50.0), 2);
+                        return;
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(msgProcessingData),
+                          ),
+                        );
 
-                      updateFormulaValues(amount.toString(),
-                          "in"); //fetch exisiting value from formula and update new value.
+                        await FirebaseFirestore.instance
+                            .collection(village + pin)
+                            .doc(docMainDb)
+                            .collection(inTypeSubmit + dropdownValueYear)
+                            .add(
+                          {
+                            keyName: name,
+                            keyMobile: mobile,
+                            keyAmount: amount,
+                            keyDate: DateTime.now().toString(),
+                            keyUser: userMail,
+                          },
+                        );
+                        await FirebaseFirestore.instance
+                            .collection(village + pin)
+                            .doc(docMainDb)
+                            .collection(docMainDb + dropdownValueYear)
+                            .doc(mobile)
+                            .update({inTypeGiven: true});
 
-                      String message =
-                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!.";
-                      List<String> recipents = [mobile];
-                      if (textMsgEnabled) {
-                        await sendTextToPhone(message + userMail, recipents);
-                      }
+                        updateFormulaValues(amount.toString(),
+                            "in"); //fetch exisiting value from formula and update new value.
 
-                      if (whatsUpEnabled) {
-                        await launchWhatsApp(message + userMail, mobile);
-                      }
+                        String message =
+                            "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!.";
+                        List<String> recipents = [mobile];
+                        if (textMsgEnabled) {
+                          await sendTextToPhone(message + userMail, recipents);
+                        }
 
-                      await createPDFInHouseWaterReceiptEntries();
+                        if (whatsUpEnabled) {
+                          await launchWhatsApp(message + userMail, mobile);
+                        }
 
-                      String subject =
-                          "$name $typeSubmit Tax receipt for year $dropdownValueYear";
-                      String body = """
+                        await createPDFInHouseWaterReceiptEntries();
+
+                        String subject =
+                            "$name $typeSubmit Tax receipt for year $dropdownValueYear";
+                        String body = """
                           $message \n 
                           Please find attached receipt\n
                           --Regards,
                           \n $userMail
                           """;
-                      String attachment = gReceiptPdfName;
-                      await sendEmail(subject, body, email, attachment);
+                        String attachment = gReceiptPdfName;
+                        await sendEmail(subject, body, email, attachment);
 
-                      popAlert(context, titleSuccess, subtitleSuccess,
-                          getRightIcon(50.0), 2);
+                        popAlert(context, titleSuccess, subtitleSuccess,
+                            getRightIcon(50.0), 2);
+                      }
+
+                      // Validate returns true if the form is valid, or false otherwise.
+                    } catch (e) {
+                      onPressedHouseWater = false;
+                      popAlert(context, kTitleFail, e.toString(),
+                          getWrongIcon(50.0), 2);
                     }
-
-                    // Validate returns true if the form is valid, or false otherwise.
                   }
                 },
                 child: Text(
@@ -382,11 +389,12 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
   final _formKey = GlobalKey<FormState>();
   String reason = "";
   int amount = 0;
+  bool onPressedInExtra = false;
 
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    bool onPressedInExtra = false;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -452,32 +460,38 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate() &&
                       onPressedInExtra == false) {
-                    onPressedInExtra = true;
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(msgProcessingData),
-                      ),
-                    );
+                    try {
+                      onPressedInExtra = true;
+                      // If the form is valid, display a snackbar. In the real world,
+                      // you'd often call a server or save the information in a database.
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(msgProcessingData),
+                        ),
+                      );
 
-                    FirebaseFirestore.instance
-                        .collection(village + pin)
-                        .doc(docMainDb)
-                        .collection(collPrefixInExtra + dropdownValueYear)
-                        .add(
-                      {
-                        keyReason: reason,
-                        keyAmount: amount,
-                        keyDate: DateTime.now().toString(),
-                        keyUser: userMail,
-                      },
-                    );
-                    updateFormulaValues(amount.toString(),
-                        "in"); //fetch exisiting value from formula and update new value.
+                      await FirebaseFirestore.instance
+                          .collection(village + pin)
+                          .doc(docMainDb)
+                          .collection(collPrefixInExtra + dropdownValueYear)
+                          .add(
+                        {
+                          keyReason: reason,
+                          keyAmount: amount,
+                          keyDate: DateTime.now().toString(),
+                          keyUser: userMail,
+                        },
+                      );
+                      updateFormulaValues(amount.toString(),
+                          "in"); //fetch exisiting value from formula and update new value.
 
-                    popAlert(context, titleSuccess, subtitleSuccess,
-                        getRightIcon(50.0), 2);
+                      popAlert(context, titleSuccess, subtitleSuccess,
+                          getRightIcon(50.0), 2);
+                    } catch (e) {
+                      onPressedInExtra = false;
+                      popAlert(
+                          context, "", e.toString(), getRightIcon(50.0), 2);
+                    }
                   }
                 },
                 child: Text(

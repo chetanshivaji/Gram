@@ -98,14 +98,12 @@ class pendingList extends StatelessWidget {
             DataColumn(
               label: Text(
                 tableHeadingName,
-                textAlign: TextAlign.center,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
                 tableHeadingMobile,
-                textAlign: TextAlign.center,
                 style: getStyle(actPending),
               ),
             ),

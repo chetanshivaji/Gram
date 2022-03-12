@@ -18,8 +18,8 @@ class searchScreen extends StatefulWidget {
 List<DataRow> gLdr = [];
 
 String name = ""; //TODO: check if need to remove this
-MaterialStateProperty<Color> clrButton =
-    MaterialStateProperty.all<Color>(Colors.red);
+//MaterialStateProperty<Color> clrButton =
+//MaterialStateProperty.all<Color>(Colors.red);
 
 class _searchScreenState extends State<searchScreen> {
   String mobile = "";
@@ -142,9 +142,11 @@ class _searchScreenState extends State<searchScreen> {
                 ),
                 Expanded(
                   child: ElevatedButton(
+                    /*
                     style: ButtonStyle(
                       backgroundColor: clrButton,
                     ),
+                    */
                     child: Text(
                       bLabelSubmit,
                     ),
@@ -180,8 +182,8 @@ class _searchScreenState extends State<searchScreen> {
                                 () {
                                   name = _name;
                                   gLdr = ldr;
-                                  clrButton = MaterialStateProperty.all<Color>(
-                                      Colors.yellow);
+                                  //clrButton = MaterialStateProperty.all<Color>(
+                                  //  Colors.yellow);
                                 },
                               );
                             }
