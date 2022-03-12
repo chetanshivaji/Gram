@@ -36,9 +36,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseEmail = "";
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
-    
     int total = await FirebaseFirestore.instance
-        
         .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)
@@ -52,7 +50,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     //update formula
     if (typeInOut == "in") {
       FirebaseFirestore.instance
-          
           .collection(village + pin)
           .doc(docMainDb)
           .collection(collFormula)
@@ -60,7 +57,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           .update({keyTotalIn: (total + int.parse(newEntryAmount))});
     } else {
       FirebaseFirestore.instance
-          
           .collection(village + pin)
           .doc(docMainDb)
           .collection(collFormula)
@@ -116,11 +112,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
               onChanged: (text) async {
                 if (text.length == 10) {
-                  
                   if (widget.formType == txtTaxTypeHouse) {
                     try {
                       await FirebaseFirestore.instance
-                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
@@ -148,7 +142,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   } else {
                     try {
                       await FirebaseFirestore.instance
-                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
@@ -269,9 +262,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     onPressedHouseWater = true;
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
-                    
+
                     bool paid = await FirebaseFirestore.instance
-                        
                         .collection(village + pin)
                         .doc(docMainDb)
                         .collection(docMainDb + dropdownValueYear)
@@ -304,7 +296,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       );
 
                       await FirebaseFirestore.instance
-                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(inTypeSubmit + dropdownValueYear)
@@ -318,7 +309,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       await FirebaseFirestore.instance
-                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
@@ -329,7 +319,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           "in"); //fetch exisiting value from formula and update new value.
 
                       String message =
-                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received! --$email";
+                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received! --$userMail";
                       List<String> recipents = [mobile];
                       if (textMsgEnabled)
                         await sendTextToPhone(message, recipents);
@@ -342,8 +332,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       String subject =
                           "$name $typeSubmit Tax receipt for year $dropdownValueYear";
                       String body =
-                          "Please find attached receipt, Thank you!\n
-                          --Regards,\n $email";
+                          "Please find attached receipt, Thank you!\n--Regards,\n $userMail";
                       String attachment = gReceiptPdfName;
                       await sendEmail(subject, body, email, attachment);
 
@@ -465,9 +454,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         content: Text(msgProcessingData),
                       ),
                     );
-                    
+
                     FirebaseFirestore.instance
-                        
                         .collection(village + pin)
                         .doc(docMainDb)
                         .collection(collPrefixInExtra + dropdownValueYear)
