@@ -319,20 +319,26 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           "in"); //fetch exisiting value from formula and update new value.
 
                       String message =
-                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received! --$userMail";
+                          "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!.";
                       List<String> recipents = [mobile];
-                      if (textMsgEnabled)
-                        await sendTextToPhone(message, recipents);
+                      if (textMsgEnabled) {
+                        await sendTextToPhone(message + userMail, recipents);
+                      }
 
-                      if (whatsUpEnabled)
-                        await launchWhatsApp(message, "+91" + mobile);
+                      if (whatsUpEnabled) {
+                        await launchWhatsApp(message + userMail, mobile);
+                      }
 
                       await createPDFInHouseWaterReceiptEntries();
 
                       String subject =
                           "$name $typeSubmit Tax receipt for year $dropdownValueYear";
-                      String body =
-                          "Please find attached receipt, Thank you!\n--Regards,\n $userMail";
+                      String body = """
+                          $message \n 
+                          Please find attached receipt\n
+                          --Regards,
+                          \n $userMail
+                          """;
                       String attachment = gReceiptPdfName;
                       await sendEmail(subject, body, email, attachment);
 
