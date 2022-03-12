@@ -32,13 +32,12 @@ class _searchScreenState extends State<searchScreen> {
 
   Future<List<DataRow>> _buildListPending() async {
     List<DataRow> ldataRow = [];
-    //var ls = await getLoggedInUserVillagePin();
+
     for (var yr in items) {
       List<DataCell> ldataCell = [];
       //search DB
       try {
         var collection = FirebaseFirestore.instance
-            //.collection(ls[0] + ls[1])
             .collection(village + pin)
             .doc(docMainDb)
             .collection(docMainDb + yr);
@@ -61,7 +60,7 @@ class _searchScreenState extends State<searchScreen> {
             );
             ldataCell.add(
               DataCell(
-                y[keyHouseGiven] ? getRightIcon() : getWrongIcon(),
+                y[keyHouseGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
               ),
             );
             ldataCell.add(
@@ -73,7 +72,7 @@ class _searchScreenState extends State<searchScreen> {
             );
             ldataCell.add(
               DataCell(
-                y[keyWaterGiven] ? getRightIcon() : getWrongIcon(),
+                y[keyWaterGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
               ),
             );
           },
@@ -138,14 +137,12 @@ class _searchScreenState extends State<searchScreen> {
                       bLabelSubmit,
                     ),
                     onPressed: () async {
-                      //var ls = await getLoggedInUserVillagePin();
                       if (_formKey2.currentState!.validate()) {
                         var ldr = await _buildListPending();
                         //search DB
                         for (var yr in items) {
                           try {
                             _name = await FirebaseFirestore.instance
-                                //.collection(ls[0] + ls[1])
                                 .collection(village + pin)
                                 .doc(docMainDb)
                                 .collection(docMainDb + yr)

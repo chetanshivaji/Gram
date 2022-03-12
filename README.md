@@ -15,6 +15,16 @@ In future developement.
 
 
 # TODO
+1. Disable button after click
+2. name of regsiterd user
+3. why search slow
+4. main app regsiteration error.
+5. search back clear search. reload page.
+6. sort as per date. start end date.
+7. sort as per collector sender.
+1. admin app, no need of all details every year to fill, only
+2. no need of welcome message, action app bar button pop up.
+1. Get names from form field all registered users.
 1. After back button press clear search result
 2. who wil notify
 3. who reminded

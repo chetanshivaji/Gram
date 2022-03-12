@@ -81,11 +81,10 @@ class _reportContainerState extends State<reportContainer> {
     List<houseWaterReportEntry> entriesHouseWater = [];
     List<extraIncomeReportEntry> entriesExtraIncome = [];
     List<outReportEntry> entriesOut = [];
-    //var ls = await getLoggedInUserVillagePin();
+
     var snapshots;
     if (widget.reportType == collPrefixInHouse) {
       var collection = FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
           .collection(village + pin)
           .doc(docMainDb)
           .collection(
@@ -101,7 +100,6 @@ class _reportContainerState extends State<reportContainer> {
       }
     } else if (widget.reportType == collPrefixInWater) {
       var collection = FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
           .collection(village + pin)
           .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
@@ -116,7 +114,6 @@ class _reportContainerState extends State<reportContainer> {
       }
     } else if (widget.reportType == collPrefixInExtra) {
       var collection = FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
           .collection(village + pin)
           .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);
@@ -131,7 +128,6 @@ class _reportContainerState extends State<reportContainer> {
       }
     } else if (widget.reportType == collPrefixOut) {
       var collection = FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
           .collection(village + pin)
           .doc(docMainDb)
           .collection(widget.reportType + dropdownValueYear);

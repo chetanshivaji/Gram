@@ -4,10 +4,7 @@ import 'package:money/util.dart';
 import 'package:money/constants.dart';
 
 void updateFormulaValues(String newEntryAmount, String typeInOut) async {
-  //var ls = await getLoggedInUserVillagePin();
-
   int total = await FirebaseFirestore.instance
-      //.collection(ls[0] + ls[1])
       .collection(village + pin)
       .doc(docMainDb)
       .collection(collFormula)
@@ -21,7 +18,6 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
   //update formula
   if (typeInOut == "in") {
     FirebaseFirestore.instance
-        //.collection(ls[0] + ls[1])
         .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)
@@ -29,7 +25,6 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
         .update({keyTotalIn: (total + int.parse(newEntryAmount))});
   } else {
     FirebaseFirestore.instance
-        //.collection(ls[0] + ls[1])
         .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)

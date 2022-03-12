@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context,
                                         kTitleNotPresent,
                                         kSubTitleEmailPresent,
-                                        getWrongIcon(),
+                                        getWrongIcon(50.0),
                                         2,
                                       );
                                       return false;
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     kTitleYetToApproveByAdmin,
                                     kSubTitelYetToApproveByAdmin,
-                                    getWrongIcon(),
+                                    getWrongIcon(50.0),
                                     1,
                                   );
                                   return;
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   context,
                                   kTitleFail,
                                   e.toString(),
-                                  getWrongIcon(),
+                                  getWrongIcon(50.0),
                                   2,
                                 );
                                 return;

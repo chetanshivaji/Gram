@@ -76,11 +76,10 @@ class _pendingContainerState extends State<pendingContainer> {
   void createPDFPendingEntries() async {
     //START - fetch data to display in pdf
     List<pendingEntry> entries = [];
-    //var ls = await getLoggedInUserVillagePin();
+
     var snapshots;
     if (widget.pendingType == housePendingType) {
       var collection = FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
           .collection(village + pin)
           .doc(docMainDb)
           .collection(docMainDb + dropdownValueYear);
@@ -103,7 +102,6 @@ class _pendingContainerState extends State<pendingContainer> {
       }
     } else {
       var collection = FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
           .collection(village + pin)
           .doc(docMainDb)
           .collection(docMainDb + dropdownValueYear);

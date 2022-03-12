@@ -236,7 +236,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   context,
                                   titlePassMismatch,
                                   subtitlePassMismatch,
-                                  getWrongIcon(),
+                                  getWrongIcon(50.0),
                                   1,
                                 );
                                 return;
@@ -269,7 +269,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     context,
                                     kTitleRegisterationSuccess,
                                     kSubTitleRegisterationSuccess,
-                                    getRightIcon(),
+                                    getRightIcon(50.0),
                                     2,
                                   );
                                   return;
@@ -279,7 +279,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   context,
                                   kTitleRegisterationFailed,
                                   e.toString(),
-                                  getWrongIcon(),
+                                  getWrongIcon(50.0),
                                   1,
                                 );
                                 return;

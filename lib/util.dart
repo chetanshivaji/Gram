@@ -53,7 +53,7 @@ Future<bool> getApproval(BuildContext context) async {
           context,
           kTitleNotPresent,
           kSubTitleEmailPresent,
-          getWrongIcon(),
+          getWrongIcon(50.0),
           2,
         );
         return false;
@@ -80,7 +80,7 @@ Future<String> getUserAccessLevel(BuildContext context, String email) async {
     );
     return usreAccessLevel;
   } catch (e) {
-    popAlert(context, txtFetchFailFromDb, "", getWrongIcon(), 1);
+    popAlert(context, txtFetchFailFromDb, "", getWrongIcon(50.0), 1);
     return "Viewer"; //Return viewer by default
   }
 }
@@ -142,18 +142,18 @@ Color getColor(String type) {
 
 Image imgSuccess = Image.asset("assets/success.jpeg");
 
-Icon getWrongIcon() {
+Icon getWrongIcon(double iconSize) {
   return Icon(
     Icons.cancel,
-    size: 50.0,
+    size: 30.0,
     color: Colors.red,
   );
 }
 
-Icon getRightIcon() {
+Icon getRightIcon(50.0) {
   return Icon(
     Icons.done,
-    size: 50.0,
+    size: 30.0,
     color: Colors.green,
   );
 }

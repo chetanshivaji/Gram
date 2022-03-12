@@ -126,9 +126,7 @@ class outFormState extends State<outForm> {
                       ),
                     );
 
-                    //var ls = await getLoggedInUserVillagePin();
                     await FirebaseFirestore.instance
-                        //.collection(ls[0] + ls[1])
                         .collection(village + pin)
                         .doc(docMainDb)
                         .collection(collPrefixOut + dropdownValueYear)
@@ -149,7 +147,7 @@ class outFormState extends State<outForm> {
                       context,
                       titleSuccess,
                       subtitleSuccess,
-                      getRightIcon(),
+                      getRightIcon(50.0),
                       2,
                     );
                   }

@@ -36,9 +36,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseEmail = "";
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
-    //var ls = await getLoggedInUserVillagePin();
+    
     int total = await FirebaseFirestore.instance
-        //.collection(ls[0] + ls[1])
+        
         .collection(village + pin)
         .doc(docMainDb)
         .collection(collFormula)
@@ -52,7 +52,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     //update formula
     if (typeInOut == "in") {
       FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
+          
           .collection(village + pin)
           .doc(docMainDb)
           .collection(collFormula)
@@ -60,7 +60,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           .update({keyTotalIn: (total + int.parse(newEntryAmount))});
     } else {
       FirebaseFirestore.instance
-          //.collection(ls[0] + ls[1])
+          
           .collection(village + pin)
           .doc(docMainDb)
           .collection(collFormula)
@@ -116,11 +116,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
               onChanged: (text) async {
                 if (text.length == 10) {
-                  //var ls = await getLoggedInUserVillagePin();
+                  
                   if (widget.formType == txtTaxTypeHouse) {
                     try {
                       await FirebaseFirestore.instance
-                          //.collection(ls[0] + ls[1])
+                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
@@ -148,7 +148,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   } else {
                     try {
                       await FirebaseFirestore.instance
-                          //.collection(ls[0] + ls[1])
+                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
@@ -269,9 +269,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     onPressedHouseWater = true;
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
-                    //var ls = await getLoggedInUserVillagePin();
+                    
                     bool paid = await FirebaseFirestore.instance
-                        //.collection(ls[0] + ls[1])
+                        
                         .collection(village + pin)
                         .doc(docMainDb)
                         .collection(docMainDb + dropdownValueYear)
@@ -294,7 +294,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       },
                     );
                     if (paid == true) {
-                      popAlert(context, paidMsg, "", getWrongIcon(), 2);
+                      popAlert(context, paidMsg, "", getWrongIcon(50.0), 2);
                       return;
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -304,7 +304,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       );
 
                       await FirebaseFirestore.instance
-                          //.collection(ls[0] + ls[1])
+                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(inTypeSubmit + dropdownValueYear)
@@ -318,7 +318,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         },
                       );
                       await FirebaseFirestore.instance
-                          //.collection(ls[0] + ls[1])
+                          
                           .collection(village + pin)
                           .doc(docMainDb)
                           .collection(docMainDb + dropdownValueYear)
@@ -342,12 +342,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       String subject =
                           "$name $typeSubmit Tax receipt for year $dropdownValueYear";
                       String body =
-                          "Please find attached receipt, Thank you!--Regards,\n $email";
+                          "Please find attached receipt, Thank you!\n
+                          --Regards,\n $email";
                       String attachment = gReceiptPdfName;
                       await sendEmail(subject, body, email, attachment);
 
                       popAlert(context, titleSuccess, subtitleSuccess,
-                          getRightIcon(), 2);
+                          getRightIcon(50.0), 2);
                     }
 
                     // Validate returns true if the form is valid, or false otherwise.
@@ -464,9 +465,9 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         content: Text(msgProcessingData),
                       ),
                     );
-                    //var ls = await getLoggedInUserVillagePin();
+                    
                     FirebaseFirestore.instance
-                        //.collection(ls[0] + ls[1])
+                        
                         .collection(village + pin)
                         .doc(docMainDb)
                         .collection(collPrefixInExtra + dropdownValueYear)
@@ -482,7 +483,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         "in"); //fetch exisiting value from formula and update new value.
 
                     popAlert(context, titleSuccess, subtitleSuccess,
-                        getRightIcon(), 2);
+                        getRightIcon(50.0), 2);
                   }
                 },
                 child: Text(
