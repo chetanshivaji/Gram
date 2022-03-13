@@ -36,6 +36,7 @@ class _searchScreenState extends State<searchScreen> {
   Future<List<DataRow>> _buildListPending() async {
     List<DataRow> ldataRow = [];
 
+    bool mobileUserFound = false;
     for (var yr in items) {
       List<DataCell> ldataCell = [];
       //search DB
@@ -48,49 +49,60 @@ class _searchScreenState extends State<searchScreen> {
             .get()
             .then(
           (value) {
-            var y = value.data();
+            if (value.exists) {
+              mobileUserFound = true;
+              var y = value.data();
 
-            ldataCell.add(
-              DataCell(
-                Text(
-                  yr + " -> ",
-                  style: getTableHeadingTextStyle(),
+              ldataCell.add(
+                DataCell(
+                  Text(
+                    yr + " -> ",
+                    style: getTableHeadingTextStyle(),
+                  ),
                 ),
-              ),
-            );
-            ldataCell.add(
-              DataCell(
-                Row(
-                  children: <Widget>[
-                    Text(
-                      y![keyHouse].toString(),
-                    ),
-                    y[keyHouseGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
-                  ],
+              );
+              ldataCell.add(
+                DataCell(
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        y![keyHouse].toString(),
+                      ),
+                      y[keyHouseGiven]
+                          ? getRightIcon(20.0)
+                          : getWrongIcon(20.0),
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
 
-            ldataCell.add(
-              DataCell(
-                Row(
-                  children: <Widget>[
-                    Text(
-                      y[keyWater].toString(),
-                    ),
-                    y[keyWaterGiven] ? getRightIcon(20.0) : getWrongIcon(20.0),
-                  ],
+              ldataCell.add(
+                DataCell(
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        y[keyWater].toString(),
+                      ),
+                      y[keyWaterGiven]
+                          ? getRightIcon(20.0)
+                          : getWrongIcon(20.0),
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
+              ldataRow.add(DataRow(cells: ldataCell));
+            }
+            //else if value not exist do nothing, //means user not found for that year.
           },
         );
-
-        ldataRow.add(DataRow(cells: ldataCell));
       } catch (e) {
         popAlert(
             context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
       }
+    }
+    if (mobileUserFound == false) {
+      popAlert(context, kTitleTryCatchFail, kSubTitleUserNotFound,
+          getWrongIcon(50.0), 1);
     }
 
     return ldataRow;

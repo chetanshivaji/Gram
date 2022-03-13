@@ -205,7 +205,7 @@ String kSubTitleOnlyAdmin = "Only Admin allowed";
 String titlePasswordMismatch = "Password mismatch";
 String subtitlePasswordMismatch =
     "password and re entered password should match";
-
+String kSubTitleUserNotFound = "Mobile user not found";
 String kTitleEntryRemoved = "Entry Removed";
 
 String tableHeadingFontFamily = "RobotoMono";
