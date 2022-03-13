@@ -69,7 +69,6 @@ class pendingList extends StatelessWidget {
               Icons.notifications_active_outlined,
               color: Colors.red,
             ),
-            splashColor: Colors.blue,
             tooltip: txtNotifyToPay,
           ),
         ),
