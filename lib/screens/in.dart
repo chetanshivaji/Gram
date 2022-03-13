@@ -157,6 +157,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       setStateEmptyEntries();
                       popAlert(context, kTitleTryCatchFail, e.toString(),
                           getWrongIcon(50.0), 1);
+                      return;
                     }
 
                     setState(
@@ -190,6 +191,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       setStateEmptyEntries();
                       popAlert(context, kTitleTryCatchFail, e.toString(),
                           getWrongIcon(50.0), 1);
+                      return;
                     }
 
                     setState(
@@ -210,10 +212,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 }
                 if (value.length != 10) {
                   return msgTenDigitNumber;
-                }
+                } /*
                 if (name == "") {
                   return msgNumberNotFoundInDb;
                 }
+                */
                 if (!isNumeric(value)) {
                   return msgOnlyNumber;
                 }
@@ -298,29 +301,33 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       onPressedHouseWater = true;
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
-
-                      bool paid = await FirebaseFirestore.instance
-                          .collection(village + pin)
-                          .doc(docMainDb)
-                          .collection(docMainDb + dropdownValueYear)
-                          .doc(mobile.toString())
-                          .get()
-                          .then(
-                        (value) {
-                          var y = value.data();
-                          if (widget.formType == txtTaxTypeHouse) {
-                            if (y![keyHouseGiven] == true) {
-                              return true;
-                            } else
-                              return false;
-                          } else {
-                            if (y![keyWaterGiven] == true) {
-                              return true;
-                            } else
-                              return false;
-                          }
-                        },
-                      );
+                      bool paid = false;
+                      try {
+                        paid = await FirebaseFirestore.instance
+                            .collection(village + pin)
+                            .doc(docMainDb)
+                            .collection(docMainDb + dropdownValueYear)
+                            .doc(mobile.toString())
+                            .get()
+                            .then(
+                          (value) {
+                            var y = value.data();
+                            if (widget.formType == txtTaxTypeHouse) {
+                              if (y![keyHouseGiven] == true) {
+                                return true;
+                              } else
+                                return false;
+                            } else {
+                              if (y![keyWaterGiven] == true) {
+                                return true;
+                              } else
+                                return false;
+                            }
+                          },
+                        );
+                      } catch (e) {
+                        throw "Number not found in Database";
+                      }
                       if (paid == true) {
                         onPressedHouseWater = false;
                         popAlert(context, paidMsg, "", getWrongIcon(50.0), 2);
@@ -331,6 +338,18 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             content: Text(msgProcessingData),
                           ),
                         );
+                        try {
+                          await FirebaseFirestore.instance
+                              .collection(village + pin)
+                              .doc(docMainDb)
+                              .collection(docMainDb + dropdownValueYear)
+                              .doc(mobile)
+                              .update(
+                            {inTypeGiven: true},
+                          );
+                        } catch (e) {
+                          throw "Number not found in Database";
+                        }
 
                         await FirebaseFirestore.instance
                             .collection(village + pin)
@@ -344,14 +363,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             keyDate: DateTime.now().toString(),
                             keyUser: userMail,
                           },
-                        );
-                        await FirebaseFirestore.instance
-                            .collection(village + pin)
-                            .doc(docMainDb)
-                            .collection(docMainDb + dropdownValueYear)
-                            .doc(mobile)
-                            .update(
-                          {inTypeGiven: true},
                         );
 
                         updateFormulaValues(amount.toString(),
@@ -388,8 +399,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       // Validate returns true if the form is valid, or false otherwise.
                     } catch (e) {
                       onPressedHouseWater = false;
-                      popAlert(context, kTitleFail, e.toString(),
-                          getWrongIcon(50.0), 2);
+                      popAlert(context, kTitleTryCatchFail, e.toString(),
+                          getWrongIcon(50.0), 1);
                     }
                   }
                 },
