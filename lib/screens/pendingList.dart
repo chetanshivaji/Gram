@@ -35,6 +35,8 @@ class pendingList extends StatelessWidget {
       ldataCell.add(
         DataCell(
           IconButton(
+            splashColor: clrIconSpalsh,
+            splashRadius: iconSplashRadius,
             onPressed: () async {
               String name = l.get(keyName);
               String mobile = l.get(keyMobile).toString();

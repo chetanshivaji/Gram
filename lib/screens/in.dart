@@ -96,6 +96,17 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     //END - fetch data to display in pdf
   }
 
+  void setStateEmptyEntries() {
+    setState(
+      () {
+        name = '';
+        amount = 0;
+        email = '';
+      },
+    );
+    return;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -132,13 +143,18 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .get()
                           .then(
                         (value) {
-                          var y = value.data();
-                          houseName = y![keyName];
-                          houseEmail = y[keyEmail];
-                          houseAmount = y[keyHouse];
+                          if (value.exists) {
+                            var y = value.data();
+                            houseName = y![keyName];
+                            houseEmail = y[keyEmail];
+                            houseAmount = y[keyHouse];
+                          } else {
+                            throw kSubTitleUserNotFound;
+                          }
                         },
                       );
                     } catch (e) {
+                      setStateEmptyEntries();
                       popAlert(context, kTitleTryCatchFail, e.toString(),
                           getWrongIcon(50.0), 1);
                     }
@@ -160,13 +176,18 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           .get()
                           .then(
                         (value) {
-                          var y = value.data();
-                          waterAmount = y![keyWater];
-                          waterName = y[keyName];
-                          waterEmail = y[keyEmail];
+                          if (value.exists) {
+                            var y = value.data();
+                            waterAmount = y![keyWater];
+                            waterName = y[keyName];
+                            waterEmail = y[keyEmail];
+                          } else {
+                            throw kSubTitleUserNotFound;
+                          }
                         },
                       );
                     } catch (e) {
+                      setStateEmptyEntries();
                       popAlert(context, kTitleTryCatchFail, e.toString(),
                           getWrongIcon(50.0), 1);
                     }

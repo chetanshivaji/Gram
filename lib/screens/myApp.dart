@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
         title: Text(appMainLabel),
         actions: <Widget>[
           IconButton(
+            splashColor: clrIconSpalsh,
+            splashRadius: iconSplashRadius,
             onPressed: () {
               Navigator.pushNamed(context, searchScreen.id);
             },
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
             icon: Icon(Icons.search),
           ),
           IconButton(
+            splashColor: clrIconSpalsh,
+            splashRadius: iconSplashRadius,
             tooltip: kTitleSignOut,
             onPressed: () {
               popLogOutAlert(

@@ -350,6 +350,8 @@ class _reportContainerState extends State<reportContainer> {
               ),
               Expanded(
                 child: IconButton(
+                  splashColor: clrIconSpalsh,
+                  splashRadius: iconSplashRadius,
                   alignment: Alignment.topRight,
                   onPressed: () async {
                     createPDFReportEntries();

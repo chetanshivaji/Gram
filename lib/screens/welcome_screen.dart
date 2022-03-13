@@ -41,6 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 color: Colors.lightBlueAccent,
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
+                  splashColor: clrBSplash,
                   onPressed: () {
                     //Go to login screen.
                     Navigator.pushNamed(context, LoginScreen.id);
@@ -60,6 +61,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 borderRadius: BorderRadius.circular(30.0),
                 elevation: 5.0,
                 child: MaterialButton(
+                  splashColor: clrBSplash,
                   onPressed: () {
                     //Go to registration screen.
                     Navigator.pushNamed(context, RegistrationScreen.id);

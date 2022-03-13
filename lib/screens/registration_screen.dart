@@ -254,6 +254,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   elevation: 5.0,
                   child: MaterialButton(
+                    splashColor: clrBSplash,
                     minWidth: 200.0,
                     height: 42.0,
                     child: Text(

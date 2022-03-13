@@ -230,6 +230,8 @@ class _pendingContainerState extends State<pendingContainer> {
               ),
               Expanded(
                 child: IconButton(
+                  splashColor: clrIconSpalsh,
+                  splashRadius: iconSplashRadius,
                   alignment: Alignment.topRight,
                   onPressed: () async {
                     //TODO: update pendingInvoiceItems from DB later.
