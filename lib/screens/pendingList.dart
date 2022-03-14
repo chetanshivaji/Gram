@@ -57,11 +57,7 @@ class pendingList extends StatelessWidget {
               if (textMsgEnabled)
                 await sendTextToPhone(notificationMessage, listMobile);
 
-              if (whatsUpEnabled) if (mobileWhatsApp.contains("+91")) {
-                await launchWhatsApp(
-                    notificationMessage, "+91" + mobileWhatsApp);
-              } else {
-                //For foreign numbers stored, and phone numbers directly with country extension.
+              if (whatsUpEnabled) {
                 await launchWhatsApp(notificationMessage, mobileWhatsApp);
               }
             },

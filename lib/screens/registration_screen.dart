@@ -166,7 +166,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     if (value == null || value.isEmpty) {
                       return msgEnterVillageName;
                     }
-                    village = value;
+                    village = value.toLowerCase();
                     return null;
                   },
                   decoration: InputDecoration(

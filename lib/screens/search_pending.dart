@@ -197,6 +197,7 @@ class _searchScreenState extends State<searchScreen> {
                                   },
                                 );
                               }
+                              _name = "";
                               pressed = false;
                             }
                           : null,

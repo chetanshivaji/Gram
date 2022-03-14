@@ -10,9 +10,16 @@ bool whatsUpEnabled = true;
 bool textMsgEnabled = true;
 bool receiptPdf = true;
 
-Future<void> launchWhatsApp(String whatsAppMsg, String phoneNumber) async {
+Future<void> launchWhatsApp(String whatsAppMsg, String mobile) async {
+  //mobile number modification for +91
+  String phoneWithCountryCode = "";
+  if (mobile.contains("+")) {
+    phoneWithCountryCode = mobile;
+  } else {
+    phoneWithCountryCode = "+91" + mobile;
+  }
   final link = WhatsAppUnilink(
-    phoneNumber: phoneNumber,
+    phoneNumber: phoneWithCountryCode,
     text: whatsAppMsg,
   );
   // Convert the WhatsAppUnilink instance to a string.
