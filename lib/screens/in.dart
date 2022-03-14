@@ -115,9 +115,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
           yearTile(clr: clrGreen),
           Padding(
             padding: EdgeInsets.only(top: 20),

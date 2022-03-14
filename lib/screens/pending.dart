@@ -168,13 +168,11 @@ class _pendingContainerState extends State<pendingContainer> {
     return Container(
       width: double.infinity,
       color: Colors.grey[350],
-      alignment: Alignment.topLeft,
+      //alignment: Alignment.topLeft,
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               /*
@@ -195,92 +193,88 @@ class _pendingContainerState extends State<pendingContainer> {
                 ),
               ),
               */
-              Expanded(
-                child: DropdownButton(
-                  borderRadius: BorderRadius.circular(12.0),
-                  dropdownColor: clrAmber,
+              IconButton(
+                splashColor: clrIconSpalsh,
+                splashRadius: iconSplashRadius,
+                alignment: Alignment.topRight,
+                onPressed: () async {
+                  //TODO: update pendingInvoiceItems from DB later.
 
-                  alignment: Alignment.topLeft,
+                  createPDFPendingEntries();
+                },
+                icon: Icon(Icons.download, size: 30.0),
+                color: getColor(widget.pendingType),
+                tooltip: txtDownloadPending,
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              DropdownButton(
+                style: TextStyle(
+                  backgroundColor: getColor(widget.pendingType),
+                ),
+                borderRadius: BorderRadius.circular(12.0),
+                dropdownColor: clrAmber,
 
-                  // Initial Value
-                  value: dropdownValueYear,
-                  // Down Arrow Icon
-                  icon: Icon(
-                    Icons.date_range,
-                  ),
-                  // Array list of items
-                  items: items.map(
-                    (String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    },
-                  ).toList(),
-                  // After selecting the desired option,it will
-                  // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(
-                      () {
-                        dropdownValueYear = newValue!;
-                      },
+                alignment: Alignment.topRight,
+
+                // Initial Value
+                value: dropdownValuePendingSort,
+                // Down Arrow Icon
+                icon: Icon(Icons.sort, color: clrAmber),
+                // Array list of items
+                items: itemsSort.map(
+                  (String itemsSort) {
+                    return DropdownMenuItem(
+                      value: itemsSort,
+                      child: Text(itemsSort),
                     );
                   },
-                ),
-              ),
-              Expanded(
-                child: IconButton(
-                  splashColor: clrIconSpalsh,
-                  splashRadius: iconSplashRadius,
-                  alignment: Alignment.topRight,
-                  onPressed: () async {
-                    //TODO: update pendingInvoiceItems from DB later.
-
-                    createPDFPendingEntries();
-                  },
-                  icon: Icon(
-                    Icons.download,
-                    size: 30.0,
-                  ),
-                  color: getColor(widget.pendingType),
-                  tooltip: txtDownloadPending,
-                ),
-              ),
-              Expanded(
-                child: DropdownButton(
-                  style: TextStyle(
-                    backgroundColor: getColor(widget.pendingType),
-                  ),
-                  borderRadius: BorderRadius.circular(12.0),
-                  dropdownColor: clrAmber,
-
-                  alignment: Alignment.topRight,
-
-                  // Initial Value
-                  value: dropdownValuePendingSort,
-                  // Down Arrow Icon
-                  icon: Icon(
-                    Icons.sort,
-                  ),
-                  // Array list of items
-                  items: itemsSort.map(
-                    (String itemsSort) {
-                      return DropdownMenuItem(
-                        value: itemsSort,
-                        child: Text(itemsSort),
-                      );
+                ).toList(),
+                // After selecting the desired option,it will
+                // change button value to selected value
+                onChanged: (String? newValue) {
+                  setState(
+                    () {
+                      dropdownValuePendingSort = newValue!;
                     },
-                  ).toList(),
-                  // After selecting the desired option,it will
-                  // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(
-                      () {
-                        dropdownValuePendingSort = newValue!;
-                      },
+                  );
+                },
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              DropdownButton(
+                borderRadius: BorderRadius.circular(12.0),
+                dropdownColor: clrAmber,
+
+                alignment: Alignment.topRight,
+
+                // Initial Value
+                value: dropdownValueYear,
+                // Down Arrow Icon
+                icon: Icon(Icons.date_range, color: clrAmber),
+                // Array list of items
+                items: items.map(
+                  (String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
                     );
                   },
-                ),
+                ).toList(),
+                // After selecting the desired option,it will
+                // change button value to selected value
+                onChanged: (String? newValue) {
+                  setState(
+                    () {
+                      dropdownValueYear = newValue!;
+                    },
+                  );
+                },
+              ),
+              SizedBox(
+                width: 10.0,
               ),
             ],
           ),

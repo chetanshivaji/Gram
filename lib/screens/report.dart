@@ -295,6 +295,7 @@ class _reportContainerState extends State<reportContainer> {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               /*
@@ -315,91 +316,92 @@ class _reportContainerState extends State<reportContainer> {
                 ),
               ),
               */
-              Expanded(
-                child: DropdownButton(
-                  borderRadius: BorderRadius.circular(12.0),
-                  dropdownColor: clrBlue,
+              IconButton(
+                splashColor: clrIconSpalsh,
+                splashRadius: iconSplashRadius,
+                alignment: Alignment.topRight,
+                onPressed: () async {
+                  createPDFReportEntries();
+                },
+                icon: Icon(
+                  Icons.download,
+                  size: 30.0,
+                ),
+                color: getColor(widget.reportType),
+                tooltip: txtDownloadReport,
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              DropdownButton(
+                style: TextStyle(
+                  backgroundColor: getColor(widget.reportType),
+                ),
+                borderRadius: BorderRadius.circular(12.0),
+                dropdownColor: clrBlue,
 
-                  alignment: Alignment.topLeft,
+                alignment: Alignment.topRight,
 
-                  // Initial Value
-                  value: dropdownValueYear,
-                  // Down Arrow Icon
-                  icon: Icon(
-                    Icons.date_range,
-                  ),
-                  // Array list of items
-                  items: items.map(
-                    (String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    },
-                  ).toList(),
-                  // After selecting the desired option,it will
-                  // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(
-                      () {
-                        dropdownValueYear = newValue!;
-                      },
+                // Initial Value
+                value: dropdownValueReportSort,
+                // Down Arrow Icon
+                icon: Icon(
+                  Icons.sort,
+                  color: clrBlue,
+                ),
+                // Array list of items
+                items: itemsSort.map(
+                  (String itemsSort) {
+                    return DropdownMenuItem(
+                      value: itemsSort,
+                      child: Text(itemsSort),
                     );
                   },
-                ),
-              ),
-              Expanded(
-                child: IconButton(
-                  splashColor: clrIconSpalsh,
-                  splashRadius: iconSplashRadius,
-                  alignment: Alignment.topRight,
-                  onPressed: () async {
-                    createPDFReportEntries();
-                  },
-                  icon: Icon(
-                    Icons.download,
-                    size: 30.0,
-                  ),
-                  color: getColor(widget.reportType),
-                  tooltip: txtDownloadReport,
-                ),
-              ),
-              Expanded(
-                child: DropdownButton(
-                  style: TextStyle(
-                    backgroundColor: getColor(widget.reportType),
-                  ),
-                  borderRadius: BorderRadius.circular(12.0),
-                  dropdownColor: clrBlue,
-
-                  alignment: Alignment.topRight,
-
-                  // Initial Value
-                  value: dropdownValueReportSort,
-                  // Down Arrow Icon
-                  icon: Icon(
-                    Icons.sort,
-                    color: Colors.blue,
-                  ),
-                  // Array list of items
-                  items: itemsSort.map(
-                    (String itemsSort) {
-                      return DropdownMenuItem(
-                        value: itemsSort,
-                        child: Text(itemsSort),
-                      );
+                ).toList(),
+                // After selecting the desired option,it will
+                // change button value to selected value
+                onChanged: (String? newValue) {
+                  setState(
+                    () {
+                      dropdownValueReportSort = newValue!;
                     },
-                  ).toList(),
-                  // After selecting the desired option,it will
-                  // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(
-                      () {
-                        dropdownValueReportSort = newValue!;
-                      },
+                  );
+                },
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              DropdownButton(
+                borderRadius: BorderRadius.circular(12.0),
+                dropdownColor: clrBlue,
+
+                alignment: Alignment.topRight,
+
+                // Initial Value
+                value: dropdownValueYear,
+                // Down Arrow Icon
+                icon: Icon(Icons.date_range, color: clrBlue),
+                // Array list of items
+                items: items.map(
+                  (String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
                     );
                   },
-                ),
+                ).toList(),
+                // After selecting the desired option,it will
+                // change button value to selected value
+                onChanged: (String? newValue) {
+                  setState(
+                    () {
+                      dropdownValueYear = newValue!;
+                    },
+                  );
+                },
+              ),
+              SizedBox(
+                width: 10.0,
               ),
             ],
           ),

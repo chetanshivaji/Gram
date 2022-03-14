@@ -33,9 +33,6 @@ class outFormState extends State<outForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
           yearTile(clr: clrRed),
           Expanded(
             child: TextFormField(

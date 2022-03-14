@@ -184,11 +184,6 @@ class _yearTileState extends State<yearTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(Icons.date_range),
-      title: Text(
-        labelYear,
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
       trailing: DropdownButton(
         borderRadius: BorderRadius.circular(12.0),
         dropdownColor: widget.clr,
@@ -199,7 +194,7 @@ class _yearTileState extends State<yearTile> {
         value: dropdownValueYear,
         // Down Arrow Icon
         icon: Icon(
-          Icons.sort,
+          Icons.date_range,
           color: widget.clr,
         ),
         // Array list of items
