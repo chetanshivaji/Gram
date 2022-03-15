@@ -18,7 +18,9 @@ class PdfApi {
 
     gReceiptPdfName =
         await '${dir.path}/$name'; //for sending attachmenet to mail.
-    await file.writeAsBytes(bytes);
+    await file.create(recursive: true);
+    await file.writeAsBytes(bytes, flush: true);
+    print(file.exists());
 
     return file;
   }

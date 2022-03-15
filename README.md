@@ -15,6 +15,7 @@ In future developement.
 
 
 # TODO
+1. save pdf locally/dont open, CC to admin also.
 1. two times click on drawer.
 2. date start and end selection
 1. Disable button after click

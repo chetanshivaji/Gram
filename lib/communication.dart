@@ -38,13 +38,13 @@ Future<void> sendTextToPhone(String message, List<String> recipents) async {
   return;
 }
 
-Future<void> sendEmail(
-    String subject, String body, String recipients, String attachment) async {
+Future<void> sendEmail(String subject, String body, List<String> recipients,
+    String attachment) async {
   final Email email = Email(
     subject: subject,
     body: body,
-    recipients: [recipients],
-    //cc: ['cc@example.com'],
+    recipients: [recipients[0]], //user
+    cc: [recipients[1]], //admin
     //bcc: ['bcc@example.com'],
     attachmentPaths: [attachment],
     isHTML: false,

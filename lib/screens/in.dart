@@ -92,7 +92,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
     final pdfFile = await receipt.generate(actIn, userMail);
 
-    PdfApi.openFile(pdfFile);
+    //PdfApi.openFile(pdfFile);
     return;
     //END - fetch data to display in pdf
   }
@@ -414,13 +414,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         String message =
                             "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!.";
                         List<String> recipents = [mobile];
-                        if (textMsgEnabled) {
-                          await sendTextToPhone(message + userMail, recipents);
-                        }
-
-                        if (whatsUpEnabled) {
-                          await launchWhatsApp(message + userMail, mobile);
-                        }
 
                         await createPDFInHouseWaterReceiptEntries();
 
@@ -433,7 +426,32 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           \n $userMail
                           """;
                         String attachment = gReceiptPdfName;
-                        await sendEmail(subject, body, email, attachment);
+                        await FirebaseFirestore.instance
+                            .collection(village + pin)
+                            .doc(docVillageInfo)
+                            .get()
+                            .then(
+                          (value) {
+                            if (value.exists) {
+                              var y = value.data();
+                              adminMail = y![keyAdminMail];
+                            }
+                          },
+                        );
+                        List<String> receipients = [
+                          email,
+                          adminMail,
+                        ];
+                        await sendEmail(subject, body, receipients,
+                            attachment); //send mail to user cc admin
+
+                        if (textMsgEnabled) {
+                          await sendTextToPhone(message + userMail, recipents);
+                        }
+
+                        if (whatsUpEnabled) {
+                          await launchWhatsApp(message + userMail, mobile);
+                        }
 
                         popAlert(context, titleSuccess, subtitleSuccess,
                             getRightIcon(50.0), 2);

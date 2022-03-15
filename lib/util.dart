@@ -165,6 +165,7 @@ var items = [
   "2022",
   "2023",
 ];
+String adminMail = "";
 
 class yearTile extends StatefulWidget {
   Color clr = Colors.blue;
