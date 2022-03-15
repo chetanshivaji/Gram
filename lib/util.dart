@@ -156,7 +156,7 @@ int remainFormula = 0;
 int inFormula = 0;
 int outFormula = 0;
 
-String dropdownValueYear = "2021";
+String dropdownValueYear = DateTime.now().year.toString();
 
 var items = [
   "2012",

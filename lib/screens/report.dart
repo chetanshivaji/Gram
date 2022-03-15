@@ -45,10 +45,13 @@ var itemsSort = [
 class _reportContainerState extends State<reportContainer> {
   Future<void> _selectStartDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
+      context: context,
+      initialDate: (DateTime.now().year.toString() == dropdownValueYear)
+          ? DateTime.now()
+          : DateTime(int.parse(dropdownValueYear), 1, 1),
+      firstDate: DateTime(int.parse(dropdownValueYear)),
+      lastDate: DateTime(int.parse(dropdownValueYear) + 1),
+    );
 
     if (pickedDate != null && pickedDate != fromDate)
       setState(
@@ -70,7 +73,7 @@ class _reportContainerState extends State<reportContainer> {
         context: context,
         initialDate: startDate,
         firstDate: startDate,
-        lastDate: DateTime(2050));
+        lastDate: DateTime(int.parse(dropdownValueYear) + 1, 1, 1));
 
     if (pickedDate != null && pickedDate != fromDate)
       setState(
@@ -401,10 +404,13 @@ class _reportContainerState extends State<reportContainer> {
                 ).toList(),
                 // After selecting the desired option,it will
                 // change button value to selected value
-                onChanged: (String? newValue) {
+                onChanged: (String? newValue) async {
                   setState(
                     () {
                       dropdownValueYear = newValue!;
+                      startDate = DateTime(int.parse(dropdownValueYear), 1, 1);
+                      endDate =
+                          DateTime(int.parse(dropdownValueYear) + 1, 1, 1);
                     },
                   );
                 },
