@@ -18,12 +18,12 @@ class pendingContainer extends StatefulWidget {
 
 DateTime fromDate = DateTime.now();
 DateTime toDate = DateTime.now();
-String sFromDate = DateTime.now().day.toString() +
+String startDate = DateTime.now().day.toString() +
     "/" +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
-String sToDate = DateTime.now().day.toString() +
+String endDate = DateTime.now().day.toString() +
     "/" +
     DateTime.now().month.toString() +
     "/" +
@@ -35,7 +35,7 @@ var itemsSort = [
 ];
 
 class _pendingContainerState extends State<pendingContainer> {
-  Future<void> _selectFromDate(BuildContext context) async {
+  Future<void> _selectStartDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: fromDate,
@@ -46,7 +46,7 @@ class _pendingContainerState extends State<pendingContainer> {
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
-          sFromDate = pickedDate.day.toString() +
+          startDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
@@ -55,7 +55,7 @@ class _pendingContainerState extends State<pendingContainer> {
       );
   }
 
-  Future<void> _selectToDate(BuildContext context) async {
+  Future<void> _selectEndDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: fromDate,
@@ -66,7 +66,7 @@ class _pendingContainerState extends State<pendingContainer> {
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
-          sToDate = pickedDate.day.toString() +
+          endDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
@@ -179,17 +179,17 @@ class _pendingContainerState extends State<pendingContainer> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
-                    _selectFromDate(context);
+                    _selectStartDate(context);
                   },
-                  child: Text("From:$sFromDate"),
+                  child: Text("From:$startDate"),
                 ),
               ),
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
-                    _selectToDate(context);
+                    _selectEndDate(context);
                   },
-                  child: Text("To:$sToDate"),
+                  child: Text("To:$endDate"),
                 ),
               ),
               */
@@ -302,22 +302,6 @@ class _pendingMoneyState extends State<pendingMoney> {
   String pageName = actPending;
 
   // Initial Selected Value
-
-  Future<void> _selectFromDate(BuildContext context) async {}
-
-  Future<void> _selectToDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: toDate,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
-    if (pickedDate != null && pickedDate != toDate)
-      setState(
-        () {
-          sToDate = pickedDate.toString();
-        },
-      );
-  }
 
   List<Icon> lsIcons = [
     Icon(Icons.home, color: Colors.black),

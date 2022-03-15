@@ -20,12 +20,12 @@ class reportContainer extends StatefulWidget {
 
 DateTime fromDate = DateTime.now();
 DateTime toDate = DateTime.now();
-String sFromDate = DateTime.now().day.toString() +
+String startDate = DateTime.now().day.toString() +
     "/" +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
-String sToDate = DateTime.now().day.toString() +
+String endDate = DateTime.now().day.toString() +
     "/" +
     DateTime.now().month.toString() +
     "/" +
@@ -38,7 +38,7 @@ var itemsSort = [
 ];
 
 class _reportContainerState extends State<reportContainer> {
-  Future<void> _selectFromDate(BuildContext context) async {
+  Future<void> _selectStartDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: fromDate,
@@ -48,7 +48,7 @@ class _reportContainerState extends State<reportContainer> {
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
-          sFromDate = pickedDate.day.toString() +
+          startDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
@@ -57,7 +57,7 @@ class _reportContainerState extends State<reportContainer> {
       );
   }
 
-  Future<void> _selectToDate(BuildContext context) async {
+  Future<void> _selectEndDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: fromDate,
@@ -67,7 +67,7 @@ class _reportContainerState extends State<reportContainer> {
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
-          sToDate = pickedDate.day.toString() +
+          endDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
@@ -298,24 +298,22 @@ class _reportContainerState extends State<reportContainer> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              /*
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
-                    _selectFromDate(context);
+                    _selectStartDate(context);
                   },
-                  child: Text("From:$sFromDate"),
+                  child: Text("Start:$startDate"),
                 ),
               ),
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
-                    _selectToDate(context);
+                    _selectEndDate(context);
                   },
-                  child: Text("To:$sToDate"),
+                  child: Text("End:$endDate"),
                 ),
               ),
-              */
               IconButton(
                 splashColor: clrIconSpalsh,
                 splashRadius: iconSplashRadius,
@@ -436,22 +434,6 @@ class _reportMoneyState extends State<reportMoney> {
   String pageName = actReport;
 
   // Initial Selected Value
-
-  Future<void> _selectFromDate(BuildContext context) async {}
-
-  Future<void> _selectToDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: toDate,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2050));
-    if (pickedDate != null && pickedDate != toDate)
-      setState(
-        () {
-          sToDate = pickedDate.toString();
-        },
-      );
-  }
 
   List<Icon> lsIcons = [
     Icon(Icons.home, color: Colors.black),
