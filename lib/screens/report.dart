@@ -20,6 +20,10 @@ class reportContainer extends StatefulWidget {
 
 DateTime fromDate = DateTime.now();
 DateTime toDate = DateTime.now();
+
+DateTime startDate = DateTime.now();
+DateTime endDate = DateTime.now();
+/*
 String startDate = DateTime.now().day.toString() +
     "/" +
     DateTime.now().month.toString() +
@@ -30,6 +34,7 @@ String endDate = DateTime.now().day.toString() +
     DateTime.now().month.toString() +
     "/" +
     DateTime.now().year.toString();
+    */
 String dropdownValueReportSort = "Date";
 var itemsSort = [
   tableHeadingDate,
@@ -41,18 +46,21 @@ class _reportContainerState extends State<reportContainer> {
   Future<void> _selectStartDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
-        initialDate: fromDate,
+        initialDate: DateTime.now(),
         firstDate: DateTime(2015),
         lastDate: DateTime(2050));
 
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
+          startDate = pickedDate;
+          /*
           startDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
               pickedDate.year.toString();
+              */
         },
       );
   }
@@ -60,18 +68,21 @@ class _reportContainerState extends State<reportContainer> {
   Future<void> _selectEndDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
-        initialDate: fromDate,
-        firstDate: DateTime(2015),
+        initialDate: startDate,
+        firstDate: startDate,
         lastDate: DateTime(2050));
 
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
+          endDate = pickedDate;
+          /*
           endDate = pickedDate.day.toString() +
               "/" +
               pickedDate.month.toString() +
               "/" +
               pickedDate.year.toString();
+              */
         },
       );
   }
@@ -303,7 +314,7 @@ class _reportContainerState extends State<reportContainer> {
                   onPressed: () async {
                     _selectStartDate(context);
                   },
-                  child: Text("Start:$startDate"),
+                  child: Text("Start:$startDate".split(' ')[0]),
                 ),
               ),
               Expanded(
@@ -311,7 +322,7 @@ class _reportContainerState extends State<reportContainer> {
                   onPressed: () async {
                     _selectEndDate(context);
                   },
-                  child: Text("End:$endDate"),
+                  child: Text("End:$endDate".split(' ')[0]),
                 ),
               ),
               IconButton(
