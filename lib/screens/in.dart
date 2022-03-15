@@ -351,7 +351,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         await FirebaseFirestore.instance
                             .collection(village + pin)
                             .doc(docMainDb)
-                            .collection(inTypeSubmit + dropdownValueYear)
+                            .collection(
+                                inTypeSubmit + DateTime.now().year.toString())
                             .add(
                           {
                             keyName: name,

@@ -21,20 +21,9 @@ class reportContainer extends StatefulWidget {
 DateTime fromDate = DateTime.now();
 DateTime toDate = DateTime.now();
 
-DateTime startDate = DateTime.now();
-DateTime endDate = DateTime.now();
-/*
-String startDate = DateTime.now().day.toString() +
-    "/" +
-    DateTime.now().month.toString() +
-    "/" +
-    DateTime.now().year.toString();
-String endDate = DateTime.now().day.toString() +
-    "/" +
-    DateTime.now().month.toString() +
-    "/" +
-    DateTime.now().year.toString();
-    */
+DateTime startDate = DateTime(int.parse(dropdownValueYear), 1, 1);
+DateTime endDate = DateTime(int.parse(dropdownValueYear) + 1, 1, 1);
+
 String dropdownValueReportSort = "Date";
 var itemsSort = [
   tableHeadingDate,
@@ -49,21 +38,16 @@ class _reportContainerState extends State<reportContainer> {
       initialDate: (DateTime.now().year.toString() == dropdownValueYear)
           ? DateTime.now()
           : DateTime(int.parse(dropdownValueYear), 1, 1),
-      firstDate: DateTime(int.parse(dropdownValueYear)),
-      lastDate: DateTime(int.parse(dropdownValueYear) + 1),
+      firstDate: DateTime(int.parse(dropdownValueYear), 1, 1),
+      lastDate: DateTime(int.parse(dropdownValueYear) + 1, 1, 1),
     );
 
     if (pickedDate != null && pickedDate != fromDate)
       setState(
         () {
           startDate = pickedDate;
-          /*
-          startDate = pickedDate.day.toString() +
-              "/" +
-              pickedDate.month.toString() +
-              "/" +
-              pickedDate.year.toString();
-              */
+          endDate =
+              pickedDate; //when start date is changed, automatically change end date to start date.
         },
       );
   }
@@ -79,13 +63,6 @@ class _reportContainerState extends State<reportContainer> {
       setState(
         () {
           endDate = pickedDate;
-          /*
-          endDate = pickedDate.day.toString() +
-              "/" +
-              pickedDate.month.toString() +
-              "/" +
-              pickedDate.year.toString();
-              */
         },
       );
   }
@@ -290,7 +267,6 @@ class _reportContainerState extends State<reportContainer> {
       default:
         {
           taxType = "InvalidSomethingWrong";
-          ;
         }
         break;
     }
@@ -312,21 +288,17 @@ class _reportContainerState extends State<reportContainer> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    _selectStartDate(context);
-                  },
-                  child: Text("Start:$startDate".split(' ')[0]),
-                ),
+              ElevatedButton(
+                onPressed: () async {
+                  _selectStartDate(context);
+                },
+                child: Text("Start:$startDate".split(' ')[0]),
               ),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    _selectEndDate(context);
-                  },
-                  child: Text("End:$endDate".split(' ')[0]),
-                ),
+              ElevatedButton(
+                onPressed: () async {
+                  _selectEndDate(context);
+                },
+                child: Text("End:$endDate".split(' ')[0]),
               ),
               IconButton(
                 splashColor: clrIconSpalsh,
@@ -425,10 +397,14 @@ class _reportContainerState extends State<reportContainer> {
                     (widget.reportType == collPrefixInWater) ||
                     (widget.reportType == collPrefixInExtra)
                 ? inList(
+                    sDate: "$startDate".split(' ')[0],
+                    eDate: "$endDate".split(' ')[0],
                     yearDropDownValue: dropdownValueYear,
                     inType: widget.reportType,
                     orderType: dropdownValueReportSort)
                 : outList(
+                    sDate: "$startDate".split(' ')[0],
+                    eDate: "$endDate".split(' ')[0],
                     yearDropDownValue: dropdownValueYear,
                     outType: widget.reportType,
                     orderType: dropdownValueReportSort),

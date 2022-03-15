@@ -16,18 +16,6 @@ class pendingContainer extends StatefulWidget {
   _pendingContainerState createState() => _pendingContainerState();
 }
 
-DateTime fromDate = DateTime.now();
-DateTime toDate = DateTime.now();
-String startDate = DateTime.now().day.toString() +
-    "/" +
-    DateTime.now().month.toString() +
-    "/" +
-    DateTime.now().year.toString();
-String endDate = DateTime.now().day.toString() +
-    "/" +
-    DateTime.now().month.toString() +
-    "/" +
-    DateTime.now().year.toString();
 String dropdownValuePendingSort = txtHtoL;
 var itemsSort = [
   txtHtoL,
@@ -35,46 +23,6 @@ var itemsSort = [
 ];
 
 class _pendingContainerState extends State<pendingContainer> {
-  Future<void> _selectStartDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: fromDate,
-      firstDate: DateTime(2015),
-      lastDate: DateTime(2050),
-    );
-
-    if (pickedDate != null && pickedDate != fromDate)
-      setState(
-        () {
-          startDate = pickedDate.day.toString() +
-              "/" +
-              pickedDate.month.toString() +
-              "/" +
-              pickedDate.year.toString();
-        },
-      );
-  }
-
-  Future<void> _selectEndDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: fromDate,
-      firstDate: DateTime(2015),
-      lastDate: DateTime(2050),
-    );
-
-    if (pickedDate != null && pickedDate != fromDate)
-      setState(
-        () {
-          endDate = pickedDate.day.toString() +
-              "/" +
-              pickedDate.month.toString() +
-              "/" +
-              pickedDate.year.toString();
-        },
-      );
-  }
-
   void createPDFPendingEntries() async {
     //START - fetch data to display in pdf
     List<pendingEntry> entries = [];
@@ -175,24 +123,6 @@ class _pendingContainerState extends State<pendingContainer> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              /*
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    _selectStartDate(context);
-                  },
-                  child: Text("From:$startDate"),
-                ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    _selectEndDate(context);
-                  },
-                  child: Text("To:$endDate"),
-                ),
-              ),
-              */
               IconButton(
                 splashColor: clrIconSpalsh,
                 splashRadius: iconSplashRadius,

@@ -7,9 +7,13 @@ class outList extends StatelessWidget {
   String outType = "";
   String orderType = "";
   String yearDropDownValue = "";
+  String sDate = "";
+  String eDate = "";
 
   outList(
       {Key? key,
+      this.sDate = "",
+      this.eDate = "",
       this.yearDropDownValue = "2021",
       this.outType = collPrefixOut,
       this.orderType = keyDate})
