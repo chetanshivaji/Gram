@@ -35,6 +35,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseName = "";
   String waterEmail = "";
   String houseEmail = "";
+  var _textController = TextEditingController();
 
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
     int total = await FirebaseFirestore.instance
@@ -107,6 +108,48 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     return;
   }
 
+  ListTile getYearTile(Color clr) {
+    return ListTile(
+      trailing: DropdownButton(
+        borderRadius: BorderRadius.circular(12.0),
+        dropdownColor: clrGreen,
+
+        alignment: Alignment.topLeft,
+
+        // Initial Value
+        value: dropdownValueYear,
+        // Down Arrow Icon
+        icon: Icon(
+          Icons.date_range,
+          color: clrGreen,
+        ),
+        // Array list of items
+        items: items.map(
+          (String items) {
+            return DropdownMenuItem(
+              value: items,
+              child: Text(items),
+            );
+          },
+        ).toList(),
+        // After selecting the desired option,it will
+        // change button value to selected value
+        onChanged: (String? newValue) {
+          setState(
+            () {
+              dropdownValueYear = newValue!;
+              name = '';
+              amount = 0;
+              email = '';
+              mobile = '';
+              _textController.clear();
+            },
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -115,12 +158,14 @@ class HouseWaterFormState extends State<HouseWaterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          yearTile(clr: clrGreen),
+          //yearTile(clr: clrGreen),
+          getYearTile(clrGreen),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
           Expanded(
             child: TextFormField(
+              controller: _textController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -449,7 +494,6 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
-          //yearTile(clr: clrGreen),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
