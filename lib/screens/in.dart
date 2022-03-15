@@ -449,7 +449,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
-          yearTile(clr: clrGreen),
+          //yearTile(clr: clrGreen),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
@@ -521,7 +521,11 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                       await FirebaseFirestore.instance
                           .collection(village + pin)
                           .doc(docMainDb)
-                          .collection(collPrefixInExtra + dropdownValueYear)
+                          //.collection(collPrefixInExtra + dropdownValueYear)
+                          .collection(collPrefixInExtra +
+                              DateTime.now()
+                                  .year
+                                  .toString()) //put in the date transcation happened
                           .add(
                         {
                           keyReason: reason,
