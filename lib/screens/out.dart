@@ -33,7 +33,7 @@ class outFormState extends State<outForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          yearTile(clr: clrRed),
+          //yearTile(clr: clrRed),
           Expanded(
             child: TextFormField(
               decoration: InputDecoration(
@@ -126,7 +126,8 @@ class outFormState extends State<outForm> {
                       await FirebaseFirestore.instance
                           .collection(village + pin)
                           .doc(docMainDb)
-                          .collection(collPrefixOut + dropdownValueYear)
+                          .collection(
+                              collPrefixOut + DateTime.now().year.toString())
                           .add(
                         {
                           keyName: name,

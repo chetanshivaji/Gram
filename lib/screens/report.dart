@@ -138,12 +138,16 @@ class _reportContainerState extends State<reportContainer> {
         startDate.subtract(const Duration(days: 1)).toString().split(' ')[0]);
     DateTime ed = endDate;
 
+    print(sd);
+    print(ed);
     for (var doc in snapshots.docs) {
       try {
         await doc.reference.get().then(
           (value) {
             var y = value.data();
-            DateTime fd = DateTime.parse(y.get(keyDate).split(' ')[0]);
+            String dateFetched = y![keyDate];
+            DateTime fd = DateTime.parse(dateFetched.split(' ')[0]);
+            print(fd);
             if (fd.isBefore(ed) && fd.isAfter(sd)) {
               switch (widget.reportType) {
                 case collPrefixInHouse:
@@ -309,7 +313,7 @@ class _reportContainerState extends State<reportContainer> {
                   onPressed: () async {
                     _selectEndDate(context);
                   },
-                  child: Text("$txtEndDate: $endDate".split(' ')[0]),
+                  child: Text("$txtEndDate:$endDate".split(' ')[0]),
                 ),
               ),
               Expanded(
