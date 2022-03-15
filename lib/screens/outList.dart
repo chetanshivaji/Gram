@@ -25,14 +25,24 @@ class outList extends StatelessWidget {
 
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
-      ldataCell.add(DataCell(Text(l.get(keyName))));
-      ldataCell.add(DataCell(Text(l.get(keyReason))));
-      ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
-      ldataCell.add(DataCell(Text(l.get(keyExtraInfo))));
-      ldataCell.add(DataCell(Text(l.get(keyDate))));
-      ldataCell.add(DataCell(Text(l.get(keyUser))));
 
-      ldataRow.add(DataRow(cells: ldataCell));
+      DateTime fd = DateTime.parse(l.get(keyDate).split(' ')[0]);
+      DateTime sd = DateTime.parse(DateTime.parse(sDate)
+          .subtract(const Duration(days: 1))
+          .toString()
+          .split(' ')[0]);
+      DateTime ed = (DateTime.parse(eDate));
+
+      if (fd.isBefore(ed) && fd.isAfter(sd)) {
+        ldataCell.add(DataCell(Text(l.get(keyName))));
+        ldataCell.add(DataCell(Text(l.get(keyReason))));
+        ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
+        ldataCell.add(DataCell(Text(l.get(keyExtraInfo))));
+        ldataCell.add(DataCell(Text(l.get(keyDate))));
+        ldataCell.add(DataCell(Text(l.get(keyUser))));
+
+        ldataRow.add(DataRow(cells: ldataCell));
+      }
     }
     return ldataRow;
   }

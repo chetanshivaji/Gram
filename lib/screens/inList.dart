@@ -25,26 +25,14 @@ class inList extends StatelessWidget {
 
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
+
       //check if fetched date is between start and end date.
       DateTime fd = DateTime.parse(l.get(keyDate).split(' ')[0]);
-
       DateTime sd = DateTime.parse(DateTime.parse(sDate)
           .subtract(const Duration(days: 1))
           .toString()
           .split(' ')[0]);
-
       DateTime ed = (DateTime.parse(eDate));
-
-      /*
-      DateTime ed = DateTime.parse(DateTime.parse(eDate)
-          .add(const Duration(days: 1))
-          .toString()
-          .split(' ')[0]);
-
-      print(fd);
-      print(sd);
-      print(ed);
-      */
 
       if (inType == collPrefixInExtra) {
         if (fd.isBefore(ed) && fd.isAfter(sd)) {

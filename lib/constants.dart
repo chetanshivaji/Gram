@@ -136,7 +136,7 @@ String txtName = "Name";
 String txtFetchFailFromDb = "Fetch Fail From Db";
 const String txtTaxTypeHouse = "House";
 String txtTaxTypeWater = "Water";
-String txtTaxTypeExtraIncome = "Extra Income";
+String txtTaxTypeExtraIncome = "ExtraIn";
 
 //collection strings
 String collUsers = 'users';
@@ -150,6 +150,8 @@ const String collPrefixOut = "out";
 String txtFIn = "In";
 String txtFOut = "Out";
 String txtFRemain = "Remain";
+String txtStartDate = 'S';
+String txtEndDate = 'E';
 
 //doc strings
 String docVillageInfo = "villageInfo";

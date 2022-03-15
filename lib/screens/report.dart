@@ -132,65 +132,73 @@ class _reportContainerState extends State<reportContainer> {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       }
     }
+    //check if fetched date is between start and end date.
+
+    DateTime sd = DateTime.parse(
+        startDate.subtract(const Duration(days: 1)).toString().split(' ')[0]);
+    DateTime ed = endDate;
 
     for (var doc in snapshots.docs) {
       try {
         await doc.reference.get().then(
           (value) {
             var y = value.data();
-            switch (widget.reportType) {
-              case collPrefixInHouse:
-                {
-                  houseWaterReportEntry pe = houseWaterReportEntry(
-                    name: y![keyName],
-                    mobile: y![keyMobile].toString(),
-                    amount: y![keyAmount].toString(),
-                    date: y![keyDate],
-                    user: y![keyUser],
-                  );
-                  entriesHouseWater.add(pe);
+            DateTime fd = DateTime.parse(y.get(keyDate).split(' ')[0]);
+            if (fd.isBefore(ed) && fd.isAfter(sd)) {
+              switch (widget.reportType) {
+                case collPrefixInHouse:
+                  {
+                    houseWaterReportEntry pe = houseWaterReportEntry(
+                      name: y![keyName],
+                      mobile: y![keyMobile].toString(),
+                      amount: y![keyAmount].toString(),
+                      date: y![keyDate],
+                      user: y![keyUser],
+                    );
+                    entriesHouseWater.add(pe);
 
-                  break;
-                }
+                    break;
+                  }
 
-              case collPrefixInWater:
-                {
-                  houseWaterReportEntry pe = houseWaterReportEntry(
-                    name: y![keyName],
-                    mobile: y![keyMobile].toString(),
-                    amount: y![keyAmount].toString(),
-                    date: y![keyDate],
-                    user: y![keyUser],
-                  );
-                  entriesHouseWater.add(pe);
+                case collPrefixInWater:
+                  {
+                    houseWaterReportEntry pe = houseWaterReportEntry(
+                      name: y![keyName],
+                      mobile: y![keyMobile].toString(),
+                      amount: y![keyAmount].toString(),
+                      date: y![keyDate],
+                      user: y![keyUser],
+                    );
+                    entriesHouseWater.add(pe);
 
-                  break;
-                }
-              case collPrefixInExtra:
-                {
-                  extraIncomeReportEntry pe = extraIncomeReportEntry(
-                    amount: y![keyAmount].toString(),
-                    reason: y![keyReason],
-                    date: y![keyDate],
-                    user: y![keyUser],
-                  );
-                  entriesExtraIncome.add(pe);
+                    break;
+                  }
+                case collPrefixInExtra:
+                  {
+                    extraIncomeReportEntry pe = extraIncomeReportEntry(
+                      amount: y![keyAmount].toString(),
+                      reason: y![keyReason],
+                      date: y![keyDate],
+                      user: y![keyUser],
+                    );
+                    entriesExtraIncome.add(pe);
 
-                  break;
-                }
-              case collPrefixOut:
-                {
-                  outReportEntry pe = outReportEntry(
-                    name: y![keyName],
-                    reason: y![keyReason],
-                    amount: y![keyAmount].toString(),
-                    extraInfo: y![keyExtraInfo],
-                    date: y![keyDate],
-                    user: y![keyUser],
-                  );
-                  entriesOut.add(pe);
-                  break;
-                }
+                    break;
+                  }
+                case collPrefixOut:
+                  {
+                    outReportEntry pe = outReportEntry(
+                      name: y![keyName],
+                      reason: y![keyReason],
+                      amount: y![keyAmount].toString(),
+                      extraInfo: y![keyExtraInfo],
+                      date: y![keyDate],
+                      user: y![keyUser],
+                    );
+                    entriesOut.add(pe);
+                    break;
+                  }
+              }
             }
           },
         );
@@ -288,107 +296,109 @@ class _reportContainerState extends State<reportContainer> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              ElevatedButton(
-                onPressed: () async {
-                  _selectStartDate(context);
-                },
-                child: Text("Start:$startDate".split(' ')[0]),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  _selectEndDate(context);
-                },
-                child: Text("End:$endDate".split(' ')[0]),
-              ),
-              IconButton(
-                splashColor: clrIconSpalsh,
-                splashRadius: iconSplashRadius,
-                alignment: Alignment.topRight,
-                onPressed: () async {
-                  createPDFReportEntries();
-                },
-                icon: Icon(
-                  Icons.download,
-                  size: 30.0,
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _selectStartDate(context);
+                  },
+                  child: Text("$txtStartDate:$startDate".split(' ')[0]),
                 ),
-                color: getColor(widget.reportType),
-                tooltip: txtDownloadReport,
               ),
-              SizedBox(
-                width: 10.0,
-              ),
-              DropdownButton(
-                style: TextStyle(
-                  backgroundColor: getColor(widget.reportType),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _selectEndDate(context);
+                  },
+                  child: Text("$txtEndDate: $endDate".split(' ')[0]),
                 ),
-                borderRadius: BorderRadius.circular(12.0),
-                dropdownColor: clrBlue,
+              ),
+              Expanded(
+                child: IconButton(
+                  splashColor: clrIconSpalsh,
+                  splashRadius: iconSplashRadius,
+                  alignment: Alignment.topRight,
+                  onPressed: () async {
+                    createPDFReportEntries();
+                  },
+                  icon: Icon(
+                    Icons.download,
+                    size: 30.0,
+                  ),
+                  color: getColor(widget.reportType),
+                  tooltip: txtDownloadReport,
+                ),
+              ),
+              Expanded(
+                child: DropdownButton(
+                  style: TextStyle(
+                    backgroundColor: getColor(widget.reportType),
+                  ),
+                  borderRadius: BorderRadius.circular(12.0),
+                  dropdownColor: clrBlue,
 
-                alignment: Alignment.topRight,
+                  alignment: Alignment.topRight,
 
-                // Initial Value
-                value: dropdownValueReportSort,
-                // Down Arrow Icon
-                icon: Icon(
-                  Icons.sort,
-                  color: clrBlue,
-                ),
-                // Array list of items
-                items: itemsSort.map(
-                  (String itemsSort) {
-                    return DropdownMenuItem(
-                      value: itemsSort,
-                      child: Text(itemsSort),
+                  // Initial Value
+                  value: dropdownValueReportSort,
+                  // Down Arrow Icon
+                  icon: Icon(
+                    Icons.sort,
+                    color: clrBlue,
+                  ),
+                  // Array list of items
+                  items: itemsSort.map(
+                    (String itemsSort) {
+                      return DropdownMenuItem(
+                        value: itemsSort,
+                        child: Text(itemsSort),
+                      );
+                    },
+                  ).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(
+                      () {
+                        dropdownValueReportSort = newValue!;
+                      },
                     );
                   },
-                ).toList(),
-                // After selecting the desired option,it will
-                // change button value to selected value
-                onChanged: (String? newValue) {
-                  setState(
-                    () {
-                      dropdownValueReportSort = newValue!;
+                ),
+              ),
+              Expanded(
+                child: DropdownButton(
+                  borderRadius: BorderRadius.circular(12.0),
+                  dropdownColor: clrBlue,
+
+                  alignment: Alignment.topRight,
+
+                  // Initial Value
+                  value: dropdownValueYear,
+                  // Down Arrow Icon
+                  icon: Icon(Icons.date_range, color: clrBlue),
+                  // Array list of items
+                  items: items.map(
+                    (String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
                     },
-                  );
-                },
-              ),
-              SizedBox(
-                width: 10.0,
-              ),
-              DropdownButton(
-                borderRadius: BorderRadius.circular(12.0),
-                dropdownColor: clrBlue,
-
-                alignment: Alignment.topRight,
-
-                // Initial Value
-                value: dropdownValueYear,
-                // Down Arrow Icon
-                icon: Icon(Icons.date_range, color: clrBlue),
-                // Array list of items
-                items: items.map(
-                  (String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
+                  ).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) async {
+                    setState(
+                      () {
+                        dropdownValueYear = newValue!;
+                        startDate =
+                            DateTime(int.parse(dropdownValueYear), 1, 1);
+                        endDate =
+                            DateTime(int.parse(dropdownValueYear) + 1, 1, 1);
+                      },
                     );
                   },
-                ).toList(),
-                // After selecting the desired option,it will
-                // change button value to selected value
-                onChanged: (String? newValue) async {
-                  setState(
-                    () {
-                      dropdownValueYear = newValue!;
-                      startDate = DateTime(int.parse(dropdownValueYear), 1, 1);
-                      endDate =
-                          DateTime(int.parse(dropdownValueYear) + 1, 1, 1);
-                    },
-                  );
-                },
-              ),
-              SizedBox(
-                width: 10.0,
+                ),
               ),
             ],
           ),
@@ -438,7 +448,7 @@ class _reportMoneyState extends State<reportMoney> {
   List<String> lsText = [
     txtTaxTypeHouse,
     txtTaxTypeWater,
-    "Extra Income",
+    txtTaxTypeExtraIncome,
     collPrefixOut
   ];
 
