@@ -51,7 +51,7 @@ class pendingList extends StatelessWidget {
               }
 
               String notificationMessage =
-                  "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount to Grampanchayat  -- $userMail"; //who is reminding
+                  "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount for year $dropdownValueYear to Grampanchayat  -- $registeredName"; //who is reminding
               String mobileWhatsApp = l.get(keyMobile).toString();
               List<String> listMobile = [mobileWhatsApp];
               if (textMsgEnabled)

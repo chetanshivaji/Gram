@@ -15,53 +15,44 @@ In future developement.
 
 
 # TODO
+1. access and try false approval make it to one, only access dropdowns.
+9. Make language independent add Marathi
 1. save pdf locally/dont open, CC to admin also.
 1. two times click on drawer.
-2. date start and end selection
 1. Disable button after click
-2. name of regsiterd user
 3. why search slow
-4. main app regsiteration error.
-5. search back clear search. reload page.
-6. sort as per date. start end date.
 7. sort as per collector sender.
 1. admin app, no need of all details every year to fill, only
-2. no need of welcome message, action app bar button pop up.
-1. Get names from form field all registered users.
-1. After back button press clear search result
 2. who wil notify
-3. who reminded
 4. recyler tile
 5. ternary operator Recycler list
-6. First in transcation no email bug
-7. why search slow
-8. forgot password
+6. First transcation no cc bug
+8. forgot password implementation
 9. if no entry in db no error.
 10. change access level smartly
 11. Check in registeration from main app, if village and pin exist.
-
 2. Auto disapprove all users except admin. admin should approve users after certain period.
 3. Subscrption implementation. stopping process at end of subscription period.
 4. Detailed report at end of year.
 2. security rules.
 3. create indeices from firebase index tab.Half Done
-1. Forgot password.
 3. Push upload receipt button for out transcation.
 3. Bug fixes eg. return on mismatch password from registeration screen, corner cases, wrong input. no internet connectivity messages. pop messages correction .
-
 5. Upload icon with proof of transcation for "in, out" pages. May be download icon in report page against each transcation. May need to use storage from firebase.
 6. Section wise formula.
-7. Date wise display of records pending and report.
 8. ios app testing on real ios device.
-9. Make language independent add Marathi
 10. App version after clicking on info
-
-15. Date window for generating report for defined period by user.
-17. addtion of section health tax, & electricity maintaince tax etc.
-
-
+17. Addtion of section health tax, & electricity maintaince tax etc.
 
 # DONE
+15. Date window for generating report for defined period by user.
+7. Date wise display of records report.
+1. After back button press clear search result
+6. sort as per date. start end date.
+5. search back clear search. reload page.
+4. main app regsiteration error.
+2. name of regsiterd user
+2. date start and end selection
 1. Pdf/excel downloading for pending and report page.
 4. Multi year support.
 11. Pending send notifcation.18. Notice send button for Pending entries 
