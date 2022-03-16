@@ -20,6 +20,7 @@ String kSubTitelYetToApproveByAdmin =
 String msgOnlyNumber = "Please enter only numbers";
 String msgEnterEmail = "Please Enter admin email";
 String msgEnterUserMail = "Enter email";
+String msgEnterUserName = "Enter name";
 String msgEnterPassword = "Please Enter min 6 char Password";
 String msgReEnterPassword = "Please re enter password";
 String msgEnterVillageName = 'Please enter village name';
@@ -80,6 +81,7 @@ String actOut = "OUT";
 String actReport = "REPORT";
 
 //Table data column heading
+String tableHeadingRegisteredName = 'Name';
 String tableHeadingEmail = 'Email';
 String tableHeadingStatus = 'Status';
 String tableHeadingAccess = 'Access';
@@ -165,6 +167,7 @@ String appBarHeadingRemoveInfo = "Remove Person from GramDB";
 String appBarMainAppInfo = 'Admin, Register, approve, make db';
 
 //keys
+String keyRegisteredName = 'registeredName';
 String keyVillage = 'village';
 String keyPin = 'pin';
 String keyApproved = 'approved';

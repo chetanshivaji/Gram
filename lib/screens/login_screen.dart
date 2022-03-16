@@ -19,6 +19,22 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = "";
   bool onPressedLogin = false;
 
+  Future<void> fetchAdminMail(String village, String pin) async {
+    //after successfully logged in, get mail of admin to send in receipt cc
+    await FirebaseFirestore.instance
+        .collection(village + pin)
+        .doc(docVillageInfo)
+        .get()
+        .then(
+      (value) async {
+        if (value.exists) {
+          var y = value.data();
+          adminMail = y![keyAdminMail];
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 village = y[keyVillage];
                                 pin = y[keyPin];
                                 approvedUser = y[keyApproved];
+                                registeredName = y[keyRegisteredName];
                                 return true;
                               }
                             },
@@ -177,6 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                             if (newUser != null) {
                               userMail = email;
+                              await fetchAdminMail(village, pin);
                               Navigator.pushNamed(
                                 context,
                                 MyApp.id,

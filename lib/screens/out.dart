@@ -135,7 +135,7 @@ class outFormState extends State<outForm> {
                           keyAmount: amount,
                           keyExtraInfo: extraInfo,
                           keyDate: DateTime.now().toString(),
-                          keyUser: userMail,
+                          keyRegisteredName: registeredName,
                         },
                       );
                       updateFormulaValues(amount.toString(),

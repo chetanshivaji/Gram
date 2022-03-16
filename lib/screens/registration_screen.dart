@@ -14,6 +14,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formRegKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
   String email = "";
+  String registeredName = "";
   String password = "";
   String reEnterPassword = "";
   String village = "";
@@ -33,6 +34,47 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 60),
+              ),
+              Expanded(
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return msgEnterUserName;
+                    }
+                    registeredName = value;
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.person_add),
+                    labelText: labelName,
+                    hintText: msgEnterUserName,
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(32.0),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(32.0),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(32.0),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 8.0,
               ),
               Expanded(
                 child: TextFormField(
@@ -298,6 +340,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     .index], //access level set by admin decided type of use, eg .viewer, collector, admin, spender
                                 keyMail: email,
                                 keyIsAdmin: false,
+                                keyRegisteredName: registeredName,
                               },
                             );
                             popAlert(

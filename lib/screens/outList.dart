@@ -34,14 +34,21 @@ class outList extends StatelessWidget {
       DateTime ed = (DateTime.parse(eDate));
 
       if (fd.isBefore(ed) && fd.isAfter(sd)) {
-        ldataCell.add(DataCell(Text(l.get(keyName))));
-        ldataCell.add(DataCell(Text(l.get(keyReason))));
-        ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
-        ldataCell.add(DataCell(Text(l.get(keyExtraInfo))));
-        ldataCell.add(DataCell(Text(l.get(keyDate))));
-        ldataCell.add(DataCell(Text(l.get(keyUser))));
+        try {
+          ldataCell.add(DataCell(Text(l.get(keyName))));
+          ldataCell.add(DataCell(Text(l.get(keyReason))));
+          ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
+          ldataCell.add(DataCell(Text(l.get(keyExtraInfo))));
+          ldataCell.add(DataCell(Text(l.get(keyDate))));
+          ldataCell.add(DataCell(Text(l.get(keyRegisteredName))));
 
-        ldataRow.add(DataRow(cells: ldataCell));
+          ldataRow.add(DataRow(cells: ldataCell));
+        } catch (e) {
+          // TODO: stream builder fetching old session data
+          //do nothing
+
+          print(e);
+        }
       }
     }
     return ldataRow;

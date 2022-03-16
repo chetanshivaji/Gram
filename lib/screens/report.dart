@@ -157,7 +157,7 @@ class _reportContainerState extends State<reportContainer> {
                       mobile: y![keyMobile].toString(),
                       amount: y![keyAmount].toString(),
                       date: y![keyDate],
-                      user: y![keyUser],
+                      user: y![keyRegisteredName],
                     );
                     entriesHouseWater.add(pe);
 
@@ -171,7 +171,7 @@ class _reportContainerState extends State<reportContainer> {
                       mobile: y![keyMobile].toString(),
                       amount: y![keyAmount].toString(),
                       date: y![keyDate],
-                      user: y![keyUser],
+                      user: y![keyRegisteredName],
                     );
                     entriesHouseWater.add(pe);
 
@@ -183,7 +183,7 @@ class _reportContainerState extends State<reportContainer> {
                       amount: y![keyAmount].toString(),
                       reason: y![keyReason],
                       date: y![keyDate],
-                      user: y![keyUser],
+                      user: y![keyRegisteredName],
                     );
                     entriesExtraIncome.add(pe);
 
@@ -197,7 +197,7 @@ class _reportContainerState extends State<reportContainer> {
                       amount: y![keyAmount].toString(),
                       extraInfo: y![keyExtraInfo],
                       date: y![keyDate],
-                      user: y![keyUser],
+                      user: y![keyRegisteredName],
                     );
                     entriesOut.add(pe);
                     break;
@@ -283,7 +283,7 @@ class _reportContainerState extends State<reportContainer> {
         break;
     }
 
-    final pdfFile = await invoice.generate(actReport, userMail);
+    final pdfFile = await invoice.generate(actReport, registeredName);
     PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
   }

@@ -9,8 +9,9 @@ int totalBalance = 0;
 
 String village = "";
 String pin = "";
-
+String registeredName = "";
 String userMail = "";
+String adminMail = "";
 bool userApproved = false;
 
 String access = "Viewer";
@@ -165,7 +166,6 @@ var items = [
   "2022",
   "2023",
 ];
-String adminMail = "";
 
 class yearTile extends StatefulWidget {
   Color clr = Colors.blue;

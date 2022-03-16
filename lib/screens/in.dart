@@ -86,11 +86,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           name: name,
           amount: amount.toString(),
           mobile: mobile,
-          userMail: userMail,
+          userMail: registeredName,
           taxType: (widget.formType == txtTaxTypeHouse) ? keyHouse : keyWater),
     );
 
-    final pdfFile = await receipt.generate(actIn, userMail);
+    final pdfFile = await receipt.generate(actIn, registeredName);
 
     //PdfApi.openFile(pdfFile);
     return;
@@ -404,7 +404,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             keyMobile: mobile,
                             keyAmount: amount,
                             keyDate: DateTime.now().toString(),
-                            keyUser: userMail,
+                            keyRegisteredName: registeredName,
                           },
                         );
 
@@ -423,7 +423,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           $message \n 
                           Please find attached receipt\n
                           --Regards,
-                          \n $userMail
+                          \n $registeredName
                           """;
                         String attachment = gReceiptPdfName;
                         await FirebaseFirestore.instance
@@ -446,11 +446,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             attachment); //send mail to user cc admin
 
                         if (textMsgEnabled) {
-                          await sendTextToPhone(message + userMail, recipents);
+                          await sendTextToPhone(
+                              message + registeredName, recipents);
                         }
 
                         if (whatsUpEnabled) {
-                          await launchWhatsApp(message + userMail, mobile);
+                          await launchWhatsApp(
+                              message + registeredName, mobile);
                         }
 
                         popAlert(context, titleSuccess, subtitleSuccess,
@@ -593,7 +595,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                           keyReason: reason,
                           keyAmount: amount,
                           keyDate: DateTime.now().toString(),
-                          keyUser: userMail,
+                          keyRegisteredName: registeredName,
                         },
                       );
                       updateFormulaValues(amount.toString(),
