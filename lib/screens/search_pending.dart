@@ -123,9 +123,6 @@ class _searchScreenState extends State<searchScreen> {
 
     return WillPopScope(
       onWillPop: () {
-        print(
-            'Backbutton pressed (device or appbar button), do whatever you want.');
-
         //trigger leaving and use own data
         Navigator.pop(context, false);
         gLdr = [];
