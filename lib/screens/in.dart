@@ -412,7 +412,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             "in"); //fetch exisiting value from formula and update new value.
 
                         String message =
-                            "Dear $name $mobile, Thanks for paying $typeSubmit amount $amount, Received!.";
+                            "Dear $name $mobile, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
                         List<String> recipents = [mobile];
 
                         await createPDFInHouseWaterReceiptEntries();
