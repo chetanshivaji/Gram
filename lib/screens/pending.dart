@@ -242,6 +242,7 @@ class _pendingMoneyState extends State<pendingMoney> {
 
   @override
   Widget build(BuildContext context) {
+    onPressedDrawerPending = false;
     lsWidget.add(
       Expanded(
         child: pendingContainer(pendingType: keyHouseGiven),

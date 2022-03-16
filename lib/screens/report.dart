@@ -458,6 +458,7 @@ class _reportMoneyState extends State<reportMoney> {
 
   @override
   Widget build(BuildContext context) {
+    onPressedDrawerReport = false;
     lsWidget.add(
       Expanded(
         child: reportContainer(reportType: collPrefixInHouse),

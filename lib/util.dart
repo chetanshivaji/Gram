@@ -14,6 +14,11 @@ String userMail = "";
 String adminMail = "";
 bool userApproved = false;
 
+bool onPressedDrawerIn = false;
+bool onPressedDrawerOut = false;
+bool onPressedDrawerPending = false;
+bool onPressedDrawerReport = false;
+
 String access = "Viewer";
 enum accessLevel {
   Viewer,
@@ -36,29 +41,34 @@ bool isNumeric(String s) {
 }
 
 Future<bool> getApproval(BuildContext context) async {
-  bool isApproved = await FirebaseFirestore.instance
-      .collection(collUsers)
-      .doc(userMail)
-      .get()
-      .then(
-    (value) async {
-      if (!value.exists) {
-        //if allready present
-        popAlert(
-          context,
-          kTitleNotPresent,
-          kSubTitleEmailPresent,
-          getWrongIcon(50.0),
-          2,
-        );
-        return false;
-      } else {
-        var y = value.data();
-        return y![keyApproved];
-      }
-    },
-  );
-  return isApproved;
+  try {
+    bool isApproved = await FirebaseFirestore.instance
+        .collection(collUsers)
+        .doc(userMail)
+        .get()
+        .then(
+      (value) async {
+        if (!value.exists) {
+          //if allready present
+          popAlert(
+            context,
+            kTitleNotPresent,
+            kSubTitleEmailPresent,
+            getWrongIcon(50.0),
+            2,
+          );
+          return false;
+        } else {
+          var y = value.data();
+          return y![keyApproved];
+        }
+      },
+    );
+    return isApproved;
+  } catch (e) {
+    popAlert(context, txtFetchFailFromDb, "", getWrongIcon(50.0), 1);
+    return false; //Return viewer by default
+  }
 }
 
 Future<String> getUserAccessLevel(BuildContext context, String email) async {

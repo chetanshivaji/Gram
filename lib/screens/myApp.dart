@@ -96,12 +96,16 @@ class MyApp extends StatelessWidget {
               tileColor: clrGreen, //green
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
-                String access = await getUserAccessLevel(context, userMail);
-                bool isApproved = await getApproval(context);
-                if (isApproved &&
-                    (access == accessItems[accessLevel.Collector.index] ||
-                        access == accessItems[accessLevel.SuperUser.index]))
-                  Navigator.pushNamed(context, inMoney.id);
+                if (onPressedDrawerIn == false) {
+                  onPressedDrawerIn = true;
+                  String access = await getUserAccessLevel(context, userMail);
+                  bool isApproved = await getApproval(context);
+
+                  if (isApproved &&
+                      (access == accessItems[accessLevel.Collector.index] ||
+                          access == accessItems[accessLevel.SuperUser.index]))
+                    Navigator.pushNamed(context, inMoney.id);
+                }
               },
             ),
             ListTile(
@@ -110,12 +114,15 @@ class MyApp extends StatelessWidget {
               tileColor: clrRed, //red
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
-                String access = await getUserAccessLevel(context, userMail);
-                bool isApproved = await getApproval(context);
-                if (isApproved &&
-                    (access == accessItems[accessLevel.Spender.index] ||
-                        access == accessItems[accessLevel.SuperUser.index]))
-                  Navigator.pushNamed(context, outMoney.id);
+                if (onPressedDrawerOut == false) {
+                  onPressedDrawerOut = true;
+                  String access = await getUserAccessLevel(context, userMail);
+                  bool isApproved = await getApproval(context);
+                  if (isApproved &&
+                      (access == accessItems[accessLevel.Spender.index] ||
+                          access == accessItems[accessLevel.SuperUser.index]))
+                    Navigator.pushNamed(context, outMoney.id);
+                }
               },
             ),
             ListTile(
@@ -124,14 +131,17 @@ class MyApp extends StatelessWidget {
               tileColor: clrAmber, //amber
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
-                String access = await getUserAccessLevel(context, userMail);
-                bool isApproved = await getApproval(context);
-                if (isApproved &&
-                    (access == accessItems[accessLevel.Spender.index] ||
-                        access == accessItems[accessLevel.Collector.index] ||
-                        access == accessItems[accessLevel.SuperUser.index] ||
-                        access == accessItems[accessLevel.Viewer.index]))
-                  Navigator.pushNamed(context, pendingMoney.id);
+                if (onPressedDrawerPending == false) {
+                  onPressedDrawerPending = true;
+                  String access = await getUserAccessLevel(context, userMail);
+                  bool isApproved = await getApproval(context);
+                  if (isApproved &&
+                      (access == accessItems[accessLevel.Spender.index] ||
+                          access == accessItems[accessLevel.Collector.index] ||
+                          access == accessItems[accessLevel.SuperUser.index] ||
+                          access == accessItems[accessLevel.Viewer.index]))
+                    Navigator.pushNamed(context, pendingMoney.id);
+                }
               },
             ),
             ListTile(
@@ -140,15 +150,18 @@ class MyApp extends StatelessWidget {
               tileColor: clrBlue, //amber
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () async {
-                String access = await getUserAccessLevel(context,
-                    userMail); //admin can change access rights for user any time, although logged in.
-                bool isApproved = await getApproval(context);
-                if (isApproved &&
-                    (access == accessItems[accessLevel.Spender.index] ||
-                        access == accessItems[accessLevel.Collector.index] ||
-                        access == accessItems[accessLevel.SuperUser.index] ||
-                        access == accessItems[accessLevel.Viewer.index]))
-                  Navigator.pushNamed(context, reportMoney.id);
+                if (onPressedDrawerReport == false) {
+                  onPressedDrawerReport = true;
+                  String access = await getUserAccessLevel(context,
+                      userMail); //admin can change access rights for user any time, although logged in.
+                  bool isApproved = await getApproval(context);
+                  if (isApproved &&
+                      (access == accessItems[accessLevel.Spender.index] ||
+                          access == accessItems[accessLevel.Collector.index] ||
+                          access == accessItems[accessLevel.SuperUser.index] ||
+                          access == accessItems[accessLevel.Viewer.index]))
+                    Navigator.pushNamed(context, reportMoney.id);
+                }
               },
             ),
           ],
