@@ -426,18 +426,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           \n $registeredName
                           """;
                         String attachment = gReceiptPdfName;
-                        await FirebaseFirestore.instance
-                            .collection(village + pin)
-                            .doc(docVillageInfo)
-                            .get()
-                            .then(
-                          (value) {
-                            if (value.exists) {
-                              var y = value.data();
-                              adminMail = y![keyAdminMail];
-                            }
-                          },
-                        );
+
                         List<String> receipients = [
                           email,
                           adminMail,
