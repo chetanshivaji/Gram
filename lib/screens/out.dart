@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'formula.dart';
 import 'package:money/constants.dart';
+import 'package:intl/intl.dart';
 
 // Create a Form widget.
 class outForm extends StatefulWidget {
@@ -123,6 +124,10 @@ class outFormState extends State<outForm> {
                       ),
                     );
                     try {
+                      DateTime now = DateTime.now();
+                      String dateYMDHM =
+                          DateFormat('yyyy-MM-dd kk:mm').format(now);
+
                       await FirebaseFirestore.instance
                           .collection(village + pin)
                           .doc(docMainDb)
@@ -134,7 +139,7 @@ class outFormState extends State<outForm> {
                           keyReason: reason,
                           keyAmount: amount,
                           keyExtraInfo: extraInfo,
-                          keyDate: DateTime.now().toString(),
+                          keyDate: dateYMDHM,
                           keyRegisteredName: registeredName,
                         },
                       );

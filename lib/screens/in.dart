@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'formula.dart';
@@ -6,6 +7,7 @@ import 'package:money/communication.dart';
 import 'package:money/api/pdf_api.dart';
 import 'package:money/model/receipt.dart';
 import 'package:money/constants.dart';
+import 'package:intl/intl.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
@@ -393,6 +395,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           throw "Number not found in Database";
                         }
 
+                        DateTime now = DateTime.now();
+                        String dateYMDHM =
+                            DateFormat('yyyy-MM-dd kk:mm').format(now);
                         await FirebaseFirestore.instance
                             .collection(village + pin)
                             .doc(docMainDb)
@@ -403,7 +408,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             keyName: name,
                             keyMobile: mobile,
                             keyAmount: amount,
-                            keyDate: DateTime.now().toString(),
+                            keyDate: dateYMDHM,
                             keyRegisteredName: registeredName,
                           },
                         );
@@ -570,6 +575,9 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                           content: Text(msgProcessingData),
                         ),
                       );
+                      DateTime now = DateTime.now();
+                      String dateYMDHM =
+                          DateFormat('yyyy-MM-dd kk:mm').format(now);
 
                       await FirebaseFirestore.instance
                           .collection(village + pin)
@@ -583,7 +591,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         {
                           keyReason: reason,
                           keyAmount: amount,
-                          keyDate: DateTime.now().toString(),
+                          keyDate: dateYMDHM,
                           keyRegisteredName: registeredName,
                         },
                       );
