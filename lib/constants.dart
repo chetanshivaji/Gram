@@ -119,6 +119,7 @@ String labelHouseTax = "House Tax *";
 String labelExtraInfo = "Extra information";
 
 //general Text
+String txtDateRange = "Date Range";
 String txtSortingType = "Sorting type";
 String txtCalculation = "Calculation";
 String txtDownloadedByUser = "Downloaded by user";

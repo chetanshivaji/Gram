@@ -28,7 +28,8 @@ abstract class Invoice {
   const Invoice({
     required this.info,
   });
-  Future<File> generate(String reportType, String userMail) async {
+  Future<File> generate(String reportType, String userMail, String startDate,
+      String endDate) async {
     final pdf = Document();
 
     String pdfName = reportType +
@@ -52,7 +53,7 @@ abstract class Invoice {
         build: (context) => [
           buildHeader(pdfName),
           SizedBox(height: 3 * PdfPageFormat.cm),
-          buildTitle(pdfTitle, userMail),
+          buildTitle(pdfTitle, userMail, startDate, endDate),
           buildInvoice(reportType),
         ],
         footer: (context) => buildFooter(userMail, reportType),
@@ -62,6 +63,41 @@ abstract class Invoice {
     return PdfApi.saveDocument(name: pdfName, pdf: pdf);
   }
 
+  Widget buildTitle(
+          String pdfTitle, String userMail, String startDate, String endDate) =>
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            pdfTitle,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 0.8 * PdfPageFormat.cm),
+          Text(labelYear +
+              equals +
+              info.year +
+              endL +
+              txtDateRange +
+              equals +
+              startDate +
+              "  :  " +
+              endDate +
+              endL +
+              txtSortingType +
+              equals +
+              info.sortingType +
+              endL +
+              txtCalculation +
+              equals +
+              info.formula +
+              endL +
+              txtDownloadedByUser +
+              equals +
+              userMail +
+              endL),
+          SizedBox(height: 0.8 * PdfPageFormat.cm),
+        ],
+      );
   Widget buildHeader(String pdfName) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -80,34 +116,6 @@ abstract class Invoice {
             ],
           ),
           SizedBox(height: 1 * PdfPageFormat.cm),
-        ],
-      );
-
-  Widget buildTitle(String pdfTitle, String userMail) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            pdfTitle,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text(labelYear +
-              equals +
-              info.year +
-              endL +
-              txtSortingType +
-              equals +
-              info.sortingType +
-              endL +
-              txtCalculation +
-              equals +
-              info.formula +
-              endL +
-              txtDownloadedByUser +
-              equals +
-              userMail +
-              endL),
-          SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
@@ -174,7 +182,35 @@ class pendingInvoice extends Invoice {
     info,
     required this.pendingInvoiceItems,
   }) : super(info: info);
-
+  Widget buildTitle(
+          String pdfTitle, String userMail, String startDate, String endDate) =>
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            pdfTitle,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 0.8 * PdfPageFormat.cm),
+          Text(labelYear +
+              equals +
+              info.year +
+              endL +
+              txtSortingType +
+              equals +
+              info.sortingType +
+              endL +
+              txtCalculation +
+              equals +
+              info.formula +
+              endL +
+              txtDownloadedByUser +
+              equals +
+              userMail +
+              endL),
+          SizedBox(height: 0.8 * PdfPageFormat.cm),
+        ],
+      );
   @override
   Widget buildInvoice(String reportType) {
     var headers;

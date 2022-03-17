@@ -31,7 +31,10 @@ class outList extends StatelessWidget {
           .subtract(const Duration(days: 1))
           .toString()
           .split(' ')[0]);
-      DateTime ed = (DateTime.parse(eDate));
+      DateTime ed = DateTime.parse(DateTime.parse(eDate)
+          .add(const Duration(days: 1))
+          .toString()
+          .split(' ')[0]);
 
       if (fd.isBefore(ed) && fd.isAfter(sd)) {
         try {

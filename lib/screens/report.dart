@@ -22,7 +22,7 @@ DateTime fromDate = DateTime.now();
 DateTime toDate = DateTime.now();
 
 DateTime startDate = DateTime(int.parse(dropdownValueYear), 1, 1);
-DateTime endDate = DateTime(int.parse(dropdownValueYear) + 1, 1, 1);
+DateTime endDate = DateTime(int.parse(dropdownValueYear), 12, 31);
 
 String dropdownValueReportSort = "Date";
 var itemsSort = [
@@ -136,7 +136,9 @@ class _reportContainerState extends State<reportContainer> {
 
     DateTime sd = DateTime.parse(
         startDate.subtract(const Duration(days: 1)).toString().split(' ')[0]);
-    DateTime ed = endDate;
+
+    DateTime ed = DateTime.parse(
+        endDate.add(const Duration(days: 1)).toString().split(' ')[0]);
 
     for (var doc in snapshots.docs) {
       try {
@@ -281,7 +283,8 @@ class _reportContainerState extends State<reportContainer> {
         break;
     }
 
-    final pdfFile = await invoice.generate(actReport, registeredName);
+    final pdfFile = await invoice.generate(actReport, registeredName,
+        startDate.toString().split(' ')[0], endDate.toString().split(' ')[0]);
     PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
   }

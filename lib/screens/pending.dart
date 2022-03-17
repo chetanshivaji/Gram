@@ -104,7 +104,7 @@ class _pendingContainerState extends State<pendingContainer> {
                 (widget.pendingType == housePendingType) ? keyHouse : keyWater),
         pendingInvoiceItems: entries);
 
-    final pdfFile = await invoice.generate(actPending, registeredName);
+    final pdfFile = await invoice.generate(actPending, registeredName, "", "");
 
     PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
