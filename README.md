@@ -92,3 +92,27 @@ Plan-
 
 
 
+
+
+
+
+DOCUMENTATION and BEHAVIOUR of app
+Please tets basic functionality
+two apps admin, mainGram.
+1. admin.apk -> register-> admin onboards village with pin his own info.
+	a. admin can add person from village to db and remove. admin created database by entering entire village people info.
+	b. admin can select years.
+	c. approve section in drawer -> admin can approve by giving access rights like, collector, spender, viewer, superuser from dropdown. 
+	d. Or admin keeps away users by selecting "NO"
+	e. admin can change reigstered users access right in real time.
+	
+2. mainGram.apk
+	a. all users(helpers) to admin register by their info, and admin village and pin, case insensetive, and spelling has to be same as admin village. to join group.
+	b. after admin approves from admin app, user can login.
+	c. as per access rights from admin, user can click functionality.
+	d. In - take tax, Out - spend money. pending- you can see list of pending tax people. option like years, High to Low, low TO High 
+	e. Report - check report, formula IN ouT remaining money, who collected money and time, who spent, select date range to filter entries.
+	f. You can download pending list and report list from download down arrow button.
+	g. Peding page, by clicking alarm symbol, you can send reminder notification to people to pay pending tax amount.
+	h. In page, after submit text message and received recipt is sent on mail to payer, and carbon copy to admin.
+	
