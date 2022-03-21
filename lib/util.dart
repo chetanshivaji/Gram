@@ -19,18 +19,20 @@ bool onPressedDrawerOut = false;
 bool onPressedDrawerPending = false;
 bool onPressedDrawerReport = false;
 
-String access = "Viewer";
+String access = "No";
 enum accessLevel {
   Viewer,
   Collector,
   Spender,
   SuperUser,
+  No,
 }
 List<String> accessItems = [
   "Viewer",
   "Collector",
   "Spender",
   "SuperUser",
+  "No"
 ];
 
 bool isNumeric(String s) {
@@ -40,6 +42,7 @@ bool isNumeric(String s) {
   return double.tryParse(s) != null;
 }
 
+/*
 Future<bool> getApproval(BuildContext context) async {
   try {
     bool isApproved = await FirebaseFirestore.instance
@@ -70,7 +73,7 @@ Future<bool> getApproval(BuildContext context) async {
     return false; //Return viewer by default
   }
 }
-
+*/
 Future<String> getUserAccessLevel(BuildContext context, String email) async {
   try {
     String usreAccessLevel = await FirebaseFirestore.instance

@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:money/constants.dart';
 
-bool whatsUpEnabled = true;
+bool whatsUpEnabled = false;
 bool textMsgEnabled = true;
 bool receiptPdf = true;
 
@@ -45,7 +45,7 @@ Future<void> sendEmail(String subject, String body, List<String> recipients,
     body: body,
     recipients: [recipients[0]], //user
     cc: [recipients[1]], //admin
-    //bcc: ['bcc@example.com'],
+    //bcc: ['bcc@example.com'] ,
     attachmentPaths: [attachment],
     isHTML: false,
   );

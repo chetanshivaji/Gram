@@ -118,12 +118,13 @@ class MyApp extends StatelessWidget {
                   if (onPressedDrawerIn == false) {
                     onPressedDrawerIn = true;
                     String access = await getUserAccessLevel(context, userMail);
-                    bool isApproved = await getApproval(context);
 
-                    if (isApproved &&
-                        (access == accessItems[accessLevel.Collector.index] ||
-                            access == accessItems[accessLevel.SuperUser.index]))
+                    if ((access == accessItems[accessLevel.Collector.index] ||
+                        access == accessItems[accessLevel.SuperUser.index])) {
                       Navigator.pushNamed(context, inMoney.id);
+                    } else {
+                      onPressedDrawerIn = false;
+                    }
                   }
                 },
               ),
@@ -136,11 +137,13 @@ class MyApp extends StatelessWidget {
                   if (onPressedDrawerOut == false) {
                     onPressedDrawerOut = true;
                     String access = await getUserAccessLevel(context, userMail);
-                    bool isApproved = await getApproval(context);
-                    if (isApproved &&
-                        (access == accessItems[accessLevel.Spender.index] ||
-                            access == accessItems[accessLevel.SuperUser.index]))
+
+                    if ((access == accessItems[accessLevel.Spender.index] ||
+                        access == accessItems[accessLevel.SuperUser.index])) {
                       Navigator.pushNamed(context, outMoney.id);
+                    } else {
+                      onPressedDrawerOut = false;
+                    }
                   }
                 },
               ),
@@ -153,15 +156,15 @@ class MyApp extends StatelessWidget {
                   if (onPressedDrawerPending == false) {
                     onPressedDrawerPending = true;
                     String access = await getUserAccessLevel(context, userMail);
-                    bool isApproved = await getApproval(context);
-                    if (isApproved &&
-                        (access == accessItems[accessLevel.Spender.index] ||
-                            access ==
-                                accessItems[accessLevel.Collector.index] ||
-                            access ==
-                                accessItems[accessLevel.SuperUser.index] ||
-                            access == accessItems[accessLevel.Viewer.index]))
+
+                    if ((access == accessItems[accessLevel.Spender.index] ||
+                        access == accessItems[accessLevel.Collector.index] ||
+                        access == accessItems[accessLevel.SuperUser.index] ||
+                        access == accessItems[accessLevel.Viewer.index])) {
                       Navigator.pushNamed(context, pendingMoney.id);
+                    } else {
+                      onPressedDrawerPending = false;
+                    }
                   }
                 },
               ),
@@ -175,15 +178,15 @@ class MyApp extends StatelessWidget {
                     onPressedDrawerReport = true;
                     String access = await getUserAccessLevel(context,
                         userMail); //admin can change access rights for user any time, although logged in.
-                    bool isApproved = await getApproval(context);
-                    if (isApproved &&
-                        (access == accessItems[accessLevel.Spender.index] ||
-                            access ==
-                                accessItems[accessLevel.Collector.index] ||
-                            access ==
-                                accessItems[accessLevel.SuperUser.index] ||
-                            access == accessItems[accessLevel.Viewer.index]))
+
+                    if ((access == accessItems[accessLevel.Spender.index] ||
+                        access == accessItems[accessLevel.Collector.index] ||
+                        access == accessItems[accessLevel.SuperUser.index] ||
+                        access == accessItems[accessLevel.Viewer.index])) {
                       Navigator.pushNamed(context, reportMoney.id);
+                    } else {
+                      onPressedDrawerReport = false;
+                    }
                   }
                 },
               ),

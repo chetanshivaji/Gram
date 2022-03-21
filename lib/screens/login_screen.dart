@@ -153,10 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (_formLoginKey.currentState!.validate() &&
                           onPressedLogin == false) {
                         onPressedLogin = true;
-                        bool approvedUser = false;
                         try {
                           //check if email trying to login is admin.
-                          bool res = await FirebaseFirestore.instance
+                          await FirebaseFirestore.instance
                               .collection(collUsers)
                               .doc(email)
                               .get()
@@ -178,15 +177,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                 access = y![keyAccessLevel];
                                 village = y[keyVillage];
                                 pin = y[keyPin];
-                                approvedUser = y[keyApproved];
                                 registeredName = y[keyRegisteredName];
-                                return true;
                               }
                             },
                           );
-                          if (!res) return;
-
-                          if (approvedUser == true) {
+                          if (access == accessItems[accessLevel.No.index]) {
+                            onPressedLogin = false;
+                            popAlert(
+                              context,
+                              kTitleYetToApproveByAdmin,
+                              kSubTitelYetToApproveByAdmin,
+                              getWrongIcon(50.0),
+                              1,
+                            );
+                            return;
+                          } else {
                             final newUser =
                                 await _auth.signInWithEmailAndPassword(
                               email: email,
@@ -200,16 +205,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 MyApp.id,
                               );
                             }
-                          } else {
-                            onPressedLogin = false;
-                            popAlert(
-                              context,
-                              kTitleYetToApproveByAdmin,
-                              kSubTitelYetToApproveByAdmin,
-                              getWrongIcon(50.0),
-                              1,
-                            );
-                            return;
                           }
                         } catch (e) {
                           onPressedLogin = false;
