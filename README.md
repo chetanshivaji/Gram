@@ -15,6 +15,8 @@ In future developement.
 
 
 # TODO
+1. do you want to submit?
+2. email failures.
 1. access and try false approval make it to one, only access dropdowns.
 9. Make language independent add Marathi
 1. save pdf locally/dont open, CC to admin also.
