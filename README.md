@@ -15,6 +15,10 @@ In future developement.
 
 
 # TODO
+1. pending Magani Pawati. after clicking on alram pending button.
+2. update mail & Phone.
+3. email bug. / first  transcation then email.
+4. locally downlaod receipts.
 1. do you want to submit?
 2. email failures.
 1. access and try false approval make it to one, only access dropdowns.
