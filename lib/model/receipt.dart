@@ -1,11 +1,31 @@
 import 'dart:io';
 //import 'package:flutter/material.dart';  //dont user material.dart or it will mix up with pdf creation apis
 import 'package:money/api/pdf_api.dart';
+import 'package:money/util.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:money/constants.dart';
+
+Widget getTableOnPDF(List<dynamic>? headers, List<List<dynamic>> data) {
+  return Table.fromTextArray(
+    headers: headers,
+    data: data,
+    border: null,
+    headerStyle: TextStyle(fontWeight: FontWeight.bold),
+    headerDecoration: BoxDecoration(color: PdfColors.grey300),
+    cellHeight: 30,
+    cellAlignments: {
+      0: Alignment.center,
+      1: Alignment.center,
+      2: Alignment.center,
+      3: Alignment.center,
+      4: Alignment.center,
+      5: Alignment.center,
+    },
+  );
+}
 
 //********************END HouseWater report invoice****************************** */
 
@@ -36,27 +56,13 @@ abstract class receipt {
   //Gram Details, - village, taluka, district, state, pin,
   //Stamp, Signature
   String getReceipt(receiptInfo info) {
-    return "Dear " +
-        info.name +
-        " received " +
-        info.taxType +
-        " tax amount of Rs. " +
-        info.amount +
-        "Thank you!";
+    return "Receipt"; //dummy function
   }
 
   Future<File> generate(String reportType, String userMail) async {
     final pdf = Document();
 
-    String pdfName = reportType +
-        "_" +
-        info.taxType +
-        "_" +
-        '_Receipt' +
-        "_" +
-        info.date +
-        "_" +
-        userMail;
+    String pdfName = reportType + "_" + info.taxType + "_" + '_Receipt';
 
     pdfName = pdfName.replaceAll(' ', '');
     String pdfTitle = pdfName;
@@ -109,11 +115,7 @@ abstract class receipt {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text(labelYear +
-              equals +
-              info.date +
-              endL +
-              txtTaxType +
+          Text(txtTaxType +
               equals +
               info.taxType +
               endL +
@@ -125,7 +127,7 @@ abstract class receipt {
               equals +
               info.mobile +
               endL +
-              txtDownloadedByUser +
+              txtSentByUser +
               equals +
               info.userMail +
               endL),
@@ -142,7 +144,7 @@ abstract class receipt {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Downloaded', value: userMail),
+          buildSimpleText(title: txtGram, value: village + txtFwdSlash + pin),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(title: 'Type', value: reportType),
         ],
@@ -189,55 +191,22 @@ abstract class receipt {
 }
 
 //********************START pending invoice****************************** */
-/*
+
 class pendingReceipt extends receipt {
   const pendingReceipt({
     info,
   }) : super(info: info);
 
   @override
-  Widget buildInvoice(String reportType) {
-    var headers;
-    var data;
-
-    headers = [
-      'TaxType',
-      tableHeadingMobile,
-      tableHeadingAmount,
-    ];
-    data = pendingInvoiceItems.map((item) {
-      return [
-        item.name,
-        item.mobile,
-        item.amount,
-      ];
-    }).toList();
-
-    return Table.fromTextArray(
-      headers: headers,
-      data: data,
-      border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
-      cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerRight,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
-        5: Alignment.centerRight,
-      },
-    );
+  String getReceipt(receiptInfo info) {
+    return "Dear " +
+        info.name +
+        " reminder for PENDING " +
+        info.taxType +
+        " tax amount of Rs. " +
+        info.amount +
+        " Please pay!";
   }
-}
-//********************END pending invoice****************************** */
-*/
-//********************START HouseWater report invoice****************************** */
-class receivedReceipt extends receipt {
-  const receivedReceipt({
-    info,
-  }) : super(info: info);
 
   @override
   Widget buildInvoice(String reportType) {
@@ -249,27 +218,47 @@ class receivedReceipt extends receipt {
       tableHeadingMobile,
       tableHeadingAmount,
       tableHeadingDate,
-      tableHeadingUser,
     ];
     List<List<dynamic>> lld = [
-      [info.name, info.mobile, info.amount, info.date, info.userMail],
+      [info.name, info.mobile, info.amount, info.date],
+    ];
+    return getTableOnPDF(headers, lld);
+  }
+}
+//********************END pending invoice****************************** */
+
+//********************START HouseWater report invoice****************************** */
+class receivedReceipt extends receipt {
+  const receivedReceipt({
+    info,
+  }) : super(info: info);
+
+  @override
+  String getReceipt(receiptInfo info) {
+    return "Dear " +
+        info.name +
+        " received " +
+        info.taxType +
+        " tax amount of Rs. " +
+        info.amount +
+        " Thank you!";
+  }
+
+  @override
+  Widget buildInvoice(String reportType) {
+    var headers;
+    var data;
+
+    headers = [
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingAmount,
+      tableHeadingDate,
+    ];
+    List<List<dynamic>> lld = [
+      [info.name, info.mobile, info.amount, info.date],
     ];
 
-    return Table.fromTextArray(
-      headers: headers,
-      data: lld,
-      border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
-      cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerRight,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
-        5: Alignment.centerRight,
-      },
-    );
+    return getTableOnPDF(headers, lld);
   }
 }

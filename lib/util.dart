@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
+import 'package:intl/intl.dart';
 
 int totalIn = 0;
 int totalOut = 0;
@@ -133,6 +134,12 @@ TextStyle getStyle(String type) {
       color: Colors.red[900],
     );
   }
+}
+
+String getCurrentDateTimeInDHM() {
+  DateTime now = DateTime.now();
+  String dateYMDHM = DateFormat('yyyy-MM-dd kk:mm').format(now);
+  return dateYMDHM;
 }
 
 Color getColor(String type) {

@@ -118,9 +118,12 @@ String labelHouseTax = "House Tax *";
 String labelExtraInfo = "Extra information";
 
 //general Text
+String txtFwdSlash = "/";
+String txtGram = "Grampanchayat";
 String txtDateRange = "Date Range";
 String txtSortingType = "Sorting type";
 String txtCalculation = "Calculation";
+String txtSentByUser = "Sent by user";
 String txtDownloadedByUser = "Downloaded by user";
 String txtTaxType = "TaxType";
 String equals = " = ";

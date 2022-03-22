@@ -6,8 +6,27 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:money/constants.dart';
+import 'package:money/util.dart';
 
 //********************END HouseWater report invoice****************************** */
+Widget getTableOnPDF(List<dynamic>? headers, List<List<dynamic>> data) {
+  return Table.fromTextArray(
+    headers: headers,
+    data: data,
+    border: null,
+    headerStyle: TextStyle(fontWeight: FontWeight.bold),
+    headerDecoration: BoxDecoration(color: PdfColors.grey300),
+    cellHeight: 30,
+    cellAlignments: {
+      0: Alignment.center,
+      1: Alignment.center,
+      2: Alignment.center,
+      3: Alignment.center,
+      4: Alignment.center,
+      5: Alignment.center,
+    },
+  );
+}
 
 class InvoiceInfo {
   final String formula;
@@ -32,17 +51,7 @@ abstract class Invoice {
       String endDate) async {
     final pdf = Document();
 
-    String pdfName = reportType +
-        "_" +
-        info.taxType +
-        "_" +
-        '_Invoice' +
-        "_" +
-        info.year +
-        "_" +
-        info.sortingType +
-        "_" +
-        userMail;
+    String pdfName = reportType + "_" + info.taxType + "_" + info.year;
 
     pdfName = pdfName.replaceAll(' ', '');
     String pdfTitle = pdfName;
@@ -128,7 +137,7 @@ abstract class Invoice {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Downloaded', value: userMail),
+          buildSimpleText(title: txtGram, value: village + txtFwdSlash + pin),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(title: 'Type', value: reportType),
         ],
@@ -231,22 +240,7 @@ class pendingInvoice extends Invoice {
       },
     ).toList();
 
-    return Table.fromTextArray(
-      headers: headers,
-      data: data,
-      border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
-      cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerRight,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
-        5: Alignment.centerRight,
-      },
-    );
+    return getTableOnPDF(headers, data);
   }
 }
 //********************END pending invoice****************************** */
@@ -284,22 +278,7 @@ class reportHouseWaterInvoice extends Invoice {
       },
     ).toList();
 
-    return Table.fromTextArray(
-      headers: headers,
-      data: data,
-      border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
-      cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerRight,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
-        5: Alignment.centerRight,
-      },
-    );
+    return getTableOnPDF(headers, data);
   }
 }
 
@@ -332,22 +311,7 @@ class reportExtraInvoice extends Invoice {
       ];
     }).toList();
 
-    return Table.fromTextArray(
-      headers: headers,
-      data: data,
-      border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
-      cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerRight,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
-        5: Alignment.centerRight,
-      },
-    );
+    return getTableOnPDF(headers, data);
   }
 }
 
@@ -389,22 +353,7 @@ class reportOutInvoice extends Invoice {
       },
     ).toList();
 
-    return Table.fromTextArray(
-      headers: headers,
-      data: data,
-      border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
-      cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerRight,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
-        5: Alignment.centerRight,
-      },
-    );
+    return getTableOnPDF(headers, data);
   }
 }
 

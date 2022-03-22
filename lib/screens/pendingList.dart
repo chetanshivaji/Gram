@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:money/constants.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/communication.dart';
+import 'package:money/model/receipt.dart';
+import 'package:money/api/pdf_api.dart';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";
@@ -16,6 +17,28 @@ class pendingList extends StatelessWidget {
       this.pendingType = keyHouseGiven,
       this.orderType = keyDate})
       : super(key: key);
+
+  Future<void> createPDFInHouseWaterReceiptEntries(
+      String name, String amount, String mobile, String taxType) async {
+    //START - fetch data to display in pdf
+
+    final receipt = pendingReceipt(
+      info: receiptInfo(
+          date: getCurrentDateTimeInDHM(),
+          name: name,
+          amount: amount.toString(),
+          mobile: mobile,
+          userMail: registeredName,
+          taxType: (taxType == txtTaxTypeHouse) ? keyHouse : keyWater),
+    );
+
+    final pdfFile =
+        await receipt.generate(actPending + dropdownValueYear, registeredName);
+
+    //PdfApi.openFile(pdfFile);
+    return;
+    //END - fetch data to display in pdf
+  }
 
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
@@ -39,25 +62,49 @@ class pendingList extends StatelessWidget {
             onPressed: () async {
               String name = l.get(keyName);
               String mobile = l.get(keyMobile).toString();
+              String email = l.get(keyEmail).toString();
               String amount = "";
               String notifyTaxType = "";
               if (pendingType == housePendingType) {
                 amount = l.get(keyHouse).toString();
-                notifyTaxType = "House Tax";
+                notifyTaxType = txtTaxTypeHouse;
               } else {
                 amount = l.get(keyWater).toString();
-                notifyTaxType = "Water Tax";
+                notifyTaxType = txtTaxTypeWater;
               }
 
               String notificationMessage =
-                  "Dear $name,$mobile Reminder notice - please pay pending $notifyTaxType amount $amount for year $dropdownValueYear to Grampanchayat  -- $registeredName"; //who is reminding
+                  "Dear $name,$mobile Reminder notice. Please pay pending $notifyTaxType tax amount $amount for year $dropdownValueYear to Grampanchayat."; //who is reminding
               String mobileWhatsApp = l.get(keyMobile).toString();
               List<String> listMobile = [mobileWhatsApp];
+////////*******************START sending mail************************/////
+              await createPDFInHouseWaterReceiptEntries(
+                  name, amount, mobile, notifyTaxType);
+
+              String subject =
+                  "$name $notifyTaxType Tax Pending receipt for year $dropdownValueYear";
+              String body = """$notificationMessage
+Please find attached PENDING receipt.
+
+Regards,
+$registeredName
+""";
+              String attachment = gReceiptPdfName;
+
+              List<String> receipients = [
+                email,
+                adminMail,
+              ];
+              await sendEmail(subject, body, receipients,
+                  attachment); //send mail to user cc admin
+////////*******************END sending mail************************/////
               if (textMsgEnabled)
-                await sendTextToPhone(notificationMessage, listMobile);
+                await sendTextToPhone(
+                    notificationMessage + "-" + registeredName, listMobile);
 
               if (whatsUpEnabled) {
-                await launchWhatsApp(notificationMessage, mobileWhatsApp);
+                await launchWhatsApp(
+                    notificationMessage + "-" + registeredName, mobileWhatsApp);
               }
             },
             icon: Icon(

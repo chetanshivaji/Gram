@@ -124,10 +124,6 @@ class outFormState extends State<outForm> {
                       ),
                     );
                     try {
-                      DateTime now = DateTime.now();
-                      String dateYMDHM =
-                          DateFormat('yyyy-MM-dd kk:mm').format(now);
-
                       await FirebaseFirestore.instance
                           .collection(village + pin)
                           .doc(docMainDb)
@@ -139,7 +135,7 @@ class outFormState extends State<outForm> {
                           keyReason: reason,
                           keyAmount: amount,
                           keyExtraInfo: extraInfo,
-                          keyDate: dateYMDHM,
+                          keyDate: getCurrentDateTimeInDHM(),
                           keyRegisteredName: registeredName,
                         },
                       );
