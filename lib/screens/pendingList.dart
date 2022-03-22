@@ -4,7 +4,6 @@ import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/communication.dart';
-import 'package:money/constants.dart';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";

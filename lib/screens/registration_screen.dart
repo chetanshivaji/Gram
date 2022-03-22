@@ -335,7 +335,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               {
                                 keyVillage: village,
                                 keyPin: pin,
-                                //keyApproved: false,
                                 keyAccessLevel: accessItems[accessLevel.No
                                     .index], //access level set by admin decided type of use, eg .viewer, collector, admin, spender
                                 keyMail: email,

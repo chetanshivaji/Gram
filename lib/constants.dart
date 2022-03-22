@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money/util.dart';
 
 String titleSuccess = "Success";
 String subtitleSuccess = "Submitted!";
@@ -171,7 +170,7 @@ String appBarMainAppInfo = 'Admin, Register, approve, make db';
 String keyRegisteredName = 'registeredName';
 String keyVillage = 'village';
 String keyPin = 'pin';
-//String keyApproved = 'approved';
+
 String keyAccessLevel = 'accessLevel';
 String keyMail = 'mail';
 String keyIsAdmin = 'isAdmin';

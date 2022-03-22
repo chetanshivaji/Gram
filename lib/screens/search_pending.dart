@@ -5,7 +5,6 @@ import 'package:money/util.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
-import 'package:money/constants.dart';
 
 class searchScreen extends StatefulWidget {
   static String id = "searchscreen";

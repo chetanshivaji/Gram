@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:money/screens/search_pending.dart';
 import 'package:money/util.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'in.dart';
 import 'out.dart';
 import 'pending.dart';
 import 'report.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
 
 class MyApp extends StatelessWidget {
@@ -63,26 +61,6 @@ class MyApp extends StatelessWidget {
             ),
           ],
         ),
-        /*
-        body: Row(
-          children: <Widget>[
-            
-        DefaultTextStyle(
-          style: const TextStyle(
-            fontSize: 40.0,
-            fontFamily: 'Canterbury',
-          ),
-          child: AnimatedTextKit(
-            animatedTexts: [
-              ScaleAnimatedText('TRUST'),
-              ScaleAnimatedText('TRUTH'),
-            ],
-          ),
-        ),
-        
-          ],
-        ),
-        */
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
