@@ -37,6 +37,7 @@ Future<void> sendTextToPhone(String message, List<String> recipents) async {
 
 Future<void> sendEmail(String subject, String body, List<String> recipients,
     String attachment) async {
+  //WOW! if to and cc are same only to is considered and cc is redudent.
   final Email email = Email(
     subject: subject,
     body: body,
