@@ -152,6 +152,16 @@ class _searchScreenState extends State<searchScreen> {
                             hintText: msgEnterMobileNumber,
                             labelText: labelMobile),
                         // The validator receives the text that the user has entered.
+                        onChanged: (value) {
+                          if (value.length < 10) {
+                            setState(
+                              () {
+                                name = "";
+                                //email = "";
+                              },
+                            );
+                          }
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return msgEnterMobileNumber;

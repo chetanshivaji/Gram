@@ -13,12 +13,13 @@ class PdfApi {
   }) async {
     final bytes = await pdf.save();
 
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$name');
+    //final dir = await getApplicationDocumentsDirectory();
+    final dir = await getExternalStorageDirectory();
+    final file = File('${dir?.path}/$name');
 
     gReceiptPdfName =
-        await '${dir.path}/$name'; //for sending attachmenet to mail.
-    await file.create(recursive: true);
+        await '${dir?.path}/$name'; //for sending attachmenet to mail.
+    //await file.create(recursive: true);
     await file.writeAsBytes(bytes, flush: true);
     print(file.exists());
 

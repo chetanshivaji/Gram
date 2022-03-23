@@ -15,6 +15,11 @@ In future developement.
 
 
 # TODO
+1. collect phone and mail ID, Grampanchyat mail id as admin mail ID.
+2. Auto email and name in add person.
+3. Copy paste data from year.
+
+1. Enter 2021 register
 1. pending Magani Pawati. after clicking on alram pending button.
 2. update mail & Phone.
 3. email bug. / first  transcation then email.
