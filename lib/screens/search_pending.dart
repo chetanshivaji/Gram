@@ -158,6 +158,7 @@ class _searchScreenState extends State<searchScreen> {
                               () {
                                 name = "";
                                 //email = "";
+                                gLdr = [];
                               },
                             );
                           }
