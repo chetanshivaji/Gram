@@ -51,7 +51,13 @@ abstract class Invoice {
       String endDate) async {
     final pdf = Document();
 
-    String pdfName = reportType + "_" + info.taxType + "_" + info.year;
+    String pdfName = reportType +
+        "_" +
+        info.taxType +
+        "_" +
+        info.year +
+        "_" +
+        info.sortingType;
 
     pdfName = pdfName.replaceAll(' ', '');
     String pdfTitle = pdfName;

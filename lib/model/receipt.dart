@@ -62,7 +62,15 @@ abstract class receipt {
   Future<File> generate(String reportType, String userMail) async {
     final pdf = Document();
 
-    String pdfName = reportType + "_" + info.taxType + "_" + '_Receipt';
+    String pdfName = info.name +
+        "_" +
+        info.mobile +
+        "_" +
+        reportType +
+        "_" +
+        info.taxType +
+        "_" +
+        '_Receipt';
 
     pdfName = pdfName.replaceAll(' ', '');
     String pdfTitle = pdfName;
