@@ -254,7 +254,8 @@ class _pendingMoneyState extends State<pendingMoney> {
       ),
     );
 
-    Widget formulaWidget = formulaLive();
+    //Widget formulaWidget = formulaLive();
+    Widget infoIcon = Icon(Icons.info);
     return tabScffold(
       lsIcons.length,
       lsText,
@@ -262,7 +263,7 @@ class _pendingMoneyState extends State<pendingMoney> {
       lsWidget,
       pageName,
       clrAmber,
-      formulaWidget,
+      infoIcon,
     );
   }
 }
