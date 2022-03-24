@@ -115,3 +115,35 @@ two apps admin, mainGram.
 	g. Peding page, by clicking alarm symbol, you can send reminder notification to people to pay pending tax amount.
 	h. In page, after submit text message and received recipt is sent on mail to payer, and carbon copy to admin.
 	
+
+
+
+
+
+
+*********-------------------*******---------****---*----------------************
+# TECHNICAL PENDING.
+1. make super admin app. to view In Out Remaining of all villages
+2. Main app changes to support super admin app
+3. Test extensively.
+
+*********-------------------*******---------****---*----------------************
+# MARKETING AND EXECUTION
+1. company formation ->? to get money. 10 days 10k rs.
+2. Make video.? for educating people and Gram employes.
+3. revenue model.
+4. presentation preperation.
+5. Give presentation.
+6. Growth and app distribution model.
+7. Training/communication/ feedback model.
+8. Launching steps.
+9. Filed study and data collection.
+	a. Collect phone and mail. Hire two people Or ask people to message by requesting on  Whats app group.
+	b. Make entry in app. 2020, 2021.
+	c. With 2020-21 data in hand To random people -> 
+		1. Send pending message/Pending receipt, 
+		2. Send make IN entries, simulate taking Home tax/water tax. Go to field for 20 entries.
+	d. Have Report ready from this experiement.
+	e. Find platfrom and way to marketing, and way to distribute.
+*********-------------------*******---------****---*----------------************
+
