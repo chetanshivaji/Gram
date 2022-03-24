@@ -38,6 +38,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseEmail = "";
   var _textController = TextEditingController();
 
+/*
   void updateFormulaValues(String newEntryAmount, String typeInOut) async {
     int total = await FirebaseFirestore.instance
         .collection(village + pin)
@@ -77,6 +78,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
       );
     }
   }
+  */
 
   Future<void> createPDFInHouseWaterReceiptEntries() async {
     //START - fetch data to display in pdf
