@@ -38,48 +38,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseEmail = "";
   var _textController = TextEditingController();
 
-/*
-  void updateFormulaValues(String newEntryAmount, String typeInOut) async {
-    int total = await FirebaseFirestore.instance
-        .collection(village + pin)
-        .doc(docMainDb)
-        .collection(collFormula)
-        .doc(docCalcultion)
-        .get()
-        .then(
-      (value) {
-        var y = value.data();
-        return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
-      },
-    );
-
-    //update formula
-    if (typeInOut == "in") {
-      FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(collFormula)
-          .doc(docCalcultion)
-          .update(
-        {
-          keyTotalIn: (total + int.parse(newEntryAmount)),
-        },
-      );
-    } else {
-      FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(collFormula)
-          .doc(docCalcultion)
-          .update(
-        {
-          keyTotalOut: (total + int.parse(newEntryAmount)),
-        },
-      );
-    }
-  }
-  */
-
   Future<void> createPDFInHouseWaterReceiptEntries() async {
     //START - fetch data to display in pdf
     final receipt = receivedReceipt(
