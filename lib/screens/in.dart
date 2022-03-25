@@ -177,6 +177,23 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   labelText: labelMobile),
 
               onChanged: (text) async {
+                if (text.length < 10) {
+                  setState(
+                    () {
+                      name = "";
+                      amount = 0;
+                      email = "";
+
+                      houseName = "";
+                      houseAmount = 0;
+                      houseEmail = "";
+
+                      waterName = "";
+                      waterAmount = 0;
+                      waterEmail = "";
+                    },
+                  );
+                }
                 if (text.length == 10) {
                   if (widget.formType == txtTaxTypeHouse) {
                     try {
@@ -411,8 +428,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           },
                         );
 
-                        updateFormulaValues(amount.toString(),
+                        updateFormulaValues(amount,
                             "in"); //fetch exisiting value from formula and update new value.
+                        updateYearWiseFormula(amount, "in", widget.formType);
 
                         String message =
                             "Dear $name $mobile, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
@@ -590,7 +608,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                           keyRegisteredName: registeredName,
                         },
                       );
-                      updateFormulaValues(amount.toString(),
+                      updateFormulaValues(amount,
                           "in"); //fetch exisiting value from formula and update new value.
 
                       popAlert(context, titleSuccess, subtitleSuccess,

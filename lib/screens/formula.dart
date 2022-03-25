@@ -3,7 +3,55 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/constants.dart';
 
-void updateFormulaValues(String newEntryAmount, String typeInOut) async {
+void updateYearWiseFormula(
+    int newEntryAmount, String typeInOut, String inType) async {
+  var formulaRef;
+  //START create Formula in each year once
+  formulaRef = FirebaseFirestore.instance
+      .collection(village + pin)
+      .doc(docMainDb)
+      .collection(collFormula + dropdownValueYear)
+      .doc(docCalcultion);
+
+  await formulaRef.get().then(
+    (value) async {
+      if (value.exists) {
+        //if already present get and update.
+        int pendingHouse, collectedHouse, pendingWater, collectedWater;
+        pendingHouse = collectedHouse = pendingWater = collectedWater = 0;
+
+        var y = value.data();
+        collectedHouse = y![keyYfCollectedHouse];
+        pendingHouse = y![keyYfPendingHouse];
+        collectedWater = y![keyYfCollectedWater];
+        pendingWater = y![keyYfPendingWater];
+
+        if (typeInOut == "in") {
+          if (inType == txtTaxTypeHouse) {
+            await formulaRef.update(
+              {
+                keyYfCollectedHouse: collectedHouse + newEntryAmount,
+                keyYfPendingHouse: pendingHouse - newEntryAmount,
+              },
+            );
+          } else {
+            //water
+            await formulaRef.update(
+              {
+                keyYfCollectedWater: collectedWater + newEntryAmount,
+                keyYfPendingWater: pendingWater - newEntryAmount,
+              },
+            );
+          }
+        } else {
+          //nothing as out is not in product
+        }
+      }
+    },
+  );
+}
+
+void updateFormulaValues(int newEntryAmount, String typeInOut) async {
   int total = await FirebaseFirestore.instance
       .collection(village + pin)
       .doc(docMainDb)
@@ -26,7 +74,7 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
         .doc(docCalcultion)
         .update(
       {
-        keyTotalIn: (total + int.parse(newEntryAmount)),
+        keyTotalIn: (total + newEntryAmount),
       },
     );
   } else {
@@ -37,7 +85,7 @@ void updateFormulaValues(String newEntryAmount, String typeInOut) async {
         .doc(docCalcultion)
         .update(
       {
-        keyTotalOut: (total + int.parse(newEntryAmount)),
+        keyTotalOut: (total + newEntryAmount),
       },
     );
   }

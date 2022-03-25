@@ -139,7 +139,7 @@ class outFormState extends State<outForm> {
                           keyRegisteredName: registeredName,
                         },
                       );
-                      updateFormulaValues(amount.toString(),
+                      updateFormulaValues(amount,
                           collPrefixOut); //fetch exisiting value from formula and update new value.
 
                       popAlert(

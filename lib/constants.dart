@@ -196,6 +196,14 @@ String keyUser = "user";
 String keyReason = "reason";
 String keyExtraInfo = "extraInfo";
 
+String keyYfTotalHouse = 'yfTotalHouse';
+String keyYfCollectedHouse = 'yfCollectedHouse';
+String keyYfPendingHouse = 'yfPendingHouse';
+
+String keyYfTotalWater = 'yfTotalWater';
+String keyYfCollectedWater = 'yfCollectedWater';
+String keyYfPendingWater = 'yfPendingWater';
+
 //String key = "";
 
 String scafBeginInfoApproveRemove =
