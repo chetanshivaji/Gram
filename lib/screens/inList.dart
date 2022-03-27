@@ -57,6 +57,7 @@ class inList extends StatelessWidget {
           try {
             ldataCell.add(DataCell(Text(l.get(keyName))));
             ldataCell.add(DataCell(Text(l.get(keyMobile))));
+            ldataCell.add(DataCell(Text(l.get(keyUid))));
             ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
             ldataCell.add(DataCell(Text(l.get(keyDate))));
             ldataCell.add(DataCell(Text(l.get(keyRegisteredName))));
@@ -148,6 +149,12 @@ class inList extends StatelessWidget {
             DataColumn(
               label: Text(
                 tableHeadingMobile,
+                style: getStyle(actIn),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                tableHeadingUid,
                 style: getStyle(actIn),
               ),
             ),

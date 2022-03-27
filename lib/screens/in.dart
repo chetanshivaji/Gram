@@ -460,7 +460,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             .collection(village + pin)
                             .doc(docMainDb)
                             .collection(docMainDb + dropdownValueYear)
-                            .doc(mobile.toString())
+                            .doc(mobile.toString() + uid)
                             .get()
                             .then(
                           (value) {
@@ -496,7 +496,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                               .collection(village + pin)
                               .doc(docMainDb)
                               .collection(docMainDb + dropdownValueYear)
-                              .doc(mobile)
+                              .doc(mobile.toString() + uid)
                               .update(
                             {inTypeGiven: true},
                           );
@@ -513,6 +513,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           {
                             keyName: name,
                             keyMobile: mobile,
+                            keyUid: uid,
                             keyAmount: amount,
                             keyDate: getCurrentDateTimeInDHM(),
                             keyRegisteredName: registeredName,
