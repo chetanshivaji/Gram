@@ -49,6 +49,7 @@ class pendingList extends StatelessWidget {
 
       ldataCell.add(DataCell(Text(l.get(keyName))));
       ldataCell.add(DataCell(Text(l.get(keyMobile).toString())));
+      ldataCell.add(DataCell(Text(l.get(keyUid).toString())));
       if (pendingType == housePendingType) {
         ldataCell.add(DataCell(Text(l.get(keyHouse).toString())));
       } else {
@@ -149,6 +150,12 @@ $registeredName
             DataColumn(
               label: Text(
                 tableHeadingMobile,
+                style: getStyle(actPending),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                tableHeadingUid,
                 style: getStyle(actPending),
               ),
             ),

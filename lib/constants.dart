@@ -87,6 +87,7 @@ String tableHeadingAccess = 'Access';
 String tableHeadingChangeStatus = 'ChangeStatus';
 String tableHeadingName = 'Name';
 String tableHeadingMobile = 'Mobile';
+String tableHeadingUid = 'Uid';
 String tableHeadingAmount = 'Amount';
 String tableHeadingDate = 'Date';
 String tableHeadingUser = 'User';
