@@ -54,7 +54,7 @@ String bLabelSubmit = 'Submit';
 String bLabelLogin = 'Log In';
 String bLabelRegiter = 'Register';
 String bLabelSearch = "Search";
-
+String bLabelAdd = 'Add';
 //Drawer sections
 String dAddEntry = 'addEntry';
 String dRemoveEntry = 'removeEntry';
@@ -116,6 +116,7 @@ String labelAmount = "Amount *";
 String labelReason = "Reason *";
 String labelHouseTax = "House Tax *";
 String labelExtraInfo = "Extra information";
+String labelUid = "Uid *";
 
 //general Text
 String txtFwdSlash = "/";
@@ -162,6 +163,7 @@ String txtEndDate = 'E';
 String docVillageInfo = "villageInfo";
 String docCalcultion = 'calculation';
 String docMainDb = "mainDb";
+String docMobileUidMap = 'mobileUidMap';
 
 //app bar heading
 String appBarHeadingApproveRemove = "Approve/Remove";
@@ -173,7 +175,7 @@ String appBarMainAppInfo = 'Admin, Register, approve, make db';
 String keyRegisteredName = 'registeredName';
 String keyVillage = 'village';
 String keyPin = 'pin';
-
+String keyUid = "uid";
 String keyAccessLevel = 'accessLevel';
 String keyMail = 'mail';
 String keyIsAdmin = 'isAdmin';
@@ -210,6 +212,11 @@ String scafBeginInfoApproveRemove =
     "Please approve or remove clicking toggle icon";
 String kTitleTryCatchFail =
     "Fail"; //dont know reason. some failure in try catch
+String kTitleMobileNotPresent = "Mobile not Present";
+
+String kTitleMultiUids = "Multiple Uids for mobile, please enter one";
+
+String msgEnterUid = "Enter Number Unique/House/Serial";
 //From util oldies
 String registerSubtitleSuccess = "Register success!";
 String registerSuccess = "Admin and village regsitered successfully";
