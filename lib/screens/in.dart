@@ -19,6 +19,11 @@ class HouseWaterForm extends StatefulWidget {
   }
 }
 
+String uidHintText = msgEnterUid;
+var mobileUids;
+bool uidTextField = false;
+String uidList = "";
+
 // Create a corresponding State class.
 // This class holds data related to the form.
 class HouseWaterFormState extends State<HouseWaterForm> {
@@ -30,13 +35,15 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   int amount = 0;
 
   String mobile = "";
+  String uid = "";
   int waterAmount = 0;
   int houseAmount = 0;
   String waterName = "";
   String houseName = "";
   String waterEmail = "";
   String houseEmail = "";
-  var _textController = TextEditingController();
+  var _textController_mobile = TextEditingController();
+  var _textController_Uid = TextEditingController();
 
   Future<void> createPDFInHouseWaterReceiptEntries() async {
     //START - fetch data to display in pdf
@@ -103,12 +110,170 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               amount = 0;
               email = '';
               mobile = '';
-              _textController.clear();
+              _textController_mobile.clear();
             },
           );
         },
       ),
     );
+  }
+
+  void setNameEmail(String uid) async {
+    //fecth and display user info on screen
+
+    if (widget.formType == txtTaxTypeHouse) {
+      try {
+        await FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(docMainDb)
+            .collection(docMainDb + dropdownValueYear)
+            .doc(mobile.toString() + uid)
+            .get()
+            .then(
+          (value) {
+            if (value.exists) {
+              var y = value.data();
+              houseName = y![keyName];
+              houseEmail = y[keyEmail];
+              houseAmount = y[keyHouse];
+            } else {
+              throw kSubTitleUserNotFound;
+            }
+          },
+        );
+      } catch (e) {
+        setStateEmptyEntries();
+        popAlert(
+            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
+        return;
+      }
+
+      setState(
+        () {
+          name = houseName;
+          amount = houseAmount;
+          email = houseEmail;
+        },
+      );
+    } else {
+      try {
+        await FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(docMainDb)
+            .collection(docMainDb + dropdownValueYear)
+            .doc(mobile.toString() + uid)
+            .get()
+            .then(
+          (value) {
+            if (value.exists) {
+              var y = value.data();
+              waterAmount = y![keyWater];
+              waterName = y[keyName];
+              waterEmail = y[keyEmail];
+            } else {
+              throw kSubTitleUserNotFound;
+            }
+          },
+        );
+      } catch (e) {
+        setStateEmptyEntries();
+        popAlert(
+            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
+        return;
+      }
+
+      setState(
+        () {
+          name = waterName;
+          amount = waterAmount;
+          email = waterEmail;
+        },
+      );
+    }
+  }
+
+  Future<void> checkMobileUid(mobValue) async {
+    String uids = "";
+    mobile =
+        mobValue; //set here, otherewise this will be set in validator after click on submit.
+    try {
+      await FirebaseFirestore.instance
+          .collection(village + pin)
+          .doc(docMobileUidMap)
+          .get()
+          .then(
+        (value) async {
+          if (value.exists) {
+            var y = value.data();
+            if (!y!.containsKey(mobValue)) {
+              //mobile uid mapping not present.
+              popAlert(
+                context,
+                kTitleMobileNotPresent,
+                "",
+                getWrongIcon(50),
+                1,
+              );
+              return;
+            }
+            mobileUids = y[mobValue];
+            //get all uids. if only one directly display
+            if (mobileUids.length == 1) {
+              uids = mobileUids[0];
+              setState(
+                () {
+                  uidTextField =
+                      false; //disale to edit , make enable false or read only true. check it.
+                  _textController_Uid.text = mobileUids[0];
+                },
+              );
+              setNameEmail(mobileUids[0]);
+            } else if (mobileUids.length > 1) {
+              //display all uids and choose one.
+              for (var id in mobileUids) {
+                uids = uids + ", " + id;
+              }
+              //pop up message with all uids and setup hint text with uids.
+              popAlert(
+                context,
+                kTitleMultiUids,
+                uids,
+                getWrongIcon(50),
+                1,
+              );
+
+              setState(
+                () {
+                  uidTextField =
+                      true; //disale to edit , make enable false or read only true. check it.
+                  uidList = uids;
+                  uidHintText = uidList;
+                },
+              );
+            } else {
+              //mobile not found pop alert
+              popAlert(
+                context,
+                kTitleMobileNotPresent,
+                "",
+                getWrongIcon(50),
+                1,
+              );
+            }
+          }
+        },
+      );
+    } catch (e) {
+      popAlert(
+        context,
+        kTitleMobileNotPresent,
+        "",
+        getWrongIcon(50),
+        1,
+      );
+      // _textController_newMobile.clear();
+    }
+    return;
   }
 
   @override
@@ -124,129 +289,97 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
-          Expanded(
-            child: TextFormField(
-              controller: _textController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.mobile_friendly),
-                  hintText: msgEnterMobileNumber,
-                  labelText: labelMobile),
+          TextFormField(
+            controller: _textController_mobile,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                icon: Icon(Icons.mobile_friendly),
+                hintText: msgEnterMobileNumber,
+                labelText: labelMobile),
 
-              onChanged: (text) async {
-                if (text.length < 10) {
-                  setState(
-                    () {
-                      name = "";
-                      amount = 0;
-                      email = "";
+            onChanged: (text) async {
+              if (text.length < 10) {
+                setState(
+                  () {
+                    name = "";
+                    amount = 0;
+                    email = "";
 
-                      houseName = "";
-                      houseAmount = 0;
-                      houseEmail = "";
+                    houseName = "";
+                    houseAmount = 0;
+                    houseEmail = "";
 
-                      waterName = "";
-                      waterAmount = 0;
-                      waterEmail = "";
-                    },
-                  );
-                }
-                if (text.length == 10) {
-                  if (widget.formType == txtTaxTypeHouse) {
-                    try {
-                      await FirebaseFirestore.instance
-                          .collection(village + pin)
-                          .doc(docMainDb)
-                          .collection(docMainDb + dropdownValueYear)
-                          .doc(text)
-                          .get()
-                          .then(
-                        (value) {
-                          if (value.exists) {
-                            var y = value.data();
-                            houseName = y![keyName];
-                            houseEmail = y[keyEmail];
-                            houseAmount = y[keyHouse];
-                          } else {
-                            throw kSubTitleUserNotFound;
-                          }
-                        },
-                      );
-                    } catch (e) {
-                      setStateEmptyEntries();
-                      popAlert(context, kTitleTryCatchFail, e.toString(),
-                          getWrongIcon(50.0), 1);
-                      return;
-                    }
+                    waterName = "";
+                    waterAmount = 0;
+                    waterEmail = "";
+                  },
+                );
+              }
+              if (text.length == 10) {
+                mobile = text;
+                checkMobileUid(mobile);
+              }
+            },
 
-                    setState(
-                      () {
-                        name = houseName;
-                        amount = houseAmount;
-                        email = houseEmail;
-                      },
-                    );
-                  } else {
-                    try {
-                      await FirebaseFirestore.instance
-                          .collection(village + pin)
-                          .doc(docMainDb)
-                          .collection(docMainDb + dropdownValueYear)
-                          .doc(text)
-                          .get()
-                          .then(
-                        (value) {
-                          if (value.exists) {
-                            var y = value.data();
-                            waterAmount = y![keyWater];
-                            waterName = y[keyName];
-                            waterEmail = y[keyEmail];
-                          } else {
-                            throw kSubTitleUserNotFound;
-                          }
-                        },
-                      );
-                    } catch (e) {
-                      setStateEmptyEntries();
-                      popAlert(context, kTitleTryCatchFail, e.toString(),
-                          getWrongIcon(50.0), 1);
-                      return;
-                    }
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return msgOnlyNumber;
+              }
+              if (value.length != 10) {
+                return msgTenDigitNumber;
+              } /*
+              if (name == "") {
+                return msgNumberNotFoundInDb;
+              }
+              */
+              if (!isNumeric(value)) {
+                return msgOnlyNumber;
+              }
 
-                    setState(
-                      () {
-                        name = waterName;
-                        amount = waterAmount;
-                        email = waterEmail;
-                      },
-                    );
-                  }
-                }
+              mobile = value;
+              //check if it is only number
+              return null;
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          TextFormField(
+            controller: _textController_Uid,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                icon: Icon(Icons.wb_incandescent_outlined),
+                hintText: uidHintText,
+                labelText: labelUid),
+            onFieldSubmitted: (val) {
+              uid = val;
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return msgEnterUid;
+              }
+
+              uid = value;
+              return null;
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () async {
+                setNameEmail(_textController_Uid.text);
               },
-
-              // The validator receives the text that the user has entered.
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return msgOnlyNumber;
-                }
-                if (value.length != 10) {
-                  return msgTenDigitNumber;
-                } /*
-                if (name == "") {
-                  return msgNumberNotFoundInDb;
-                }
-                */
-                if (!isNumeric(value)) {
-                  return msgOnlyNumber;
-                }
-
-                mobile = value;
-                //check if it is only number
-                return null;
-              },
+              child: Text(
+                bLabelAdd,
+              ),
             ),
           ),
+
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),

@@ -123,7 +123,23 @@ class _searchScreenState extends State<searchScreen> {
     return ldataRow;
   }
 
-  void setNameEmail(String uid) async {
+  Future<void> buildAndSetList() async {
+    var ldr = await _buildListPending(_textController_Uid.text);
+    if (ldr.isEmpty) {
+      setStateEmptyEntries();
+      gLdr = ldr;
+      return;
+    }
+
+    setState(
+      () {
+        name = _name;
+        gLdr = ldr;
+      },
+    );
+  }
+
+  Future<void> setNameEmail(String uid) async {
     //fecth and display user info on screen
 
     await FirebaseFirestore.instance
@@ -184,21 +200,8 @@ class _searchScreenState extends State<searchScreen> {
                   _textController_Uid.text = mobileUids[0];
                 },
               );
-              setNameEmail(mobileUids[0]);
-
-              var ldr = await _buildListPending(_textController_Uid.text);
-              if (ldr.isEmpty) {
-                setStateEmptyEntries();
-                gLdr = ldr;
-                return;
-              }
-
-              setState(
-                () {
-                  name = _name;
-                  gLdr = ldr;
-                },
-              );
+              await setNameEmail(mobileUids[0]);
+              await buildAndSetList();
             } else if (mobileUids.length > 1) {
               //display all uids and choose one.
               for (var id in mobileUids) {
@@ -346,20 +349,7 @@ class _searchScreenState extends State<searchScreen> {
                 child: ElevatedButton(
                   onPressed: () async {
                     //after add button press fill up info by fetching mob+uid from last year.
-
-                    var ldr = await _buildListPending(_textController_Uid.text);
-                    if (ldr.isEmpty) {
-                      setStateEmptyEntries();
-                      gLdr = ldr;
-                      return;
-                    }
-
-                    setState(
-                      () {
-                        name = _name;
-                        gLdr = ldr;
-                      },
-                    );
+                    await buildAndSetList();
                   },
                   child: Text(
                     bLabelAdd,
