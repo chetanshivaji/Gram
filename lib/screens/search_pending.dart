@@ -64,9 +64,9 @@ class _searchScreenState extends State<searchScreen> {
             if (value.exists) {
               mobileUserFound = true;
               var y = value.data();
-              if (_name == "") {
-                _name = y![keyName];
-              }
+              //if (_name == "") {
+              _name = y![keyName];
+              //}
 
               ldataCell.add(
                 DataCell(
@@ -200,7 +200,7 @@ class _searchScreenState extends State<searchScreen> {
                   _textController_Uid.text = mobileUids[0];
                 },
               );
-              await setNameEmail(mobileUids[0]);
+              //await setNameEmail(mobileUids[0]);
               await buildAndSetList();
             } else if (mobileUids.length > 1) {
               //display all uids and choose one.
