@@ -81,7 +81,7 @@ class _searchScreenState extends State<searchScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        y![keyHouse].toString(),
+                        y[keyHouse].toString(),
                       ),
                       y[keyHouseGiven]
                           ? getRightIcon(20.0)
@@ -212,7 +212,7 @@ class _searchScreenState extends State<searchScreen> {
                 context,
                 kTitleMultiUids,
                 uids,
-                getWrongIcon(50),
+                getMultiUidIcon(50),
                 1,
               );
 
@@ -259,6 +259,7 @@ class _searchScreenState extends State<searchScreen> {
         //trigger leaving and use own data
         Navigator.pop(context, false);
         gLdr = [];
+        _textController_Uid.clear();
         //we need to return a future
         return Future.value(false);
       },
@@ -370,12 +371,7 @@ class _searchScreenState extends State<searchScreen> {
                     scrollDirection: Axis.horizontal,
                     child: DataTable(
                       headingTextStyle: getTableHeadingTextStyle(),
-                      border: TableBorder(
-                        horizontalInside: BorderSide(
-                          width: 1.5,
-                          color: Colors.black,
-                        ),
-                      ),
+                      border: getTableBorder(),
                       dataTextStyle: TextStyle(
                         color: Colors.indigoAccent,
                       ),

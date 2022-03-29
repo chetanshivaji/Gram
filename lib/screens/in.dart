@@ -238,7 +238,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 context,
                 kTitleMultiUids,
                 uids,
-                getWrongIcon(50),
+                getMultiUidIcon(50),
                 1,
               );
 

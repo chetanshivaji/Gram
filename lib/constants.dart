@@ -251,6 +251,9 @@ String waterPendingType = "waterGiven";
 String paidMsg = "Paid already";
 
 //Colors.
+Color clrTableVerticleBorder = Colors.blue; //Color(0xFFB3E5FC); //light blue.
+Color clrTableHorizontalBorder = Colors.blue; //Color(0xFFB3E5FC); //in
+
 Color clrGreen = Color(0xFFc8e6c9); //in
 
 Color clrRed = Color(0xffef9a9a); //out

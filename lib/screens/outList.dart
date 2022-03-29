@@ -65,12 +65,7 @@ class outList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           headingTextStyle: getTableHeadingTextStyle(),
-          border: TableBorder(
-            horizontalInside: BorderSide(
-              width: 1.5,
-              color: Colors.black,
-            ),
-          ),
+          border: getTableBorder(),
           dataTextStyle: TextStyle(
             color: Colors.indigoAccent,
           ),
