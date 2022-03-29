@@ -22,6 +22,7 @@ class outList extends StatelessWidget {
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
     List<DataRow> ldataRow = [];
+    int srNo = 0;
 
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
@@ -38,6 +39,11 @@ class outList extends StatelessWidget {
 
       if (fd.isBefore(ed) && fd.isAfter(sd)) {
         try {
+          srNo = srNo + 1;
+          ldataCell.add(DataCell(Text(
+            srNo.toString(),
+            style: getTableFirstColStyle(),
+          )));
           ldataCell.add(DataCell(Text(l.get(keyName))));
           ldataCell.add(DataCell(Text(l.get(keyReason))));
           ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
@@ -70,6 +76,12 @@ class outList extends StatelessWidget {
             color: Colors.indigoAccent,
           ),
           columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                tableHeading_srNum,
+                style: getStyle(actOut),
+              ),
+            ),
             DataColumn(
               label: Text(
                 tableHeadingName,

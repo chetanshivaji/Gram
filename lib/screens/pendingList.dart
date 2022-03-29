@@ -43,10 +43,14 @@ class pendingList extends StatelessWidget {
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
     List<DataRow> ldataRow = [];
-
+    int srNo = 0;
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
-
+      srNo = srNo + 1;
+      ldataCell.add(DataCell(Text(
+        srNo.toString(),
+        style: getTableFirstColStyle(),
+      )));
       ldataCell.add(DataCell(Text(l.get(keyName))));
       ldataCell.add(DataCell(Text(l.get(keyMobile).toString())));
       ldataCell.add(DataCell(Text(l.get(keyUid).toString())));
@@ -136,6 +140,12 @@ $registeredName
             color: Colors.indigoAccent,
           ),
           columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                tableHeading_srNum,
+                style: getStyle(actPending),
+              ),
+            ),
             DataColumn(
               label: Text(
                 tableHeadingName,

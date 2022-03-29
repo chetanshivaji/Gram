@@ -80,6 +80,8 @@ String actOut = "OUT";
 String actReport = "REPORT";
 
 //Table data column heading
+String tableHeading_srNum = "SrNum.";
+String tableHeadingFontFamily = "RobotoMono";
 String tableHeadingRegisteredName = 'Name';
 String tableHeadingEmail = 'Email';
 String tableHeadingStatus = 'Status';
@@ -232,7 +234,6 @@ String subtitlePasswordMismatch =
 String kSubTitleUserNotFound = "Mobile user not found";
 String kTitleEntryRemoved = "Entry Removed";
 
-String tableHeadingFontFamily = "RobotoMono";
 String labelYear = "Year";
 
 //////////////////////////Oring consts.

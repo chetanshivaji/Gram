@@ -22,7 +22,7 @@ class inList extends StatelessWidget {
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
     List<DataRow> ldataRow = [];
-
+    int srNo = 0;
     for (var l in docSnapshot) {
       List<DataCell> ldataCell = [];
 
@@ -41,6 +41,11 @@ class inList extends StatelessWidget {
       if (inType == collPrefixInExtra) {
         if (fd.isBefore(ed) && fd.isAfter(sd)) {
           try {
+            srNo = srNo + 1;
+            ldataCell.add(DataCell(Text(
+              srNo.toString(),
+              style: getTableFirstColStyle(),
+            )));
             ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
             ldataCell.add(DataCell(Text(l.get(keyReason))));
             ldataCell.add(DataCell(Text(l.get(keyDate))));
@@ -55,6 +60,11 @@ class inList extends StatelessWidget {
       } else {
         if (fd.isBefore(ed) && fd.isAfter(sd)) {
           try {
+            srNo = srNo + 1;
+            ldataCell.add(DataCell(Text(
+              srNo.toString(),
+              style: getTableFirstColStyle(),
+            )));
             ldataCell.add(DataCell(Text(l.get(keyName))));
             ldataCell.add(DataCell(Text(l.get(keyMobile))));
             ldataCell.add(DataCell(Text(l.get(keyUid))));
@@ -86,6 +96,12 @@ class inList extends StatelessWidget {
             color: Colors.indigoAccent,
           ),
           columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                tableHeading_srNum,
+                style: getStyle(actIn),
+              ),
+            ),
             DataColumn(
               label: Text(
                 tableHeadingAmount,
@@ -130,6 +146,12 @@ class inList extends StatelessWidget {
             color: Colors.indigoAccent,
           ),
           columns: <DataColumn>[
+            DataColumn(
+              label: Text(
+                tableHeading_srNum,
+                style: getStyle(actIn),
+              ),
+            ),
             DataColumn(
               label: Text(
                 tableHeadingName,

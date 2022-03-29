@@ -47,7 +47,7 @@ class _searchScreenState extends State<searchScreen> {
 
   Future<List<DataRow>> _buildListPending(String id) async {
     List<DataRow> ldataRow = [];
-
+    int srNo = 0;
     bool mobileUserFound = false;
     for (var yr in items) {
       List<DataCell> ldataCell = [];
@@ -67,7 +67,11 @@ class _searchScreenState extends State<searchScreen> {
               //if (_name == "") {
               _name = y![keyName];
               //}
-
+              srNo = srNo + 1;
+              ldataCell.add(DataCell(Text(
+                srNo.toString(),
+                style: getTableFirstColStyle(),
+              )));
               ldataCell.add(
                 DataCell(
                   Text(
@@ -376,6 +380,12 @@ class _searchScreenState extends State<searchScreen> {
                         color: Colors.indigoAccent,
                       ),
                       columns: <DataColumn>[
+                        DataColumn(
+                          label: Text(
+                            tableHeading_srNum,
+                            style: getStyle(actPending),
+                          ),
+                        ),
                         DataColumn(
                           label: Text(
                             tableHeadingYear,

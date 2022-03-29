@@ -155,6 +155,13 @@ Color getColor(String type) {
   }
 }
 
+TextStyle getTableFirstColStyle() {
+  return TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+  );
+}
+
 Image imgSuccess = Image.asset("assets/success.jpeg");
 
 Icon getWrongIcon(double iconSize) {
