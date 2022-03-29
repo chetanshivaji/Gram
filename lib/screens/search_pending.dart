@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:money/util.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
+import 'package:flutter/gestures.dart';
 
 class searchScreen extends StatefulWidget {
   static String id = "searchscreen";
@@ -13,25 +12,20 @@ class searchScreen extends StatefulWidget {
   _searchScreenState createState() => _searchScreenState();
 }
 
-List<DataRow> gLdr = [];
-var mobileUids;
-bool uidTextField = false;
-String uidList = "";
-String uidHintText = msgEnterUid;
-var _textController_Uid = TextEditingController();
-String nameEntry = "";
-
-String name = ""; //TODO: check if need to remove this
-
 class _searchScreenState extends State<searchScreen> {
-  String mobile = "";
+  List<TextSpan> multiUidsTextSpan = [];
+  List<TextSpan> multiUids = [];
+
+  List<DataRow> gLdr = [];
+  var mobileUids;
+  String nameEntry = "";
   String uid = "";
+  String mobile = "";
   int house = 0;
   int water = 0;
   bool houseGiven = false;
   bool waterGiven = false;
   String name = "";
-
   String _name = "";
 
   final _formKey2 = GlobalKey<FormState>();
@@ -45,10 +39,11 @@ class _searchScreenState extends State<searchScreen> {
     return;
   }
 
-  Future<List<DataRow>> _buildListPending(String id) async {
+  Future<List<DataRow>> _buildListPending() async {
     List<DataRow> ldataRow = [];
     int srNo = 0;
     bool mobileUserFound = false;
+
     for (var yr in items) {
       List<DataCell> ldataCell = [];
       //search DB
@@ -57,21 +52,23 @@ class _searchScreenState extends State<searchScreen> {
             .collection(village + pin)
             .doc(docMainDb)
             .collection(docMainDb + yr)
-            .doc(mobile + id)
+            .doc(mobile + uid)
             .get()
             .then(
           (value) {
             if (value.exists) {
               mobileUserFound = true;
+
               var y = value.data();
-              //if (_name == "") {
+
               _name = y![keyName];
-              //}
+
               srNo = srNo + 1;
               ldataCell.add(DataCell(Text(
                 srNo.toString(),
                 style: getTableFirstColStyle(),
               )));
+
               ldataCell.add(
                 DataCell(
                   Text(
@@ -94,7 +91,6 @@ class _searchScreenState extends State<searchScreen> {
                   ),
                 ),
               );
-
               ldataCell.add(
                 DataCell(
                   Row(
@@ -123,12 +119,11 @@ class _searchScreenState extends State<searchScreen> {
       popAlert(context, kTitleTryCatchFail, kSubTitleUserNotFound,
           getWrongIcon(50.0), 1);
     }
-
     return ldataRow;
   }
 
   Future<void> buildAndSetList() async {
-    var ldr = await _buildListPending(_textController_Uid.text);
+    var ldr = await _buildListPending();
     if (ldr.isEmpty) {
       setStateEmptyEntries();
       gLdr = ldr;
@@ -143,36 +138,10 @@ class _searchScreenState extends State<searchScreen> {
     );
   }
 
-  Future<void> setNameEmail(String uid) async {
-    //fecth and display user info on screen
-
-    await FirebaseFirestore.instance
-        .collection(village + pin)
-        .doc(docMainDb)
-        .collection(docMainDb + dropdownValueYear)
-        .doc(mobile.toString() + uid)
-        .get()
-        .then(
-      (value) {
-        if (value.exists) {
-          var y = value.data();
-          nameEntry = y![keyName];
-          //emailEntry = y[keyEmail];
-        }
-        setState(
-          () {
-            name = nameEntry;
-            //email = emailEntry;
-          },
-        );
-      },
-    );
-  }
-
   Future<void> checkMobileUid(mobValue) async {
     String uids = "";
-    mobile =
-        mobValue; //set here, otherewise this will be set in validator after click on submit.
+    //Set here, otherewise this will be set in validator after click on submit.
+    mobile = mobValue;
     try {
       await FirebaseFirestore.instance
           .collection(village + pin)
@@ -199,17 +168,31 @@ class _searchScreenState extends State<searchScreen> {
               uids = mobileUids[0];
               setState(
                 () {
-                  uidTextField =
-                      false; //disale to edit , make enable false or read only true. check it.
-                  _textController_Uid.text = mobileUids[0];
+                  uid = mobileUids[0];
                 },
               );
-              //await setNameEmail(mobileUids[0]);
               await buildAndSetList();
             } else if (mobileUids.length > 1) {
               //display all uids and choose one.
               for (var id in mobileUids) {
                 uids = uids + ", " + id;
+                multiUidsTextSpan.add(
+                  TextSpan(
+                    text: id + " , ",
+                    style: TextStyle(
+                      color: Colors.red[300],
+                      backgroundColor: Colors.yellow,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        //make use of Id which has go tapped.
+                        uid = id;
+                        await buildAndSetList();
+                      },
+                  ),
+                );
               }
               //pop up message with all uids and setup hint text with uids.
               popAlert(
@@ -222,10 +205,7 @@ class _searchScreenState extends State<searchScreen> {
 
               setState(
                 () {
-                  uidTextField =
-                      true; //disale to edit , make enable false or read only true. check it.
-                  uidList = uids;
-                  uidHintText = uidList;
+                  multiUids = multiUidsTextSpan;
                 },
               );
             } else {
@@ -249,7 +229,6 @@ class _searchScreenState extends State<searchScreen> {
         getWrongIcon(50),
         1,
       );
-      // _textController_newMobile.clear();
     }
     return;
   }
@@ -258,160 +237,121 @@ class _searchScreenState extends State<searchScreen> {
   Widget build(BuildContext context) {
     bool pressed = true;
 
-    return WillPopScope(
-      onWillPop: () {
-        //trigger leaving and use own data
-        Navigator.pop(context, false);
-        gLdr = [];
-        _textController_Uid.clear();
-        //we need to return a future
-        return Future.value(false);
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(bLabelSearch),
-        ),
-        body: Container(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-              ),
-              Form(
-                key: _formKey2,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          icon: Icon(Icons.mobile_friendly),
-                          hintText: msgEnterMobileNumber,
-                          labelText: labelMobile),
-                      // The validator receives the text that the user has entered.
-                      onChanged: (value) async {
-                        if (value.length == 10) {
-                          checkMobileUid(value);
-                        }
-                        if (value.length < 10) {
-                          _textController_Uid.clear();
-                          setState(
-                            () {
-                              name = "";
-                              //email = "";
-                              gLdr = [];
-                            },
-                          );
-                        }
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return msgEnterMobileNumber;
-                        }
-                        if (value == null || value.isEmpty) {
-                          return msgOnlyNumber;
-                        }
-                        if (value.length != 10) {
-                          return msgTenDigitNumber;
-                        }
-                        if (!isNumeric(value)) {
-                          return msgOnlyNumber;
-                        }
-                        mobile = value;
-                        return null;
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20),
-                    ),
-                    TextFormField(
-                      controller: _textController_Uid,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          icon: Icon(Icons.wb_incandescent_outlined),
-                          hintText: uidHintText,
-                          labelText: labelUid),
-                      onFieldSubmitted: (val) {
-                        uid = val;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return msgEnterUid;
-                        }
-
-                        uid = value;
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-              ),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    //after add button press fill up info by fetching mob+uid from last year.
-                    await buildAndSetList();
-                  },
-                  child: Text(
-                    bLabelAdd,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(bLabelSearch),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
+            Form(
+              key: _formKey2,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        icon: Icon(Icons.mobile_friendly),
+                        hintText: msgEnterMobileNumber,
+                        labelText: labelMobile),
+                    onChanged: (value) async {
+                      if ((value.length < 10) || (value.length > 10)) {
+                        multiUidsTextSpan.clear();
+                        setState(
+                          () {
+                            uid = "";
+                            name = "";
+                            gLdr = [];
+                            multiUids = [TextSpan()];
+                          },
+                        );
+                      }
+                      if (value.length == 10) {
+                        checkMobileUid(value);
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return msgEnterMobileNumber;
+                      }
+                      if (value == null || value.isEmpty) {
+                        return msgOnlyNumber;
+                      }
+                      if (value.length != 10) {
+                        return msgTenDigitNumber;
+                      }
+                      if (!isNumeric(value)) {
+                        return msgOnlyNumber;
+                      }
+                      mobile = value;
+                      return null;
+                    },
                   ),
+                ],
+              ),
+            ),
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  children: multiUids,
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text(
-                  "$txtName$equals$name",
-                  style: getTableHeadingTextStyle(),
-                ),
-              ),
-              Expanded(
+            ),
+            ListTile(
+              leading: Icon(Icons.wb_incandescent_outlined),
+              title: getPrefilledListTile(labelUid, uid),
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: getPrefilledListTile(txtName, name),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
                 child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: DataTable(
-                      headingTextStyle: getTableHeadingTextStyle(),
-                      border: getTableBorder(),
-                      dataTextStyle: TextStyle(
-                        color: Colors.indigoAccent,
-                      ),
-                      columns: <DataColumn>[
-                        DataColumn(
-                          label: Text(
-                            tableHeading_srNum,
-                            style: getStyle(actPending),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            tableHeadingYear,
-                            style: getStyle(actPending),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            tableHeadingHouse,
-                            style: getStyle(actPending),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            tableHeadingWater,
-                            style: getStyle(actPending),
-                          ),
-                        ),
-                      ],
-                      rows: gLdr,
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    headingTextStyle: getTableHeadingTextStyle(),
+                    border: getTableBorder(),
+                    dataTextStyle: TextStyle(
+                      color: Colors.indigoAccent,
                     ),
+                    columns: <DataColumn>[
+                      DataColumn(
+                        label: Text(
+                          tableHeading_srNum,
+                          style: getStyle(actPending),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          tableHeadingYear,
+                          style: getStyle(actPending),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          tableHeadingHouse,
+                          style: getStyle(actPending),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          tableHeadingWater,
+                          style: getStyle(actPending),
+                        ),
+                      ),
+                    ],
+                    rows: gLdr,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -386,13 +386,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           Expanded(
             child: ListTile(
               leading: Icon(Icons.person),
-              title: Text(
-                "Name = $name",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              title: getPrefilledListTile("Name", name),
             ),
           ),
           Padding(
@@ -401,13 +395,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           Expanded(
             child: ListTile(
               leading: Icon(Icons.person),
-              title: Text(
-                "Mail = $email",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              title: getPrefilledListTile("Mail", email),
             ),
           ),
           Padding(
@@ -416,13 +404,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           Expanded(
             child: ListTile(
               leading: Icon(Icons.attach_money),
-              title: Text(
-                "Amount = $amount",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              title: getPrefilledListTile("Amount", amount.toString()),
             ),
           ),
           Padding(

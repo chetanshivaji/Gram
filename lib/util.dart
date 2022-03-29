@@ -155,6 +155,35 @@ Color getColor(String type) {
   }
 }
 
+Widget getPrefilledListTile(String LHS, String RHS) {
+  return Expanded(
+    child: Row(
+      children: [
+        Expanded(
+          child: Text(
+            "$LHS = ",
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            "$RHS",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 TextStyle getTableFirstColStyle() {
   return TextStyle(
     fontSize: 15,
