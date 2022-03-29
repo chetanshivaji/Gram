@@ -7,6 +7,7 @@ import 'package:money/communication.dart';
 import 'package:money/api/pdf_api.dart';
 import 'package:money/model/receipt.dart';
 import 'package:money/constants.dart';
+import 'package:flutter/gestures.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
@@ -19,21 +20,21 @@ class HouseWaterForm extends StatefulWidget {
   }
 }
 
-String uidHintText = msgEnterUid;
-var mobileUids;
-bool uidTextField = false;
-String uidList = "";
-
 // Create a corresponding State class.
 // This class holds data related to the form.
 class HouseWaterFormState extends State<HouseWaterForm> {
+  List<TextSpan> multiUidsTextSpan = [];
+  List<TextSpan> multiUids = [];
+
+  var mobileUids;
+
   bool onPressedHouseWater = false;
+
   final _formKey = GlobalKey<FormState>();
 
   String name = "";
   String email = "";
   int amount = 0;
-
   String mobile = "";
   String uid = "";
   int waterAmount = 0;
@@ -42,8 +43,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseName = "";
   String waterEmail = "";
   String houseEmail = "";
+
   var _textController_mobile = TextEditingController();
-  var _textController_Uid = TextEditingController();
 
   Future<void> createPDFInHouseWaterReceiptEntries() async {
     //START - fetch data to display in pdf
@@ -68,6 +69,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   void setStateEmptyEntries() {
     setState(
       () {
+        multiUids = [TextSpan()];
+        uid = "";
         name = '';
         amount = 0;
         email = '';
@@ -106,6 +109,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           setState(
             () {
               dropdownValueYear = newValue!;
+              multiUids = [TextSpan()];
+              uid = "";
               name = '';
               amount = 0;
               email = '';
@@ -194,8 +199,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
   Future<void> checkMobileUid(mobValue) async {
     String uids = "";
-    mobile =
-        mobValue; //set here, otherewise this will be set in validator after click on submit.
+    //set here, otherewise this will be set in validator after click on submit.
+    mobile = mobValue;
+
     try {
       await FirebaseFirestore.instance
           .collection(village + pin)
@@ -222,9 +228,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               uids = mobileUids[0];
               setState(
                 () {
-                  uidTextField =
-                      false; //disale to edit , make enable false or read only true. check it.
-                  _textController_Uid.text = mobileUids[0];
+                  uid = mobileUids[0];
                 },
               );
               setNameEmail(mobileUids[0]);
@@ -232,6 +236,23 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               //display all uids and choose one.
               for (var id in mobileUids) {
                 uids = uids + ", " + id;
+                multiUidsTextSpan.add(
+                  TextSpan(
+                    text: id + " , ",
+                    style: TextStyle(
+                      color: Colors.red[300],
+                      backgroundColor: Colors.yellow,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        //make use of Id which has go tapped.
+                        uid = id;
+                        setNameEmail(uid);
+                      },
+                  ),
+                );
               }
               //pop up message with all uids and setup hint text with uids.
               popAlert(
@@ -244,10 +265,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
               setState(
                 () {
-                  uidTextField =
-                      true; //disale to edit , make enable false or read only true. check it.
-                  uidList = uids;
-                  uidHintText = uidList;
+                  multiUids = multiUidsTextSpan;
                 },
               );
             } else {
@@ -271,7 +289,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         getWrongIcon(50),
         1,
       );
-      // _textController_newMobile.clear();
     }
     return;
   }
@@ -284,7 +301,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //yearTile(clr: clrGreen),
           getYearTile(clrGreen),
           Padding(
             padding: EdgeInsets.only(top: 20),
@@ -299,9 +315,14 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 labelText: labelMobile),
 
             onChanged: (text) async {
-              if (text.length < 10) {
+              if ((text.length < 10) || (text.length > 10)) {
+                multiUidsTextSpan.clear();
                 setState(
                   () {
+                    //clear screen fields except mobile contoller text field.
+                    multiUids = [TextSpan()];
+                    uid = "";
+
                     name = "";
                     amount = 0;
                     email = "";
@@ -329,11 +350,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               }
               if (value.length != 10) {
                 return msgTenDigitNumber;
-              } /*
-              if (name == "") {
-                return msgNumberNotFoundInDb;
               }
-              */
               if (!isNumeric(value)) {
                 return msgOnlyNumber;
               }
@@ -343,50 +360,24 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               return null;
             },
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          TextFormField(
-            controller: _textController_Uid,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                icon: Icon(Icons.wb_incandescent_outlined),
-                hintText: uidHintText,
-                labelText: labelUid),
-            onFieldSubmitted: (val) {
-              uid = val;
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return msgEnterUid;
-              }
-
-              uid = value;
-              return null;
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
           Center(
-            child: ElevatedButton(
-              onPressed: () async {
-                setNameEmail(_textController_Uid.text);
-              },
-              child: Text(
-                bLabelAdd,
+            child: RichText(
+              text: TextSpan(
+                children: multiUids,
               ),
             ),
           ),
-
+          ListTile(
+            leading: Icon(Icons.wb_incandescent_outlined),
+            title: getPrefilledListTile(labelUid, uid),
+          ),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
           Expanded(
             child: ListTile(
               leading: Icon(Icons.person),
-              title: getPrefilledListTile("Name", name),
+              title: getPrefilledListTile(labelName, name),
             ),
           ),
           Padding(
@@ -394,8 +385,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           ),
           Expanded(
             child: ListTile(
-              leading: Icon(Icons.person),
-              title: getPrefilledListTile("Mail", email),
+              leading: Icon(Icons.mail),
+              title: getPrefilledListTile(labelEmail, email),
             ),
           ),
           Padding(
@@ -404,7 +395,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           Expanded(
             child: ListTile(
               leading: Icon(Icons.attach_money),
-              title: getPrefilledListTile("Amount", amount.toString()),
+              title: getPrefilledListTile(labelAmount, amount.toString()),
             ),
           ),
           Padding(
@@ -636,12 +627,6 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   return msgOnlyNumber;
                 }
                 amount = int.parse(value);
-                /*
-                //check if it is only number  
-                if (value.digit) {
-                  return 'Please enter some text';
-                }
-                */
                 return null;
               },
             ),
