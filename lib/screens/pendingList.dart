@@ -68,6 +68,7 @@ class pendingList extends StatelessWidget {
               String name = l.get(keyName);
               String mobile = l.get(keyMobile).toString();
               String email = l.get(keyEmail).toString();
+              String uid = l.get(keyUid).toString();
               String amount = "";
               String notifyTaxType = "";
               if (pendingType == housePendingType) {
@@ -79,15 +80,15 @@ class pendingList extends StatelessWidget {
               }
 
               String notificationMessage =
-                  "Dear $name,$mobile Reminder notice. Please pay pending $notifyTaxType tax amount $amount for year $dropdownValueYear to Grampanchayat."; //who is reminding
+                  "Dear $name, $mobile, ID-$uid Reminder notice. Please pay pending $notifyTaxType tax amount $amount for year $dropdownValueYear to Grampanchayat."; //who is reminding
               String mobileWhatsApp = l.get(keyMobile).toString();
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
               await createPDFInHouseWaterReceiptEntries(
-                  name, amount, mobile, notifyTaxType);
+                  name, amount, mobile + " " + uid, notifyTaxType);
 
               String subject =
-                  "$name $notifyTaxType Tax Pending receipt for year $dropdownValueYear";
+                  "$name, ID $uid, $notifyTaxType Tax Pending receipt for year $dropdownValueYear";
               String body = """$notificationMessage
 Please find attached PENDING receipt.
 

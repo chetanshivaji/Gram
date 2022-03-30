@@ -232,15 +232,19 @@ class pendingInvoice extends Invoice {
     var data;
 
     headers = [
+      tableHeadingSrnum,
       tableHeadingName,
       tableHeadingMobile,
+      tableHeadingUid,
       tableHeadingAmount,
     ];
     data = pendingInvoiceItems.map(
       (item) {
         return [
+          item.srnum,
           item.name,
           item.mobile,
+          item.uid,
           item.amount,
         ];
       },
@@ -266,8 +270,10 @@ class reportHouseWaterInvoice extends Invoice {
     var data;
 
     headers = [
+      tableHeadingSrnum,
       tableHeadingName,
       tableHeadingMobile,
+      tableHeadingUid,
       tableHeadingAmount,
       tableHeadingDate,
       tableHeadingUser,
@@ -275,8 +281,10 @@ class reportHouseWaterInvoice extends Invoice {
     data = houseWaterReportInvoiceItems.map(
       (item) {
         return [
+          item.srnum,
           item.name,
           item.mobile,
+          item.uid,
           item.amount,
           item.date,
           item.user,
@@ -303,6 +311,7 @@ class reportExtraInvoice extends Invoice {
     var data;
 
     headers = [
+      tableHeadingSrnum,
       tableHeadingAmount,
       tableHeadingReason,
       tableHeadingDate,
@@ -310,6 +319,7 @@ class reportExtraInvoice extends Invoice {
     ];
     data = extraIncomeReportInvoiceItems.map((item) {
       return [
+        item.srnum,
         item.amount,
         item.reason,
         item.date,
@@ -339,6 +349,7 @@ class reportOutInvoice extends Invoice {
     var data;
 
     headers = [
+      tableHeadingSrnum,
       tableHeadingName,
       tableHeadingReason,
       tableHeadingAmount,
@@ -349,6 +360,7 @@ class reportOutInvoice extends Invoice {
     data = outReportInvoiceItems.map(
       (item) {
         return [
+          item.srnum,
           item.name,
           item.reason,
           item.amount,
@@ -368,27 +380,35 @@ class reportOutInvoice extends Invoice {
 class entry {}
 
 class pendingEntry extends entry {
+  final String srnum;
   final String name;
   final String mobile;
+  final String uid;
   final String amount;
 
   pendingEntry({
+    required this.srnum,
     required this.name,
     required this.mobile,
+    required this.uid,
     required this.amount,
   });
 }
 
 class houseWaterReportEntry extends entry {
+  final String srnum;
   final String name;
   final String mobile;
+  final String uid;
   final String amount;
   final String date;
   final String user;
 
   houseWaterReportEntry({
+    required this.srnum,
     required this.name,
     required this.mobile,
+    required this.uid,
     required this.amount,
     required this.date,
     required this.user,
@@ -396,12 +416,14 @@ class houseWaterReportEntry extends entry {
 }
 
 class extraIncomeReportEntry extends entry {
+  final String srnum;
   final String amount;
   final String reason;
   final String date;
   final String user;
 
   extraIncomeReportEntry({
+    required this.srnum,
     required this.amount,
     required this.reason,
     required this.date,
@@ -410,6 +432,7 @@ class extraIncomeReportEntry extends entry {
 }
 
 class outReportEntry extends entry {
+  final String srnum;
   final String name;
   final String reason;
   final String amount;
@@ -418,6 +441,7 @@ class outReportEntry extends entry {
   final String user;
 
   outReportEntry({
+    required this.srnum,
     required this.name,
     required this.reason,
     required this.amount,

@@ -87,7 +87,7 @@ class _reportContainerState extends State<reportContainer> {
       } else if (dropdownValueReportSort == txtHtoL) {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
+        snapshots = await collection.orderBy(keyDate, descending: true).get();
       }
     } else if (widget.reportType == collPrefixInWater) {
       var collection = FirebaseFirestore.instance
@@ -101,7 +101,7 @@ class _reportContainerState extends State<reportContainer> {
       } else if (dropdownValueReportSort == txtHtoL) {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
+        snapshots = await collection.orderBy(keyDate, descending: true).get();
       }
     } else if (widget.reportType == collPrefixInExtra) {
       var collection = FirebaseFirestore.instance
@@ -115,7 +115,7 @@ class _reportContainerState extends State<reportContainer> {
       } else if (dropdownValueReportSort == txtHtoL) {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
+        snapshots = await collection.orderBy(keyDate, descending: true).get();
       }
     } else if (widget.reportType == collPrefixOut) {
       var collection = FirebaseFirestore.instance
@@ -129,7 +129,7 @@ class _reportContainerState extends State<reportContainer> {
       } else if (dropdownValueReportSort == txtHtoL) {
         snapshots = await collection.orderBy(keyAmount, descending: true).get();
       } else {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
+        snapshots = await collection.orderBy(keyDate, descending: true).get();
       }
     }
     //check if fetched date is between start and end date.
@@ -140,7 +140,9 @@ class _reportContainerState extends State<reportContainer> {
     DateTime ed = DateTime.parse(
         endDate.add(const Duration(days: 1)).toString().split(' ')[0]);
 
+    int srNo = 0;
     for (var doc in snapshots.docs) {
+      srNo = srNo + 1;
       try {
         await doc.reference.get().then(
           (value) {
@@ -153,8 +155,10 @@ class _reportContainerState extends State<reportContainer> {
                 case collPrefixInHouse:
                   {
                     houseWaterReportEntry pe = houseWaterReportEntry(
+                      srnum: srNo.toString(),
                       name: y![keyName],
                       mobile: y![keyMobile].toString(),
+                      uid: y![keyUid].toString(),
                       amount: y![keyAmount].toString(),
                       date: y![keyDate],
                       user: y![keyRegisteredName],
@@ -167,8 +171,10 @@ class _reportContainerState extends State<reportContainer> {
                 case collPrefixInWater:
                   {
                     houseWaterReportEntry pe = houseWaterReportEntry(
+                      srnum: srNo.toString(),
                       name: y![keyName],
                       mobile: y![keyMobile].toString(),
+                      uid: y![keyUid].toString(),
                       amount: y![keyAmount].toString(),
                       date: y![keyDate],
                       user: y![keyRegisteredName],
@@ -180,6 +186,7 @@ class _reportContainerState extends State<reportContainer> {
                 case collPrefixInExtra:
                   {
                     extraIncomeReportEntry pe = extraIncomeReportEntry(
+                      srnum: srNo.toString(),
                       amount: y![keyAmount].toString(),
                       reason: y![keyReason],
                       date: y![keyDate],
@@ -192,6 +199,7 @@ class _reportContainerState extends State<reportContainer> {
                 case collPrefixOut:
                   {
                     outReportEntry pe = outReportEntry(
+                      srnum: srNo.toString(),
                       name: y![keyName],
                       reason: y![keyReason],
                       amount: y![keyAmount].toString(),

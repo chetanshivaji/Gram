@@ -74,14 +74,18 @@ class _pendingContainerState extends State<pendingContainer> {
       }
     }
 
+    int srNo = 0;
     for (var doc in snapshots.docs) {
+      srNo = srNo + 1;
       try {
         await doc.reference.get().then(
           (value) {
             var y = value.data();
             pendingEntry pe = pendingEntry(
+                srnum: srNo.toString(),
                 name: y![keyName],
                 mobile: y![keyMobile].toString(),
+                uid: y![keyUid].toString(),
                 amount: (widget.pendingType == housePendingType)
                     ? y![keyHouse].toString()
                     : y![keyWater].toString());
@@ -93,6 +97,7 @@ class _pendingContainerState extends State<pendingContainer> {
             context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
       }
     }
+    srNo = 0;
 
     final invoice = pendingInvoice(
         info: InvoiceInfo(

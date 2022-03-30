@@ -53,7 +53,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           date: getCurrentDateTimeInDHM(),
           name: name,
           amount: amount.toString(),
-          mobile: mobile,
+          mobile: mobile + " " + uid,
           userMail: registeredName,
           taxType: (widget.formType == txtTaxTypeHouse) ? keyHouse : keyWater),
     );
@@ -498,13 +498,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         updateYearWiseFormula(amount, "in", widget.formType);
 
                         String message =
-                            "Dear $name $mobile, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
+                            "Dear $name $mobile,ID-$uid, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
                         List<String> recipents = [mobile];
 
                         await createPDFInHouseWaterReceiptEntries();
 
                         String subject =
-                            "$name $typeSubmit Tax receipt for year $dropdownValueYear";
+                            "$name, ID-$uid, $typeSubmit Tax receipt for year $dropdownValueYear";
                         String body = """$message
 Please find attached receipt
 
