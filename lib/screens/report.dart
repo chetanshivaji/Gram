@@ -74,63 +74,18 @@ class _reportContainerState extends State<reportContainer> {
     List<outReportEntry> entriesOut = [];
 
     var snapshots;
-    if (widget.reportType == collPrefixInHouse) {
-      var collection = FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(
-              widget.reportType + dropdownValueYear); //TODO: need to user where
+    var collection = FirebaseFirestore.instance
+        .collection(village + pin)
+        .doc(docMainDb)
+        .collection(
+            widget.reportType + dropdownValueYear); //TODO: need to user where
 
-      if (dropdownValueReportSort == txtLtoH) {
-        snapshots =
-            await collection.orderBy(keyAmount, descending: false).get();
-      } else if (dropdownValueReportSort == txtHtoL) {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
-      } else {
-        snapshots = await collection.orderBy(keyDate, descending: true).get();
-      }
-    } else if (widget.reportType == collPrefixInWater) {
-      var collection = FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(widget.reportType + dropdownValueYear);
-
-      if (dropdownValueReportSort == txtLtoH) {
-        snapshots =
-            await collection.orderBy(keyAmount, descending: false).get();
-      } else if (dropdownValueReportSort == txtHtoL) {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
-      } else {
-        snapshots = await collection.orderBy(keyDate, descending: true).get();
-      }
-    } else if (widget.reportType == collPrefixInExtra) {
-      var collection = FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(widget.reportType + dropdownValueYear);
-
-      if (dropdownValueReportSort == txtLtoH) {
-        snapshots =
-            await collection.orderBy(keyAmount, descending: false).get();
-      } else if (dropdownValueReportSort == txtHtoL) {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
-      } else {
-        snapshots = await collection.orderBy(keyDate, descending: true).get();
-      }
-    } else if (widget.reportType == collPrefixOut) {
-      var collection = FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(widget.reportType + dropdownValueYear);
-
-      if (dropdownValueReportSort == txtLtoH) {
-        snapshots =
-            await collection.orderBy(keyAmount, descending: false).get();
-      } else if (dropdownValueReportSort == txtHtoL) {
-        snapshots = await collection.orderBy(keyAmount, descending: true).get();
-      } else {
-        snapshots = await collection.orderBy(keyDate, descending: true).get();
-      }
+    if (dropdownValueReportSort == txtLtoH) {
+      snapshots = await collection.orderBy(keyAmount, descending: false).get();
+    } else if (dropdownValueReportSort == txtHtoL) {
+      snapshots = await collection.orderBy(keyAmount, descending: true).get();
+    } else {
+      snapshots = await collection.orderBy(keyDate, descending: true).get();
     }
     //check if fetched date is between start and end date.
 
