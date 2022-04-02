@@ -18,7 +18,6 @@ class _searchScreenState extends State<searchScreen> {
 
   List<DataRow> gLdr = [];
   var mobileUids;
-  String nameEntry = "";
   String uid = "";
   String mobile = "";
   int house = 0;
@@ -27,6 +26,8 @@ class _searchScreenState extends State<searchScreen> {
   bool waterGiven = false;
   String name = "";
   String _name = "";
+  String extraInfo = "";
+  String _extraInfo = "";
 
   final _formKey2 = GlobalKey<FormState>();
 
@@ -34,6 +35,7 @@ class _searchScreenState extends State<searchScreen> {
     setState(
       () {
         name = '';
+        extraInfo = "";
       },
     );
     return;
@@ -62,6 +64,7 @@ class _searchScreenState extends State<searchScreen> {
               var y = value.data();
 
               _name = y![keyName];
+              _extraInfo = y[keyExtraInfo];
 
               srNo = srNo + 1;
               ldataCell.add(DataCell(Text(
@@ -134,6 +137,7 @@ class _searchScreenState extends State<searchScreen> {
       () {
         name = _name;
         gLdr = ldr;
+        extraInfo = _extraInfo;
       },
     );
   }
@@ -265,6 +269,7 @@ class _searchScreenState extends State<searchScreen> {
                           () {
                             uid = "";
                             name = "";
+                            extraInfo = "";
                             gLdr = [];
                             multiUids = [TextSpan()];
                           },
@@ -308,6 +313,10 @@ class _searchScreenState extends State<searchScreen> {
             ListTile(
               leading: Icon(Icons.person),
               title: getPrefilledListTile(txtName, name),
+            ),
+            ListTile(
+              leading: Icon(Icons.holiday_village),
+              title: getPrefilledListTile(labelExtraInfo, extraInfo),
             ),
             Expanded(
               child: SingleChildScrollView(
