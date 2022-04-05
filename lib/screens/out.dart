@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'formula.dart';
 import 'package:money/constants.dart';
-import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 
 // Create a Form widget.
 class outForm extends StatefulWidget {

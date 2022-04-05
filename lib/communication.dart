@@ -1,13 +1,14 @@
 //import 'package:flutter_sms/flutter_sms.dart';
 import 'package:telephony/telephony.dart';
-import 'package:whatsapp_unilink/whatsapp_unilink.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:whatsapp_unilink/whatsapp_unilink.dart';
+//import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 bool whatsUpEnabled = false;
 bool textMsgEnabled = true;
 bool receiptPdf = true;
 
+/*
 Future<void> launchWhatsApp(String whatsAppMsg, String mobile) async {
   //mobile number modification for +91
   String phoneWithCountryCode = "";
@@ -26,7 +27,7 @@ Future<void> launchWhatsApp(String whatsAppMsg, String mobile) async {
   await launch('$link');
   return;
 }
-
+*/
 Future<void> sendTextToPhone(String message, List<String> recipents) async {
   /*
   String _result = await sendSMS(message: message, recipients: recipents)

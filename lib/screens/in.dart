@@ -524,11 +524,12 @@ $registeredName
                           await sendTextToPhone(
                               message + "-" + registeredName, recipents);
                         }
-
+                        /*
                         if (whatsUpEnabled) {
                           await launchWhatsApp(
                               message + "-" + registeredName, mobile);
                         }
+                        */
 
                         popAlert(context, titleSuccess, subtitleSuccess,
                             getRightIcon(50.0), 2);
