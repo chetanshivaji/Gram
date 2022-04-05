@@ -367,6 +367,7 @@ Widget submitPop(String res, String info, Widget childWid) {
 }
 
 Widget tabScffold(
+  BuildContext context,
   int len,
   List<String> tabText,
   List<Icon> tabIcon,
@@ -415,8 +416,16 @@ Widget tabScffold(
         ),
         actions: <Widget>[extraWidget],
       ),
-      body: TabBarView(
-        children: lsTabBarView,
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints:
+              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+          child: Container(
+            child: TabBarView(
+              children: lsTabBarView,
+            ),
+          ),
+        ),
       ),
     ),
   );

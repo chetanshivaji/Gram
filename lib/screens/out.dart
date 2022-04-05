@@ -188,7 +188,15 @@ class outMoney extends StatelessWidget {
         ),
         backgroundColor: clrRed,
       ),
-      body: outForm(),
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints:
+              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+          child: Container(
+            child: outForm(),
+          ),
+        ),
+      ),
     );
   }
 }

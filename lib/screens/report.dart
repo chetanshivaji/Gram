@@ -446,6 +446,7 @@ class _reportMoneyState extends State<reportMoney> {
 
     Widget formulaWidget = formulaLive();
     return tabScffold(
+      context,
       lsIcons.length,
       lsText,
       lsIcons,

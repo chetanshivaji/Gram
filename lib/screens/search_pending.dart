@@ -245,122 +245,128 @@ class _searchScreenState extends State<searchScreen> {
       appBar: AppBar(
         title: Text(bLabelSearch),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
-            Form(
-              key: _formKey2,
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        icon: Icon(Icons.mobile_friendly),
-                        hintText: msgEnterMobileNumber,
-                        labelText: labelMobile),
-                    onChanged: (value) async {
-                      if ((value.length < 10) || (value.length > 10)) {
-                        multiUidsTextSpan.clear();
-                        setState(
-                          () {
-                            uid = "";
-                            name = "";
-                            extraInfo = "";
-                            gLdr = [];
-                            multiUids = [TextSpan()];
-                          },
-                        );
-                      }
-                      if (value.length == 10) {
-                        checkMobileUid(value);
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return msgEnterMobileNumber;
-                      }
-                      if (value == null || value.isEmpty) {
-                        return msgOnlyNumber;
-                      }
-                      if (value.length != 10) {
-                        return msgTenDigitNumber;
-                      }
-                      if (!isNumeric(value)) {
-                        return msgOnlyNumber;
-                      }
-                      mobile = value;
-                      return null;
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Center(
-              child: RichText(
-                text: TextSpan(
-                  children: multiUids,
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints:
+              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
                 ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.wb_incandescent_outlined),
-              title: getPrefilledListTile(labelUid, uid),
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: getPrefilledListTile(txtName, name),
-            ),
-            ListTile(
-              leading: Icon(Icons.holiday_village),
-              title: getPrefilledListTile(labelExtraInfo, extraInfo),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    headingTextStyle: getTableHeadingTextStyle(),
-                    border: getTableBorder(),
-                    dataTextStyle: TextStyle(
-                      color: Colors.indigoAccent,
-                    ),
-                    columns: <DataColumn>[
-                      DataColumn(
-                        label: Text(
-                          tableHeading_srNum,
-                          style: getStyle(actPending),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          tableHeadingYear,
-                          style: getStyle(actPending),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          tableHeadingHouse,
-                          style: getStyle(actPending),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          tableHeadingWater,
-                          style: getStyle(actPending),
-                        ),
+                Form(
+                  key: _formKey2,
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            icon: Icon(Icons.mobile_friendly),
+                            hintText: msgEnterMobileNumber,
+                            labelText: labelMobile),
+                        onChanged: (value) async {
+                          if ((value.length < 10) || (value.length > 10)) {
+                            multiUidsTextSpan.clear();
+                            setState(
+                              () {
+                                uid = "";
+                                name = "";
+                                extraInfo = "";
+                                gLdr = [];
+                                multiUids = [TextSpan()];
+                              },
+                            );
+                          }
+                          if (value.length == 10) {
+                            checkMobileUid(value);
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return msgEnterMobileNumber;
+                          }
+                          if (value == null || value.isEmpty) {
+                            return msgOnlyNumber;
+                          }
+                          if (value.length != 10) {
+                            return msgTenDigitNumber;
+                          }
+                          if (!isNumeric(value)) {
+                            return msgOnlyNumber;
+                          }
+                          mobile = value;
+                          return null;
+                        },
                       ),
                     ],
-                    rows: gLdr,
                   ),
                 ),
-              ),
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      children: multiUids,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.wb_incandescent_outlined),
+                  title: getPrefilledListTile(labelUid, uid),
+                ),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: getPrefilledListTile(txtName, name),
+                ),
+                ListTile(
+                  leading: Icon(Icons.holiday_village),
+                  title: getPrefilledListTile(labelExtraInfo, extraInfo),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                        headingTextStyle: getTableHeadingTextStyle(),
+                        border: getTableBorder(),
+                        dataTextStyle: TextStyle(
+                          color: Colors.indigoAccent,
+                        ),
+                        columns: <DataColumn>[
+                          DataColumn(
+                            label: Text(
+                              tableHeading_srNum,
+                              style: getStyle(actPending),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              tableHeadingYear,
+                              style: getStyle(actPending),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              tableHeadingHouse,
+                              style: getStyle(actPending),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Text(
+                              tableHeadingWater,
+                              style: getStyle(actPending),
+                            ),
+                          ),
+                        ],
+                        rows: gLdr,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
