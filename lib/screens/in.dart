@@ -301,9 +301,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           getYearTile(clrGreen),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
+          //getPadding(),
           TextFormField(
             controller: _textController_mobile,
             keyboardType: TextInputType.number,
@@ -366,177 +364,157 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               ),
             ),
           ),
-          Expanded(
-            child: getListTile(
-                Icon(Icons.wb_incandescent_outlined), labelUid, uid),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          Expanded(
-            child: getListTile(Icon(Icons.person), labelName, name),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          Expanded(
-            child: getListTile(Icon(Icons.mail), labelEmail, email),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          Expanded(
-            child: getListTile(
-                Icon(Icons.attach_money), labelAmount, amount.toString()),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          Expanded(
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  String inTypeSubmit = "";
-                  String inTypeGiven = "";
-                  String typeSubmit = "";
+          getListTile(Icon(Icons.wb_incandescent_outlined), labelUid, uid),
+          //getPadding(),
+          getListTile(Icon(Icons.person), labelName, name),
+          //getPadding(),
+          getListTile(Icon(Icons.mail), labelEmail, email),
+          //getPadding(),
+          getListTile(Icon(Icons.attach_money), labelAmount, amount.toString()),
+          //getPadding(),
+          Center(
+            child: ElevatedButton(
+              onPressed: () async {
+                String inTypeSubmit = "";
+                String inTypeGiven = "";
+                String typeSubmit = "";
 
-                  if (widget.formType == txtTaxTypeHouse) {
-                    //house
-                    inTypeSubmit = collPrefixInHouse;
-                    inTypeGiven = keyHouseGiven;
-                    typeSubmit = txtTaxTypeHouse;
-                  } else {
-                    //water
-                    inTypeSubmit = collPrefixInWater;
-                    inTypeGiven = keyWaterGiven;
-                    typeSubmit = txtTaxTypeWater;
-                  }
+                if (widget.formType == txtTaxTypeHouse) {
+                  //house
+                  inTypeSubmit = collPrefixInHouse;
+                  inTypeGiven = keyHouseGiven;
+                  typeSubmit = txtTaxTypeHouse;
+                } else {
+                  //water
+                  inTypeSubmit = collPrefixInWater;
+                  inTypeGiven = keyWaterGiven;
+                  typeSubmit = txtTaxTypeWater;
+                }
 
-                  if (_formKey.currentState!.validate() &&
-                      onPressedHouseWater == false) {
+                if (_formKey.currentState!.validate() &&
+                    onPressedHouseWater == false) {
+                  try {
+                    onPressedHouseWater = true;
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                    bool paid = false;
                     try {
-                      onPressedHouseWater = true;
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      bool paid = false;
+                      paid = await FirebaseFirestore.instance
+                          .collection(village + pin)
+                          .doc(docMainDb)
+                          .collection(docMainDb + dropdownValueYear)
+                          .doc(mobile.toString() + uid)
+                          .get()
+                          .then(
+                        (value) {
+                          var y = value.data();
+                          if (widget.formType == txtTaxTypeHouse) {
+                            if (y![keyHouseGiven] == true) {
+                              return true;
+                            } else
+                              return false;
+                          } else {
+                            if (y![keyWaterGiven] == true) {
+                              return true;
+                            } else
+                              return false;
+                          }
+                        },
+                      );
+                    } catch (e) {
+                      throw "Number not found in Database";
+                    }
+                    if (paid == true) {
+                      onPressedHouseWater = false;
+                      popAlert(context, paidMsg, "", getWrongIcon(50.0), 2);
+                      return;
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(msgProcessingData),
+                        ),
+                      );
                       try {
-                        paid = await FirebaseFirestore.instance
+                        await FirebaseFirestore.instance
                             .collection(village + pin)
                             .doc(docMainDb)
                             .collection(docMainDb + dropdownValueYear)
                             .doc(mobile.toString() + uid)
-                            .get()
-                            .then(
-                          (value) {
-                            var y = value.data();
-                            if (widget.formType == txtTaxTypeHouse) {
-                              if (y![keyHouseGiven] == true) {
-                                return true;
-                              } else
-                                return false;
-                            } else {
-                              if (y![keyWaterGiven] == true) {
-                                return true;
-                              } else
-                                return false;
-                            }
-                          },
+                            .update(
+                          {inTypeGiven: true},
                         );
                       } catch (e) {
                         throw "Number not found in Database";
                       }
-                      if (paid == true) {
-                        onPressedHouseWater = false;
-                        popAlert(context, paidMsg, "", getWrongIcon(50.0), 2);
-                        return;
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(msgProcessingData),
-                          ),
-                        );
-                        try {
-                          await FirebaseFirestore.instance
-                              .collection(village + pin)
-                              .doc(docMainDb)
-                              .collection(docMainDb + dropdownValueYear)
-                              .doc(mobile.toString() + uid)
-                              .update(
-                            {inTypeGiven: true},
-                          );
-                        } catch (e) {
-                          throw "Number not found in Database";
-                        }
 
-                        await FirebaseFirestore.instance
-                            .collection(village + pin)
-                            .doc(docMainDb)
-                            .collection(
-                                inTypeSubmit + DateTime.now().year.toString())
-                            .add(
-                          {
-                            keyName: name,
-                            keyMobile: mobile,
-                            keyUid: uid,
-                            keyAmount: amount,
-                            keyDate: getCurrentDateTimeInDHM(),
-                            keyRegisteredName: registeredName,
-                          },
-                        );
+                      await FirebaseFirestore.instance
+                          .collection(village + pin)
+                          .doc(docMainDb)
+                          .collection(
+                              inTypeSubmit + DateTime.now().year.toString())
+                          .add(
+                        {
+                          keyName: name,
+                          keyMobile: mobile,
+                          keyUid: uid,
+                          keyAmount: amount,
+                          keyDate: getCurrentDateTimeInDHM(),
+                          keyRegisteredName: registeredName,
+                        },
+                      );
 
-                        updateFormulaValues(amount,
-                            "in"); //fetch exisiting value from formula and update new value.
-                        updateYearWiseFormula(amount, "in", widget.formType);
+                      updateFormulaValues(amount,
+                          "in"); //fetch exisiting value from formula and update new value.
+                      updateYearWiseFormula(amount, "in", widget.formType);
 
-                        String message =
-                            "Dear $name $mobile,ID-$uid, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
-                        List<String> recipents = [mobile];
+                      String message =
+                          "Dear $name $mobile,ID-$uid, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
+                      List<String> recipents = [mobile];
 
-                        await createPDFInHouseWaterReceiptEntries();
+                      await createPDFInHouseWaterReceiptEntries();
 
-                        String subject =
-                            "$name, ID-$uid, $typeSubmit Tax receipt for year $dropdownValueYear";
-                        String body = """$message
+                      String subject =
+                          "$name, ID-$uid, $typeSubmit Tax receipt for year $dropdownValueYear";
+                      String body = """$message
 Please find attached receipt
 
 Regards,
 $registeredName
 """;
-                        String attachment = gReceiptPdfName;
+                      String attachment = gReceiptPdfName;
 
-                        List<String> receipients = [
-                          email,
-                          adminMail,
-                        ];
-                        await sendEmail(subject, body, receipients,
-                            attachment); //send mail to user cc admin
+                      List<String> receipients = [
+                        email,
+                        adminMail,
+                      ];
+                      await sendEmail(subject, body, receipients,
+                          attachment); //send mail to user cc admin
 
-                        if (textMsgEnabled) {
-                          await sendTextToPhone(
-                              message + "-" + registeredName, recipents);
-                        }
-                        /*
-                        if (whatsUpEnabled) {
-                          await launchWhatsApp(
-                              message + "-" + registeredName, mobile);
-                        }
-                        */
-
-                        popAlert(context, titleSuccess, subtitleSuccess,
-                            getRightIcon(50.0), 2);
+                      if (textMsgEnabled) {
+                        await sendTextToPhone(
+                            message + "-" + registeredName, recipents);
                       }
+                      /*
+                      if (whatsUpEnabled) {
+                        await launchWhatsApp(
+                            message + "-" + registeredName, mobile);
+                      }
+                      */
 
-                      // Validate returns true if the form is valid, or false otherwise.
-                    } catch (e) {
-                      onPressedHouseWater = false;
-                      popAlert(context, kTitleTryCatchFail, e.toString(),
-                          getWrongIcon(50.0), 1);
+                      popAlert(context, titleSuccess, subtitleSuccess,
+                          getRightIcon(50.0), 2);
                     }
+
+                    // Validate returns true if the form is valid, or false otherwise.
+                  } catch (e) {
+                    onPressedHouseWater = false;
+                    popAlert(context, kTitleTryCatchFail, e.toString(),
+                        getWrongIcon(50.0), 1);
                   }
-                },
-                child: Text(
-                  bLabelSubmit,
-                ),
+                }
+              },
+              child: Text(
+                bLabelSubmit,
               ),
             ),
           ),
@@ -578,12 +556,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
+          getPadding(),
+          //getPadding(),
           Expanded(
             child: TextFormField(
               decoration: InputDecoration(
@@ -623,9 +597,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
               },
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
+          //getPadding(),
           Expanded(
             child: Center(
               child: ElevatedButton(
