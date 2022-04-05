@@ -209,13 +209,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  flutter_sms:
-    dependency: "direct main"
-    description:
-      name: flutter_sms
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -462,6 +455,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  telephony:
+    dependency: "direct main"
+    description:
+      name: telephony
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   term_glyph:
     dependency: transitive
     description:
