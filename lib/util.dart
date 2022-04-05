@@ -155,32 +155,33 @@ Color getColor(String type) {
   }
 }
 
+ListTile getListTile(Icon leadingIcon, String lhs, String rhs) {
+  return ListTile(
+    minLeadingWidth: 0,
+    leading: leadingIcon,
+    title: getPrefilledListTile(lhs, rhs),
+  );
+}
+
 Widget getPrefilledListTile(String LHS, String RHS) {
-  return Expanded(
-    child: Row(
-      children: [
-        Expanded(
-          child: Text(
-            "$LHS = ",
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+  return Row(
+    children: [
+      Text(
+        "$LHS = ",
+        style: TextStyle(
+          fontSize: 14.0,
+          fontWeight: FontWeight.bold,
         ),
-        Expanded(
-          child: Text(
-            "$RHS",
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
-            ),
-          ),
+      ),
+      Text(
+        "$RHS",
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          fontSize: 14.0,
+          color: Colors.blue,
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
 

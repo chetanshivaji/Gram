@@ -366,36 +366,28 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.wb_incandescent_outlined),
-            title: getPrefilledListTile(labelUid, uid),
+          Expanded(
+            child: getListTile(
+                Icon(Icons.wb_incandescent_outlined), labelUid, uid),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
           Expanded(
-            child: ListTile(
-              leading: Icon(Icons.person),
-              title: getPrefilledListTile(labelName, name),
-            ),
+            child: getListTile(Icon(Icons.person), labelName, name),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
           Expanded(
-            child: ListTile(
-              leading: Icon(Icons.mail),
-              title: getPrefilledListTile(labelEmail, email),
-            ),
+            child: getListTile(Icon(Icons.mail), labelEmail, email),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),
           ),
           Expanded(
-            child: ListTile(
-              leading: Icon(Icons.attach_money),
-              title: getPrefilledListTile(labelAmount, amount.toString()),
-            ),
+            child: getListTile(
+                Icon(Icons.attach_money), labelAmount, amount.toString()),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),

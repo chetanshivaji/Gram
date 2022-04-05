@@ -309,18 +309,11 @@ class _searchScreenState extends State<searchScreen> {
                     ),
                   ),
                 ),
-                ListTile(
-                  leading: Icon(Icons.wb_incandescent_outlined),
-                  title: getPrefilledListTile(labelUid, uid),
-                ),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: getPrefilledListTile(txtName, name),
-                ),
-                ListTile(
-                  leading: Icon(Icons.holiday_village),
-                  title: getPrefilledListTile(labelExtraInfo, extraInfo),
-                ),
+                getListTile(
+                    Icon(Icons.wb_incandescent_outlined), labelUid, uid),
+                getListTile(Icon(Icons.person), txtName, name),
+                getListTile(
+                    Icon(Icons.holiday_village), labelExtraInfo, extraInfo),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
