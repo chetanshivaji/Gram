@@ -54,7 +54,7 @@ class outFormState extends State<outForm> {
           Expanded(
             child: TextFormField(
               decoration: InputDecoration(
-                  icon: Icon(Icons.mobile_friendly),
+                  icon: Icon(Icons.text_snippet),
                   hintText: msgMoneySpendingReason,
                   labelText: labelReason),
               // The validator receives the text that the user has entered.
