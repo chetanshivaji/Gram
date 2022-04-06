@@ -423,17 +423,21 @@ Widget tabScffold(
         ),
         actions: <Widget>[extraWidget],
       ),
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints:
-              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-          child: Container(
-            child: TabBarView(
+      body: ((pageName == actPending) || (pageName == actReport))
+          ? (TabBarView(
               children: lsTabBarView,
+            ))
+          : SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height),
+                child: Container(
+                  child: TabBarView(
+                    children: lsTabBarView,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     ),
   );
 }
