@@ -1,0 +1,16 @@
+{
+    "language":"English",
+    "@language":{
+        "description":"The current language"
+    },
+    "hello":"Hello {randomString}",
+    "@hello":{
+        "description":"heyoo",
+        "placeholders":{
+            "randomString":{
+                "type":"String"
+            }
+        }
+    }
+
+}

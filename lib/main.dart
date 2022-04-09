@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/login_screen.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/myApp.dart';
@@ -12,6 +15,8 @@ import 'screens/search_pending.dart';
 import 'package:money/constants.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   try {
@@ -34,6 +39,13 @@ void main() async {
       debugShowCheckedModeBanner: false,
       title: appMainLabel,
       initialRoute: WelcomeScreen.id,
+      supportedLocales: L10n.all,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
       routes: {
         MyApp.id: (context) => MyApp(),
         inMoney.id: (context) => inMoney(),

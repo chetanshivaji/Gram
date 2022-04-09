@@ -1,0 +1,7 @@
+{
+    "language":"मराठी",
+    "@language":{
+        "description":"मराठी language"
+    },
+    "hello":"नमस्कार {randomString}"
+}
