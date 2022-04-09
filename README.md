@@ -126,6 +126,20 @@ two apps admin, mainGram.
 1. make super admin app. to view In Out Remaining of all villages
 2. Main app changes to support super admin app
 3. Test extensively.
+4. Language Multi - Marathi addition
+5. UI improvement
+6. auto email send
+7. add and test 200 names.
+8. Try to refactor code and reduce apk size.
+9. take input from admin for google pay num and send in pending message.
+10. Multi mobile tests.
+11. Password change provision.
+12. Change icons for both apps.
+13. Upload on google play, let it go through security checks of google
+14. Create controller poratl(app). to view all analytics, numbers for control/monitor/payment purpose.
+15. Suggesting village names depending on taluka and districts.
+16. Check on IOs phone.
+
 
 *********-------------------*******---------****---*----------------************
 # MARKETING AND EXECUTION
