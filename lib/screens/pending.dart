@@ -83,8 +83,8 @@ class _pendingContainerState extends State<pendingContainer> {
             pendingEntry pe = pendingEntry(
                 srnum: srNo.toString(),
                 name: y![keyName],
-                mobile: y![keyMobile].toString(),
-                uid: y![keyUid].toString(),
+                mobile: y![keyMobile],
+                uid: y![keyUid],
                 amount: (widget.pendingType == housePendingType)
                     ? y![keyHouse].toString()
                     : y![keyWater].toString());

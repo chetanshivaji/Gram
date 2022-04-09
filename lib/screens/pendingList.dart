@@ -52,8 +52,8 @@ class pendingList extends StatelessWidget {
         style: getTableFirstColStyle(),
       )));
       ldataCell.add(DataCell(Text(l.get(keyName))));
-      ldataCell.add(DataCell(Text(l.get(keyMobile).toString())));
-      ldataCell.add(DataCell(Text(l.get(keyUid).toString())));
+      ldataCell.add(DataCell(Text(l.get(keyMobile))));
+      ldataCell.add(DataCell(Text(l.get(keyUid))));
       if (pendingType == housePendingType) {
         ldataCell.add(DataCell(Text(l.get(keyHouse).toString())));
       } else {
@@ -66,9 +66,9 @@ class pendingList extends StatelessWidget {
             splashRadius: iconSplashRadius,
             onPressed: () async {
               String name = l.get(keyName);
-              String mobile = l.get(keyMobile).toString();
-              String email = l.get(keyEmail).toString();
-              String uid = l.get(keyUid).toString();
+              String mobile = l.get(keyMobile);
+              String email = l.get(keyEmail);
+              String uid = l.get(keyUid);
               String amount = "";
               String notifyTaxType = "";
               if (pendingType == housePendingType) {
@@ -81,7 +81,7 @@ class pendingList extends StatelessWidget {
 
               String notificationMessage =
                   "Dear $name, $mobile, ID-$uid Reminder notice. Please pay pending $notifyTaxType tax amount $amount for year $dropdownValueYear to Grampanchayat."; //who is reminding
-              String mobileWhatsApp = l.get(keyMobile).toString();
+              String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
               await createPDFInHouseWaterReceiptEntries(

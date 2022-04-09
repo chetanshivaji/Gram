@@ -111,8 +111,8 @@ class _reportContainerState extends State<reportContainer> {
                     houseWaterReportEntry pe = houseWaterReportEntry(
                       srnum: srNo.toString(),
                       name: y![keyName],
-                      mobile: y![keyMobile].toString(),
-                      uid: y![keyUid].toString(),
+                      mobile: y![keyMobile],
+                      uid: y![keyUid],
                       amount: y![keyAmount].toString(),
                       date: y![keyDate],
                       user: y![keyRegisteredName],
@@ -127,8 +127,8 @@ class _reportContainerState extends State<reportContainer> {
                     houseWaterReportEntry pe = houseWaterReportEntry(
                       srnum: srNo.toString(),
                       name: y![keyName],
-                      mobile: y![keyMobile].toString(),
-                      uid: y![keyUid].toString(),
+                      mobile: y![keyMobile],
+                      uid: y![keyUid],
                       amount: y![keyAmount].toString(),
                       date: y![keyDate],
                       user: y![keyRegisteredName],

@@ -131,7 +131,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
             .collection(village + pin)
             .doc(docMainDb)
             .collection(docMainDb + dropdownValueYear)
-            .doc(mobile.toString() + uid)
+            .doc(mobile + uid)
             .get()
             .then(
           (value) {
@@ -165,7 +165,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
             .collection(village + pin)
             .doc(docMainDb)
             .collection(docMainDb + dropdownValueYear)
-            .doc(mobile.toString() + uid)
+            .doc(mobile + uid)
             .get()
             .then(
           (value) {
@@ -404,7 +404,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             .collection(village + pin)
                             .doc(docMainDb)
                             .collection(docMainDb + dropdownValueYear)
-                            .doc(mobile.toString() + uid)
+                            .doc(mobile + uid)
                             .get()
                             .then(
                           (value) {
@@ -440,7 +440,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                               .collection(village + pin)
                               .doc(docMainDb)
                               .collection(docMainDb + dropdownValueYear)
-                              .doc(mobile.toString() + uid)
+                              .doc(mobile + uid)
                               .update(
                             {inTypeGiven: true},
                           );
@@ -495,12 +495,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           await sendTextToPhone(
                               message + "-" + registeredName, recipents);
                         }
-                        /*
-                        if (whatsUpEnabled) {
-                          await launchWhatsApp(
-                              message + "-" + registeredName, mobile);
-                        }
-                        */
 
                         popAlert(context, titleSuccess, subtitleSuccess,
                             getRightIcon(50.0), 2);
