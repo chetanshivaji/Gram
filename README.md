@@ -123,6 +123,8 @@ two apps admin, mainGram.
 
 *********-------------------*******---------****---*----------------************
 # TECHNICAL PENDING.
+1. mobile number should not start with zero.
+2. marathi multi language in pdf.
 1. make super admin app. to view In Out Remaining of all villages
 2. Main app changes to support super admin app
 3. Test extensively.
