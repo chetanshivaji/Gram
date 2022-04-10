@@ -1,5 +1,6 @@
 import 'dart:io';
 //import 'package:flutter/material.dart';  //dont user material.dart or it will mix up with pdf creation apis
+import 'package:flutter/services.dart';
 import 'package:money/api/pdf_api.dart';
 
 import 'package:pdf/pdf.dart';
@@ -13,8 +14,10 @@ Widget getTableOnPDF(List<dynamic>? headers, List<List<dynamic>> data) {
   return Table.fromTextArray(
     headers: headers,
     data: data,
+    cellStyle: myPdfTableCellFontStyle,
     border: null,
-    headerStyle: TextStyle(fontWeight: FontWeight.bold),
+    headerStyle:
+        myPdfTableCellFontStyle, //TextStyle(fontWeight: FontWeight.bold),
     headerDecoration: BoxDecoration(color: PdfColors.grey300),
     cellHeight: 30,
     cellAlignments: {
@@ -50,7 +53,6 @@ abstract class Invoice {
   Future<File> generate(String reportType, String userMail, String startDate,
       String endDate) async {
     final pdf = Document();
-
     String pdfName = reportType +
         "_" +
         info.taxType +
@@ -59,7 +61,7 @@ abstract class Invoice {
         "_" +
         info.sortingType;
 
-    pdfName = pdfName.replaceAll(' ', '');
+    pdfName = pdfName.replaceAll(' ', '_');
     String pdfTitle = pdfName;
     pdfName = pdfName + ".pdf";
 
@@ -85,31 +87,34 @@ abstract class Invoice {
         children: [
           Text(
             pdfTitle,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style:
+                myPdfTableCellFontStyle, //TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text(labelYear +
-              equals +
-              info.year +
-              endL +
-              txtDateRange +
-              equals +
-              startDate +
-              "  :  " +
-              endDate +
-              endL +
-              txtSortingType +
-              equals +
-              info.sortingType +
-              endL +
-              txtCalculation +
-              equals +
-              info.formula +
-              endL +
-              txtDownloadedByUser +
-              equals +
-              userMail +
-              endL),
+          Text(
+              labelYear +
+                  equals +
+                  info.year +
+                  endL +
+                  txtDateRange +
+                  equals +
+                  startDate +
+                  "  :  " +
+                  endDate +
+                  endL +
+                  txtSortingType +
+                  equals +
+                  info.sortingType +
+                  endL +
+                  txtCalculation +
+                  equals +
+                  info.formula +
+                  endL +
+                  txtDownloadedByUser +
+                  equals +
+                  userMail +
+                  endL,
+              style: myPdfTableCellFontStyle),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
@@ -135,7 +140,7 @@ abstract class Invoice {
       );
 
   Widget buildInvoice(String reportType) {
-    return Text(msgInvoidBuildFail);
+    return Text(msgInvoidBuildFail, style: myPdfTableCellFontStyle);
   }
 
   static Widget buildFooter(String userMail, String reportType) => Column(
@@ -159,9 +164,11 @@ abstract class Invoice {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: pw.CrossAxisAlignment.end,
       children: [
-        Text(title, style: style),
+        //Text(title, style: style),
+        Text(title, style: myPdfTableCellFontStyle),
         SizedBox(width: 2 * PdfPageFormat.mm),
-        Text(value),
+        //Text(value),
+        Text(value, style: myPdfTableCellFontStyle),
       ],
     );
   }
@@ -180,9 +187,11 @@ abstract class Invoice {
       child: Row(
         children: [
           Expanded(
-            child: Text(title, style: style),
+            //child: Text(title, style: style),
+            child: Text(title, style: myPdfTableCellFontStyle),
           ),
-          Text(value, style: unite ? style : null),
+          //Text(value, style: unite ? style : null),
+          Text(value, style: myPdfTableCellFontStyle),
         ],
       ),
     );
@@ -204,25 +213,29 @@ class pendingInvoice extends Invoice {
         children: [
           Text(
             pdfTitle,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            //style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: myPdfTableCellFontStyle,
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text(labelYear +
-              equals +
-              info.year +
-              endL +
-              txtSortingType +
-              equals +
-              info.sortingType +
-              endL +
-              txtCalculation +
-              equals +
-              info.formula +
-              endL +
-              txtDownloadedByUser +
-              equals +
-              userMail +
-              endL),
+          Text(
+            labelYear +
+                equals +
+                info.year +
+                endL +
+                txtSortingType +
+                equals +
+                info.sortingType +
+                endL +
+                txtCalculation +
+                equals +
+                info.formula +
+                endL +
+                txtDownloadedByUser +
+                equals +
+                userMail +
+                endL,
+            style: myPdfTableCellFontStyle,
+          ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );

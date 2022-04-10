@@ -16,6 +16,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'package:money/readFontsAssests.dart';
+
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,7 @@ void main() async {
         projectId: "gramtry-7a07a",
       ),
     );
+    readFontsFromAssets();
   } catch (e) {
     print(e);
   }

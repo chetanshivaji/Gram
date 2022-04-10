@@ -13,7 +13,9 @@ Widget getTableOnPDF(List<dynamic>? headers, List<List<dynamic>> data) {
     headers: headers,
     data: data,
     border: null,
-    headerStyle: TextStyle(fontWeight: FontWeight.bold),
+    cellStyle: myPdfTableCellFontStyle,
+    headerStyle:
+        myPdfTableCellFontStyle, //TextStyle(fontWeight: FontWeight.bold),
     headerDecoration: BoxDecoration(color: PdfColors.grey300),
     cellHeight: 30,
     cellAlignments: {
@@ -72,7 +74,7 @@ abstract class receipt {
         "_" +
         '_Receipt';
 
-    pdfName = pdfName.replaceAll(' ', '');
+    pdfName = pdfName.replaceAll(' ', '_');
     String pdfTitle = pdfName;
     pdfName = pdfName + ".pdf";
 
@@ -85,6 +87,7 @@ abstract class receipt {
           buildInvoice(reportType),
           pw.Text(
             getReceipt(info),
+            style: myPdfTableCellFontStyle,
           ),
         ],
         footer: (context) => buildFooter(userMail, reportType),
@@ -118,33 +121,39 @@ abstract class receipt {
   Widget buildTitle(String pdfTitle) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            pdfTitle,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
+          Text(pdfTitle,
+              style:
+                  myPdfTableCellFontStyle //TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text(txtTaxType +
-              equals +
-              info.taxType +
-              endL +
-              tableHeadingName +
-              equals +
-              info.name +
-              endL +
-              tableHeadingMobile +
-              equals +
-              info.mobile +
-              endL +
-              txtSentByUser +
-              equals +
-              info.userMail +
-              endL),
+          Text(
+            txtTaxType +
+                equals +
+                info.taxType +
+                endL +
+                tableHeadingName +
+                equals +
+                info.name +
+                endL +
+                tableHeadingMobile +
+                equals +
+                info.mobile +
+                endL +
+                txtSentByUser +
+                equals +
+                info.userMail +
+                endL,
+            style: myPdfTableCellFontStyle,
+          ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
   Widget buildInvoice(String reportType) {
-    return Text(msgInvoidBuildFail);
+    return Text(
+      msgInvoidBuildFail,
+      style: myPdfTableCellFontStyle,
+    );
   }
 
   static Widget buildFooter(String userMail, String reportType) => Column(
@@ -168,9 +177,10 @@ abstract class receipt {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: pw.CrossAxisAlignment.end,
       children: [
-        Text(title, style: style),
+        //Text(title, style: style),
+        Text(title, style: myPdfTableCellFontStyle),
         SizedBox(width: 2 * PdfPageFormat.mm),
-        Text(value),
+        Text(value, style: myPdfTableCellFontStyle),
       ],
     );
   }
@@ -189,9 +199,11 @@ abstract class receipt {
       child: Row(
         children: [
           Expanded(
-            child: Text(title, style: style),
+            //child: Text(title, style: style),
+            child: Text(title, style: myPdfTableCellFontStyle),
           ),
-          Text(value, style: unite ? style : null),
+          //Text(value, style: unite ? style : null),
+          Text(value, style: myPdfTableCellFontStyle),
         ],
       ),
     );

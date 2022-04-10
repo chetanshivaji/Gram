@@ -20,6 +20,9 @@ bool onPressedDrawerOut = false;
 bool onPressedDrawerPending = false;
 bool onPressedDrawerReport = false;
 
+var myPdfTableCellFontStyle;
+var myPdfTableHeaderFontStyle;
+
 String access = "No";
 enum accessLevel {
   Viewer,
