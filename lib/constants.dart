@@ -14,7 +14,8 @@ String kSubtitleLogOutConfirmation = "Do you want to log out?";
 String kTitleYetToApproveByAdmin = "Yet to be approved by Admin";
 String kSubTitelYetToApproveByAdmin =
     "Try After sometime Or remind admin to approve.";
-
+String kTitleForgotPasswordMailSent = "Mail sent to change password";
+String kSubTitleForgotPasswordMailSent = "Please check your login email inbox";
 //Msgs
 String msgOnlyNumber = "Please enter only numbers";
 String msgEnterEmail = "Please Enter admin email";
@@ -121,6 +122,7 @@ String labelReason = "Reason *";
 String labelHouseTax = "House Tax *";
 String labelExtraInfo = "Extra information";
 String labelUid = "Uid *";
+String labelForgotPassword = 'Forgot Password?';
 
 //general Text
 String txtFwdSlash = "/";

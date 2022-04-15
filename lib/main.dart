@@ -15,8 +15,8 @@ import 'package:money/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:money/readFontsAssests.dart';
+import 'screens/forgotPassword.dart';
 
 void main() async {
   try {
@@ -57,6 +57,7 @@ void main() async {
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         searchScreen.id: (context) => searchScreen(),
+        forgotPasswordScreen.id: (context) => forgotPasswordScreen(),
       },
     ),
   );

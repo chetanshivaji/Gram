@@ -3,6 +3,7 @@ import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'package:money/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'forgotPassword.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = "welcomescreen";
@@ -80,6 +81,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     bLabelRegiter,
                   ),
                 ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, forgotPasswordScreen.id);
+              },
+              child: Text(
+                labelForgotPassword,
+                style: TextStyle(color: Colors.blueGrey),
               ),
             ),
           ],
