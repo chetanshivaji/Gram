@@ -1,6 +1,5 @@
 import 'dart:io';
 //import 'package:flutter/material.dart';  //dont user material.dart or it will mix up with pdf creation apis
-import 'package:flutter/services.dart';
 import 'package:money/api/pdf_api.dart';
 
 import 'package:pdf/pdf.dart';
@@ -77,7 +76,7 @@ abstract class Invoice {
       ),
     );
 
-    return PdfApi.saveDocument(name: pdfName, pdf: pdf);
+    return await PdfApi.saveDocument(name: pdfName, pdf: pdf);
   }
 
   Widget buildTitle(
@@ -187,10 +186,8 @@ abstract class Invoice {
       child: Row(
         children: [
           Expanded(
-            //child: Text(title, style: style),
             child: Text(title, style: myPdfTableCellFontStyle),
           ),
-          //Text(value, style: unite ? style : null),
           Text(value, style: myPdfTableCellFontStyle),
         ],
       ),

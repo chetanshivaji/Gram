@@ -279,7 +279,7 @@ class _searchScreenState extends State<searchScreen> {
                             );
                           }
                           if (value.length == 10) {
-                            checkMobileUid(value);
+                            await checkMobileUid(value);
                           }
                         },
                         validator: (value) {

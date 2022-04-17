@@ -122,7 +122,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     );
   }
 
-  void setNameEmail(String uid) async {
+  Future<void> setNameEmail(String uid) async {
     //fecth and display user info on screen
 
     if (widget.formType == txtTaxTypeHouse) {
@@ -230,7 +230,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   uid = mobileUids[0];
                 },
               );
-              setNameEmail(mobileUids[0]);
+              await setNameEmail(mobileUids[0]);
             } else if (mobileUids.length > 1) {
               //display all uids and choose one.
               for (var id in mobileUids) {
@@ -248,7 +248,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       ..onTap = () async {
                         //make use of Id which has go tapped.
                         uid = id;
-                        setNameEmail(uid);
+                        await setNameEmail(uid);
                       },
                   ),
                 );
@@ -336,7 +336,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               }
               if (text.length == 10) {
                 mobile = text;
-                checkMobileUid(mobile);
+                await checkMobileUid(mobile);
               }
             },
 
@@ -464,9 +464,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           },
                         );
 
-                        updateFormulaValues(amount,
+                        await updateFormulaValues(amount,
                             "in"); //fetch exisiting value from formula and update new value.
-                        updateYearWiseFormula(amount, "in", widget.formType);
+                        await updateYearWiseFormula(
+                            amount, "in", widget.formType);
 
                         String message =
                             "Dear $name $mobile,ID-$uid, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
@@ -614,7 +615,6 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                       await FirebaseFirestore.instance
                           .collection(village + pin)
                           .doc(docMainDb)
-                          //.collection(collPrefixInExtra + dropdownValueYear)
                           .collection(collPrefixInExtra +
                               DateTime.now()
                                   .year
@@ -627,7 +627,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                           keyRegisteredName: registeredName,
                         },
                       );
-                      updateFormulaValues(amount,
+                      await updateFormulaValues(amount,
                           "in"); //fetch exisiting value from formula and update new value.
 
                       popAlert(context, titleSuccess, subtitleSuccess,

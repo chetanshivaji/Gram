@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/constants.dart';
 
-void updateYearWiseFormula(
+Future<void> updateYearWiseFormula(
     int newEntryAmount, String typeInOut, String inType) async {
   var formulaRef;
   //START create Formula in each year once
@@ -51,7 +51,7 @@ void updateYearWiseFormula(
   );
 }
 
-void updateFormulaValues(int newEntryAmount, String typeInOut) async {
+Future<void> updateFormulaValues(int newEntryAmount, String typeInOut) async {
   int total = await FirebaseFirestore.instance
       .collection(village + pin)
       .doc(docMainDb)

@@ -46,38 +46,6 @@ bool isNumeric(String s) {
   return double.tryParse(s) != null;
 }
 
-/*
-Future<bool> getApproval(BuildContext context) async {
-  try {
-    bool isApproved = await FirebaseFirestore.instance
-        .collection(collUsers)
-        .doc(userMail)
-        .get()
-        .then(
-      (value) async {
-        if (!value.exists) {
-          //if allready present
-          popAlert(
-            context,
-            kTitleNotPresent,
-            kSubTitleEmailPresent,
-            getWrongIcon(50.0),
-            2,
-          );
-          return false;
-        } else {
-          var y = value.data();
-          return y![keyApproved];
-        }
-      },
-    );
-    return isApproved;
-  } catch (e) {
-    popAlert(context, txtFetchFailFromDb, "", getWrongIcon(50.0), 1);
-    return false; //Return viewer by default
-  }
-}
-*/
 Future<String> getUserAccessLevel(BuildContext context, String email) async {
   try {
     String usreAccessLevel = await FirebaseFirestore.instance
@@ -444,13 +412,3 @@ Widget tabScffold(
     ),
   );
 }
-
-/*
-//import 'package:intl/intl.dart';
-
-
-class Utils {
-  static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
-  static formatDate(DateTime date) => DateFormat.yMd().format(date);
-}
-*/

@@ -107,12 +107,6 @@ $registeredName
               if (textMsgEnabled)
                 await sendTextToPhone(
                     notificationMessage + "-" + registeredName, listMobile);
-              /*
-              if (whatsUpEnabled) {
-                await launchWhatsApp(
-                    notificationMessage + "-" + registeredName, mobileWhatsApp);
-              }
-              */
             },
             icon: Icon(
               Icons.notifications_active_outlined,

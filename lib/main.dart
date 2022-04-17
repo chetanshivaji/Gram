@@ -30,7 +30,7 @@ void main() async {
         projectId: "gramtry-7a07a",
       ),
     );
-    readFontsFromAssets();
+    await readFontsFromAssets();
   } catch (e) {
     print(e);
   }

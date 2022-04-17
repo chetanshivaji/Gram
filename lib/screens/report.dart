@@ -66,7 +66,7 @@ class _reportContainerState extends State<reportContainer> {
       );
   }
 
-  void createPDFReportEntries() async {
+  Future<void> createPDFReportEntries() async {
     //START - fetch data to display in pdf
     List<houseWaterReportEntry> entriesHouseWater = [];
     List<extraIncomeReportEntry> entriesExtraIncome = [];
@@ -247,7 +247,7 @@ class _reportContainerState extends State<reportContainer> {
 
     final pdfFile = await invoice.generate(actReport, registeredName,
         startDate.toString().split(' ')[0], endDate.toString().split(' ')[0]);
-    PdfApi.openFile(pdfFile);
+    await PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
   }
 
@@ -266,7 +266,7 @@ class _reportContainerState extends State<reportContainer> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
-                    _selectStartDate(context);
+                    await _selectStartDate(context);
                   },
                   child: Text("$txtStartDate:$startDate".split(' ')[0]),
                 ),
@@ -274,7 +274,7 @@ class _reportContainerState extends State<reportContainer> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
-                    _selectEndDate(context);
+                    await _selectEndDate(context);
                   },
                   child: Text("$txtEndDate:$endDate".split(' ')[0]),
                 ),
@@ -285,7 +285,7 @@ class _reportContainerState extends State<reportContainer> {
                   splashRadius: iconSplashRadius,
                   alignment: Alignment.topRight,
                   onPressed: () async {
-                    createPDFReportEntries();
+                    await createPDFReportEntries();
                   },
                   icon: Icon(
                     Icons.download,
