@@ -16,23 +16,15 @@ In future developement.
 
 # TODO
 1. year wise formula per village - formula2021 formula2022 formula2023. Already, Super Total on Top. Each Formula2021  Total / Pending / In / Out / Remain / Percent collected.
-2. do you want to submit?
 3. email failures on Siddhaths samsung mobile model.
-4. access and try false approval make it to one, only access dropdowns.
-5. Make language independent add Marathi
-6. save pdf locally/dont open, CC to admin also.
-7. two times click on drawer.
-8. Disable button after click
+4. Make status in approve seciton only one dropdown.
+5. Make language independent add Marathi, make all words in app Marathi, then make change language option.
 9. why search slow
 10. sort as per collector sender.
-11. admin app, no need of all details every year to fill, only
 12. who wil notify
 13. recyler tile
 14. ternary operator Recycler list
-15. First transcation no cc bug
-16. forgot password implementation
 17. if no entry in db no error.
-18. change access level smartly
 19. Check in registeration from main app, if village and pin exist.
 20. Auto disapprove all users except admin. admin should approve users after certain period.
 21. Subscrption implementation. stopping process at end of subscription period.
@@ -45,9 +37,16 @@ In future developement.
 28. Section wise formula.
 29. ios app testing on real ios device.
 40. App version after clicking on info
-31. Addtion of section health tax, & electricity maintaince tax etc.
+31. horizontal scrolling feature, Addtion of section health tax, & electricity maintaince tax etc.
 
 # DONE
+18. change access level smartly
+16. forgot password implementation
+15. First transcation no cc bug
+11. admin app, no need of all details every year to fill, only
+8. Disable button after click
+7. two times click on drawer.
+6. save pdf locally/dont open, CC to admin also.
 1. pending Magani Pawati. after clicking on alram pending button.
 2. update mail & Phone.
 3. email bug. / first  transcation then email.
