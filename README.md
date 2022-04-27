@@ -15,6 +15,13 @@ In future developement.
 
 
 # TODO
+0. create videos for B and C(Emphasize getting ack message), type letter of approval from Grampanchayat, 
+1. send videos link to C when added person in inputGram admin app or with pending msg.
+2. send upi reqest link to Cu, if they want to send money through UPI.
+3. create log file with time who what details. for debug purpose when problem arrise.
+4. give db dump to GP, perodically.
+5. what could stop and whats plan B.
+6. Think of places, to not give all rights to one person as he/she can misuse it.
 1. year wise formula per village - formula2021 formula2022 formula2023. Already, Super Total on Top. Each Formula2021  Total / Pending / In / Out / Remain / Percent collected.
 3. email failures on Siddhaths samsung mobile model.
 4. Make status in approve seciton only one dropdown.
