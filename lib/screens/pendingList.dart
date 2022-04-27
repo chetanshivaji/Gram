@@ -79,8 +79,10 @@ class pendingList extends StatelessWidget {
                 notifyTaxType = txtTaxTypeWater;
               }
 
+              String videoLinkForCu =
+                  "dummy youtube link https://www.youtube.com/watch?v=nYHQxOu0V3k";
               String notificationMessage =
-                  "Dear $name, $mobile, ID-$uid Reminder notice. Please pay pending $notifyTaxType tax amount $amount for year $dropdownValueYear to Grampanchayat."; //who is reminding
+                  "Dear $name, $mobile, ID-$uid Reminder notice. Please pay pending $notifyTaxType tax amount $amount for year $dropdownValueYear to Grampanchayat. See how this system works on $videoLinkForCu"; //who is reminding
               String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
@@ -113,6 +115,58 @@ $registeredName
               color: Colors.red,
             ),
             tooltip: txtNotifyToPay,
+          ),
+        ),
+      );
+      ldataCell.add(
+        DataCell(
+          IconButton(
+            splashColor: clrIconSpalsh,
+            splashRadius: iconSplashRadius,
+            onPressed: () async {
+              String name = l.get(keyName);
+              String mobile = l.get(keyMobile);
+              String email = l.get(keyEmail);
+              String uid = l.get(keyUid);
+              String amount = "";
+              String notifyTaxType = "";
+              if (pendingType == housePendingType) {
+                amount = l.get(keyHouse).toString();
+                notifyTaxType = txtTaxTypeHouse;
+              } else {
+                amount = l.get(keyWater).toString();
+                notifyTaxType = txtTaxTypeWater;
+              }
+              String OnlinePaymentLink = "dummy link";
+              String notificationMessage =
+                  "Dear $name, $mobile, ID-$uid. Pay online, pending $notifyTaxType tax amount Rs. $amount for year $dropdownValueYear to Grampanchayat through link $OnlinePaymentLink"; //who is reminding
+              String mobileWhatsApp = l.get(keyMobile);
+              List<String> listMobile = [mobileWhatsApp];
+////////*******************START sending mail************************/////
+
+              String subject =
+                  "$name, ID $uid, $notifyTaxType tax Online Payment link for year- $dropdownValueYear";
+              String body = """$notificationMessage
+Regards,
+$registeredName
+""";
+
+              List<String> receipients = [
+                email,
+                adminMail,
+              ];
+              await sendEmailNoAttachment(
+                  subject, body, receipients); //send mail to user cc admin
+////////*******************END sending mail************************/////
+              if (textMsgEnabled)
+                await sendTextToPhone(
+                    notificationMessage + "-" + registeredName, listMobile);
+            },
+            icon: Icon(
+              Icons.mobile_screen_share,
+              color: Colors.blue,
+            ),
+            tooltip: txtNotifyToPayOnline,
           ),
         ),
       );
@@ -169,6 +223,12 @@ $registeredName
             DataColumn(
               label: Text(
                 tableHeadingNotify,
+                style: getStyle(actPending),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                tableHeadingOnlinePayment,
                 style: getStyle(actPending),
               ),
             ),

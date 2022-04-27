@@ -26,3 +26,20 @@ Future<void> sendEmail(String subject, String body, List<String> recipients,
   await FlutterEmailSender.send(email);
   return;
 }
+
+Future<void> sendEmailNoAttachment(
+    String subject, String body, List<String> recipients) async {
+  //WOW! if to and cc are same only to is considered and cc is redudent.
+  final Email email = Email(
+    subject: subject,
+    body: body,
+    recipients: [recipients[0]], //user
+    cc: [recipients[1]], //admin
+    //bcc: ['bcc@example.com'] ,
+    //attachmentPaths: [attachment],
+    isHTML: false,
+  );
+
+  await FlutterEmailSender.send(email);
+  return;
+}
