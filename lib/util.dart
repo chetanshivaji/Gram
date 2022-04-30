@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+late BuildContext gContext;
 int totalIn = 0;
 int totalOut = 0;
 int totalBalance = 0;

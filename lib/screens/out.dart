@@ -177,6 +177,7 @@ class outMoney extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     onPressedDrawerOut = false;
     return Scaffold(
       appBar: AppBar(

@@ -4,6 +4,7 @@ import 'registration_screen.dart';
 import 'package:money/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'forgotPassword.dart';
+import 'package:money/util.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = "welcomescreen";
@@ -14,6 +15,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(

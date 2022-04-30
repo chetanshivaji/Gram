@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     void handleClick(String value) {
       switch (value) {
         case 'LanguageChange':

@@ -671,6 +671,7 @@ class inMoney extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     onPressedDrawerIn = false; //makes drawer enable next time it goes
     lsWidget.add(
       HouseWaterForm(formType: txtTaxTypeHouse),

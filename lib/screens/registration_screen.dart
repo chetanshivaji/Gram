@@ -23,6 +23,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool onPressedRegister = false;
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

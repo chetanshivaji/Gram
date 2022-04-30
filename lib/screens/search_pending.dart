@@ -239,6 +239,7 @@ class _searchScreenState extends State<searchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     bool pressed = true;
 
     return Scaffold(

@@ -247,6 +247,7 @@ class _pendingMoneyState extends State<pendingMoney> {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     onPressedDrawerPending = false;
     lsWidget.add(
       Expanded(

@@ -422,6 +422,7 @@ class _reportMoneyState extends State<reportMoney> {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     onPressedDrawerReport = false;
     lsWidget.add(
       Expanded(
