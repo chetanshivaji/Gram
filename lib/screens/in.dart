@@ -295,6 +295,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -547,6 +548,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     // Build a Form widget using the _formKey created above.
 
     return Form(

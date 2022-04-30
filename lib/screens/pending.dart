@@ -120,6 +120,7 @@ class _pendingContainerState extends State<pendingContainer> {
   //.where(keyWaterGiven, isEqualTo: true)
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     return Container(
       width: double.infinity,
       color: Colors.grey[350],

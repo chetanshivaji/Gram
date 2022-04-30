@@ -236,6 +236,7 @@ class yearTile extends StatefulWidget {
 class _yearTileState extends State<yearTile> {
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     return ListTile(
       trailing: DropdownButton(
         borderRadius: BorderRadius.circular(12.0),

@@ -342,13 +342,13 @@ class _searchScreenState extends State<searchScreen> {
                           ),
                           DataColumn(
                             label: Text(
-                              tableHeadingHouse,
+                              AppLocalizations.of(gContext)!.tableHeadingHouse,
                               style: getStyle(actPending),
                             ),
                           ),
                           DataColumn(
                             label: Text(
-                              tableHeadingWater,
+                              AppLocalizations.of(gContext)!.tableHeadingWater,
                               style: getStyle(actPending),
                             ),
                           ),

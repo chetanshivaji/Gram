@@ -242,6 +242,7 @@ $registeredName
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     Stream<QuerySnapshot<Object?>> stm;
     if (pendingType == housePendingType) {
       if (orderType == AppLocalizations.of(gContext)!.txtLtoH) {

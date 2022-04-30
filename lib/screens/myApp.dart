@@ -15,6 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LanguagePickerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     final provider = Provider.of<LocaleProvider>(context);
     final locale = provider.locale ?? Locale('en');
 

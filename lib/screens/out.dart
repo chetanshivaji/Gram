@@ -27,6 +27,7 @@ class outFormState extends State<outForm> {
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     bool onPressedOut = false;
     // Build a Form widget using the _formKey created above.
     return Form(

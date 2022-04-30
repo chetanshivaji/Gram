@@ -198,6 +198,7 @@ class inList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     Stream<QuerySnapshot<Object?>> stm;
     if (orderType == AppLocalizations.of(gContext)!.txtLtoH) {
       stm = FirebaseFirestore.instance

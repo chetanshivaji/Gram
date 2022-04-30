@@ -256,6 +256,7 @@ class _reportContainerState extends State<reportContainer> {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     return Container(
       width: double.infinity,
       color: Colors.grey[350],

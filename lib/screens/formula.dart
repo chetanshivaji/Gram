@@ -146,6 +146,7 @@ class formulaLive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    gContext = context;
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection(village + pin)
