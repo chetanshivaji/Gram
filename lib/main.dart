@@ -18,6 +18,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:money/readFontsAssests.dart';
 import 'screens/forgotPassword.dart';
 
+import 'package:provider/provider.dart';
+import 'package:money/provider/locale_provider.dart';
+
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
@@ -35,30 +38,43 @@ void main() async {
     print(e);
   }
 
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: appMainLabel,
-      initialRoute: WelcomeScreen.id,
-      supportedLocales: L10n.all,
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      routes: {
-        MyApp.id: (context) => MyApp(),
-        inMoney.id: (context) => inMoney(),
-        outMoney.id: (context) => outMoney(),
-        pendingMoney.id: (context) => pendingMoney(),
-        reportMoney.id: (context) => reportMoney(),
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen(),
-        searchScreen.id: (context) => searchScreen(),
-        forgotPasswordScreen.id: (context) => forgotPasswordScreen(),
-      },
-    ),
-  );
+  runApp(xApp());
+}
+
+class xApp extends StatelessWidget {
+  static final String title = 'Localization';
+
+  @override
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: (context) => LocaleProvider(),
+        builder: (context, child) {
+          final provider = Provider.of<LocaleProvider>(context);
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: appMainLabel,
+            initialRoute: WelcomeScreen.id,
+            supportedLocales: L10n.all,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate
+            ],
+            locale: provider.locale,
+            routes: {
+              MyApp.id: (context) => MyApp(),
+              inMoney.id: (context) => inMoney(),
+              outMoney.id: (context) => outMoney(),
+              pendingMoney.id: (context) => pendingMoney(),
+              reportMoney.id: (context) => reportMoney(),
+              WelcomeScreen.id: (context) => WelcomeScreen(),
+              LoginScreen.id: (context) => LoginScreen(),
+              RegistrationScreen.id: (context) => RegistrationScreen(),
+              searchScreen.id: (context) => searchScreen(),
+              forgotPasswordScreen.id: (context) => forgotPasswordScreen(),
+            },
+          );
+        },
+      );
 }

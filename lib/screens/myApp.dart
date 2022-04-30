@@ -7,6 +7,48 @@ import 'pending.dart';
 import 'report.dart';
 import 'package:money/constants.dart';
 
+import 'package:provider/provider.dart';
+import 'package:money/l10n/l10n.dart';
+import 'package:money/provider/locale_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+class LanguagePickerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final provider = Provider.of<LocaleProvider>(context);
+    final locale = provider.locale ?? Locale('en');
+
+    return DropdownButtonHideUnderline(
+      child: DropdownButton(
+        value: locale,
+        icon: Container(width: 5),
+        items: L10n.all.map(
+          (locale) {
+            final flag = L10n.getFlag(locale.languageCode);
+
+            return DropdownMenuItem(
+              child: Center(
+                child: Text(
+                  flag,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              value: locale,
+              onTap: () {
+                final provider =
+                    Provider.of<LocaleProvider>(context, listen: false);
+
+                provider.setLocale(locale);
+              },
+            );
+          },
+        ).toList(),
+        onChanged: (_) {},
+      ),
+    );
+  }
+}
+
 class MyApp extends StatelessWidget {
   static String id = "myappscreen";
   bool drawerOpen = false;
@@ -48,9 +90,19 @@ class MyApp extends StatelessWidget {
         onDrawerChanged: (isOpen) {
           drawerOpen = isOpen;
         },
+        body: Center(
+          child: Text(
+            AppLocalizations.of(context)!.language,
+            style: TextStyle(
+              fontSize: 45.0,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
         appBar: AppBar(
-          title: Text(appMainLabel),
+          title: Text(AppLocalizations.of(context)!.appMainLabel),
           actions: <Widget>[
+            LanguagePickerWidget(),
             IconButton(
               splashColor: clrIconSpalsh,
               splashRadius: iconSplashRadius,
@@ -101,7 +153,10 @@ class MyApp extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.add_box),
-                title: Text(dIn),
+                //title: Text(dIn),
+                title: Text(
+                  AppLocalizations.of(context)!.dIn,
+                ),
                 tileColor: clrGreen, //green
                 trailing: Icon(Icons.arrow_forward_ios),
                 onTap: () async {
@@ -120,7 +175,7 @@ class MyApp extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.outbond_outlined),
-                title: Text(dOut),
+                title: Text(AppLocalizations.of(context)!.dOut),
                 tileColor: clrRed, //red
                 trailing: Icon(Icons.arrow_forward_ios),
                 onTap: () async {
@@ -139,7 +194,7 @@ class MyApp extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.pending_actions),
-                title: Text(dPending),
+                title: Text(AppLocalizations.of(context)!.dPending),
                 tileColor: clrAmber, //amber
                 trailing: Icon(Icons.arrow_forward_ios),
                 onTap: () async {
@@ -160,7 +215,7 @@ class MyApp extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.report),
-                title: Text(dReport),
+                title: Text(AppLocalizations.of(context)!.dReport),
                 tileColor: clrBlue, //amber
                 trailing: Icon(Icons.arrow_forward_ios),
                 onTap: () async {

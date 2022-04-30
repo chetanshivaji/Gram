@@ -1,7 +1,17 @@
 {
-    "language":"मराठी",
-    "@language":{
-        "description":"मराठी language"
-    },
+    "language":"मराठी",        
+    "appMainLabel":"ग्रामपंचायत",
+    "dIn":"घेणे",
+     "dOut":"खर्च",
+     "dPending":"प्रलंबित",
+     "dReport":"अहवाल",
+
+    "actIn":"घेणे",
+    "actOut":"खर्च",
+    "actPending":"प्रलंबित",
+    "actReport":"अहवाल",
+    
+
+
     "hello":"नमस्कार {randomString}"
 }

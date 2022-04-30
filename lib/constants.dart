@@ -127,7 +127,6 @@ String labelForgotPassword = 'Forgot Password?';
 
 //general Text
 String txtFwdSlash = "/";
-String txtGram = "Grampanchayat";
 String txtDateRange = "Date Range";
 String txtSortingType = "Sorting type";
 String txtCalculation = "Calculation";

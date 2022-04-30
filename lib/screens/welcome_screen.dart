@@ -36,13 +36,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             SizedBox(
               height: 48.0,
             ),
-            Text(
-              AppLocalizations.of(context)!.language,
-              style: TextStyle(
-                fontSize: 45.0,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(

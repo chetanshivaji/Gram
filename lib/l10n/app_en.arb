@@ -3,6 +3,53 @@
     "@language":{
         "description":"The current language"
     },
+    "appMainLabel":"Grampanchayat",
+    "@appMainLabel":{
+        "description":"Main app bar"
+    },
+    
+    "dIn":"In",
+    "@dIn":{
+        "description":"In drawer"
+    },
+
+    "dOut":"Out",
+    "@dOut":{
+        "description":"Out drawer"
+    },
+    "dPending":"Pending",
+    "@dPending":{
+        "description":"Pending drawer"
+    },
+    
+    "dReport":"Report",
+    "@dReport":{
+        "description":"Report drawer"
+    },
+
+
+
+    "actIn":"IN",
+    "@actIn":{
+        "description":" Activity In drawer"
+    },
+
+    "actOut":"OUT",
+    "@actOut":{
+        "description":"Activity Out drawer"
+    },
+    "actPending":"PENDING",
+    "@actPending":{
+        "description":"Activity Pending drawer"
+    },
+    
+    "actReport":"REPORT",
+    "@actReport":{
+        "description":"Activity Report drawer"
+    },
+
+
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

@@ -147,7 +147,8 @@ abstract class Invoice {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(title: txtGram, value: village + txtFwdSlash + pin),
+          buildSimpleText(
+              title: appMainLabel, value: village + txtFwdSlash + pin),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(title: 'Type', value: reportType),
         ],
