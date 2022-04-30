@@ -58,9 +58,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           taxType: (widget.formType == txtTaxTypeHouse) ? keyHouse : keyWater),
     );
 
-    final pdfFile = await receipt.generate(
-        AppLocalizations.of(gContext)!.actIn + dropdownValueYear,
-        registeredName);
+    final pdfFile =
+        await receipt.generate(actIn + dropdownValueYear, registeredName);
 
     //PdfApi.openFile(pdfFile);
     return;
@@ -657,7 +656,7 @@ class inMoney extends StatelessWidget {
   static String id = "inscreen";
   inMoney({Key? key}) : super(key: key);
 
-  String pageName = AppLocalizations.of(gContext)!.actIn;
+  String pageName = actIn;
   List<Icon> lsIcons = [
     Icon(Icons.home, color: Colors.black),
     Icon(Icons.water, color: Colors.black),
