@@ -27,7 +27,7 @@ Future<void> updateYearWiseFormula(
         collectedWater = y![keyYfCollectedWater];
         pendingWater = y![keyYfPendingWater];
 
-        if (typeInOut == "in") {
+        if (typeInOut == txtInType) {
           if (inType == txtTaxTypeHouse) {
             await formulaRef.update(
               {
@@ -62,12 +62,12 @@ Future<void> updateFormulaValues(int newEntryAmount, String typeInOut) async {
       .then(
     (value) {
       var y = value.data();
-      return (typeInOut == "in") ? y![keyTotalIn] : y![keyTotalOut];
+      return (typeInOut == txtInType) ? y![keyTotalIn] : y![keyTotalOut];
     },
   );
 
   //update formula
-  if (typeInOut == "in") {
+  if (typeInOut == txtInType) {
     FirebaseFirestore.instance
         .collection(village + pin)
         .doc(docMainDb)

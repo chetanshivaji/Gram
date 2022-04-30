@@ -471,9 +471,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         );
 
                         await updateFormulaValues(amount,
-                            "in"); //fetch exisiting value from formula and update new value.
+                            txtInType); //fetch exisiting value from formula and update new value.
                         await updateYearWiseFormula(
-                            amount, "in", widget.formType);
+                            amount, txtInType, widget.formType);
 
                         String message =
                             "Dear $name $mobile,ID-$uid, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
@@ -635,7 +635,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                         },
                       );
                       await updateFormulaValues(amount,
-                          "in"); //fetch exisiting value from formula and update new value.
+                          txtInType); //fetch exisiting value from formula and update new value.
 
                       popAlert(context, titleSuccess, subtitleSuccess,
                           getRightIcon(50.0), 2);

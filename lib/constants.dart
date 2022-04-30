@@ -150,7 +150,7 @@ String txtFetchFailFromDb = "Fetch Fail From Db";
 const String txtTaxTypeHouse = "House";
 String txtTaxTypeWater = "Water";
 String txtTaxTypeExtraIncome = "ExtraIn";
-
+String txtInType = "in";
 //collection strings
 String collUsers = 'users';
 String collFormula = 'formula';
