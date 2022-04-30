@@ -95,7 +95,7 @@ TextStyle getTableHeadingTextStyle() {
 }
 
 TextStyle getStyle(String type) {
-  if (type == actIn) {
+  if (type == AppLocalizations.of(gContext)!.actIn) {
     return TextStyle(
       color: Colors.green[900],
     );
@@ -117,7 +117,7 @@ String getCurrentDateTimeInDHM() {
 }
 
 Color getColor(String type) {
-  if ((type == actIn) ||
+  if ((type == AppLocalizations.of(gContext)!.actIn) ||
       (type == collPrefixInHouse) ||
       (type == collPrefixInWater) ||
       (type == collPrefixInExtra)) {
