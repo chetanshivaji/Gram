@@ -14,6 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void handleClick(String value) {
+      switch (value) {
+        case 'LanguageChange':
+          break;
+        case 'LogOut':
+          popLogOutAlert(
+            context,
+            kTitleSignOut,
+            kSubtitleLogOutConfirmation,
+            Icon(Icons.power_settings_new),
+          );
+          break;
+      }
+    }
+
     return WillPopScope(
       onWillPop: () {
         if (drawerOpen == true) {
@@ -45,19 +60,16 @@ class MyApp extends StatelessWidget {
               tooltip: txtSearchToolTip,
               icon: Icon(Icons.search),
             ),
-            IconButton(
-              splashColor: clrIconSpalsh,
-              splashRadius: iconSplashRadius,
-              tooltip: kTitleSignOut,
-              onPressed: () {
-                popLogOutAlert(
-                  context,
-                  kTitleSignOut,
-                  kSubtitleLogOutConfirmation,
-                  Icon(Icons.power_settings_new),
-                );
+            PopupMenuButton<String>(
+              onSelected: handleClick,
+              itemBuilder: (BuildContext context) {
+                return {"LanguageChange", 'LogOut'}.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
               },
-              icon: Icon(Icons.power_settings_new),
             ),
           ],
         ),
