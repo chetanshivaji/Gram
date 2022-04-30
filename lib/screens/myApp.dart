@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
           popLogOutAlert(
             context,
             kTitleSignOut,
-            kSubtitleLogOutConfirmation,
+            AppLocalizations.of(gContext)!.kSubtitleLogOutConfirmation,
             Icon(Icons.power_settings_new),
           );
           break;
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
         popLogOutAlert(
           context,
           kTitleSignOut,
-          kSubtitleLogOutConfirmation,
+          AppLocalizations.of(gContext)!.kSubtitleLogOutConfirmation,
           Icon(Icons.power_settings_new),
         );
         //we need to return a future

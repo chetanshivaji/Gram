@@ -224,6 +224,44 @@
         "description":"Enter Money Spent"
     },
 
+    "txtFIn":"In",
+    "@txtFIn":{
+        "description":"In"
+    },
+
+    "txtFOut":"Out",
+    "@txtFOut":{
+        "description":"Out"
+    },
+
+    "txtFRemain":"Remain",
+    "@txtFRemain":{
+        "description":"Remain"
+    },
+
+    "txtStartDate":"S",
+    "@txtStartDate":{
+        "description":"S"
+    },
+
+    "txtEndDate":"E",
+    "@txtEndDate":{
+        "description":"E"
+    },
+    "optCancel":"cancel",
+    "@optCancel":{
+        "description":"cancel"
+    },
+
+    "optOk":"OK",
+    "@optOk":{
+        "description":"OK"
+    },
+    "kSubtitleLogOutConfirmation":"Do you want to log out?",
+    "@kSubtitleLogOutConfirmation":{
+        "description":"Do you want to log out?"
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

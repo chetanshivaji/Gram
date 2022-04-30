@@ -257,6 +257,8 @@ class _reportContainerState extends State<reportContainer> {
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    String txtSDate = AppLocalizations.of(gContext)!.txtStartDate;
+    String txtEDate = AppLocalizations.of(gContext)!.txtEndDate;
     return Container(
       width: double.infinity,
       color: Colors.grey[350],
@@ -272,7 +274,7 @@ class _reportContainerState extends State<reportContainer> {
                   onPressed: () async {
                     await _selectStartDate(context);
                   },
-                  child: Text("$txtStartDate:$startDate".split(' ')[0]),
+                  child: Text("$txtSDate:$startDate".split(' ')[0]),
                 ),
               ),
               Expanded(
@@ -280,7 +282,7 @@ class _reportContainerState extends State<reportContainer> {
                   onPressed: () async {
                     await _selectEndDate(context);
                   },
-                  child: Text("$txtEndDate:$endDate".split(' ')[0]),
+                  child: Text("$txtEDate:$endDate".split(' ')[0]),
                 ),
               ),
               Expanded(

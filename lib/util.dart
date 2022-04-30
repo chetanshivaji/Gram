@@ -279,14 +279,14 @@ void popLogOutAlert(
   //shows alert dialog
   //paramaters, title, subtitle, imgRightWrong:image with right or wrong icon, popCount: how many times navigate back
   Widget cancelButton = TextButton(
-    child: Text(optCancel),
+    child: Text(AppLocalizations.of(gContext)!.optCancel),
     onPressed: () {
       Navigator.pop(context);
     },
   );
 
   Widget okButton = TextButton(
-    child: Text(optOk),
+    child: Text(AppLocalizations.of(gContext)!.optOk),
     onPressed: () {
       FirebaseAuth.instance.signOut();
       Navigator.pop(context); //main screen of app
@@ -317,7 +317,7 @@ void popAlert(BuildContext context, String title, String subtitle,
   //paramaters, title, subtitle, imgRightWrong:image with right or wrong icon, popCount: how many times navigate back
 
   Widget okButton = TextButton(
-    child: Text(optOk),
+    child: Text(AppLocalizations.of(gContext)!.optOk),
     onPressed: () {
       for (int i = 0; i < popCount; i++) {
         Navigator.pop(context);

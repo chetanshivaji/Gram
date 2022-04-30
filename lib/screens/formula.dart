@@ -117,7 +117,8 @@ Widget formulaNew(int totalIn, int totalOut) {
     ),
     child: Row(
       children: <Widget>[
-        getForumlaInternalSimple(txtFIn, totalIn.toString()),
+        getForumlaInternalSimple(
+            AppLocalizations.of(gContext)!.txtFIn, totalIn.toString()),
         Text(
           " - ",
           style: TextStyle(
@@ -126,7 +127,8 @@ Widget formulaNew(int totalIn, int totalOut) {
           ),
           textAlign: TextAlign.center,
         ),
-        getForumlaInternalSimple(txtFOut, totalOut.toString()),
+        getForumlaInternalSimple(
+            AppLocalizations.of(gContext)!.txtFOut, totalOut.toString()),
         Text(
           equals,
           style: TextStyle(
@@ -135,7 +137,8 @@ Widget formulaNew(int totalIn, int totalOut) {
           ),
           textAlign: TextAlign.end,
         ),
-        getForumlaInternalSimple(txtFRemain, (totalIn - totalOut).toString()),
+        getForumlaInternalSimple(AppLocalizations.of(gContext)!.txtFRemain,
+            (totalIn - totalOut).toString()),
       ],
     ),
   );

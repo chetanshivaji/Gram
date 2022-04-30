@@ -75,5 +75,16 @@
     "msgMoneySpent":"खर्च केलेले पैसे प्रविष्ट करा",
 
 
+    "txtFIn":"आले",    
+    "txtFOut":"बाहेर",
+    "txtFRemain":"राहिले",
+    "txtStartDate":"सु",    
+    "txtEndDate":"शे",
+    
+    "optCancel":"रद्द करा",
+    "optOk":"ठीक आहे",
+
+    "kSubtitleLogOutConfirmation":"तुम्हाला लॉग आउट करायचे आहे का?",
+
     "hello":"नमस्कार {randomString}"
 }
