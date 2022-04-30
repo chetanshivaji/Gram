@@ -40,13 +40,13 @@ class outFormState extends State<outForm> {
             child: TextFormField(
               decoration: InputDecoration(
                 icon: Icon(Icons.person),
-                hintText: msgEnterFullName,
-                labelText: labelName,
+                hintText: AppLocalizations.of(gContext)!.msgEnterFullName,
+                labelText: AppLocalizations.of(gContext)!.labelName,
               ),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return msgEnterFullName;
+                  return AppLocalizations.of(gContext)!.msgEnterFullName;
                 }
                 name = value;
                 return null;
@@ -57,12 +57,13 @@ class outFormState extends State<outForm> {
             child: TextFormField(
               decoration: InputDecoration(
                   icon: Icon(Icons.text_snippet),
-                  hintText: msgMoneySpendingReason,
-                  labelText: labelReason),
+                  hintText:
+                      AppLocalizations.of(gContext)!.msgMoneySpendingReason,
+                  labelText: AppLocalizations.of(gContext)!.labelReason),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return msgMoneySpendingReason;
+                  return AppLocalizations.of(gContext)!.msgMoneySpendingReason;
                 }
                 reason = value;
                 return null;
@@ -74,13 +75,13 @@ class outFormState extends State<outForm> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 icon: Icon(Icons.attach_money),
-                hintText: msgMoneySpent,
-                labelText: labelAmount,
+                hintText: AppLocalizations.of(gContext)!.msgMoneySpent,
+                labelText: AppLocalizations.of(gContext)!.labelAmount,
               ),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return msgMoneySpent;
+                  return AppLocalizations.of(gContext)!.msgMoneySpent;
                 }
                 if (!isNumeric(value)) {
                   return msgOnlyNumber;
@@ -94,8 +95,8 @@ class outFormState extends State<outForm> {
             child: TextFormField(
               decoration: InputDecoration(
                 icon: Icon(Icons.info_outline),
-                hintText: labelExtraInfo,
-                labelText: labelExtraInfo,
+                hintText: AppLocalizations.of(gContext)!.labelExtraInfo,
+                labelText: AppLocalizations.of(gContext)!.labelExtraInfo,
               ),
               validator: (value) {
                 extraInfo = value.toString();

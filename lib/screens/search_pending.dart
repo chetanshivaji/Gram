@@ -244,7 +244,7 @@ class _searchScreenState extends State<searchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(bLabelSearch),
+        title: Text(AppLocalizations.of(gContext)!.bLabelSearch),
       ),
       body: SingleChildScrollView(
         child: ConstrainedBox(
@@ -265,8 +265,10 @@ class _searchScreenState extends State<searchScreen> {
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             icon: Icon(Icons.mobile_friendly),
-                            hintText: msgEnterMobileNumber,
-                            labelText: labelMobile),
+                            hintText: AppLocalizations.of(gContext)!
+                                .msgEnterMobileNumber,
+                            labelText:
+                                AppLocalizations.of(gContext)!.labelMobile),
                         onChanged: (value) async {
                           if ((value.length < 10) || (value.length > 10)) {
                             multiUidsTextSpan.clear();
@@ -286,7 +288,8 @@ class _searchScreenState extends State<searchScreen> {
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return msgEnterMobileNumber;
+                            return AppLocalizations.of(gContext)!
+                                .msgEnterMobileNumber;
                           }
                           if (value == null || value.isEmpty) {
                             return msgOnlyNumber;
@@ -311,11 +314,11 @@ class _searchScreenState extends State<searchScreen> {
                     ),
                   ),
                 ),
-                getListTile(
-                    Icon(Icons.wb_incandescent_outlined), labelUid, uid),
+                getListTile(Icon(Icons.wb_incandescent_outlined),
+                    AppLocalizations.of(gContext)!.labelUid, uid),
                 getListTile(Icon(Icons.person), txtName, name),
-                getListTile(
-                    Icon(Icons.holiday_village), labelExtraInfo, extraInfo),
+                getListTile(Icon(Icons.holiday_village),
+                    AppLocalizations.of(gContext)!.labelExtraInfo, extraInfo),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,

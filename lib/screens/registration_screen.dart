@@ -52,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.person_add),
-                        labelText: labelName,
+                        labelText: AppLocalizations.of(gContext)!.labelName,
                         hintText: msgEnterUserName,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
@@ -93,7 +93,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.email),
-                        labelText: labelEmail,
+                        labelText: AppLocalizations.of(gContext)!.labelEmail,
                         hintText: msgEnterUserMail,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),

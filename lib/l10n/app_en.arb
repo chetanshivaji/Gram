@@ -53,11 +53,6 @@
         "description":"SrNum"
     },
 
-    "tableHeadingRegisteredName":"Name",
-    "@tableHeadingRegisteredName":{
-        "description":"Name"
-    },
-
     "tableHeadingEmail":"Email",
     "@tableHeadingEmail":{
         "description":"Email"
@@ -159,6 +154,75 @@
     "@txtHtoL":{
         "description":"H to L"
     },     
+"bLabelSearch":"Search",
+    "@bLabelSearch":{
+        "description":"Search"
+    },
+
+    "labelUid":"Uid *",
+    "@labelUid":{
+        "description":"Uid *"
+    },
+    
+    "labelExtraInfo":"Extra_information",
+    "@labelExtraInfo":{
+        "description":"Extra_information"
+    },
+
+    "labelMobile":"Mobile *",
+    "@labelMobile":{
+        "description":"Mobile *"
+    },
+
+    "labelName":"Name *",
+    "@labelName":{
+        "description":"Name *"
+    },
+
+    "labelAmount":"Amount *",
+    "@labelAmount":{
+        "description":"Amount *"
+    },
+
+    "labelEmail":"Mail *",
+    "@labelEmail":{
+        "description":"Mail *"
+    },
+
+    "labelReason":"Reason *",
+    "@labelReason":{
+        "description":"Reason *"
+    },
+
+    "msgExtraIncomeAmount":"Please enter Extra Income amount",
+    "@msgExtraIncomeAmount":{
+        "description":"Please enter Extra Income amount"
+    },
+
+    "msgExtraIncomeReasom":"'Please enter Extra Income reason'",
+    "@msgExtraIncomeReasom":{
+        "description":"'Please enter Extra Income reason'"
+    },
+
+    "msgEnterMobileNumber":"Enter mobile Number",
+    "@msgEnterMobileNumber":{
+        "description":"Enter mobile Number"
+    },
+
+    "msgEnterFullName":"Enter Full Name",
+    "@msgEnterFullName":{
+        "description":"Enter Full Name"
+    },
+
+    "msgMoneySpendingReason":"Reason for spending money",
+    "@msgMoneySpendingReason":{
+        "description":"Reason for spending money"
+    },
+
+    "msgMoneySpent":"Enter Money Spent",
+    "@msgMoneySpent":{
+        "description":"Enter Money Spent"
+    },
 
     "hello":"Hello {randomString}",
     "@hello":{

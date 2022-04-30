@@ -310,8 +310,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 icon: Icon(Icons.mobile_friendly),
-                hintText: msgEnterMobileNumber,
-                labelText: labelMobile),
+                hintText: AppLocalizations.of(gContext)!.msgEnterMobileNumber,
+                labelText: AppLocalizations.of(gContext)!.labelMobile),
 
             onChanged: (text) async {
               if ((text.length < 10) || (text.length > 10)) {
@@ -366,13 +366,17 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               ),
             ),
           ),
-          getListTile(Icon(Icons.wb_incandescent_outlined), labelUid, uid),
+          getListTile(Icon(Icons.wb_incandescent_outlined),
+              AppLocalizations.of(gContext)!.labelUid, uid),
           //getPadding(),
-          getListTile(Icon(Icons.person), labelName, name),
+          getListTile(Icon(Icons.person),
+              AppLocalizations.of(gContext)!.labelName, name),
           //getPadding(),
-          getListTile(Icon(Icons.mail), labelEmail, email),
+          getListTile(Icon(Icons.mail),
+              AppLocalizations.of(gContext)!.labelEmail, email),
           //getPadding(),
-          getListTile(Icon(Icons.attach_money), labelAmount, amount.toString()),
+          getListTile(Icon(Icons.attach_money),
+              AppLocalizations.of(gContext)!.labelAmount, amount.toString()),
           //getPadding(),
           Expanded(
             child: Center(
@@ -563,12 +567,12 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.text_snippet),
-                  hintText: msgExtraIncomeReasom,
-                  labelText: labelReason),
+                  hintText: AppLocalizations.of(gContext)!.msgExtraIncomeReasom,
+                  labelText: AppLocalizations.of(gContext)!.labelReason),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return msgExtraIncomeReasom;
+                  return AppLocalizations.of(gContext)!.msgExtraIncomeReasom;
                 }
                 reason = value;
                 return null;
@@ -582,12 +586,12 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.attach_money),
-                  hintText: msgExtraIncomeAmount,
-                  labelText: labelAmount),
+                  hintText: AppLocalizations.of(gContext)!.msgExtraIncomeAmount,
+                  labelText: AppLocalizations.of(gContext)!.labelAmount),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return msgExtraIncomeAmount;
+                  return AppLocalizations.of(gContext)!.msgExtraIncomeAmount;
                 }
                 if (!isNumeric(value)) {
                   return msgOnlyNumber;

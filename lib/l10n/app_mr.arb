@@ -56,5 +56,24 @@
 
     "txtHtoL":"उतरत्या",
     
+
+    "bLabelSearch":"शोध",
+    "labelUid":"संख्या *",
+    "labelExtraInfo":"अधिक_माहिती",
+
+    "labelMobile":"मोबाईल *",
+    "labelName":"नाव *",
+    "labelAmount":"रक्कम *",
+    "labelEmail":"मेल *",
+    "labelReason":"कारण *",
+
+    "msgExtraIncomeAmount":"कृपया अतिरिक्त उत्पन्नाची रक्कम प्रविष्ट करा",
+    "msgExtraIncomeReasom":"कृपया अतिरिक्त उत्पन्नाचे कारण प्रविष्ट करा",
+    "msgEnterMobileNumber":"मोबाईल नंबर टाका",
+    "msgEnterFullName":"पूर्ण नाव प्रविष्ट करा",
+    "msgMoneySpendingReason":"पैसे खर्च करण्याचे कारण",
+    "msgMoneySpent":"खर्च केलेले पैसे प्रविष्ट करा",
+
+
     "hello":"नमस्कार {randomString}"
 }
