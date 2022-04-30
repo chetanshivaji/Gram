@@ -244,7 +244,7 @@ $registeredName
   Widget build(BuildContext context) {
     Stream<QuerySnapshot<Object?>> stm;
     if (pendingType == housePendingType) {
-      if (orderType == txtLtoH) {
+      if (orderType == AppLocalizations.of(gContext)!.txtLtoH) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
             .doc(docMainDb)
@@ -252,7 +252,7 @@ $registeredName
             .where(keyHouseGiven, isEqualTo: false)
             .orderBy(keyHouse, descending: false)
             .snapshots();
-      } else if (orderType == txtHtoL) {
+      } else if (orderType == AppLocalizations.of(gContext)!.txtHtoL) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
             .doc(docMainDb)
@@ -270,7 +270,7 @@ $registeredName
             .snapshots();
       }
     } else {
-      if (orderType == txtLtoH) {
+      if (orderType == AppLocalizations.of(gContext)!.txtLtoH) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
             .doc(docMainDb)
@@ -278,7 +278,7 @@ $registeredName
             .where(keyWaterGiven, isEqualTo: false)
             .orderBy(keyWater, descending: false)
             .snapshots();
-      } else if (orderType == txtHtoL) {
+      } else if (orderType == AppLocalizations.of(gContext)!.txtHtoL) {
         stm = FirebaseFirestore.instance
             .collection(village + pin)
             .doc(docMainDb)

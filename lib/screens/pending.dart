@@ -16,10 +16,10 @@ class pendingContainer extends StatefulWidget {
   _pendingContainerState createState() => _pendingContainerState();
 }
 
-String dropdownValuePendingSort = txtHtoL;
+String dropdownValuePendingSort = AppLocalizations.of(gContext)!.txtHtoL;
 var itemsSort = [
-  txtHtoL,
-  txtLtoH,
+  AppLocalizations.of(gContext)!.txtHtoL,
+  AppLocalizations.of(gContext)!.txtLtoH,
 ];
 
 class _pendingContainerState extends State<pendingContainer> {
@@ -34,12 +34,13 @@ class _pendingContainerState extends State<pendingContainer> {
           .doc(docMainDb)
           .collection(docMainDb + dropdownValueYear);
 
-      if (dropdownValuePendingSort == txtLtoH) {
+      if (dropdownValuePendingSort == AppLocalizations.of(gContext)!.txtLtoH) {
         snapshots = await collection
             .where(keyHouseGiven, isEqualTo: false)
             .orderBy(keyHouse, descending: false)
             .get();
-      } else if (dropdownValuePendingSort == txtHtoL) {
+      } else if (dropdownValuePendingSort ==
+          AppLocalizations.of(gContext)!.txtHtoL) {
         snapshots = await collection
             .where(keyHouseGiven, isEqualTo: false)
             .orderBy(keyHouse, descending: true)
@@ -56,12 +57,13 @@ class _pendingContainerState extends State<pendingContainer> {
           .doc(docMainDb)
           .collection(docMainDb + dropdownValueYear);
 
-      if (dropdownValuePendingSort == txtLtoH) {
+      if (dropdownValuePendingSort == AppLocalizations.of(gContext)!.txtLtoH) {
         snapshots = await collection
             .where(keyWaterGiven, isEqualTo: false)
             .orderBy(keyWater, descending: false)
             .get();
-      } else if (dropdownValuePendingSort == txtHtoL) {
+      } else if (dropdownValuePendingSort ==
+          AppLocalizations.of(gContext)!.txtHtoL) {
         snapshots = await collection
             .where(keyWaterGiven, isEqualTo: false)
             .orderBy(keyWater, descending: true)

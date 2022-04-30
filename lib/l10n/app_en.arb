@@ -148,8 +148,17 @@
     "tableHeadingWater":"Water",
     "@tableHeadingWater":{
         "description":"Water"
-    },    
+    }, 
 
+    "txtLtoH":"L to H",
+    "@txtLtoH":{
+        "description":"L to H"
+    },  
+
+    "txtHtoL":"H to L",
+    "@txtHtoL":{
+        "description":"H to L"
+    },     
 
     "hello":"Hello {randomString}",
     "@hello":{

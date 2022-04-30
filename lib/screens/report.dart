@@ -24,11 +24,12 @@ DateTime toDate = DateTime.now();
 DateTime startDate = DateTime(int.parse(dropdownValueYear), 1, 1);
 DateTime endDate = DateTime(int.parse(dropdownValueYear), 12, 31);
 
-String dropdownValueReportSort = "Date";
+String dropdownValueReportSort =
+    AppLocalizations.of(gContext)!.tableHeadingDate;
 var itemsSort = [
   AppLocalizations.of(gContext)!.tableHeadingDate,
-  txtHtoL,
-  txtLtoH,
+  AppLocalizations.of(gContext)!.txtHtoL,
+  AppLocalizations.of(gContext)!.txtLtoH,
 ];
 
 class _reportContainerState extends State<reportContainer> {
@@ -80,9 +81,10 @@ class _reportContainerState extends State<reportContainer> {
         .collection(
             widget.reportType + dropdownValueYear); //TODO: need to user where
 
-    if (dropdownValueReportSort == txtLtoH) {
+    if (dropdownValueReportSort == AppLocalizations.of(gContext)!.txtLtoH) {
       snapshots = await collection.orderBy(keyAmount, descending: false).get();
-    } else if (dropdownValueReportSort == txtHtoL) {
+    } else if (dropdownValueReportSort ==
+        AppLocalizations.of(gContext)!.txtHtoL) {
       snapshots = await collection.orderBy(keyAmount, descending: true).get();
     } else {
       snapshots = await collection.orderBy(keyDate, descending: true).get();

@@ -50,7 +50,11 @@
     "tableHeadingYear":"वर्ष",
     "tableHeadingHouse":"घर",
     "tableHeadingWater":"पाणी",
+    
+    "txtLtoH":"चढत्या",
+    
 
-
+    "txtHtoL":"उतरत्या",
+    
     "hello":"नमस्कार {randomString}"
 }

@@ -199,14 +199,14 @@ class inList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot<Object?>> stm;
-    if (orderType == txtLtoH) {
+    if (orderType == AppLocalizations.of(gContext)!.txtLtoH) {
       stm = FirebaseFirestore.instance
           .collection(village + pin)
           .doc(docMainDb)
           .collection(inType + yearDropDownValue)
           .orderBy(keyAmount, descending: false)
           .snapshots();
-    } else if (orderType == txtHtoL) {
+    } else if (orderType == AppLocalizations.of(gContext)!.txtHtoL) {
       stm = FirebaseFirestore.instance
           .collection(village + pin)
           .doc(docMainDb)
