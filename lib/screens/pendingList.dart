@@ -193,43 +193,43 @@ $registeredName
           columns: <DataColumn>[
             DataColumn(
               label: Text(
-                tableHeading_srNum,
+                AppLocalizations.of(gContext)!.tableHeading_srNum,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingName,
+                AppLocalizations.of(gContext)!.tableHeadingName,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingMobile,
+                AppLocalizations.of(gContext)!.tableHeadingMobile,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingUid,
+                AppLocalizations.of(gContext)!.tableHeadingUid,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingAmount,
+                AppLocalizations.of(gContext)!.tableHeadingAmount,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingNotify,
+                AppLocalizations.of(gContext)!.tableHeadingNotify,
                 style: getStyle(actPending),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingOnlinePayment,
+                AppLocalizations.of(gContext)!.tableHeadingOnlinePayment,
                 style: getStyle(actPending),
               ),
             ),

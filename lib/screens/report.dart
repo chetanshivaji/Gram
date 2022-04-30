@@ -26,7 +26,7 @@ DateTime endDate = DateTime(int.parse(dropdownValueYear), 12, 31);
 
 String dropdownValueReportSort = "Date";
 var itemsSort = [
-  tableHeadingDate,
+  AppLocalizations.of(gContext)!.tableHeadingDate,
   txtHtoL,
   txtLtoH,
 ];

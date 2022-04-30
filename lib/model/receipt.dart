@@ -132,11 +132,11 @@ abstract class receipt {
                 equals +
                 info.taxType +
                 endL +
-                tableHeadingName +
+                AppLocalizations.of(gContext)!.tableHeadingName +
                 equals +
                 info.name +
                 endL +
-                tableHeadingMobile +
+                AppLocalizations.of(gContext)!.tableHeadingMobile +
                 equals +
                 info.mobile +
                 endL +
@@ -236,10 +236,10 @@ class pendingReceipt extends receipt {
     var data;
 
     headers = [
-      tableHeadingName,
-      tableHeadingMobile,
-      tableHeadingAmount,
-      tableHeadingDate,
+      AppLocalizations.of(gContext)!.tableHeadingName,
+      AppLocalizations.of(gContext)!.tableHeadingMobile,
+      AppLocalizations.of(gContext)!.tableHeadingAmount,
+      AppLocalizations.of(gContext)!.tableHeadingDate,
     ];
     List<List<dynamic>> lld = [
       [info.name, info.mobile, info.amount, info.date],
@@ -272,10 +272,10 @@ class receivedReceipt extends receipt {
     var data;
 
     headers = [
-      tableHeadingName,
-      tableHeadingMobile,
-      tableHeadingAmount,
-      tableHeadingDate,
+      AppLocalizations.of(gContext)!.tableHeadingName,
+      AppLocalizations.of(gContext)!.tableHeadingMobile,
+      AppLocalizations.of(gContext)!.tableHeadingAmount,
+      AppLocalizations.of(gContext)!.tableHeadingDate,
     ];
     List<List<dynamic>> lld = [
       [info.name, info.mobile, info.amount, info.date],

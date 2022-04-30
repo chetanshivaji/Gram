@@ -99,31 +99,31 @@ class inList extends StatelessWidget {
           columns: <DataColumn>[
             DataColumn(
               label: Text(
-                tableHeading_srNum,
+                AppLocalizations.of(gContext)!.tableHeading_srNum,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingAmount,
+                AppLocalizations.of(gContext)!.tableHeadingAmount,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingReason,
+                AppLocalizations.of(gContext)!.tableHeadingReason,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingDate,
+                AppLocalizations.of(gContext)!.tableHeadingDate,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingUser,
+                AppLocalizations.of(gContext)!.tableHeadingUser,
                 style: getStyle(actIn),
               ),
             ),
@@ -149,43 +149,43 @@ class inList extends StatelessWidget {
           columns: <DataColumn>[
             DataColumn(
               label: Text(
-                tableHeading_srNum,
+                AppLocalizations.of(gContext)!.tableHeading_srNum,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingName,
+                AppLocalizations.of(gContext)!.tableHeadingName,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingMobile,
+                AppLocalizations.of(gContext)!.tableHeadingMobile,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingUid,
+                AppLocalizations.of(gContext)!.tableHeadingUid,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingAmount,
+                AppLocalizations.of(gContext)!.tableHeadingAmount,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingDate,
+                AppLocalizations.of(gContext)!.tableHeadingDate,
                 style: getStyle(actIn),
               ),
             ),
             DataColumn(
               label: Text(
-                tableHeadingUser,
+                AppLocalizations.of(gContext)!.tableHeadingUser,
                 style: getStyle(actIn),
               ),
             ),

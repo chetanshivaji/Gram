@@ -12,6 +12,45 @@
     "actReport":"अहवाल",
     
 
+    "tableHeading_srNum":"अनुक्रमांक",
+    
+    "tableHeadingRegisteredName":"नाव",
+    
+    "tableHeadingEmail":"ईमेल",
+    
+
+    "tableHeadingStatus":"स्थिती",
+    
+    "tableHeadingAccess":"प्रवेश",
+    
+    "tableHeadingChangeStatus":"स्थितीबदला",
+    
+    "tableHeadingSrnum":"अनुक्रमांक",
+    
+    "tableHeadingName":"नाव",
+    
+    "tableHeadingMobile":"मोबाईल",
+    
+    "tableHeadingUid":"संख्या",
+
+    "tableHeadingAmount":"रक्कम",
+
+    "tableHeadingDate":"तारीख",
+
+    "tableHeadingUser":"वापरकर्ता",
+
+    "tableHeadingReason":"कारण",
+
+    "tableHeadingExtraInfo":"अतिरिक्त_माहिती",
+
+    "tableHeadingNotify":"सूचित_करा",
+
+    "tableHeadingOnlinePayment":"ऑनलाइन_पे",
+
+    "tableHeadingYear":"वर्ष",
+    "tableHeadingHouse":"घर",
+    "tableHeadingWater":"पाणी",
+
 
     "hello":"नमस्कार {randomString}"
 }

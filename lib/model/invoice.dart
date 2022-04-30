@@ -244,11 +244,11 @@ class pendingInvoice extends Invoice {
     var data;
 
     headers = [
-      tableHeadingSrnum,
-      tableHeadingName,
-      tableHeadingMobile,
-      tableHeadingUid,
-      tableHeadingAmount,
+      AppLocalizations.of(gContext)!.tableHeadingSrnum,
+      AppLocalizations.of(gContext)!.tableHeadingName,
+      AppLocalizations.of(gContext)!.tableHeadingMobile,
+      AppLocalizations.of(gContext)!.tableHeadingUid,
+      AppLocalizations.of(gContext)!.tableHeadingAmount,
     ];
     data = pendingInvoiceItems.map(
       (item) {
@@ -282,13 +282,13 @@ class reportHouseWaterInvoice extends Invoice {
     var data;
 
     headers = [
-      tableHeadingSrnum,
-      tableHeadingName,
-      tableHeadingMobile,
-      tableHeadingUid,
-      tableHeadingAmount,
-      tableHeadingDate,
-      tableHeadingUser,
+      AppLocalizations.of(gContext)!.tableHeadingSrnum,
+      AppLocalizations.of(gContext)!.tableHeadingName,
+      AppLocalizations.of(gContext)!.tableHeadingMobile,
+      AppLocalizations.of(gContext)!.tableHeadingUid,
+      AppLocalizations.of(gContext)!.tableHeadingAmount,
+      AppLocalizations.of(gContext)!.tableHeadingDate,
+      AppLocalizations.of(gContext)!.tableHeadingUser,
     ];
     data = houseWaterReportInvoiceItems.map(
       (item) {
@@ -323,11 +323,11 @@ class reportExtraInvoice extends Invoice {
     var data;
 
     headers = [
-      tableHeadingSrnum,
-      tableHeadingAmount,
-      tableHeadingReason,
-      tableHeadingDate,
-      tableHeadingUser,
+      AppLocalizations.of(gContext)!.tableHeadingSrnum,
+      AppLocalizations.of(gContext)!.tableHeadingAmount,
+      AppLocalizations.of(gContext)!.tableHeadingReason,
+      AppLocalizations.of(gContext)!.tableHeadingDate,
+      AppLocalizations.of(gContext)!.tableHeadingUser,
     ];
     data = extraIncomeReportInvoiceItems.map((item) {
       return [
@@ -361,13 +361,13 @@ class reportOutInvoice extends Invoice {
     var data;
 
     headers = [
-      tableHeadingSrnum,
-      tableHeadingName,
-      tableHeadingReason,
-      tableHeadingAmount,
-      tableHeadingExtraInfo,
-      tableHeadingDate,
-      tableHeadingUser,
+      AppLocalizations.of(gContext)!.tableHeadingSrnum,
+      AppLocalizations.of(gContext)!.tableHeadingName,
+      AppLocalizations.of(gContext)!.tableHeadingReason,
+      AppLocalizations.of(gContext)!.tableHeadingAmount,
+      AppLocalizations.of(gContext)!.tableHeadingExtraInfo,
+      AppLocalizations.of(gContext)!.tableHeadingDate,
+      AppLocalizations.of(gContext)!.tableHeadingUser,
     ];
     data = outReportInvoiceItems.map(
       (item) {

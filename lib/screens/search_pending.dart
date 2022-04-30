@@ -330,13 +330,13 @@ class _searchScreenState extends State<searchScreen> {
                         columns: <DataColumn>[
                           DataColumn(
                             label: Text(
-                              tableHeading_srNum,
+                              AppLocalizations.of(gContext)!.tableHeading_srNum,
                               style: getStyle(actPending),
                             ),
                           ),
                           DataColumn(
                             label: Text(
-                              tableHeadingYear,
+                              AppLocalizations.of(gContext)!.tableHeadingYear,
                               style: getStyle(actPending),
                             ),
                           ),

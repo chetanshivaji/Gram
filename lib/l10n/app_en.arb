@@ -48,6 +48,107 @@
         "description":"Activity Report drawer"
     },
 
+    "tableHeading_srNum":"SrNum",
+    "@tableHeading_srNum":{
+        "description":"SrNum"
+    },
+
+    "tableHeadingRegisteredName":"Name",
+    "@tableHeadingRegisteredName":{
+        "description":"Name"
+    },
+
+    "tableHeadingEmail":"Email",
+    "@tableHeadingEmail":{
+        "description":"Email"
+    },
+
+
+    "tableHeadingStatus":"Status",
+    "@tableHeadingStatus":{
+        "description":"Status"
+    },
+
+    "tableHeadingAccess":"Access",
+    "@tableHeadingAccess":{
+        "description":"Access"
+    },
+
+    "tableHeadingChangeStatus":"ChangeStatus",
+    "@tableHeadingChangeStatus":{
+        "description":"ChangeStatus"
+    },
+
+    "tableHeadingSrnum":"SrNum",
+    "@tableHeadingSrnum":{
+        "description":"SrNum"
+    },    
+
+    "tableHeadingName":"Name",
+    "@tableHeadingName":{
+        "description":"Name"
+    },    
+
+    "tableHeadingMobile":"Mobile",
+    "@tableHeadingMobile":{
+        "description":"Mobile"
+    },    
+    "tableHeadingUid":"Uid",
+    "@tableHeadingUid":{
+        "description":"Uid"
+    },    
+
+    "tableHeadingAmount":"Amount",
+    "@tableHeadingAmount":{
+        "description":"Amount"
+    },    
+
+
+    "tableHeadingDate":"Date",
+    "@tableHeadingDate":{
+        "description":"Date"
+    },    
+
+
+    "tableHeadingUser":"User",
+    "@tableHeadingUser":{
+        "description":"User"
+    },    
+
+    "tableHeadingReason":"Reason",
+    "@tableHeadingReason":{
+        "description":"Reason"
+    },    
+
+    "tableHeadingExtraInfo":"ExtraInfo",
+    "@tableHeadingExtraInfo":{
+        "description":"ExtraInfo"
+    },    
+
+    "tableHeadingNotify":"Notify",
+    "@tableHeadingNotify":{
+        "description":"Notify"
+    },    
+
+    "tableHeadingOnlinePayment":"OnlinePay",
+    "@tableHeadingOnlinePayment":{
+        "description":"OnlinePay"
+    },    
+
+    "tableHeadingYear":"Year",
+    "@tableHeadingYear":{
+        "description":"Year"
+    },    
+
+    "tableHeadingHouse":"House",
+    "@tableHeadingHouse":{
+        "description":"House"
+    },    
+
+    "tableHeadingWater":"Water",
+    "@tableHeadingWater":{
+        "description":"Water"
+    },    
 
 
     "hello":"Hello {randomString}",
