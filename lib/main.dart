@@ -20,6 +20,7 @@ import 'screens/forgotPassword.dart';
 
 import 'package:provider/provider.dart';
 import 'package:money/provider/locale_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   try {

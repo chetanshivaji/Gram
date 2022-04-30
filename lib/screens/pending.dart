@@ -5,6 +5,7 @@ import 'package:money/model/invoice.dart';
 import 'package:money/api/pdf_api.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class pendingContainer extends StatefulWidget {
   String pendingType = "";

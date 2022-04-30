@@ -7,6 +7,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:money/constants.dart';
 import 'package:money/util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //********************END HouseWater report invoice****************************** */
 Widget getTableOnPDF(List<dynamic>? headers, List<List<dynamic>> data) {

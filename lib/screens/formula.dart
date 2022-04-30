@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> updateYearWiseFormula(
     int newEntryAmount, String typeInOut, String inType) async {

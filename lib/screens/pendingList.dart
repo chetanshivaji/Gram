@@ -5,6 +5,7 @@ import 'package:money/util.dart';
 import 'package:money/communication.dart';
 import 'package:money/model/receipt.dart';
 import 'package:money/api/pdf_api.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";

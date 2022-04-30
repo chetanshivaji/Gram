@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:money/constants.dart';
 import 'package:money/util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class forgotPasswordScreen extends StatefulWidget {
   static String id = "forgotPasswordscreen";

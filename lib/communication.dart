@@ -1,5 +1,6 @@
 import 'package:telephony/telephony.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 bool whatsUpEnabled = false;
 bool textMsgEnabled = true;

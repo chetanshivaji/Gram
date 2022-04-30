@@ -3,6 +3,7 @@ import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class searchScreen extends StatefulWidget {
   static String id = "searchscreen";

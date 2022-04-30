@@ -7,6 +7,7 @@ import 'package:money/api/pdf_api.dart';
 import 'package:money/model/receipt.dart';
 import 'package:money/constants.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
