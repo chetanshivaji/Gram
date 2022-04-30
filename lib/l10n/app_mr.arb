@@ -86,5 +86,7 @@
 
     "kSubtitleLogOutConfirmation":"तुम्हाला लॉग आउट करायचे आहे का?",
 
+    "kTitleSignOut":"बाहेर पडणे",
+    
     "hello":"नमस्कार {randomString}"
 }

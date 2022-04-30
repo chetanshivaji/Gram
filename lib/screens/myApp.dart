@@ -59,13 +59,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     gContext = context;
     void handleClick(String value) {
-      switch (value) {
-        case 'LanguageChange':
-          break;
-        case 'LogOut':
+      int caseNum = 0;
+
+      if (AppLocalizations.of(gContext)!.kTitleSignOut == value) caseNum = 1;
+      {
+        caseNum = 1;
+      }
+
+      switch (1) {
+        case 1:
           popLogOutAlert(
             context,
-            kTitleSignOut,
+            AppLocalizations.of(gContext)!.kTitleSignOut,
             AppLocalizations.of(gContext)!.kSubtitleLogOutConfirmation,
             Icon(Icons.power_settings_new),
           );
@@ -81,7 +86,7 @@ class MyApp extends StatelessWidget {
 
         popLogOutAlert(
           context,
-          kTitleSignOut,
+          AppLocalizations.of(gContext)!.kTitleSignOut,
           AppLocalizations.of(gContext)!.kSubtitleLogOutConfirmation,
           Icon(Icons.power_settings_new),
         );
@@ -117,7 +122,8 @@ class MyApp extends StatelessWidget {
             PopupMenuButton<String>(
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
-                return {"LanguageChange", 'LogOut'}.map((String choice) {
+                return {AppLocalizations.of(gContext)!.kTitleSignOut}
+                    .map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
                     child: Text(choice),

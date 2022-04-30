@@ -262,6 +262,11 @@
         "description":"Do you want to log out?"
     },
 
+    "kTitleSignOut":"SignOut",
+    "@kTitleSignOut":{
+        "description":"SignOut"
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",
