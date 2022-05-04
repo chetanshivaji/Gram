@@ -24,14 +24,6 @@ DateTime toDate = DateTime.now();
 DateTime startDate = DateTime(int.parse(dropdownValueYear), 1, 1);
 DateTime endDate = DateTime(int.parse(dropdownValueYear), 12, 31);
 
-String dropdownValueReportSort =
-    AppLocalizations.of(gContext)!.tableHeadingDate;
-var itemsSort = [
-  AppLocalizations.of(gContext)!.tableHeadingDate,
-  AppLocalizations.of(gContext)!.txtHtoL,
-  AppLocalizations.of(gContext)!.txtLtoH,
-];
-
 class _reportContainerState extends State<reportContainer> {
   Future<void> _selectStartDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -68,7 +60,7 @@ class _reportContainerState extends State<reportContainer> {
       );
   }
 
-  Future<void> createPDFReportEntries() async {
+  Future<void> createPDFReportEntries(String dropdownValueReportSort) async {
     //START - fetch data to display in pdf
     List<houseWaterReportEntry> entriesHouseWater = [];
     List<extraIncomeReportEntry> entriesExtraIncome = [];
@@ -257,6 +249,13 @@ class _reportContainerState extends State<reportContainer> {
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    String dropdownValueReportSort =
+        AppLocalizations.of(gContext)!.tableHeadingDate;
+    var itemsSort = [
+      AppLocalizations.of(gContext)!.tableHeadingDate,
+      AppLocalizations.of(gContext)!.txtHtoL,
+      AppLocalizations.of(gContext)!.txtLtoH,
+    ];
     String txtSDate = AppLocalizations.of(gContext)!.txtStartDate;
     String txtEDate = AppLocalizations.of(gContext)!.txtEndDate;
     return Container(
@@ -291,7 +290,7 @@ class _reportContainerState extends State<reportContainer> {
                   splashRadius: iconSplashRadius,
                   alignment: Alignment.topRight,
                   onPressed: () async {
-                    await createPDFReportEntries();
+                    await createPDFReportEntries(dropdownValueReportSort);
                   },
                   icon: Icon(
                     Icons.download,

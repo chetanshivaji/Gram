@@ -16,14 +16,8 @@ class pendingContainer extends StatefulWidget {
   _pendingContainerState createState() => _pendingContainerState();
 }
 
-String dropdownValuePendingSort = AppLocalizations.of(gContext)!.txtHtoL;
-var itemsSort = [
-  AppLocalizations.of(gContext)!.txtHtoL,
-  AppLocalizations.of(gContext)!.txtLtoH,
-];
-
 class _pendingContainerState extends State<pendingContainer> {
-  Future<void> createPDFPendingEntries() async {
+  Future<void> createPDFPendingEntries(String dropdownValuePendingSort) async {
     //START - fetch data to display in pdf
     List<pendingEntry> entries = [];
 
@@ -121,6 +115,11 @@ class _pendingContainerState extends State<pendingContainer> {
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    String dropdownValuePendingSort = AppLocalizations.of(gContext)!.txtHtoL;
+    var itemsSort = [
+      AppLocalizations.of(gContext)!.txtHtoL,
+      AppLocalizations.of(gContext)!.txtLtoH,
+    ];
     return Container(
       width: double.infinity,
       color: Colors.grey[350],
@@ -138,7 +137,7 @@ class _pendingContainerState extends State<pendingContainer> {
                 onPressed: () async {
                   //TODO: update pendingInvoiceItems from DB later.
 
-                  await createPDFPendingEntries();
+                  await createPDFPendingEntries(dropdownValuePendingSort);
                 },
                 icon: Icon(Icons.download, size: 30.0),
                 color: getColor(widget.pendingType),
