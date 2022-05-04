@@ -316,7 +316,8 @@ class _searchScreenState extends State<searchScreen> {
                 ),
                 getListTile(Icon(Icons.wb_incandescent_outlined),
                     AppLocalizations.of(gContext)!.labelUid, uid),
-                getListTile(Icon(Icons.person), txtName, name),
+                getListTile(Icon(Icons.person),
+                    AppLocalizations.of(gContext)!.tableHeadingName, name),
                 getListTile(Icon(Icons.holiday_village),
                     AppLocalizations.of(gContext)!.labelExtraInfo, extraInfo),
                 Expanded(

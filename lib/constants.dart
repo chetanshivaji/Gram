@@ -145,7 +145,6 @@ String txtDownloadPending = "Download pending";
 String txtDownloadReport = "Download Report";
 String txtNotifyToPay = "Send notification to Pay";
 String txtNotifyToPayOnline = "Send notification to Pay online";
-String txtName = "Name";
 String txtFetchFailFromDb = "Fetch Fail From Db";
 const String txtTaxTypeHouse = "House";
 String txtTaxTypeWater = "Water";
