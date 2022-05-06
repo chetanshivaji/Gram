@@ -45,8 +45,8 @@ class _forgotPasswordScreenState extends State<forgotPasswordScreen> {
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.email),
-                    labelText: labelAdminEmail,
-                    hintText: msgEnterEmail,
+                    labelText: AppLocalizations.of(gContext)!.labelEmail,
+                    hintText: AppLocalizations.of(gContext)!.msgEnterUserMail,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -111,7 +111,7 @@ class _forgotPasswordScreenState extends State<forgotPasswordScreen> {
                           onPressedforgotPassword = false;
                           popAlert(
                             context,
-                            kTitleFail,
+                            AppLocalizations.of(gContext)!.kTitleFail,
                             e.toString(),
                             getWrongIcon(50),
                             2,

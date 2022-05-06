@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressedLogin = false;
                           popAlert(
                             context,
-                            kTitleFail,
+                            AppLocalizations.of(gContext)!.kTitleFail,
                             e.toString(),
                             getWrongIcon(50.0),
                             2,

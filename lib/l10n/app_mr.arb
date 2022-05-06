@@ -131,6 +131,8 @@
     "kTitleNotPresent":"उपस्थित नाही",
 
     "kSubTitleEmailPresent":"ईमेल उपस्थित नाही",
+    
+    "kTitleFail":"लॉगिन/नोंदणी अयशस्वी",
 
     "hello":"नमस्कार {randomString}"
 }

@@ -377,6 +377,11 @@
         "description":"Email not present"
     },
 
+    "kTitleFail":"Login/registeration failed",
+    "@kTitleFail":{
+        "description":"Login/registeration failed"
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",
