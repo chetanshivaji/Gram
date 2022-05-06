@@ -87,7 +87,7 @@ class _forgotPasswordScreenState extends State<forgotPasswordScreen> {
                     minWidth: 200.0,
                     height: 42.0,
                     child: Text(
-                      labelForgotPassword,
+                      AppLocalizations.of(gContext)!.labelForgotPassword,
                     ),
                     onPressed: () async {
                       if (_formforgotPasswordKey.currentState!.validate() &&

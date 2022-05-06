@@ -297,6 +297,86 @@
         "description":"Please enter only numbers!"
     },
 
+    "bLabelLogin":"Log In",
+    "@bLabelLogin":{
+        "description":"Log In"
+    },
+
+    "bLabelRegiter":"Register",
+    "@bLabelRegiter":{
+        "description":"Register"
+    },
+
+    "labelForgotPassword":"Forgot Password?",
+    "@labelForgotPassword":{
+        "description":"Forgot Password?"
+    },
+
+    "msgEnterUserMail":"Enter email",
+    "@msgEnterUserMail":{
+        "description":"Enter email"
+    },
+
+    "labelPassword":"Password *",
+    "@labelPassword":{
+        "description":"Password *"
+    },
+
+
+    "msgEnterPassword":"Please Enter min 6 char Password",
+    "@msgEnterPassword":{
+        "description":"Please Enter min 6 char Password"
+    },
+
+    "msgEnterUserName":"Enter name",
+    "@msgEnterUserName":{
+        "description":"Enter name"
+    },
+    "msgReEnterPassword":"Please re enter password",
+    "@msgReEnterPassword":{
+        "description":"Please re enter password"
+    },
+
+    "msgEnterVillageName":"Please enter village name",
+    "@msgEnterVillageName":{
+        "description":"Please enter village name"
+    },
+    
+    "msgEnterVillagePin":"Please enter village pin",
+    "@msgEnterVillagePin":{
+        "description":"Please enter village pin"
+    },
+
+    "labelVillage":"Village *",
+    "@labelVillage":{
+        "description":"Village *"
+    },
+
+    "labelPin":"Pin *",
+    "@labelPin":{
+        "description":"Pin *"
+    },
+
+    "kSubTitelYetToApproveByAdmin":"Try After sometime Or remind admin to approve.",
+    "@kSubTitelYetToApproveByAdmin":{
+        "description":"Try After sometime Or remind admin to approve."
+    },
+
+    "kTitleYetToApproveByAdmin":"Yet to be approved by Admin",
+    "@kTitleYetToApproveByAdmin":{
+        "description":"Yet to be approved by Admin"
+    },
+    
+    "kTitleNotPresent":"No Present",
+    "@kTitleNotPresent":{
+        "description":"No Present"
+    },
+
+    "kSubTitleEmailPresent":"Email not present",
+    "@kSubTitleEmailPresent":{
+        "description":"Email not present"
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

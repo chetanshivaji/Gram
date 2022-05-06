@@ -167,6 +167,7 @@ String txtEndDate = 'E';
 
 //doc strings
 String docVillageInfo = "villageInfo";
+String docAppLaguages = "appLanguages";
 String docCalcultion = 'calculation';
 String docMainDb = "mainDb";
 String docMobileUidMap = 'mobileUidMap';
@@ -178,6 +179,8 @@ String appBarHeadingRemoveInfo = "Remove Person from GramDB";
 String appBarMainAppInfo = 'Admin, Register, approve, make db';
 
 //keys
+String keyUserAppLanguage = 'userAppLanguage';
+String keyAdminAppLanguage = 'adminAppLanguage';
 String keyRegisteredName = 'registeredName';
 String keyVillage = 'village';
 String keyPin = 'pin';

@@ -53,7 +53,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   minWidth: 200.0,
                   height: 42.0,
                   child: Text(
-                    bLabelLogin,
+                    AppLocalizations.of(gContext)!.bLabelLogin,
                   ),
                 ),
               ),
@@ -73,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   minWidth: 200.0,
                   height: 42.0,
                   child: Text(
-                    bLabelRegiter,
+                    AppLocalizations.of(gContext)!.bLabelRegiter,
                   ),
                 ),
               ),
@@ -83,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Navigator.pushNamed(context, forgotPasswordScreen.id);
               },
               child: Text(
-                labelForgotPassword,
+                AppLocalizations.of(gContext)!.labelForgotPassword,
                 style: TextStyle(color: Colors.blueGrey),
               ),
             ),

@@ -45,7 +45,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       keyboardType: TextInputType.text,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return msgEnterUserName;
+                          return AppLocalizations.of(gContext)!
+                              .msgEnterUserName;
                         }
                         registeredName = value;
                         return null;
@@ -53,7 +54,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       decoration: InputDecoration(
                         icon: Icon(Icons.person_add),
                         labelText: AppLocalizations.of(gContext)!.labelName,
-                        hintText: msgEnterUserName,
+                        hintText:
+                            AppLocalizations.of(gContext)!.msgEnterUserName,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         border: OutlineInputBorder(
@@ -86,7 +88,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return msgEnterUserMail;
+                          return AppLocalizations.of(gContext)!
+                              .msgEnterUserMail;
                         }
                         email = value.toLowerCase();
                         return null;
@@ -94,7 +97,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       decoration: InputDecoration(
                         icon: Icon(Icons.email),
                         labelText: AppLocalizations.of(gContext)!.labelEmail,
-                        hintText: msgEnterUserMail,
+                        hintText:
+                            AppLocalizations.of(gContext)!.msgEnterUserMail,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         border: OutlineInputBorder(
@@ -128,15 +132,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return msgEnterPassword;
+                          return AppLocalizations.of(gContext)!
+                              .msgEnterPassword;
                         }
                         password = value;
                         return null;
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.password),
-                        labelText: labelPassword,
-                        hintText: msgEnterPassword,
+                        labelText: AppLocalizations.of(gContext)!.labelPassword,
+                        hintText:
+                            AppLocalizations.of(gContext)!.msgEnterPassword,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         border: OutlineInputBorder(
@@ -170,15 +176,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return msgEnterPassword;
+                          return AppLocalizations.of(gContext)!
+                              .msgEnterPassword;
                         }
                         reEnterPassword = value;
                         return null;
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.password),
-                        labelText: labelPassword,
-                        hintText: msgReEnterPassword,
+                        labelText: AppLocalizations.of(gContext)!.labelPassword,
+                        hintText:
+                            AppLocalizations.of(gContext)!.msgReEnterPassword,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         border: OutlineInputBorder(
@@ -211,15 +219,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       keyboardType: TextInputType.text,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return msgEnterVillageName;
+                          return AppLocalizations.of(gContext)!
+                              .msgEnterVillageName;
                         }
                         village = value.toLowerCase();
                         return null;
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.holiday_village),
-                        labelText: labelVillage,
-                        hintText: msgEnterVillageName,
+                        labelText: AppLocalizations.of(gContext)!.labelVillage,
+                        hintText:
+                            AppLocalizations.of(gContext)!.msgEnterVillageName,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         border: OutlineInputBorder(
@@ -252,7 +262,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return msgEnterVillagePin;
+                          return AppLocalizations.of(gContext)!
+                              .msgEnterVillagePin;
                         }
                         if (!isNumeric(value)) {
                           return msgOnlyNumber;
@@ -263,8 +274,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       },
                       decoration: InputDecoration(
                         icon: Icon(Icons.pin),
-                        labelText: labelPin,
-                        hintText: msgEnterVillagePin,
+                        labelText: AppLocalizations.of(gContext)!.labelPin,
+                        hintText:
+                            AppLocalizations.of(gContext)!.msgEnterVillagePin,
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         border: OutlineInputBorder(
@@ -305,7 +317,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         minWidth: 200.0,
                         height: 42.0,
                         child: Text(
-                          bLabelRegiter,
+                          AppLocalizations.of(gContext)!.bLabelRegiter,
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () async {

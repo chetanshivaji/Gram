@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return msgEnterUserMail;
+                      return AppLocalizations.of(gContext)!.msgEnterUserMail;
                     }
                     email = value
                         .toLowerCase(); //to avoid issue by upper case email typing.
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     icon: Icon(Icons.email),
                     labelText: AppLocalizations.of(gContext)!.labelEmail,
-                    hintText: msgEnterUserMail,
+                    hintText: AppLocalizations.of(gContext)!.msgEnterUserMail,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -99,15 +99,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return msgEnterPassword;
+                      return AppLocalizations.of(gContext)!.msgEnterPassword;
                     }
                     password = value;
                     return null;
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.password),
-                    labelText: labelPassword,
-                    hintText: msgEnterPassword,
+                    labelText: AppLocalizations.of(gContext)!.labelPassword,
+                    hintText: AppLocalizations.of(gContext)!.msgEnterPassword,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     minWidth: 200.0,
                     height: 42.0,
                     child: Text(
-                      bLabelLogin,
+                      AppLocalizations.of(gContext)!.bLabelLogin,
                     ),
                     onPressed: () async {
                       if (_formLoginKey.currentState!.validate() &&
@@ -167,8 +167,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 //if allready present
                                 popAlert(
                                   context,
-                                  kTitleNotPresent,
-                                  kSubTitleEmailPresent,
+                                  AppLocalizations.of(gContext)!
+                                      .kTitleNotPresent,
+                                  AppLocalizations.of(gContext)!
+                                      .kSubTitleEmailPresent,
                                   getWrongIcon(50.0),
                                   2,
                                 );
@@ -186,8 +188,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressedLogin = false;
                             popAlert(
                               context,
-                              kTitleYetToApproveByAdmin,
-                              kSubTitelYetToApproveByAdmin,
+                              AppLocalizations.of(gContext)!
+                                  .kTitleYetToApproveByAdmin,
+                              AppLocalizations.of(gContext)!
+                                  .kSubTitelYetToApproveByAdmin,
                               getWrongIcon(50.0),
                               1,
                             );

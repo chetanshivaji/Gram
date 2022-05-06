@@ -11,6 +11,9 @@ import 'package:provider/provider.dart';
 import 'package:money/l10n/l10n.dart';
 import 'package:money/provider/locale_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:money/util.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguagePickerWidget extends StatelessWidget {
   @override
@@ -44,7 +47,19 @@ class LanguagePickerWidget extends StatelessWidget {
             );
           },
         ).toList(),
-        onChanged: (_) {},
+        onChanged: (langChanged) async {
+          //set language in firebase db to use for next launch of app.
+          String userAppLang = "en";
+          if (langChanged == Locale('en')) {
+            userAppLang = "en";
+          }
+          if (langChanged == Locale('mr')) {
+            userAppLang = "mr";
+          }
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString(keyUserAppLanguage,
+              userAppLang); //write on disk in key value format.
+        },
       ),
     );
   }

@@ -101,5 +101,36 @@
     "msgOnlyNumber":"कृपया फक्त संख्या प्रविष्ट करा!",
     
 
+    "bLabelLogin":"लॉग इन करा",
+
+    "bLabelRegiter":"नोंदणी करा",
+    
+    "labelForgotPassword":"पासवर्ड विसरलात?",
+
+
+    "msgEnterUserMail":"ईमेल टाका",
+
+    "labelPassword":"पासवर्ड*",
+
+    "msgEnterPassword":"कृपया किमान 6 अक्षरांचा पासवर्ड टाका",
+    "msgEnterUserName":"नाव टाका",
+    "msgReEnterPassword":"कृपया पासवर्ड पुन्हा टाका",
+
+    "msgEnterVillageName":"कृपया गावाचे नाव टाका",
+    
+    "msgEnterVillagePin":"कृपया गाव पिन प्रविष्ट करा",
+
+    "labelVillage":"गाव *",
+    
+    "labelPin":"पिन *",
+
+    "kSubTitelYetToApproveByAdmin":"काही वेळानंतर प्रयत्न करा किंवा प्रशासकाला मंजुरी देण्याची आठवण करून द्या.",
+
+    "kTitleYetToApproveByAdmin":"अद्याप प्रशासनाकडून मंजूरी मिळणे बाकी आहे",
+
+    "kTitleNotPresent":"उपस्थित नाही",
+
+    "kSubTitleEmailPresent":"ईमेल उपस्थित नाही",
+
     "hello":"नमस्कार {randomString}"
 }

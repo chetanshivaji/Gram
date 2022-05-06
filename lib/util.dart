@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+Locale gLocale = Locale('en');
+
 late BuildContext gContext;
 int totalIn = 0;
 int totalOut = 0;
