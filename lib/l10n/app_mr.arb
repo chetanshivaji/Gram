@@ -88,5 +88,17 @@
 
     "kTitleSignOut":"बाहेर पडणे",
     
+    "bLabelSubmit":"जमा",
+    
+    "kTitleMobileNotPresent":"मोबाईल उपस्थित नाही",
+    
+    "paidMsg":"आधीच पैसे दिले आहेत",
+    
+    "msgTenDigitNumber":"कृपया 10 अंक टाका!",
+    
+    "dHeading":"पैशाचे व्यवस्थापन!",
+    
+
+
     "hello":"नमस्कार {randomString}"
 }

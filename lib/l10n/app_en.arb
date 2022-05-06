@@ -154,7 +154,8 @@
     "@txtHtoL":{
         "description":"H to L"
     },     
-"bLabelSearch":"Search",
+    
+    "bLabelSearch":"Search",
     "@bLabelSearch":{
         "description":"Search"
     },
@@ -265,6 +266,29 @@
     "kTitleSignOut":"SignOut",
     "@kTitleSignOut":{
         "description":"SignOut"
+    },
+
+    "bLabelSubmit":"Submit",
+    "@bLabelSubmit":{
+        "description":"Submit"
+    },
+    "kTitleMobileNotPresent":"Mobile not Present",
+    "@kTitleMobileNotPresent":{
+        "description":"Mobile not Present"
+    },
+    "paidMsg":"Paid already",
+    "@paidMsg":{
+        "description":"Paid already"
+    },
+    
+    "msgTenDigitNumber":"Please enter 10 digits!",
+    "@msgTenDigitNumber":{
+        "description":"Please enter 10 digits!"
+    },
+    
+    "dHeading":"Money Management!",
+    "@dHeading":{
+        "description":"Money Management!"
     },
 
     "hello":"Hello {randomString}",
