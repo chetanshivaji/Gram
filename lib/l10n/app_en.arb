@@ -291,6 +291,12 @@
         "description":"Money Management!"
     },
 
+ 
+    "msgOnlyNumber":"Please enter only numbers!",
+    "@msgOnlyNumber":{
+        "description":"Please enter only numbers!"
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

@@ -215,7 +215,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               //mobile uid mapping not present.
               popAlert(
                 context,
-                kTitleMobileNotPresent,
+                AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
                 "",
                 getWrongIcon(50),
                 1,
@@ -272,7 +272,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               //mobile not found pop alert
               popAlert(
                 context,
-                kTitleMobileNotPresent,
+                AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
                 "",
                 getWrongIcon(50),
                 1,
@@ -284,7 +284,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     } catch (e) {
       popAlert(
         context,
-        kTitleMobileNotPresent,
+        AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
         "",
         getWrongIcon(50),
         1,
@@ -348,7 +348,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 return msgOnlyNumber;
               }
               if (value.length != 10) {
-                return msgTenDigitNumber;
+                return AppLocalizations.of(gContext)!.msgTenDigitNumber;
               }
               if (!isNumeric(value)) {
                 return msgOnlyNumber;
@@ -433,7 +433,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       }
                       if (paid == true) {
                         onPressedHouseWater = false;
-                        popAlert(context, paidMsg, "", getWrongIcon(50.0), 2);
+                        popAlert(
+                            context,
+                            AppLocalizations.of(gContext)!.paidMsg,
+                            "",
+                            getRightIcon(50.0),
+                            2);
                         return;
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -516,7 +521,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   }
                 },
                 child: Text(
-                  bLabelSubmit,
+                  AppLocalizations.of(gContext)!.bLabelSubmit,
                 ),
               ),
             ),
@@ -647,7 +652,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   }
                 },
                 child: Text(
-                  bLabelSubmit,
+                  AppLocalizations.of(gContext)!.bLabelSubmit,
                 ),
               ),
             ),

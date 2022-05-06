@@ -159,7 +159,7 @@ class outFormState extends State<outForm> {
                   }
                 },
                 child: Text(
-                  bLabelSubmit,
+                  AppLocalizations.of(gContext)!.bLabelSubmit,
                 ),
               ),
             ),

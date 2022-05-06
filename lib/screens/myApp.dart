@@ -150,7 +150,7 @@ class MyApp extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      dHeading,
+                      AppLocalizations.of(gContext)!.dHeading,
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.yellow,

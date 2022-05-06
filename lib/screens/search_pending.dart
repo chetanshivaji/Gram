@@ -159,7 +159,7 @@ class _searchScreenState extends State<searchScreen> {
               //mobile uid mapping not present.
               popAlert(
                 context,
-                kTitleMobileNotPresent,
+                AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
                 "",
                 getWrongIcon(50),
                 1,
@@ -216,7 +216,7 @@ class _searchScreenState extends State<searchScreen> {
               //mobile not found pop alert
               popAlert(
                 context,
-                kTitleMobileNotPresent,
+                AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
                 "",
                 getWrongIcon(50),
                 1,
@@ -228,7 +228,7 @@ class _searchScreenState extends State<searchScreen> {
     } catch (e) {
       popAlert(
         context,
-        kTitleMobileNotPresent,
+        AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
         "",
         getWrongIcon(50),
         1,
@@ -295,7 +295,8 @@ class _searchScreenState extends State<searchScreen> {
                             return msgOnlyNumber;
                           }
                           if (value.length != 10) {
-                            return msgTenDigitNumber;
+                            return AppLocalizations.of(gContext)!
+                                .msgTenDigitNumber;
                           }
                           if (!isNumeric(value)) {
                             return msgOnlyNumber;
