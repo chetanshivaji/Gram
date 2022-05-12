@@ -28,19 +28,21 @@ bool onPressedDrawerReport = false;
 var myPdfTableCellFontStyle;
 var myPdfTableHeaderFontStyle;
 
-String access = "No";
+int access = accessLevel.No.index; //"No";
 enum accessLevel {
+  select,
+  SuperUser,
   Viewer,
   Collector,
   Spender,
-  SuperUser,
   No,
 }
 List<String> accessItems = [
+  "select",
+  "SuperUser",
   "Viewer",
   "Collector",
   "Spender",
-  "SuperUser",
   "No"
 ];
 
@@ -51,9 +53,9 @@ bool isNumeric(String s) {
   return double.tryParse(s) != null;
 }
 
-Future<String> getUserAccessLevel(BuildContext context, String email) async {
+Future<int> getUserAccessLevel(BuildContext context, String email) async {
   try {
-    String usreAccessLevel = await FirebaseFirestore.instance
+    int usreAccessLevel = await FirebaseFirestore.instance
         .collection(collUsers)
         .doc(email)
         .get()
@@ -66,7 +68,7 @@ Future<String> getUserAccessLevel(BuildContext context, String email) async {
     return usreAccessLevel;
   } catch (e) {
     popAlert(context, txtFetchFailFromDb, "", getWrongIcon(50.0), 1);
-    return "Viewer"; //Return viewer by default
+    return accessLevel.Viewer.index; //Return viewer by default
   }
 }
 

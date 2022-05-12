@@ -115,8 +115,7 @@ String labelAdminPassword = "AdminPassword *";
 String labelVillage = "Village *";
 String labelPin = "Pin *";
 String labelVillageAddress = "VillageAddress *";
-String labelRegister = 'Register';
-String labelLogin = 'Log In';
+
 String labelName = "Name *";
 String labelAmount = "Amount *";
 String labelReason = "Reason *";

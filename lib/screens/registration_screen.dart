@@ -329,8 +329,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   false; //if fail before on press succeed, it should be able to come back in again.
                               popAlert(
                                 context,
-                                titlePassMismatch,
-                                subtitlePassMismatch,
+                                AppLocalizations.of(gContext)!
+                                    .titlePassMismatch,
+                                AppLocalizations.of(gContext)!
+                                    .subtitlePassMismatch,
                                 getWrongIcon(50.0),
                                 1,
                               );
@@ -352,8 +354,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   {
                                     keyVillage: village,
                                     keyPin: pin,
-                                    keyAccessLevel: accessItems[accessLevel.No
-                                        .index], //access level set by admin decided type of use, eg .viewer, collector, admin, spender
+                                    keyAccessLevel: accessLevel.No
+                                        .index, //access level set by admin decided type of use, eg .viewer, collector, admin, spender
                                     keyMail: email,
                                     keyIsAdmin: false,
                                     keyRegisteredName: registeredName,
@@ -361,8 +363,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 );
                                 popAlert(
                                   context,
-                                  kTitleRegisterationSuccess,
-                                  kSubTitleRegisterationSuccess,
+                                  AppLocalizations.of(gContext)!
+                                      .kTitleRegisterationSuccess,
+                                  AppLocalizations.of(gContext)!
+                                      .kSubTitleRegisterationSuccess,
                                   getRightIcon(50.0),
                                   2,
                                 );
@@ -372,7 +376,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               onPressedRegister = false;
                               popAlert(
                                 context,
-                                kTitleRegisterationFailed,
+                                AppLocalizations.of(gContext)!
+                                    .kTitleRegisterationFailed,
                                 e.toString(),
                                 getWrongIcon(50.0),
                                 1,

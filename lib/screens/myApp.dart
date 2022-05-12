@@ -185,10 +185,10 @@ class MyApp extends StatelessWidget {
                 onTap: () async {
                   if (onPressedDrawerIn == false) {
                     onPressedDrawerIn = true;
-                    String access = await getUserAccessLevel(context, userMail);
+                    int access = await getUserAccessLevel(context, userMail);
 
-                    if ((access == accessItems[accessLevel.Collector.index] ||
-                        access == accessItems[accessLevel.SuperUser.index])) {
+                    if ((access == accessLevel.Collector.index ||
+                        access == accessLevel.SuperUser.index)) {
                       Navigator.pushNamed(context, inMoney.id);
                     } else {
                       onPressedDrawerIn = false;
@@ -204,10 +204,10 @@ class MyApp extends StatelessWidget {
                 onTap: () async {
                   if (onPressedDrawerOut == false) {
                     onPressedDrawerOut = true;
-                    String access = await getUserAccessLevel(context, userMail);
+                    int access = await getUserAccessLevel(context, userMail);
 
-                    if ((access == accessItems[accessLevel.Spender.index] ||
-                        access == accessItems[accessLevel.SuperUser.index])) {
+                    if ((access == accessLevel.Spender.index ||
+                        access == accessLevel.SuperUser.index)) {
                       Navigator.pushNamed(context, outMoney.id);
                     } else {
                       onPressedDrawerOut = false;
@@ -223,12 +223,12 @@ class MyApp extends StatelessWidget {
                 onTap: () async {
                   if (onPressedDrawerPending == false) {
                     onPressedDrawerPending = true;
-                    String access = await getUserAccessLevel(context, userMail);
+                    int access = await getUserAccessLevel(context, userMail);
 
-                    if ((access == accessItems[accessLevel.Spender.index] ||
-                        access == accessItems[accessLevel.Collector.index] ||
-                        access == accessItems[accessLevel.SuperUser.index] ||
-                        access == accessItems[accessLevel.Viewer.index])) {
+                    if ((access == accessLevel.Spender.index ||
+                        access == accessLevel.Collector.index ||
+                        access == accessLevel.SuperUser.index ||
+                        access == accessLevel.Viewer.index)) {
                       Navigator.pushNamed(context, pendingMoney.id);
                     } else {
                       onPressedDrawerPending = false;
@@ -244,13 +244,13 @@ class MyApp extends StatelessWidget {
                 onTap: () async {
                   if (onPressedDrawerReport == false) {
                     onPressedDrawerReport = true;
-                    String access = await getUserAccessLevel(context,
+                    int access = await getUserAccessLevel(context,
                         userMail); //admin can change access rights for user any time, although logged in.
 
-                    if ((access == accessItems[accessLevel.Spender.index] ||
-                        access == accessItems[accessLevel.Collector.index] ||
-                        access == accessItems[accessLevel.SuperUser.index] ||
-                        access == accessItems[accessLevel.Viewer.index])) {
+                    if ((access == accessLevel.Spender.index ||
+                        access == accessLevel.Collector.index ||
+                        access == accessLevel.SuperUser.index ||
+                        access == accessLevel.Viewer.index)) {
                       Navigator.pushNamed(context, reportMoney.id);
                     } else {
                       onPressedDrawerReport = false;

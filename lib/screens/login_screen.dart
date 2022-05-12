@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                           );
-                          if (access == accessItems[accessLevel.No.index]) {
+                          if (access == accessLevel.No.index) {
                             onPressedLogin = false;
                             popAlert(
                               context,

@@ -382,6 +382,29 @@
         "description":"Login/registeration failed"
     },
 
+
+    "kTitleRegisterationSuccess":"Registered",
+    "@kTitleRegisterationSuccess":{
+        "description":"Registered"
+    },
+    "kSubTitleRegisterationSuccess":"You are registered wait for admin to approve.",
+    "@kSubTitleRegisterationSuccess":{
+        "description":"You are registered wait for admin to approve."
+    },
+    "kTitleRegisterationFailed":"Registeration Fail",
+    "@kTitleRegisterationFailed":{
+        "description":"Registeration Fail"
+    },
+    "titlePassMismatch":"Password mismatch",
+    "@titlePassMismatch":{
+        "description":"Password mismatch"
+    },
+   "subtitlePassMismatch":"passwrod and re entered password should match",
+    "@subtitlePassMismatch":{
+        "description":"passwrod and re entered password should match"
+    },
+
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

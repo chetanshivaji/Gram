@@ -134,5 +134,17 @@
     
     "kTitleFail":"लॉगिन/नोंदणी अयशस्वी",
 
+    
+    "kTitleRegisterationSuccess":"नोंदणी केली आहे(",
+    
+    "kSubTitleRegisterationSuccess":"तुम्ही नोंदणीकृत आहात प्रशासक मंजूर होईपर्यंत प्रतीक्षा करा.",
+    
+    "kTitleRegisterationFailed":"नोंदणी अयशस्वी",
+    
+    "titlePassMismatch":"पासवर्ड जुळत नाही",
+    
+   "subtitlePassMismatch":"पासवर्ड आणि पुन्हा एंटर केलेले पासवर्ड जुळले पाहिजेत",
+
+
     "hello":"नमस्कार {randomString}"
 }
