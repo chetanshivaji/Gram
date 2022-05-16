@@ -165,15 +165,16 @@ class formulaLive extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text(msgLoading);
         }
-
-        DocumentSnapshot ds = snapshot.data!.docs[0];
-        inFormula = ds.get(keyTotalIn);
-        outFormula = ds.get(keyTotalOut);
-        remainFormula = inFormula - outFormula;
+        if (snapshot.data!.docs.isNotEmpty) {
+          DocumentSnapshot ds = snapshot.data!.docs[0];
+          inFormula = ds.get(keyTotalIn);
+          outFormula = ds.get(keyTotalOut);
+          remainFormula = inFormula - outFormula;
+        }
 
         return formulaNew(
-          ds.get(keyTotalIn),
-          ds.get(keyTotalOut),
+          inFormula,
+          outFormula,
         );
       },
     );

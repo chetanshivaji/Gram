@@ -112,6 +112,7 @@ class MyApp extends StatelessWidget {
         onDrawerChanged: (isOpen) {
           drawerOpen = isOpen;
         },
+        /*
         body: Center(
           child: Text(
             AppLocalizations.of(context)!.language,
@@ -121,6 +122,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        */
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.appMainLabel),
           actions: <Widget>[
