@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // Create a Form widget.
 class HouseWaterForm extends StatefulWidget {
   String formType = "";
-  HouseWaterForm({Key? key, this.formType = txtTaxTypeHouse}) : super(key: key);
+  HouseWaterForm({Key? key, this.formType = ""}) : super(key: key);
 
   @override
   HouseWaterFormState createState() {
@@ -55,7 +55,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           amount: amount.toString(),
           mobile: mobile + " " + uid,
           userMail: registeredName,
-          taxType: (widget.formType == txtTaxTypeHouse) ? keyHouse : keyWater),
+          taxType: (widget.formType ==
+                  AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? keyHouse
+              : keyWater),
     );
 
     final pdfFile =
@@ -126,7 +129,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   Future<void> setNameEmail(String uid) async {
     //fecth and display user info on screen
 
-    if (widget.formType == txtTaxTypeHouse) {
+    if (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse) {
       try {
         await FirebaseFirestore.instance
             .collection(village + pin)
@@ -386,16 +389,17 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   String inTypeGiven = "";
                   String typeSubmit = "";
 
-                  if (widget.formType == txtTaxTypeHouse) {
+                  if (widget.formType ==
+                      AppLocalizations.of(gContext)!.txtTaxTypeHouse) {
                     //house
                     inTypeSubmit = collPrefixInHouse;
                     inTypeGiven = keyHouseGiven;
-                    typeSubmit = txtTaxTypeHouse;
+                    typeSubmit = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
                   } else {
                     //water
                     inTypeSubmit = collPrefixInWater;
                     inTypeGiven = keyWaterGiven;
-                    typeSubmit = txtTaxTypeWater;
+                    typeSubmit = AppLocalizations.of(gContext)!.txtTaxTypeWater;
                   }
 
                   if (_formKey.currentState!.validate() &&
@@ -415,7 +419,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             .then(
                           (value) {
                             var y = value.data();
-                            if (widget.formType == txtTaxTypeHouse) {
+                            if (widget.formType ==
+                                AppLocalizations.of(gContext)!
+                                    .txtTaxTypeHouse) {
                               if (y![keyHouseGiven] == true) {
                                 return true;
                               } else
@@ -674,21 +680,21 @@ class inMoney extends StatelessWidget {
     Icon(Icons.foundation_outlined, color: Colors.black),
   ];
   List<Widget> lsWidget = <Widget>[];
-  List<String> lsText = [
-    txtTaxTypeHouse,
-    txtTaxTypeWater,
-    txtTaxTypeExtraIncome
-  ];
 
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    List<String> lsText = [
+      AppLocalizations.of(gContext)!.txtTaxTypeHouse,
+      AppLocalizations.of(gContext)!.txtTaxTypeWater,
+      AppLocalizations.of(gContext)!.txtTaxTypeExtraIncome
+    ];
     onPressedDrawerIn = false; //makes drawer enable next time it goes
     lsWidget.add(
-      HouseWaterForm(formType: txtTaxTypeHouse),
+      HouseWaterForm(formType: AppLocalizations.of(gContext)!.txtTaxTypeHouse),
     );
     lsWidget.add(
-      HouseWaterForm(formType: txtTaxTypeWater),
+      HouseWaterForm(formType: AppLocalizations.of(gContext)!.txtTaxTypeWater),
     );
     lsWidget.add(
       ExtraIncomeForm(),

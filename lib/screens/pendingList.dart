@@ -30,7 +30,9 @@ class pendingList extends StatelessWidget {
           amount: amount.toString(),
           mobile: mobile,
           userMail: registeredName,
-          taxType: (taxType == txtTaxTypeHouse) ? keyHouse : keyWater),
+          taxType: (taxType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? keyHouse
+              : keyWater),
     );
 
     final pdfFile =
@@ -74,10 +76,10 @@ class pendingList extends StatelessWidget {
               String notifyTaxType = "";
               if (pendingType == housePendingType) {
                 amount = l.get(keyHouse).toString();
-                notifyTaxType = txtTaxTypeHouse;
+                notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
               } else {
                 amount = l.get(keyWater).toString();
-                notifyTaxType = txtTaxTypeWater;
+                notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
               }
 
               String videoLinkForCu =
@@ -133,10 +135,10 @@ $registeredName
               String notifyTaxType = "";
               if (pendingType == housePendingType) {
                 amount = l.get(keyHouse).toString();
-                notifyTaxType = txtTaxTypeHouse;
+                notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
               } else {
                 amount = l.get(keyWater).toString();
-                notifyTaxType = txtTaxTypeWater;
+                notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
               }
               String OnlinePaymentLink = "dummy link";
               String notificationMessage =

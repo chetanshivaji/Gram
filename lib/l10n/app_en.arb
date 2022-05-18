@@ -405,6 +405,22 @@
     },
 
 
+    "txtTaxTypeHouse":"House",
+    "@txtTaxTypeHouse":{
+        "description":"House"
+    },
+    
+    "txtTaxTypeWater":"Water",
+    "@txtTaxTypeWater":{
+        "description":"Water"
+    },
+
+    "txtTaxTypeExtraIncome":"ExtraIn",
+    "@txtTaxTypeExtraIncome":{
+        "description":"ExtraIn"
+    },
+
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

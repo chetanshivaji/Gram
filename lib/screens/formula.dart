@@ -28,7 +28,7 @@ Future<void> updateYearWiseFormula(
         pendingWater = y![keyYfPendingWater];
 
         if (typeInOut == txtInType) {
-          if (inType == txtTaxTypeHouse) {
+          if (inType == AppLocalizations.of(gContext)!.txtTaxTypeHouse) {
             await formulaRef.update(
               {
                 keyYfCollectedHouse: collectedHouse + newEntryAmount,

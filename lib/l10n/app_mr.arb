@@ -143,8 +143,13 @@
     
     "titlePassMismatch":"पासवर्ड जुळत नाही",
     
-   "subtitlePassMismatch":"पासवर्ड आणि पुन्हा एंटर केलेले पासवर्ड जुळले पाहिजेत",
+    "subtitlePassMismatch":"पासवर्ड आणि पुन्हा एंटर केलेले पासवर्ड जुळले पाहिजेत",
 
+    "txtTaxTypeHouse":"घर",
+    
+    "txtTaxTypeWater":"पाणी",
+    
+    "txtTaxTypeExtraIncome":"अतिरिक्त माहिती",
 
     "hello":"नमस्कार {randomString}"
 }

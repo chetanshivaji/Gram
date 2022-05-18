@@ -174,7 +174,7 @@ class _reportContainerState extends State<reportContainer> {
     switch (widget.reportType) {
       case collPrefixInHouse:
         {
-          taxType = txtTaxTypeHouse;
+          taxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
@@ -189,7 +189,7 @@ class _reportContainerState extends State<reportContainer> {
 
       case collPrefixInWater:
         {
-          taxType = txtTaxTypeWater;
+          taxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
@@ -417,16 +417,17 @@ class _reportMoneyState extends State<reportMoney> {
     Icon(Icons.outbond, color: Colors.black),
   ];
   List<Widget> lsWidget = <Widget>[];
-  List<String> lsText = [
-    txtTaxTypeHouse,
-    txtTaxTypeWater,
-    txtTaxTypeExtraIncome,
-    collPrefixOut
-  ];
 
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    List<String> lsText = [
+      AppLocalizations.of(gContext)!.txtTaxTypeHouse,
+      AppLocalizations.of(gContext)!.txtTaxTypeWater,
+      AppLocalizations.of(gContext)!.txtTaxTypeExtraIncome,
+      collPrefixOut
+    ];
+
     onPressedDrawerReport = false;
     lsWidget.add(
       Expanded(

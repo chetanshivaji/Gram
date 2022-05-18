@@ -245,11 +245,15 @@ class _pendingMoneyState extends State<pendingMoney> {
     Icon(Icons.water, color: Colors.black),
   ];
   List<Widget> lsWidget = <Widget>[];
-  List<String> lsText = [txtTaxTypeHouse, txtTaxTypeWater];
 
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    List<String> lsText = [
+      AppLocalizations.of(gContext)!.txtTaxTypeHouse,
+      AppLocalizations.of(gContext)!.txtTaxTypeWater
+    ];
+
     onPressedDrawerPending = false;
     lsWidget.add(
       Expanded(
