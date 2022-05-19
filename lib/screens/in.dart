@@ -487,20 +487,52 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         await updateYearWiseFormula(
                             amount, txtInType, widget.formType);
 
-                        String message =
-                            "Dear $name $mobile,ID-$uid, Thanks for paying $typeSubmit tax amount $amount for year$dropdownValueYear, Received!. Gram-$village Pin-$pin ";
+                        //START - multi linugal string
+                        String dear = AppLocalizations.of(gContext)!.txtDear;
+                        String thanksPaying =
+                            AppLocalizations.of(gContext)!.txtThanksPaying;
+                        String received =
+                            AppLocalizations.of(gContext)!.txtReceived;
+                        String taxAmount =
+                            AppLocalizations.of(gContext)!.txtTaxAmount;
+                        String yr =
+                            AppLocalizations.of(gContext)!.tableHeadingYear;
+                        String vlg =
+                            AppLocalizations.of(gContext)!.labelVillage;
+                        String pn = AppLocalizations.of(gContext)!.labelPin;
+                        String ud = AppLocalizations.of(gContext)!.labelUid;
+
+                        String taxReceiptYr =
+                            AppLocalizations.of(gContext)!.txtTaxReceiptYr;
+                        String attachedReceipt =
+                            AppLocalizations.of(gContext)!.txtAttachedReceipt;
+
+                        String regards =
+                            AppLocalizations.of(gContext)!.txtRegards;
+
+                        //END - multi linugal string
+
+                        String message = '''$dear $name, 
+$mobile,
+$ud-$uid,
+$thanksPaying $typeSubmit $taxAmount $amount
+$yr $dropdownValueYear,
+$received.
+$vlg-$village
+$pn-$pin''';
                         List<String> recipents = [mobile];
 
                         await createPDFInHouseWaterReceiptEntries();
 
                         String subject =
-                            "$name, ID-$uid, $typeSubmit Tax receipt for year $dropdownValueYear";
-                        String body = """$message
-          Please find attached receipt
+                            "$name, $ud-$uid, $typeSubmit, $taxReceiptYr $dropdownValueYear";
+                        String body = '''
+$message
+$attachedReceipt
           
-          Regards,
-          $registeredName
-          """;
+$regards,
+$registeredName
+''';
                         String attachment = gReceiptPdfName;
 
                         List<String> receipients = [

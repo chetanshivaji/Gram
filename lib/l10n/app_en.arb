@@ -580,6 +580,76 @@
     },
 
 
+    "txtDear":"Dear",
+    "@txtDear":{
+        "description":"Dear"
+    },
+
+    "txtThanksPaying":"Thanks for paying",
+    "@txtThanksPaying":{
+        "description":"Thanks for paying"
+    },
+
+    "txtReceived":"Received!",
+    "@txtReceived":{
+        "description":"Received!"
+    },
+    
+    "txtTaxAmount":"tax amount",
+    "@txtTaxAmount":{
+        "description":"tax amount"
+    },
+
+    "txtTaxReceiptYr":"Tax receipt for year",
+    "@txtTaxReceiptYr":{
+        "description":"Tax receipt for year"
+    },
+
+
+    "txtAttachedReceipt":"Please find attached receipt",
+    "@txtAttachedReceipt":{
+        "description":"Please find attached receipt"
+    },
+
+    "txtRegards":"Regards",
+    "@txtRegards":{
+        "description":"Regards"
+    },
+
+    "txtReminder":"Reminder notice. Please pay pending ",
+    "@txtReminder":{
+        "description":"Reminder notice. Please pay pending "
+    },
+
+    "txtToGram":"to Grampanchayat",
+    "@txtToGram":{
+        "description":"to Grampanchayat"
+    },
+
+    "txtTaxpPendingRecieptForYear":"Tax Pending receipt for year",
+    "@txtTaxpPendingRecieptForYear":{
+        "description":"Tax Pending receipt for year"
+    },
+    
+    "txtFindPendingReceipt":"Please find attached PENDING receipt.",
+    "@txtFindPendingReceipt":{
+        "description":"Please find attached PENDING receipt."
+    },
+
+    "txtPayOnline":"pay Online",
+    "@txtPayOnline":{
+        "description":"pay Online"
+    },
+    "txtForYear":"for Year",
+    "@txtForYear":{
+        "description":"for Year"
+    },
+    "txtOnlinePayLink":"tax Online Payment link",
+    "@txtOnlinePayLink":{
+        "description":"tax Online Payment link"
+    },
+
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

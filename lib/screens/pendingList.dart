@@ -45,6 +45,33 @@ class pendingList extends StatelessWidget {
 
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
+    //START - multi linugal string
+    String dear = AppLocalizations.of(gContext)!.txtDear;
+    String reminder = AppLocalizations.of(gContext)!.txtReminder;
+    String toGram = AppLocalizations.of(gContext)!.txtToGram;
+    String taxPendingReceipt =
+        AppLocalizations.of(gContext)!.txtTaxpPendingRecieptForYear;
+    String findPendingReceipt =
+        AppLocalizations.of(gContext)!.txtFindPendingReceipt;
+    String onlinePaymentLink = AppLocalizations.of(gContext)!.txtOnlinePayLink;
+
+    String thanksPaying = AppLocalizations.of(gContext)!.txtThanksPaying;
+    String received = AppLocalizations.of(gContext)!.txtReceived;
+    String taxAmount = AppLocalizations.of(gContext)!.txtTaxAmount;
+    String yr = AppLocalizations.of(gContext)!.tableHeadingYear;
+    String vlg = AppLocalizations.of(gContext)!.labelVillage;
+    String pn = AppLocalizations.of(gContext)!.labelPin;
+    String ud = AppLocalizations.of(gContext)!.labelUid;
+    String payOnline = AppLocalizations.of(gContext)!.txtPayOnline;
+    String forYear = AppLocalizations.of(gContext)!.txtForYear;
+
+    String taxReceiptYr = AppLocalizations.of(gContext)!.txtTaxReceiptYr;
+    String attachedReceipt = AppLocalizations.of(gContext)!.txtAttachedReceipt;
+    String pending = AppLocalizations.of(gContext)!.pageNamePending;
+
+    String regards = AppLocalizations.of(gContext)!.txtRegards;
+
+    //END - multi linugal string
     List<DataRow> ldataRow = [];
     int srNo = 0;
     for (var l in docSnapshot) {
@@ -84,8 +111,16 @@ class pendingList extends StatelessWidget {
 
               String videoLinkForCu =
                   "dummy youtube link https://www.youtube.com/watch?v=nYHQxOu0V3k";
-              String notificationMessage =
-                  "Dear $name, $mobile, ID-$uid Reminder notice. Please pay pending $notifyTaxType tax amount $amount for year $dropdownValueYear to Grampanchayat. See how this system works on $videoLinkForCu"; //who is reminding
+              String notificationMessage = '''$dear $name,
+$mobile, 
+$ud-$uid
+$reminder 
+$notifyTaxType $taxAmount $amount 
+$yr $dropdownValueYear
+$toGram.
+''';
+//See how this system works on $videoLinkForCu'''; //who is reminding
+
               String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
@@ -93,11 +128,12 @@ class pendingList extends StatelessWidget {
                   name, amount, mobile + " " + uid, notifyTaxType);
 
               String subject =
-                  "$name, ID $uid, $notifyTaxType Tax Pending receipt for year $dropdownValueYear";
+                  "$name, $ud $uid, $notifyTaxType, $taxPendingReceipt $dropdownValueYear";
               String body = """$notificationMessage
-Please find attached PENDING receipt.
 
-Regards,
+$findPendingReceipt
+
+$regards,
 $registeredName
 """;
               String attachment = gReceiptPdfName;
@@ -142,15 +178,15 @@ $registeredName
               }
               String OnlinePaymentLink = "dummy link";
               String notificationMessage =
-                  "Dear $name, $mobile, ID-$uid. Pay online, pending $notifyTaxType tax amount Rs. $amount for year $dropdownValueYear to Grampanchayat through link $OnlinePaymentLink"; //who is reminding
+                  "$dear $name, $mobile, $ud-$uid. $payOnline, $pending $notifyTaxType $taxAmount Rs. $amount $forYear $dropdownValueYear $toGram through link $OnlinePaymentLink"; //who is reminding
               String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
 
               String subject =
-                  "$name, ID $uid, $notifyTaxType tax Online Payment link for year- $dropdownValueYear";
+                  "$name, $ud $uid, $notifyTaxType $onlinePaymentLink $forYear- $dropdownValueYear";
               String body = """$notificationMessage
-Regards,
+$regards,
 $registeredName
 """;
 
