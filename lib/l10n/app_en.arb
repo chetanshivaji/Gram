@@ -87,9 +87,9 @@
     "@tableHeadingMobile":{
         "description":"Mobile"
     },    
-    "tableHeadingUid":"Uid",
+    "tableHeadingUid":"house/unique number",
     "@tableHeadingUid":{
-        "description":"Uid"
+        "description":"house/unique number"
     },    
 
     "tableHeadingAmount":"Amount",
@@ -159,9 +159,9 @@
         "description":"Search"
     },
 
-    "labelUid":"Uid *",
+    "labelUid":"house/unique number *",
     "@labelUid":{
-        "description":"Uid *"
+        "description":"house/unique number *"
     },
     
     "labelExtraInfo":"Extra_information",
@@ -483,9 +483,9 @@
         "description":"Fail"
     },
 
-    "kTitleMultiUids":"Multiple Uids for mobile, please enter one",
+    "kTitleMultiUids":"Multiple house/unique numbers for mobile, please enter one",
     "@kTitleMultiUids":{
-        "description":"Multiple Uids for mobile, please enter one"
+        "description":"Multiple house/unique numbers for mobile, please enter one"
     },
 
     "msgOnlyNumber":"Please enter only numbers",

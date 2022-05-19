@@ -31,7 +31,7 @@
     
     "tableHeadingMobile":"मोबाईल",
     
-    "tableHeadingUid":"संख्या",
+    "tableHeadingUid":"घर/युनिक नंबर",
 
     "tableHeadingAmount":"रक्कम",
 
@@ -51,14 +51,11 @@
     "tableHeadingHouse":"घर",
     "tableHeadingWater":"पाणी",
     
-    "txtLtoH":"चढत्या",
-    
-
+    "txtLtoH":"चढत्या",    
     "txtHtoL":"उतरत्या",
     
-
     "bLabelSearch":"शोध",
-    "labelUid":"संख्या *",
+    "labelUid":"घर/युनिक नंबर*",
     "labelExtraInfo":"अधिक_माहिती",
 
     "labelMobile":"मोबाईल *",
@@ -69,7 +66,7 @@
 
     "msgExtraIncomeAmount":"कृपया अतिरिक्त उत्पन्नाची रक्कम प्रविष्ट करा",
     "msgExtraIncomeReasom":"कृपया अतिरिक्त उत्पन्नाचे कारण प्रविष्ट करा",
-    "msgEnterMobileNumber":"मोबाईल नंबर टाका",
+    "msgEnterMobileNumber":"मोबाईल नंबर प्रविष्ट करा",
     "msgEnterFullName":"पूर्ण नाव प्रविष्ट करा",
     "msgMoneySpendingReason":"पैसे खर्च करण्याचे कारण",
     "msgMoneySpent":"खर्च केलेले पैसे प्रविष्ट करा",
@@ -107,7 +104,6 @@
     
     "labelForgotPassword":"पासवर्ड विसरलात?",
 
-
     "msgEnterUserMail":"ईमेल टाका",
 
     "labelPassword":"पासवर्ड*",
@@ -133,7 +129,6 @@
     "kSubTitleEmailPresent":"ईमेल उपस्थित नाही",
     
     "kTitleFail":"लॉगिन/नोंदणी अयशस्वी",
-
     
     "kTitleRegisterationSuccess":"नोंदणी केली आहे(",
     
@@ -153,7 +148,6 @@
     
     "txtTaxTypeOut":"खर्च",
 
-
     "titleSuccess":"पूर्ण",
     "subtitleSuccess":"सादर केले",
         
@@ -168,7 +162,7 @@
     "msgLoading":"लोड होत आहे",
     
     "kTitleTryCatchFail":"अयशस्वी",
-    "kTitleMultiUids":"मोबाइलसाठी एकाधिक Uids, कृपया एक प्रविष्ट करा",
+    "kTitleMultiUids":"मोबाइलसाठी एकाधिक घर/युनिक नंबर, कृपया एक प्रविष्ट करा",
 
     "msgOnlyNumber":"कृपया फक्त संख्या प्रविष्ट करा",
     "msgInvoidBuildFail":"पावती तयार करताना काहीतरी चूक झाली आहे",
