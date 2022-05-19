@@ -60,6 +60,11 @@ String actIn = "IN";
 String actOut = "OUT";
 String actReport = "REPORT";
 
+String pageNamePending = "PENDING";
+String pageNameIn = "IN";
+String pageNameOut = "OUT";
+String pageNameReport = "REPORT";
+
 //Table data column heading
 String tableHeading_srNum = "SrNum.";
 String tableHeadingFontFamily = "RobotoMono";
@@ -195,7 +200,6 @@ String kTitleMultiUids = "Multiple Uids for mobile, please enter one";
 String kTitleFail = "Login/registeration failed";
 
 String kSubTitleUserNotFound = "Mobile user not found";
-String kTitleEntryRemoved = "Entry Removed";
 
 String labelYear = "Year";
 

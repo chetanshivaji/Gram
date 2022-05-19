@@ -180,11 +180,10 @@ class outMoney extends StatelessWidget {
 
   outMoney({Key? key}) : super(key: key);
 
-  String pageName = actOut;
-
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    String pageName = AppLocalizations.of(gContext)!.pageNameOut;
     onPressedDrawerOut = false;
     return Scaffold(
       appBar: AppBar(

@@ -28,23 +28,22 @@
     },
 
 
-
-    "actIn":"IN",
-    "@actIn":{
+    "pageNameIn":"IN",
+    "@pageNameIn":{
         "description":" Activity In drawer"
     },
 
-    "actOut":"OUT",
-    "@actOut":{
+    "pageNameOut":"OUT",
+    "@pageNameOut":{
         "description":"Activity Out drawer"
     },
-    "actPending":"PENDING",
-    "@actPending":{
+    "pageNamePending":"PENDING",
+    "@pageNamePending":{
         "description":"Activity Pending drawer"
     },
     
-    "actReport":"REPORT",
-    "@actReport":{
+    "pageNameReport":"REPORT",
+    "@pageNameReport":{
         "description":"Activity Report drawer"
     },
 

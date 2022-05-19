@@ -409,8 +409,6 @@ class reportMoney extends StatefulWidget {
 }
 
 class _reportMoneyState extends State<reportMoney> {
-  String pageName = actReport;
-
   // Initial Selected Value
 
   List<Icon> lsIcons = [
@@ -424,6 +422,8 @@ class _reportMoneyState extends State<reportMoney> {
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    String actType = actReport;
+    String pageName = AppLocalizations.of(gContext)!.pageNameReport;
     List<String> lsText = [
       AppLocalizations.of(gContext)!.txtTaxTypeHouse,
       AppLocalizations.of(gContext)!.txtTaxTypeWater,
@@ -460,6 +460,7 @@ class _reportMoneyState extends State<reportMoney> {
       lsText,
       lsIcons,
       lsWidget,
+      actType,
       pageName,
       clrBlue,
       formulaWidget,

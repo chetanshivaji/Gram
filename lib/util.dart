@@ -359,6 +359,7 @@ Widget tabScffold(
   List<String> tabText,
   List<Icon> tabIcon,
   List<Widget> tabBody,
+  String actType,
   String pageName,
   Color clr,
   Widget extraWidget,
@@ -403,7 +404,7 @@ Widget tabScffold(
         ),
         actions: <Widget>[extraWidget],
       ),
-      body: ((pageName == actPending) || (pageName == actReport))
+      body: ((actType == actPending) || (actType == actReport))
           ? (TabBarView(
               children: lsTabBarView,
             ))

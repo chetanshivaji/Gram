@@ -6,10 +6,10 @@
      "dPending":"प्रलंबित",
      "dReport":"अहवाल",
 
-    "actIn":"घेणे",
-    "actOut":"खर्च",
-    "actPending":"प्रलंबित",
-    "actReport":"अहवाल",
+    "pageNameIn":"घेणे",
+    "pageNameOut":"खर्च",
+    "pageNamePending":"प्रलंबित",
+    "pageNameReport":"अहवाल",
     
 
     "tableHeading_srNum":"अनुक्रमांक",

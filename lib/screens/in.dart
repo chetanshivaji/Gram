@@ -691,7 +691,6 @@ class inMoney extends StatelessWidget {
   static String id = "inscreen";
   inMoney({Key? key}) : super(key: key);
 
-  String pageName = actIn;
   List<Icon> lsIcons = [
     Icon(Icons.home, color: Colors.black),
     Icon(Icons.water, color: Colors.black),
@@ -702,6 +701,8 @@ class inMoney extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    String actType = actIn;
+    String pageName = AppLocalizations.of(gContext)!.pageNameIn;
     List<String> lsText = [
       AppLocalizations.of(gContext)!.txtTaxTypeHouse,
       AppLocalizations.of(gContext)!.txtTaxTypeWater,
@@ -719,6 +720,6 @@ class inMoney extends StatelessWidget {
     );
     Widget infoIcon = Icon(Icons.info);
     return tabScffold(context, lsIcons.length, lsText, lsIcons, lsWidget,
-        pageName, clrGreen, infoIcon);
+        actType, pageName, clrGreen, infoIcon);
   }
 }

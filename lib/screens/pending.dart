@@ -239,8 +239,6 @@ class pendingMoney extends StatefulWidget {
 }
 
 class _pendingMoneyState extends State<pendingMoney> {
-  String pageName = actPending;
-
   // Initial Selected Value
 
   List<Icon> lsIcons = [
@@ -252,6 +250,8 @@ class _pendingMoneyState extends State<pendingMoney> {
   @override
   Widget build(BuildContext context) {
     gContext = context;
+    String actType = actPending;
+    String pageName = AppLocalizations.of(gContext)!.pageNamePending;
     List<String> lsText = [
       AppLocalizations.of(gContext)!.txtTaxTypeHouse,
       AppLocalizations.of(gContext)!.txtTaxTypeWater
@@ -277,6 +277,7 @@ class _pendingMoneyState extends State<pendingMoney> {
       lsText,
       lsIcons,
       lsWidget,
+      actType,
       pageName,
       clrAmber,
       infoIcon,
