@@ -151,8 +151,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         );
       } catch (e) {
         setStateEmptyEntries();
-        popAlert(
-            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
+        popAlert(context, AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+            e.toString(), getWrongIcon(50.0), 1);
         return;
       }
 
@@ -185,8 +185,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         );
       } catch (e) {
         setStateEmptyEntries();
-        popAlert(
-            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
+        popAlert(context, AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+            e.toString(), getWrongIcon(50.0), 1);
         return;
       }
 
@@ -260,7 +260,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               //pop up message with all uids and setup hint text with uids.
               popAlert(
                 context,
-                kTitleMultiUids,
+                AppLocalizations.of(gContext)!.kTitleMultiUids,
                 uids,
                 getMultiUidIcon(50),
                 1,
@@ -449,7 +449,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(msgProcessingData),
+                            content: Text(AppLocalizations.of(gContext)!
+                                .msgProcessingData),
                           ),
                         );
                         try {
@@ -514,15 +515,23 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                               message + "-" + registeredName, recipents);
                         }
 
-                        popAlert(context, titleSuccess, subtitleSuccess,
-                            getRightIcon(50.0), 2);
+                        popAlert(
+                            context,
+                            AppLocalizations.of(gContext)!.titleSuccess,
+                            AppLocalizations.of(gContext)!.subtitleSuccess,
+                            getRightIcon(50.0),
+                            2);
                       }
 
                       // Validate returns true if the form is valid, or false otherwise.
                     } catch (e) {
                       onPressedHouseWater = false;
-                      popAlert(context, kTitleTryCatchFail, e.toString(),
-                          getWrongIcon(50.0), 1);
+                      popAlert(
+                          context,
+                          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+                          e.toString(),
+                          getWrongIcon(50.0),
+                          1);
                     }
                   }
                 },
@@ -626,7 +635,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                       // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(msgProcessingData),
+                          content: Text(
+                              AppLocalizations.of(gContext)!.msgProcessingData),
                         ),
                       );
 
@@ -648,12 +658,20 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                       await updateFormulaValues(amount,
                           txtInType); //fetch exisiting value from formula and update new value.
 
-                      popAlert(context, titleSuccess, subtitleSuccess,
-                          getRightIcon(50.0), 2);
+                      popAlert(
+                          context,
+                          AppLocalizations.of(gContext)!.titleSuccess,
+                          AppLocalizations.of(gContext)!.subtitleSuccess,
+                          getRightIcon(50.0),
+                          2);
                     } catch (e) {
                       onPressedInExtra = false;
-                      popAlert(context, kTitleTryCatchFail, e.toString(),
-                          getWrongIcon(50.0), 1);
+                      popAlert(
+                          context,
+                          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+                          e.toString(),
+                          getWrongIcon(50.0),
+                          1);
                     }
                   }
                 },

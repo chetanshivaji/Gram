@@ -128,7 +128,7 @@ abstract class receipt {
               ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
           Text(
-            txtTaxType +
+            AppLocalizations.of(gContext)!.txtTaxType +
                 equals +
                 info.taxType +
                 endL +
@@ -140,7 +140,7 @@ abstract class receipt {
                 equals +
                 info.mobile +
                 endL +
-                txtSentByUser +
+                AppLocalizations.of(gContext)!.txtSentByUser +
                 equals +
                 info.userMail +
                 endL,
@@ -152,7 +152,7 @@ abstract class receipt {
 
   Widget buildInvoice(String reportType) {
     return Text(
-      msgInvoidBuildFail,
+      AppLocalizations.of(gContext)!.msgInvoidBuildFail,
       style: myPdfTableCellFontStyle,
     );
   }

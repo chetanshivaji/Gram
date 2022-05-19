@@ -67,7 +67,8 @@ Future<int> getUserAccessLevel(BuildContext context, String email) async {
     );
     return usreAccessLevel;
   } catch (e) {
-    popAlert(context, txtFetchFailFromDb, "", getWrongIcon(50.0), 1);
+    popAlert(context, AppLocalizations.of(gContext)!.txtFetchFailFromDb, "",
+        getWrongIcon(50.0), 1);
     return accessLevel.Viewer.index; //Return viewer by default
   }
 }

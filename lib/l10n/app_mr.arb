@@ -149,7 +149,49 @@
     
     "txtTaxTypeWater":"पाणी",
     
-    "txtTaxTypeExtraIncome":"अतिरिक्त माहिती",
+    "txtTaxTypeExtraIncome":"अतिरिक्त",
+    
+    "txtTaxTypeOut":"खर्च",
+
+
+    "titleSuccess":"पूर्ण",
+    "subtitleSuccess":"सादर केले",
+        
+    "kTitleNotPresent":"उपस्थित नाही",
+     "kSubTitleEmailPresent":"ईमेल उपस्थित नाही",
+     "kTitleForgotPasswordMailSent":"पासवर्ड बदलण्यासाठी मेल पाठवला",
+     "kSubTitleForgotPasswordMailSent":"कृपया तुमचा लॉगिन ईमेल इनबॉक्स तपासा",
+     "msgEnterEmail":"कृपया प्रशासक ईमेल प्रविष्ट करा",
+            
+    "msgProcessingData":"डेटा प्रक्रिया करत आहे",
+    "msgNoExpense":"कोणताही खर्च नाही",
+    "msgLoading":"लोड होत आहे",
+    
+    "kTitleTryCatchFail":"अयशस्वी",
+    "kTitleMultiUids":"मोबाइलसाठी एकाधिक Uids, कृपया एक प्रविष्ट करा",
+
+    "msgOnlyNumber":"कृपया फक्त संख्या प्रविष्ट करा",
+    "msgInvoidBuildFail":"पावती तयार करताना काहीतरी चूक झाली आहे",
+    "txtDateRange":"तारीख श्रेणी",
+
+
+    "txtSortingType":"वर्गीकरण प्रकार",
+    "txtCalculation":"हिशोब",
+    "txtSentByUser":"वापरकर्त्याने पाठवले",
+    "txtDownloadedByUser":"वापरकर्त्याने डाउनलोड केलेले",
+    "txtTaxType":"कर प्रकार",
+
+
+    "txtSearchToolTip":"वापरकर्ता कर भरलेले तपशील शोधा",
+    "txtForumlaIn":"पैसे आले",
+    "txtForumlaOut":"पैसे बाहेर",
+    "txtForumlaRemain":"उरलेले पैसे",
+    "txtDownloadPending":"डाउनलोड",
+    "txtDownloadReport":"अहवाल डाउनलोड करा",
+    "txtNotifyToPay":"पैसे भरण्यासाठी सूचना पाठवा",
+    "txtNotifyToPayOnline":"ऑनलाइन पैसे भरण्यासाठी सूचना पाठवा",
+    "txtFetchFailFromDb":"डेटाबेसमधून माहिती आले नाही",
+
 
     "hello":"नमस्कार {randomString}"
 }

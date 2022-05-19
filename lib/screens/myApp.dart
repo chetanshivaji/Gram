@@ -76,8 +76,7 @@ class MyApp extends StatelessWidget {
     void handleClick(String value) {
       int caseNum = 0;
 
-      if (AppLocalizations.of(gContext)!.kTitleSignOut == value) caseNum = 1;
-      {
+      if (AppLocalizations.of(gContext)!.kTitleSignOut == value) {
         caseNum = 1;
       }
 
@@ -133,12 +132,13 @@ class MyApp extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, searchScreen.id);
               },
-              tooltip: txtSearchToolTip,
+              tooltip: AppLocalizations.of(gContext)!.txtSearchToolTip,
               icon: Icon(Icons.search),
             ),
             PopupMenuButton<String>(
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
+                gContext = context;
                 return {AppLocalizations.of(gContext)!.kTitleSignOut}
                     .map((String choice) {
                   return PopupMenuItem<String>(

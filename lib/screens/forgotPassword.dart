@@ -38,7 +38,7 @@ class _forgotPasswordScreenState extends State<forgotPasswordScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return msgEnterEmail;
+                      return AppLocalizations.of(gContext)!.msgEnterUserMail;
                     }
                     email = value;
                     return null;
@@ -103,8 +103,10 @@ class _forgotPasswordScreenState extends State<forgotPasswordScreen> {
                               );
                           popAlert(
                               context,
-                              kTitleForgotPasswordMailSent,
-                              kSubTitleForgotPasswordMailSent,
+                              AppLocalizations.of(gContext)!
+                                  .kTitleForgotPasswordMailSent,
+                              AppLocalizations.of(gContext)!
+                                  .kSubTitleForgotPasswordMailSent,
                               getRightIcon(50),
                               2);
                         } catch (e) {

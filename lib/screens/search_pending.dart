@@ -114,13 +114,13 @@ class _searchScreenState extends State<searchScreen> {
           },
         );
       } catch (e) {
-        popAlert(
-            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
+        popAlert(context, AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+            e.toString(), getWrongIcon(50.0), 1);
       }
     }
     if (mobileUserFound == false) {
-      popAlert(context, kTitleTryCatchFail, kSubTitleUserNotFound,
-          getWrongIcon(50.0), 1);
+      popAlert(context, AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+          kSubTitleUserNotFound, getWrongIcon(50.0), 1);
     }
     return ldataRow;
   }
@@ -201,7 +201,7 @@ class _searchScreenState extends State<searchScreen> {
               //pop up message with all uids and setup hint text with uids.
               popAlert(
                 context,
-                kTitleMultiUids,
+                AppLocalizations.of(gContext)!.kTitleMultiUids,
                 uids,
                 getMultiUidIcon(50),
                 1,

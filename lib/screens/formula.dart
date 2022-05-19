@@ -159,11 +159,11 @@ class formulaLive extends StatelessWidget {
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Text(msgNoExpense);
+          return Text(AppLocalizations.of(gContext)!.msgNoExpense);
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text(msgLoading);
+          return Text(AppLocalizations.of(gContext)!.msgLoading);
         }
         if (snapshot.data!.docs.isNotEmpty) {
           DocumentSnapshot ds = snapshot.data!.docs[0];

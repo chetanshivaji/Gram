@@ -164,10 +164,13 @@ class _reportContainerState extends State<reportContainer> {
           },
         );
       } catch (e) {
-        popAlert(
-            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
+        popAlert(context, AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+            e.toString(), getWrongIcon(50.0), 1);
       }
     }
+    String formIn = AppLocalizations.of(gContext)!.txtForumlaIn;
+    String formOut = AppLocalizations.of(gContext)!.txtForumlaOut;
+    String formRemain = AppLocalizations.of(gContext)!.txtForumlaRemain;
 
     String taxType = "";
     var invoice;
@@ -178,7 +181,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
-                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
+                    '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -193,7 +196,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
-                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
+                    '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -208,7 +211,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportExtraInvoice(
               info: InvoiceInfo(
                 formula:
-                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
+                    '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -224,7 +227,7 @@ class _reportContainerState extends State<reportContainer> {
           invoice = reportOutInvoice(
               info: InvoiceInfo(
                 formula:
-                    '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
+                    '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
                 year: dropdownValueYear,
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
@@ -297,7 +300,7 @@ class _reportContainerState extends State<reportContainer> {
                     size: 30.0,
                   ),
                   color: getColor(widget.reportType),
-                  tooltip: txtDownloadReport,
+                  tooltip: AppLocalizations.of(gContext)!.txtDownloadReport,
                 ),
               ),
               Expanded(
@@ -425,7 +428,7 @@ class _reportMoneyState extends State<reportMoney> {
       AppLocalizations.of(gContext)!.txtTaxTypeHouse,
       AppLocalizations.of(gContext)!.txtTaxTypeWater,
       AppLocalizations.of(gContext)!.txtTaxTypeExtraIncome,
-      collPrefixOut
+      AppLocalizations.of(gContext)!.txtTaxTypeOut,
     ];
 
     onPressedDrawerReport = false;

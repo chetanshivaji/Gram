@@ -89,16 +89,19 @@ class _pendingContainerState extends State<pendingContainer> {
           },
         );
       } catch (e) {
-        popAlert(
-            context, kTitleTryCatchFail, e.toString(), getWrongIcon(50.0), 1);
+        popAlert(context, AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+            e.toString(), getWrongIcon(50.0), 1);
       }
     }
     srNo = 0;
 
+    String formIn = AppLocalizations.of(gContext)!.txtForumlaIn;
+    String formOut = AppLocalizations.of(gContext)!.txtForumlaOut;
+    String formRemain = AppLocalizations.of(gContext)!.txtForumlaRemain;
     final invoice = pendingInvoice(
         info: InvoiceInfo(
             formula:
-                '$txtForumlaIn$equals$inFormula; $txtForumlaOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
+                '$formIn$equals$inFormula; $formOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
             year: dropdownValueYear,
             sortingType: dropdownValuePendingSort,
             taxType:
@@ -141,7 +144,7 @@ class _pendingContainerState extends State<pendingContainer> {
                 },
                 icon: Icon(Icons.download, size: 30.0),
                 color: getColor(widget.pendingType),
-                tooltip: txtDownloadPending,
+                tooltip: AppLocalizations.of(gContext)!.txtDownloadPending,
               ),
               SizedBox(
                 width: 10.0,

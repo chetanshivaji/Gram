@@ -387,19 +387,23 @@
     "@kTitleRegisterationSuccess":{
         "description":"Registered"
     },
+
     "kSubTitleRegisterationSuccess":"You are registered wait for admin to approve.",
     "@kSubTitleRegisterationSuccess":{
         "description":"You are registered wait for admin to approve."
     },
+
     "kTitleRegisterationFailed":"Registeration Fail",
     "@kTitleRegisterationFailed":{
         "description":"Registeration Fail"
     },
+
     "titlePassMismatch":"Password mismatch",
     "@titlePassMismatch":{
         "description":"Password mismatch"
     },
-   "subtitlePassMismatch":"passwrod and re entered password should match",
+
+    "subtitlePassMismatch":"passwrod and re entered password should match",
     "@subtitlePassMismatch":{
         "description":"passwrod and re entered password should match"
     },
@@ -418,6 +422,162 @@
     "txtTaxTypeExtraIncome":"ExtraIn",
     "@txtTaxTypeExtraIncome":{
         "description":"ExtraIn"
+    },
+
+    "txtTaxTypeOut":"Out",
+    "@txtTaxTypeOut":{
+        "description":"Out"
+    },
+
+    "titleSuccess":"Success",
+    "@titleSuccess":{
+        "description":"Success"
+    }, 
+
+    "subtitleSuccess":"Submitted",
+    "@subtitleSuccess":{
+        "description":"Submitted"
+    },      
+    
+
+    "kTitleNotPresent":"No Present",
+    "@kTitleNotPresent":{
+        "description":"No Present"
+    },
+
+    "kSubTitleEmailPresent":"Email not present",
+    "@kSubTitleEmailPresent":{
+        "description":"Email not present"
+    },
+
+    "kTitleForgotPasswordMailSent":"Mail sent to change password",
+    "@kTitleForgotPasswordMailSent":{
+        "description":"Mail sent to change password"
+    },
+
+    "kSubTitleForgotPasswordMailSent":"Please check your login email inbox",
+    "@kSubTitleForgotPasswordMailSent":{
+        "description":"Please check your login email inbox"
+    },
+    "msgEnterEmail":"Please Enter admin email",
+    "@msgEnterEmail":{
+        "description":"Please Enter admin email"
+    },
+
+    "msgProcessingData":"Processing Data",
+    "@msgProcessingData":{
+        "description":"Processing Data"
+    },
+
+    "msgNoExpense":"There is no expense",
+    "@msgNoExpense":{
+        "description":"There is no expense"
+    },
+
+    "msgLoading":"loading",
+    "@msgLoading":{
+        "description":"loading"
+    },
+    
+    "kTitleTryCatchFail":"Fail",
+    "@kTitleTryCatchFail":{
+        "description":"Fail"
+    },
+
+    "kTitleMultiUids":"Multiple Uids for mobile, please enter one",
+    "@kTitleMultiUids":{
+        "description":"Multiple Uids for mobile, please enter one"
+    },
+
+    "msgOnlyNumber":"Please enter only numbers",
+    "@msgOnlyNumber":{
+        "description":"Please enter only numbers"
+    },
+    "msgInvoidBuildFail":"Something wrong in building INVOICE",
+    "@msgInvoidBuildFail":{
+        "description":"Something wrong in building INVOICE"
+    },
+
+    "txtDateRange":"Date Range",
+    "@txtDateRange":{
+        "description":"Date Range"
+    },
+
+    "txtSortingType":"Sorting type",
+    "@txtSortingType":{
+        "description":"Sorting type"
+    },
+
+    "txtCalculation":"Calculation",
+    "@txtCalculation":{
+        "description":"Calculation"
+    },
+
+    "txtSentByUser":"Sent by user",
+    "@txtSentByUser":{
+        "description":"Sent by user"
+    },
+
+
+    "txtDownloadedByUser":"Downloaded by user",
+    "@txtDownloadedByUser":{
+        "description":"Downloaded by user"
+    },
+
+    "txtTaxType":"TaxType",
+    "@txtTaxType":{
+        "description":"TaxType"
+    },
+
+
+
+    "txtSearchToolTip":"Search user tax paid details",
+    "@txtSearchToolTip":{
+        "description":"Search user tax paid details"
+    },
+
+    "txtForumlaIn":"InMoney",
+    "@txtForumlaIn":{
+        "description":"InMoney"
+    },
+
+    "txtForumlaOut":"OutMoney",
+    "@txtForumlaOut":{
+        "description":"OutMoney"
+    },
+
+    "txtForumlaRemain":"RemainingMoney",
+    "@txtForumlaRemain":{
+        "description":"RemainingMoney"
+    },
+
+    "txtDownloadPending":"Download",
+    "@txtDownloadPending":{
+        "description":"Download"
+    },
+
+    "txtDownloadReport":"Download Report",
+    "@txtDownloadReport":{
+        "description":"Download Report"
+    },
+
+
+    "txtNotifyToPay":"Send notification to Pay",
+    "@txtNotifyToPay":{
+        "description":"Send notification to Pay"
+    },
+
+  
+
+    "txtNotifyToPayOnline":"Send notification to Pay online",
+    "@txtNotifyToPayOnline":{
+        "description":"Send notification to Pay online"
+    },
+
+
+    "txtFetchFailFromDb":"Fetch Fail From Db",
+    "@txtFetchFailFromDb":{
+        "description":"Fetch Fail From Db"
     },
 
 

@@ -117,7 +117,7 @@ $registeredName
               Icons.notifications_active_outlined,
               color: Colors.red,
             ),
-            tooltip: txtNotifyToPay,
+            tooltip: AppLocalizations.of(gContext)!.txtNotifyToPay,
           ),
         ),
       );
@@ -169,7 +169,7 @@ $registeredName
               Icons.mobile_screen_share,
               color: Colors.blue,
             ),
-            tooltip: txtNotifyToPayOnline,
+            tooltip: AppLocalizations.of(gContext)!.txtNotifyToPayOnline,
           ),
         ),
       );
@@ -305,11 +305,11 @@ $registeredName
       //Async snapshot.data-> query snapshot.docs -> docuemnt snapshot,.data["key"]
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Text(msgNoExpense);
+          return Text(AppLocalizations.of(gContext)!.msgNoExpense);
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text(msgLoading);
+          return Text(AppLocalizations.of(gContext)!.msgLoading);
         }
 
         return getInHouseWaterTable(context, snapshot);

@@ -96,21 +96,21 @@ abstract class Invoice {
                   equals +
                   info.year +
                   endL +
-                  txtDateRange +
+                  AppLocalizations.of(gContext)!.txtDateRange +
                   equals +
                   startDate +
                   "  :  " +
                   endDate +
                   endL +
-                  txtSortingType +
+                  AppLocalizations.of(gContext)!.txtSortingType +
                   equals +
                   info.sortingType +
                   endL +
-                  txtCalculation +
+                  AppLocalizations.of(gContext)!.txtCalculation +
                   equals +
                   info.formula +
                   endL +
-                  txtDownloadedByUser +
+                  AppLocalizations.of(gContext)!.txtDownloadedByUser +
                   equals +
                   userMail +
                   endL,
@@ -140,7 +140,8 @@ abstract class Invoice {
       );
 
   Widget buildInvoice(String reportType) {
-    return Text(msgInvoidBuildFail, style: myPdfTableCellFontStyle);
+    return Text(AppLocalizations.of(gContext)!.msgInvoidBuildFail,
+        style: myPdfTableCellFontStyle);
   }
 
   static Widget buildFooter(String userMail, String reportType) => Column(
@@ -221,15 +222,15 @@ class pendingInvoice extends Invoice {
                 equals +
                 info.year +
                 endL +
-                txtSortingType +
+                AppLocalizations.of(gContext)!.txtSortingType +
                 equals +
                 info.sortingType +
                 endL +
-                txtCalculation +
+                AppLocalizations.of(gContext)!.txtCalculation +
                 equals +
                 info.formula +
                 endL +
-                txtDownloadedByUser +
+                AppLocalizations.of(gContext)!.txtDownloadedByUser +
                 equals +
                 userMail +
                 endL,

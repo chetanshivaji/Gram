@@ -122,7 +122,8 @@ class outFormState extends State<outForm> {
                     // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(msgProcessingData),
+                        content: Text(
+                            AppLocalizations.of(gContext)!.msgProcessingData),
                       ),
                     );
                     try {
@@ -146,15 +147,19 @@ class outFormState extends State<outForm> {
 
                       popAlert(
                         context,
-                        titleSuccess,
-                        subtitleSuccess,
+                        AppLocalizations.of(gContext)!.titleSuccess,
+                        AppLocalizations.of(gContext)!.subtitleSuccess,
                         getRightIcon(50.0),
                         2,
                       );
                     } catch (e) {
                       onPressedOut = false;
-                      popAlert(context, kTitleTryCatchFail, e.toString(),
-                          getWrongIcon(50.0), 1);
+                      popAlert(
+                          context,
+                          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+                          e.toString(),
+                          getWrongIcon(50.0),
+                          1);
                     }
                   }
                 },
