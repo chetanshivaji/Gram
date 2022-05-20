@@ -649,6 +649,36 @@
         "description":"tax Online Payment link"
     },
 
+    "txtYoutubeLink":"youtube link",
+    "@txtYoutubeLink":{
+        "description":"youtube link"
+    },
+
+    "txtHowSystemWorks":"See how this system works",
+    "@txtHowSystemWorks":{
+        "description":"See how this system works"
+    },
+    "txtThankYou":"Thank you!",
+    "@txtThankYou":{
+        "description":"Thank you!"
+    },
+    "txtPleasePay":" Please pay! ",
+    "@txtPleasePay":{
+        "description":" Please pay! "
+    },
+    "txtReminderPending":" reminder for PENDING ",
+    "@txtReminderPending":{
+        "description":" reminder for PENDING "
+    },
+
+    "txtReceipt":"Receipt",
+    "@txtReceipt":{
+        "description":"Receipt"
+    },
+    "txtType":"Type",
+    "@txtType":{
+        "description":"Type"
+    },
 
     "hello":"Hello {randomString}",
     "@hello":{

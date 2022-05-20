@@ -201,6 +201,14 @@
     "txtForYear":"वर्षासाठी",
     "txtToGram":"ग्रामपंचायतीला",
     "txtOnlinePayLink":"कर ऑनलाइन भरणा लिंक",
+    "txtYoutubeLink":"यूट्यूब लिंक",
+    "txtHowSystemWorks":"ही यंत्रणा कशी काम करते ते पहा",
+    "txtThankYou":"धन्यवाद!",
+
+    "txtPleasePay":"कृपया पैसे द्या!",    
+    "txtReminderPending":" प्रलंबित साठी स्मरणपत्र ",
+    "txtReceipt":"पावती",
+    "txtType":"प्रकार",
 
     "hello":"नमस्कार {randomString}"
 }

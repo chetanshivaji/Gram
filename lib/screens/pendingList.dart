@@ -19,8 +19,8 @@ class pendingList extends StatelessWidget {
       this.orderType = keyDate})
       : super(key: key);
 
-  Future<void> createPDFInHouseWaterReceiptEntries(
-      String name, String amount, String mobile, String taxType) async {
+  Future<void> createPDFInHouseWaterReceiptEntries(String name, String amount,
+      String mobile, String uid, String taxType) async {
     //START - fetch data to display in pdf
 
     final receipt = pendingReceipt(
@@ -29,10 +29,11 @@ class pendingList extends StatelessWidget {
           name: name,
           amount: amount.toString(),
           mobile: mobile,
+          uid: uid,
           userMail: registeredName,
           taxType: (taxType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
-              ? keyHouse
-              : keyWater),
+              ? AppLocalizations.of(gContext)!.txtTaxTypeHouse
+              : AppLocalizations.of(gContext)!.txtTaxTypeWater),
     );
 
     final pdfFile =
@@ -68,6 +69,8 @@ class pendingList extends StatelessWidget {
     String taxReceiptYr = AppLocalizations.of(gContext)!.txtTaxReceiptYr;
     String attachedReceipt = AppLocalizations.of(gContext)!.txtAttachedReceipt;
     String pending = AppLocalizations.of(gContext)!.pageNamePending;
+    String youtubeLink = AppLocalizations.of(gContext)!.txtYoutubeLink;
+    String howSystemWorks = AppLocalizations.of(gContext)!.txtHowSystemWorks;
 
     String regards = AppLocalizations.of(gContext)!.txtRegards;
 
@@ -110,22 +113,21 @@ class pendingList extends StatelessWidget {
               }
 
               String videoLinkForCu =
-                  "dummy youtube link https://www.youtube.com/watch?v=nYHQxOu0V3k";
+                  "$youtubeLink https://www.youtube.com/watch?v=nYHQxOu0V3k";
               String notificationMessage = '''$dear $name,
 $mobile, 
 $ud-$uid
 $reminder 
-$notifyTaxType $taxAmount $amount 
-$yr $dropdownValueYear
+$notifyTaxType $taxAmount  - $amount 
+$yr - $dropdownValueYear
 $toGram.
-''';
-//See how this system works on $videoLinkForCu'''; //who is reminding
+$howSystemWorks - $videoLinkForCu'''; //who is reminding
 
               String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
               await createPDFInHouseWaterReceiptEntries(
-                  name, amount, mobile + " " + uid, notifyTaxType);
+                  name, amount, mobile, uid, notifyTaxType);
 
               String subject =
                   "$name, $ud $uid, $notifyTaxType, $taxPendingReceipt $dropdownValueYear";

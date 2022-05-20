@@ -26,6 +26,7 @@ Widget getTableOnPDF(List<dynamic>? headers, List<List<dynamic>> data) {
       3: Alignment.center,
       4: Alignment.center,
       5: Alignment.center,
+      6: Alignment.center,
     },
   );
 }
@@ -38,6 +39,7 @@ class receiptInfo {
   final String name;
   final String amount;
   final String mobile;
+  final String uid;
   final String userMail;
 
   const receiptInfo({
@@ -46,6 +48,7 @@ class receiptInfo {
     required this.name,
     required this.amount,
     required this.mobile,
+    required this.uid,
     required this.userMail,
   });
 }
@@ -69,11 +72,13 @@ abstract class receipt {
         "_" +
         info.mobile +
         "_" +
+        info.uid +
+        "_" +
         reportType +
         "_" +
         info.taxType +
         "_" +
-        '_Receipt';
+        AppLocalizations.of(gContext)!.txtReceipt;
 
     pdfName = pdfName.replaceAll(' ', '_');
     String pdfTitle = pdfName;
@@ -165,7 +170,8 @@ abstract class receipt {
           buildSimpleText(
               title: appMainLabel, value: village + txtFwdSlash + pin),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Type', value: reportType),
+          buildSimpleText(
+              title: AppLocalizations.of(gContext)!.txtType, value: reportType),
         ],
       );
 
@@ -221,13 +227,17 @@ class pendingReceipt extends receipt {
 
   @override
   String getReceipt(receiptInfo info) {
-    return "Dear " +
+    return AppLocalizations.of(gContext)!.txtDear +
+        " " +
         info.name +
-        " reminder for PENDING " +
+        ", " +
+        AppLocalizations.of(gContext)!.txtReminderPending +
         info.taxType +
-        " tax amount of Rs. " +
+        AppLocalizations.of(gContext)!.txtTaxAmount +
+        " Rs. " +
         info.amount +
-        " Please pay!";
+        ", " +
+        AppLocalizations.of(gContext)!.txtPleasePay;
   }
 
   @override
@@ -238,11 +248,12 @@ class pendingReceipt extends receipt {
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingName,
       AppLocalizations.of(gContext)!.tableHeadingMobile,
+      AppLocalizations.of(gContext)!.tableHeadingUid,
       AppLocalizations.of(gContext)!.tableHeadingAmount,
       AppLocalizations.of(gContext)!.tableHeadingDate,
     ];
     List<List<dynamic>> lld = [
-      [info.name, info.mobile, info.amount, info.date],
+      [info.name, info.mobile, info.uid, info.amount, info.date],
     ];
     return getTableOnPDF(headers, lld);
   }
@@ -257,13 +268,17 @@ class receivedReceipt extends receipt {
 
   @override
   String getReceipt(receiptInfo info) {
-    return "Dear " +
+    return AppLocalizations.of(gContext)!.txtDear +
+        " " +
         info.name +
-        " received " +
+        ", " +
+        AppLocalizations.of(gContext)!.txtReceived +
         info.taxType +
-        " tax amount of Rs. " +
+        AppLocalizations.of(gContext)!.txtTaxAmount +
+        " Rs. " +
         info.amount +
-        " Thank you!";
+        ", " +
+        AppLocalizations.of(gContext)!.txtThankYou;
   }
 
   @override
@@ -274,11 +289,12 @@ class receivedReceipt extends receipt {
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingName,
       AppLocalizations.of(gContext)!.tableHeadingMobile,
+      AppLocalizations.of(gContext)!.tableHeadingUid,
       AppLocalizations.of(gContext)!.tableHeadingAmount,
       AppLocalizations.of(gContext)!.tableHeadingDate,
     ];
     List<List<dynamic>> lld = [
-      [info.name, info.mobile, info.amount, info.date],
+      [info.name, info.mobile, info.uid, info.amount, info.date],
     ];
 
     return getTableOnPDF(headers, lld);

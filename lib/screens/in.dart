@@ -53,12 +53,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           date: getCurrentDateTimeInDHM(),
           name: name,
           amount: amount.toString(),
-          mobile: mobile + " " + uid,
+          mobile: mobile,
+          uid: uid,
           userMail: registeredName,
           taxType: (widget.formType ==
                   AppLocalizations.of(gContext)!.txtTaxTypeHouse)
-              ? keyHouse
-              : keyWater),
+              ? AppLocalizations.of(gContext)!.txtTaxTypeHouse
+              : AppLocalizations.of(gContext)!.txtTaxTypeWater),
     );
 
     final pdfFile =
