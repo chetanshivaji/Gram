@@ -1,13 +1,14 @@
 import 'package:telephony/telephony.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 bool whatsUpEnabled = false;
 bool textMsgEnabled = true;
 bool receiptPdf = true;
 
 Future<void> sendTextToPhone(String message, List<String> recipents) async {
-  await Telephony.instance.sendSms(to: recipents[0], message: message);
+  await Telephony.instance
+      .sendSms(to: recipents[0], message: message, isMultipart: true);
+
   return;
 }
 
