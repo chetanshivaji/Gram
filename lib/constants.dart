@@ -87,19 +87,19 @@ String tableHeadingWater = "Water";
 
 //Form field Lable
 
-String labelMobile = "Mobile *";
+String labelMobile = "Mobile";
 
-String labelEmail = "Mail * ";
-String labelPassword = "Password *";
+String labelEmail = "Mail ";
+String labelPassword = "Password";
 
-String labelPin = "Pin *";
+String labelPin = "Pin";
 
-String labelName = "Name *";
-String labelAmount = "Amount *";
-String labelReason = "Reason *";
+String labelName = "Name";
+String labelAmount = "Amount";
+String labelReason = "Reason";
 
 String labelExtraInfo = "Extra information";
-String labelUid = "Uid *";
+String labelUid = "Uid";
 String labelForgotPassword = 'Forgot Password?';
 
 //general Text
