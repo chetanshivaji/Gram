@@ -7,10 +7,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+String dropdownValuePendingSort = AppLocalizations.of(gContext)!.txtHtoL;
+
 class pendingContainer extends StatefulWidget {
   String pendingType = "";
   pendingContainer({Key? key, this.pendingType = keyHouseGiven})
-      : super(key: key);
+      : super(key: key) {
+    dropdownValuePendingSort = AppLocalizations.of(gContext)!.txtHtoL;
+  }
 
   @override
   _pendingContainerState createState() => _pendingContainerState();
@@ -118,7 +122,7 @@ class _pendingContainerState extends State<pendingContainer> {
   @override
   Widget build(BuildContext context) {
     gContext = context;
-    String dropdownValuePendingSort = AppLocalizations.of(gContext)!.txtHtoL;
+
     var itemsSort = [
       AppLocalizations.of(gContext)!.txtHtoL,
       AppLocalizations.of(gContext)!.txtLtoH,

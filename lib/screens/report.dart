@@ -9,10 +9,16 @@ import 'package:money/api/pdf_api.dart';
 import 'package:money/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+String dropdownValueReportSort =
+    AppLocalizations.of(gContext)!.tableHeadingDate;
+
 class reportContainer extends StatefulWidget {
   String reportType = "";
+
   reportContainer({Key? key, this.reportType = collPrefixInHouse})
-      : super(key: key);
+      : super(key: key) {
+    dropdownValueReportSort = AppLocalizations.of(gContext)!.tableHeadingDate;
+  }
 
   @override
   _reportContainerState createState() => _reportContainerState();
@@ -252,8 +258,7 @@ class _reportContainerState extends State<reportContainer> {
   @override
   Widget build(BuildContext context) {
     gContext = context;
-    String dropdownValueReportSort =
-        AppLocalizations.of(gContext)!.tableHeadingDate;
+
     var itemsSort = [
       AppLocalizations.of(gContext)!.tableHeadingDate,
       AppLocalizations.of(gContext)!.txtHtoL,
