@@ -315,7 +315,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                 border: OutlineInputBorder(),
                 icon: Icon(Icons.mobile_friendly),
                 hintText: AppLocalizations.of(gContext)!.msgEnterMobileNumber,
-                labelText: AppLocalizations.of(gContext)!.labelMobile),
+                labelText:
+                    AppLocalizations.of(gContext)!.labelMobile + txtStar),
 
             onChanged: (text) async {
               if ((text.length < 10) || (text.length > 10)) {
@@ -501,7 +502,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         String vlg =
                             AppLocalizations.of(gContext)!.labelVillage;
                         String pn = AppLocalizations.of(gContext)!.labelPin;
-                        String ud = AppLocalizations.of(gContext)!.labelUid;
+                        String ud =
+                            AppLocalizations.of(gContext)!.tableHeadingUid;
 
                         String taxReceiptYr =
                             AppLocalizations.of(gContext)!.txtTaxReceiptYr;
@@ -621,7 +623,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.text_snippet),
                   hintText: AppLocalizations.of(gContext)!.msgExtraIncomeReasom,
-                  labelText: AppLocalizations.of(gContext)!.labelReason),
+                  labelText:
+                      AppLocalizations.of(gContext)!.labelReason + txtStar),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -640,7 +643,8 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   border: OutlineInputBorder(),
                   icon: Icon(Icons.attach_money),
                   hintText: AppLocalizations.of(gContext)!.msgExtraIncomeAmount,
-                  labelText: AppLocalizations.of(gContext)!.labelAmount),
+                  labelText:
+                      AppLocalizations.of(gContext)!.labelAmount + txtStar),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {

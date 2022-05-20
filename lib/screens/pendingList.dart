@@ -62,7 +62,7 @@ class pendingList extends StatelessWidget {
     String yr = AppLocalizations.of(gContext)!.tableHeadingYear;
     String vlg = AppLocalizations.of(gContext)!.labelVillage;
     String pn = AppLocalizations.of(gContext)!.labelPin;
-    String ud = AppLocalizations.of(gContext)!.labelUid;
+    String ud = AppLocalizations.of(gContext)!.tableHeadingUid;
     String payOnline = AppLocalizations.of(gContext)!.txtPayOnline;
     String forYear = AppLocalizations.of(gContext)!.txtForYear;
 

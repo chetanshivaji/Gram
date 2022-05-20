@@ -41,7 +41,7 @@ class outFormState extends State<outForm> {
               decoration: InputDecoration(
                 icon: Icon(Icons.person),
                 hintText: AppLocalizations.of(gContext)!.msgEnterFullName,
-                labelText: AppLocalizations.of(gContext)!.labelName,
+                labelText: AppLocalizations.of(gContext)!.labelName + txtStar,
               ),
               // The validator receives the text that the user has entered.
               validator: (value) {

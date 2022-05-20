@@ -45,7 +45,8 @@ class _forgotPasswordScreenState extends State<forgotPasswordScreen> {
                   },
                   decoration: InputDecoration(
                     icon: Icon(Icons.email),
-                    labelText: AppLocalizations.of(gContext)!.labelEmail,
+                    labelText:
+                        AppLocalizations.of(gContext)!.labelEmail + txtStar,
                     hintText: AppLocalizations.of(gContext)!.msgEnterUserMail,
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),

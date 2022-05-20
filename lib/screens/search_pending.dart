@@ -268,7 +268,8 @@ class _searchScreenState extends State<searchScreen> {
                             hintText: AppLocalizations.of(gContext)!
                                 .msgEnterMobileNumber,
                             labelText:
-                                AppLocalizations.of(gContext)!.labelMobile),
+                                AppLocalizations.of(gContext)!.labelMobile +
+                                    txtStar),
                         onChanged: (value) async {
                           if ((value.length < 10) || (value.length > 10)) {
                             multiUidsTextSpan.clear();

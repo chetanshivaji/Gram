@@ -1,23 +1,22 @@
 {
     "language":"मराठी",        
     "appMainLabel":"ग्रामपंचायत",
-    "dIn":"घेणे",
-     "dOut":"खर्च",
-     "dPending":"प्रलंबित",
-     "dReport":"अहवाल",
+    "dIn":"कर घ्या",
+    "dOut":"खर्च",
+    "dPending":"प्रलंबित",
+    "dReport":"अहवाल",
 
-    "pageNameIn":"घेणे",
+    "pageNameIn":"कर घ्या",
     "pageNameOut":"खर्च",
     "pageNamePending":"प्रलंबित",
     "pageNameReport":"अहवाल",
     
 
-    "tableHeading_srNum":"अनुक्रमांक",
+    "tableHeading_srNum":"अ.क्र.",
     
     "tableHeadingRegisteredName":"नाव",
     
-    "tableHeadingEmail":"ईमेल",
-    
+    "tableHeadingEmail":"ईमेल",    
 
     "tableHeadingStatus":"स्थिती",
     
@@ -25,7 +24,7 @@
     
     "tableHeadingChangeStatus":"स्थितीबदला",
     
-    "tableHeadingSrnum":"अनुक्रमांक",
+    "tableHeadingSrnum":"अ.क्र.",
     
     "tableHeadingName":"नाव",
     
@@ -51,18 +50,18 @@
     "tableHeadingHouse":"घर",
     "tableHeadingWater":"पाणी",
     
-    "txtLtoH":"चढत्या",    
-    "txtHtoL":"उतरत्या",
+    "txtLtoH":"चढता क्रम",    
+    "txtHtoL":"उतरता क्रम",
     
     "bLabelSearch":"शोध",
-    "labelUid":"घर/युनिक नंबर*",
+    "labelUid":"घर/युनिक नंबर",
     "labelExtraInfo":"अधिक_माहिती",
 
-    "labelMobile":"मोबाईल *",
-    "labelName":"नाव *",
-    "labelAmount":"रक्कम *",
-    "labelEmail":"मेल *",
-    "labelReason":"कारण *",
+    "labelMobile":"मोबाईल",
+    "labelName":"नाव",
+    "labelAmount":"रक्कम",
+    "labelEmail":"ईमेल",
+    "labelReason":"कारण",
 
     "msgExtraIncomeAmount":"कृपया अतिरिक्त उत्पन्नाची रक्कम प्रविष्ट करा",
     "msgExtraIncomeReasom":"कृपया अतिरिक्त उत्पन्नाचे कारण प्रविष्ट करा",
@@ -72,18 +71,18 @@
     "msgMoneySpent":"खर्च केलेले पैसे प्रविष्ट करा",
 
 
-    "txtFIn":"आले",    
-    "txtFOut":"बाहेर",
-    "txtFRemain":"राहिले",
+    "txtFIn":"प्राप्त",    
+    "txtFOut":"खर्च",
+    "txtFRemain":"बाकी",
     "txtStartDate":"सु",    
     "txtEndDate":"शे",
     
-    "optCancel":"रद्द करा",
-    "optOk":"ठीक आहे",
+    "optCancel":"रद्द",
+    "optOk":"ठीक",
 
     "kSubtitleLogOutConfirmation":"तुम्हाला लॉग आउट करायचे आहे का?",
 
-    "kTitleSignOut":"बाहेर पडणे",
+    "kTitleSignOut":"बाहेर जा",
     
     "bLabelSubmit":"जमा",
     
@@ -106,19 +105,19 @@
 
     "msgEnterUserMail":"ईमेल टाका",
 
-    "labelPassword":"पासवर्ड*",
+    "labelPassword":"पासवर्ड",
 
     "msgEnterPassword":"कृपया किमान 6 अक्षरांचा पासवर्ड टाका",
-    "msgEnterUserName":"नाव टाका",
-    "msgReEnterPassword":"कृपया पासवर्ड पुन्हा टाका",
+    "msgEnterUserName":"नाव प्रविष्ट करा",
+    "msgReEnterPassword":"कृपया पासवर्ड पुन्हा प्रविष्ट करा",
 
-    "msgEnterVillageName":"कृपया गावाचे नाव टाका",
+    "msgEnterVillageName":"कृपया गावाचे नाव प्रविष्ट करा",
     
     "msgEnterVillagePin":"कृपया गाव पिन प्रविष्ट करा",
 
-    "labelVillage":"गाव *",
+    "labelVillage":"गाव",
     
-    "labelPin":"पिन *",
+    "labelPin":"पिन",
 
     "kSubTitelYetToApproveByAdmin":"काही वेळानंतर प्रयत्न करा किंवा प्रशासकाला मंजुरी देण्याची आठवण करून द्या.",
 
@@ -130,9 +129,9 @@
     
     "kTitleFail":"लॉगिन/नोंदणी अयशस्वी",
     
-    "kTitleRegisterationSuccess":"नोंदणी केली आहे(",
+    "kTitleRegisterationSuccess":"नोंदणी केली आहे",
     
-    "kSubTitleRegisterationSuccess":"तुम्ही नोंदणीकृत आहात प्रशासक मंजूर होईपर्यंत प्रतीक्षा करा.",
+    "kSubTitleRegisterationSuccess":"तुम्ही नोंदणीकृत आहात प्रशासक परवानगी होईपर्यंत प्रतीक्षा करा.",
     
     "kTitleRegisterationFailed":"नोंदणी अयशस्वी",
     
@@ -157,7 +156,7 @@
      "kSubTitleForgotPasswordMailSent":"कृपया तुमचा लॉगिन ईमेल इनबॉक्स तपासा",
      "msgEnterEmail":"कृपया प्रशासक ईमेल प्रविष्ट करा",
             
-    "msgProcessingData":"डेटा प्रक्रिया करत आहे",
+    "msgProcessingData":"प्रक्रिया करत आहे",
     "msgNoExpense":"कोणताही खर्च नाही",
     "msgLoading":"लोड होत आहे",
     
@@ -177,9 +176,9 @@
 
 
     "txtSearchToolTip":"वापरकर्ता कर भरलेले तपशील शोधा",
-    "txtForumlaIn":"पैसे आले",
-    "txtForumlaOut":"पैसे बाहेर",
-    "txtForumlaRemain":"उरलेले पैसे",
+    "txtForumlaIn":"पैसे प्राप्त",
+    "txtForumlaOut":"पैसे खर्च",
+    "txtForumlaRemain":"बाकी पैसे",
     "txtDownloadPending":"डाउनलोड",
     "txtDownloadReport":"अहवाल डाउनलोड करा",
     "txtNotifyToPay":"पैसे भरण्यासाठी सूचना पाठवा",
@@ -192,12 +191,12 @@
     "txtReceived":"प्राप्त झाले!",
     "txtTaxAmount":"कर रक्कम",
     "txtTaxReceiptYr":"वर्षाची कर पावती",
-    "txtAttachedReceipt":"कृपया सोबत जोडलेली पावती शोधा",
+    "txtAttachedReceipt":"कृपया सोबत जोडलेली पावती पहा",
     "txtRegards":"विनम्र",
 
-    "txtReminder":"स्मरणपत्र सूचना. कृपया प्रलंबित पैसे द्या",
+    "txtReminder":"स्मरणपत्र सूचना. कृपया प्रलंबित बिल भरा",
     "txtTaxpPendingRecieptForYear":"वर्षभराची कर प्रलंबित पावती",
-    "txtFindPendingReceipt":"कृपया जोडलेली प्रलंबित पावती शोधा.",
+    "txtFindPendingReceipt":"कृपया जोडलेली प्रलंबित पावती पहा.",
     "txtForYear":"वर्षासाठी",
     "txtToGram":"ग्रामपंचायतीला",
     "txtOnlinePayLink":"कर ऑनलाइन भरणा लिंक",
@@ -209,6 +208,7 @@
     "txtReminderPending":" प्रलंबित साठी स्मरणपत्र ",
     "txtReceipt":"पावती",
     "txtType":"प्रकार",
+    "txtPayOnline":"ऑनलाइन पैसे द्या",
 
     "hello":"नमस्कार {randomString}"
 }

@@ -103,6 +103,7 @@ String labelUid = "Uid *";
 String labelForgotPassword = 'Forgot Password?';
 
 //general Text
+String txtStar = "*";
 String txtFwdSlash = "/";
 String txtDateRange = "Date Range";
 String txtSortingType = "Sorting type";
