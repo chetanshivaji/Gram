@@ -36,8 +36,9 @@ class pendingList extends StatelessWidget {
               : AppLocalizations.of(gContext)!.txtTaxTypeWater),
     );
 
-    final pdfFile =
-        await receipt.generate(actPending + dropdownValueYear, registeredName);
+    final pdfFile = await receipt.generate(
+        AppLocalizations.of(gContext)!.pageNamePending + dropdownValueYear,
+        registeredName);
 
     //PdfApi.openFile(pdfFile);
     return;

@@ -168,7 +168,8 @@ abstract class receipt {
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
-              title: appMainLabel, value: village + txtFwdSlash + pin),
+              title: AppLocalizations.of(gContext)!.appMainLabel,
+              value: village + txtFwdSlash + pin),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(
               title: AppLocalizations.of(gContext)!.txtType, value: reportType),

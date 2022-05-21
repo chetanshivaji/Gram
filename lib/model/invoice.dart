@@ -92,7 +92,7 @@ abstract class Invoice {
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
           Text(
-              labelYear +
+              AppLocalizations.of(gContext)!.tableHeadingYear +
                   equals +
                   info.year +
                   endL +
@@ -150,9 +150,12 @@ abstract class Invoice {
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
-              title: appMainLabel, value: village + txtFwdSlash + pin),
+              title: AppLocalizations.of(gContext)!.appMainLabel,
+              value: village + txtFwdSlash + pin),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Type', value: reportType),
+          buildSimpleText(
+              title: AppLocalizations.of(gContext)!.txtTaxType,
+              value: reportType),
         ],
       );
 
@@ -218,7 +221,7 @@ class pendingInvoice extends Invoice {
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
           Text(
-            labelYear +
+            AppLocalizations.of(gContext)!.tableHeadingYear +
                 equals +
                 info.year +
                 endL +

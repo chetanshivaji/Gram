@@ -213,7 +213,7 @@ class _reportContainerState extends State<reportContainer> {
 
       case collPrefixInExtra:
         {
-          taxType = collPrefixInExtra;
+          taxType = AppLocalizations.of(gContext)!.txtTaxTypeExtraIncome;
           invoice = reportExtraInvoice(
               info: InvoiceInfo(
                 formula:
@@ -229,7 +229,7 @@ class _reportContainerState extends State<reportContainer> {
 
       case collPrefixOut:
         {
-          taxType = collPrefixOut;
+          taxType = AppLocalizations.of(gContext)!.txtTaxTypeOut;
           invoice = reportOutInvoice(
               info: InvoiceInfo(
                 formula:
@@ -249,8 +249,11 @@ class _reportContainerState extends State<reportContainer> {
         break;
     }
 
-    final pdfFile = await invoice.generate(actReport, registeredName,
-        startDate.toString().split(' ')[0], endDate.toString().split(' ')[0]);
+    final pdfFile = await invoice.generate(
+        AppLocalizations.of(gContext)!.pageNameReport,
+        registeredName,
+        startDate.toString().split(' ')[0],
+        endDate.toString().split(' ')[0]);
     await PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
   }

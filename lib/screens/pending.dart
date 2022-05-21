@@ -105,14 +105,16 @@ class _pendingContainerState extends State<pendingContainer> {
     final invoice = pendingInvoice(
         info: InvoiceInfo(
             formula:
-                '$formIn$equals$inFormula; $formOut$equals$outFormula; $txtForumlaRemain$equals$remainFormula',
+                '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
             year: dropdownValueYear,
             sortingType: dropdownValuePendingSort,
-            taxType:
-                (widget.pendingType == housePendingType) ? keyHouse : keyWater),
+            taxType: (widget.pendingType == housePendingType)
+                ? AppLocalizations.of(gContext)!.txtTaxTypeHouse
+                : AppLocalizations.of(gContext)!.txtTaxTypeWater),
         pendingInvoiceItems: entries);
 
-    final pdfFile = await invoice.generate(actPending, registeredName, "", "");
+    final pdfFile = await invoice.generate(
+        AppLocalizations.of(gContext)!.pageNamePending, registeredName, "", "");
 
     await PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf

@@ -62,8 +62,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               : AppLocalizations.of(gContext)!.txtTaxTypeWater),
     );
 
-    final pdfFile =
-        await receipt.generate(actIn + dropdownValueYear, registeredName);
+    final pdfFile = await receipt.generate(
+        AppLocalizations.of(gContext)!.pageNameIn + dropdownValueYear,
+        registeredName);
 
     //PdfApi.openFile(pdfFile);
     return;

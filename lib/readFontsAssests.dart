@@ -4,7 +4,8 @@ import 'package:pdf/widgets.dart';
 import 'package:money/util.dart';
 
 Future<void> readFontsFromAssets() async {
-  var fontTableCellData = await rootBundle.load("assets/Poppins-Light.ttf");
+  var fontTableCellData =
+      await rootBundle.load("assets/MartelSans-Regular.ttf");
 
   myPdfTableCellFontStyle = TextStyle(font: Font.ttf(fontTableCellData));
 }
