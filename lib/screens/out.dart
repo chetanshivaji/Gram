@@ -59,7 +59,8 @@ class outFormState extends State<outForm> {
                   icon: Icon(Icons.text_snippet),
                   hintText:
                       AppLocalizations.of(gContext)!.msgMoneySpendingReason,
-                  labelText: AppLocalizations.of(gContext)!.labelReason),
+                  labelText:
+                      AppLocalizations.of(gContext)!.labelReason + txtStar),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -76,7 +77,7 @@ class outFormState extends State<outForm> {
               decoration: InputDecoration(
                 icon: Icon(Icons.attach_money),
                 hintText: AppLocalizations.of(gContext)!.msgMoneySpent,
-                labelText: AppLocalizations.of(gContext)!.labelAmount,
+                labelText: AppLocalizations.of(gContext)!.labelAmount + txtStar,
               ),
               // The validator receives the text that the user has entered.
               validator: (value) {
@@ -84,7 +85,7 @@ class outFormState extends State<outForm> {
                   return AppLocalizations.of(gContext)!.msgMoneySpent;
                 }
                 if (!isNumeric(value)) {
-                  return msgOnlyNumber;
+                  return AppLocalizations.of(gContext)!.msgOnlyNumber;
                 }
                 amount = int.parse(value);
                 return null;

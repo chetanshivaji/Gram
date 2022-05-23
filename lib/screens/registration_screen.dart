@@ -274,7 +274,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               .msgEnterVillagePin;
                         }
                         if (!isNumeric(value)) {
-                          return msgOnlyNumber;
+                          return AppLocalizations.of(gContext)!.msgOnlyNumber;
                         }
 
                         pin = value;

@@ -119,8 +119,12 @@ class _searchScreenState extends State<searchScreen> {
       }
     }
     if (mobileUserFound == false) {
-      popAlert(context, AppLocalizations.of(gContext)!.kTitleTryCatchFail,
-          kSubTitleUserNotFound, getWrongIcon(50.0), 1);
+      popAlert(
+          context,
+          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+          AppLocalizations.of(gContext)!.kSubTitleUserNotFound,
+          getWrongIcon(50.0),
+          1);
     }
     return ldataRow;
   }
@@ -293,14 +297,14 @@ class _searchScreenState extends State<searchScreen> {
                                 .msgEnterMobileNumber;
                           }
                           if (value == null || value.isEmpty) {
-                            return msgOnlyNumber;
+                            return AppLocalizations.of(gContext)!.msgOnlyNumber;
                           }
                           if (value.length != 10) {
                             return AppLocalizations.of(gContext)!
                                 .msgTenDigitNumber;
                           }
                           if (!isNumeric(value)) {
-                            return msgOnlyNumber;
+                            return AppLocalizations.of(gContext)!.msgOnlyNumber;
                           }
                           mobile = value;
                           return null;

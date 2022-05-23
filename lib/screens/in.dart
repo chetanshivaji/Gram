@@ -147,7 +147,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               houseEmail = y[keyEmail];
               houseAmount = y[keyHouse];
             } else {
-              throw kSubTitleUserNotFound;
+              throw AppLocalizations.of(gContext)!.kSubTitleUserNotFound;
             }
           },
         );
@@ -181,7 +181,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               waterName = y[keyName];
               waterEmail = y[keyEmail];
             } else {
-              throw kSubTitleUserNotFound;
+              throw AppLocalizations.of(gContext)!.kSubTitleUserNotFound;
             }
           },
         );
@@ -351,13 +351,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return msgOnlyNumber;
+                return AppLocalizations.of(gContext)!.msgOnlyNumber;
               }
               if (value.length != 10) {
                 return AppLocalizations.of(gContext)!.msgTenDigitNumber;
               }
               if (!isNumeric(value)) {
-                return msgOnlyNumber;
+                return AppLocalizations.of(gContext)!.msgOnlyNumber;
               }
 
               mobile = value;
@@ -438,7 +438,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           },
                         );
                       } catch (e) {
-                        throw "Number not found in Database";
+                        throw AppLocalizations.of(gContext)!
+                            .kSubTitleNumberNotFoundInDB;
                       }
                       if (paid == true) {
                         onPressedHouseWater = false;
@@ -466,7 +467,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             {inTypeGiven: true},
                           );
                         } catch (e) {
-                          throw "Number not found in Database";
+                          throw AppLocalizations.of(gContext)!
+                              .kSubTitleNumberNotFoundInDB;
                         }
 
                         await FirebaseFirestore.instance
@@ -652,7 +654,7 @@ class ExtraIncomeFormState extends State<ExtraIncomeForm> {
                   return AppLocalizations.of(gContext)!.msgExtraIncomeAmount;
                 }
                 if (!isNumeric(value)) {
-                  return msgOnlyNumber;
+                  return AppLocalizations.of(gContext)!.msgOnlyNumber;
                 }
                 amount = int.parse(value);
                 return null;

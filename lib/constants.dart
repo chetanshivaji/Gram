@@ -12,6 +12,7 @@ String kSubTitelYetToApproveByAdmin =
     "Try After sometime Or remind admin to approve.";
 String kTitleForgotPasswordMailSent = "Mail sent to change password";
 String kSubTitleForgotPasswordMailSent = "Please check your login email inbox";
+String kSubTitleNumberNotFoundInDB = "Mobile not found in Database";
 //Msgs
 String msgOnlyNumber = "Please enter only numbers";
 String msgEnterUserMail = "Enter email";

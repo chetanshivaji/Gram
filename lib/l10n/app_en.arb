@@ -680,6 +680,18 @@
         "description":"Type"
     },
 
+    "kSubTitleUserNotFound":"For given mobile user, (house/unique)number not found for given year, try changing year or uid",    
+    "@kSubTitleUserNotFound":{
+        "description":"Mobile user not found"
+    },
+
+    "kSubTitleNumberNotFoundInDB":"Mobile not found in Database",
+    "@kSubTitleNumberNotFoundInDB":{
+        "description":"Mobile not found in Database"
+    },
+
+    
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",
