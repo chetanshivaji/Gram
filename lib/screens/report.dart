@@ -313,6 +313,7 @@ class _reportContainerState extends State<reportContainer> {
               ),
               Expanded(
                 child: DropdownButton(
+                  isExpanded: true,
                   style: TextStyle(
                     backgroundColor: getColor(widget.reportType),
                   ),
