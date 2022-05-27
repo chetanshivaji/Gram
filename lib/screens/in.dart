@@ -27,6 +27,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   List<TextSpan> multiUids = [];
 
   var mobileUids;
+  var yearUids;
 
   bool onPressedHouseWater = false;
 
@@ -210,7 +211,9 @@ class HouseWaterFormState extends State<HouseWaterForm> {
     try {
       await FirebaseFirestore.instance
           .collection(village + pin)
-          .doc(docMobileUidMap)
+          .doc(docYrsMobileUids)
+          .collection(collYrs)
+          .doc(dropdownValueYear)
           .get()
           .then(
         (value) async {
@@ -228,6 +231,35 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               return;
             }
             mobileUids = y[mobValue];
+            /*
+            bool keyUidYearFound = true;
+            await FirebaseFirestore.instance
+                .collection(village + pin)
+                .doc(docUids)
+                .get()
+                .then(
+              (value) async {
+                if (value.exists) {
+                  var yz = value.data();
+                  if (!yz!.containsKey(keyUids + dropdownValueYear)) {
+                    //mobile uid mapping not present.
+                    keyUidYearFound = false;
+                    popAlert(
+                      context,
+                      AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
+                      "",
+                      getWrongIcon(50),
+                      1,
+                    );
+                    return;
+                  }
+                  yearUids = yz[keyUids + dropdownValueYear];
+                }
+              },
+            );
+            if (keyUidYearFound == false) return;
+            */
+
             //get all uids. if only one directly display
             if (mobileUids.length == 1) {
               uids = mobileUids[0];

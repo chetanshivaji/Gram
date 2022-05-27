@@ -144,6 +144,7 @@ const String collPrefixInHouse = "inHouse";
 const String collPrefixInWater = "inWater";
 const String collPrefixInExtra = "inExtra";
 const String collPrefixOut = "out";
+String collYrs = "yrs";
 
 //doc strings
 String docVillageInfo = "villageInfo";
@@ -151,8 +152,12 @@ String docAppLaguages = "appLanguages";
 String docCalcultion = 'calculation';
 String docMainDb = "mainDb";
 String docMobileUidMap = 'mobileUidMap';
+String docUids = "uids";
+
+String docYrsMobileUids = 'yrsMobileUids';
 
 //keys
+String keyUids = 'villageUids';
 String keyUserAppLanguage = 'userAppLanguage';
 String keyAdminAppLanguage = 'adminAppLanguage';
 String keyRegisteredName = 'registeredName';

@@ -17,7 +17,7 @@ class _searchScreenState extends State<searchScreen> {
   List<TextSpan> multiUids = [];
 
   List<DataRow> gLdr = [];
-  var mobileUids;
+  //var mobileUids;
   String uid = "";
   String mobile = "";
   int house = 0;
@@ -148,87 +148,33 @@ class _searchScreenState extends State<searchScreen> {
 
   Future<void> checkMobileUid(mobValue) async {
     String uids = "";
+    Set<String> mobileUids = {};
+
     //Set here, otherewise this will be set in validator after click on submit.
     mobile = mobValue;
     try {
-      await FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMobileUidMap)
-          .get()
-          .then(
-        (value) async {
-          if (value.exists) {
-            var y = value.data();
-            if (!y!.containsKey(mobValue)) {
-              //mobile uid mapping not present.
-              popAlert(
-                context,
-                AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
-                "",
-                getWrongIcon(50),
-                1,
-              );
-              return;
-            }
-            mobileUids = y[mobValue];
-            //get all uids. if only one directly display
-            if (mobileUids.length == 1) {
-              uids = mobileUids[0];
-              setState(
-                () {
-                  uid = mobileUids[0];
-                },
-              );
-              await buildAndSetList();
-            } else if (mobileUids.length > 1) {
-              //display all uids and choose one.
-              for (var id in mobileUids) {
-                uids = uids + ", " + id;
-                multiUidsTextSpan.add(
-                  TextSpan(
-                    text: id + " , ",
-                    style: TextStyle(
-                      color: Colors.red[300],
-                      backgroundColor: Colors.yellow,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        //make use of Id which has go tapped.
-                        uid = id;
-                        await buildAndSetList();
-                      },
-                  ),
-                );
+      for (var yr in items) {
+        await FirebaseFirestore.instance
+            .collection(village + pin)
+            .doc(docYrsMobileUids)
+            .collection(collYrs)
+            .doc(yr)
+            .get()
+            .then(
+          (value) async {
+            if (value.exists) {
+              var y = value.data();
+              if (!y!.containsKey(mobValue)) {
+                //mobile uid mapping not present.
+                return;
               }
-              //pop up message with all uids and setup hint text with uids.
-              popAlert(
-                context,
-                AppLocalizations.of(gContext)!.kTitleMultiUids,
-                uids,
-                getMultiUidIcon(50),
-                1,
-              );
-
-              setState(
-                () {
-                  multiUids = multiUidsTextSpan;
-                },
-              );
-            } else {
-              //mobile not found pop alert
-              popAlert(
-                context,
-                AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
-                "",
-                getWrongIcon(50),
-                1,
-              );
+              for (var element in y[mobValue]) {
+                mobileUids.add(element);
+              }
             }
-          }
-        },
-      );
+          },
+        );
+      }
     } catch (e) {
       popAlert(
         context,
@@ -238,6 +184,74 @@ class _searchScreenState extends State<searchScreen> {
         1,
       );
     }
+    //if no mobile found in all yrs.
+    if (mobileUids.isEmpty) {
+      popAlert(
+        context,
+        AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
+        "",
+        getWrongIcon(50),
+        1,
+      );
+      return;
+    }
+
+//get all uids. if only one directly display
+    if (mobileUids.length == 1) {
+      uids = mobileUids.elementAt(0);
+      setState(
+        () {
+          uid = mobileUids.elementAt(0);
+        },
+      );
+      await buildAndSetList();
+    } else if (mobileUids.length > 1) {
+      //display all uids and choose one.
+      for (var id in mobileUids) {
+        uids = uids + ", " + id;
+        multiUidsTextSpan.add(
+          TextSpan(
+            text: id + " , ",
+            style: TextStyle(
+              color: Colors.red[300],
+              backgroundColor: Colors.yellow,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async {
+                //make use of Id which has go tapped.
+                uid = id;
+                await buildAndSetList();
+              },
+          ),
+        );
+      }
+      //pop up message with all uids and setup hint text with uids.
+      popAlert(
+        context,
+        AppLocalizations.of(gContext)!.kTitleMultiUids,
+        uids,
+        getMultiUidIcon(50),
+        1,
+      );
+
+      setState(
+        () {
+          multiUids = multiUidsTextSpan;
+        },
+      );
+    } else {
+      //mobile not found pop alert
+      popAlert(
+        context,
+        AppLocalizations.of(gContext)!.kTitleMobileNotPresent,
+        "",
+        getWrongIcon(50),
+        1,
+      );
+    }
+
     return;
   }
 
