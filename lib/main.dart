@@ -65,7 +65,7 @@ class xApp extends StatelessWidget {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: appMainLabel,
+          title: "GramUser",
           initialRoute: WelcomeScreen.id,
           supportedLocales: L10n.all,
           localizationsDelegates: [
