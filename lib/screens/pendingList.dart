@@ -160,6 +160,7 @@ $registeredName
           ),
         ),
       );
+      /*
       ldataCell.add(
         DataCell(
           IconButton(
@@ -180,14 +181,26 @@ $registeredName
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
               }
               String OnlinePaymentLink = "dummy link";
-              String notificationMessage =
-                  "$dear $name, $mobile, $ud-$uid. $payOnline, $pending $notifyTaxType $taxAmount Rs. $amount $forYear $dropdownValueYear $toGram through link $OnlinePaymentLink"; //who is reminding
+              String notificationMessage = '''$dear 
+$name,
+$mobile,
+$ud-$uid.
+$payOnline, 
+$pending $notifyTaxType 
+$taxAmount Rs. $amount 
+$forYear $dropdownValueYear 
+$toGram through link $OnlinePaymentLink'''; //who is reminding
+
               String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
 
-              String subject =
-                  "$name, $ud $uid, $notifyTaxType $onlinePaymentLink $forYear- $dropdownValueYear";
+              String subject = '''$name, 
+$ud $uid,
+$notifyTaxType 
+$onlinePaymentLink 
+$forYear- $dropdownValueYear''';
+
               String body = """$notificationMessage
 $regards,
 $registeredName
@@ -212,6 +225,7 @@ $registeredName
           ),
         ),
       );
+      */
       ldataRow.add(
         DataRow(cells: ldataCell),
       );
@@ -268,12 +282,14 @@ $registeredName
                 style: getStyle(actPending),
               ),
             ),
+            /*
             DataColumn(
               label: Text(
                 AppLocalizations.of(gContext)!.tableHeadingOnlinePayment,
                 style: getStyle(actPending),
               ),
             ),
+            */
           ],
           rows: _buildList(context, snapshot.data!.docs),
         ),
