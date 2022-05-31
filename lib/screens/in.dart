@@ -549,13 +549,13 @@ $registeredName
                           email,
                           adminMail,
                         ];
-                        await sendEmail(subject, body, receipients,
-                            attachment); //send mail to user cc admin
-
                         if (textMsgEnabled) {
+                          //first send text then email
                           await sendTextToPhone(
                               message + "-" + registeredName, recipents);
                         }
+                        await sendEmail(subject, body, receipients,
+                            attachment); //send mail to user cc admin
 
                         popAlert(
                             context,

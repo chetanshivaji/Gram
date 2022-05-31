@@ -114,7 +114,7 @@ class pendingList extends StatelessWidget {
               }
 
               String videoLinkForCu =
-                  "$youtubeLink https://www.youtube.com/watch?v=nYHQxOu0V3k";
+                  "$youtubeLink https://youtu.be/LPBDvJKDug8";
               String notificationMessage = '''$dear $name,
 $mobile, 
 $ud-$uid
@@ -145,12 +145,14 @@ $registeredName
                 email,
                 adminMail,
               ];
+              if (textMsgEnabled) {
+                await sendTextToPhone(
+                    notificationMessage + "-" + registeredName, listMobile);
+              }
+
               await sendEmail(subject, body, receipients,
                   attachment); //send mail to user cc admin
 ////////*******************END sending mail************************/////
-              if (textMsgEnabled)
-                await sendTextToPhone(
-                    notificationMessage + "-" + registeredName, listMobile);
             },
             icon: Icon(
               Icons.notifications_active_outlined,
