@@ -69,11 +69,12 @@ abstract class Invoice {
       MultiPage(
         build: (context) => [
           buildHeader(pdfName),
-          SizedBox(height: 3 * PdfPageFormat.cm),
+          SizedBox(height: 1 * PdfPageFormat.cm),
           buildTitle(pdfTitle, userMail, startDate, endDate),
           buildInvoice(reportType),
         ],
-        footer: (context) => buildFooter(userMail, reportType),
+        footer: (context) => buildFooter(
+            context.pageNumber, context.pagesCount, userMail, reportType),
       ),
     );
 
@@ -135,7 +136,7 @@ abstract class Invoice {
               ),
             ],
           ),
-          SizedBox(height: 1 * PdfPageFormat.cm),
+          //SizedBox(height: 2 * PdfPageFormat.cm),
         ],
       );
 
@@ -144,18 +145,23 @@ abstract class Invoice {
         style: myPdfTableCellFontStyle);
   }
 
-  static Widget buildFooter(String userMail, String reportType) => Column(
+  static Widget buildFooter(
+          int pgNum, int pgCount, String userMail, String reportType) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
               title: AppLocalizations.of(gContext)!.appMainLabel,
-              value: village + txtFwdSlash + pin),
-          SizedBox(height: 1 * PdfPageFormat.mm),
-          buildSimpleText(
-              title: AppLocalizations.of(gContext)!.txtTaxType,
-              value: reportType),
+              value: village +
+                  txtFwdSlash +
+                  pin +
+                  "  " +
+                  AppLocalizations.of(gContext)!.txtTaxType +
+                  " - " +
+                  reportType),
+          pw.Text('Page $pgNum of $pgCount'),
         ],
       );
 

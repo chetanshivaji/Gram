@@ -15,8 +15,7 @@ In future developement.
 
 
 # TODO
-0. create videos for B and C(Emphasize getting ack message), type letter of approval from Grampanchayat, 
-1. send videos link to C when added person in inputGram admin app or with pending msg.
+0. create videos for B 
 2. send upi reqest link to Cu, if they want to send money through UPI.
 3. create log file with time who what details. for debug purpose when problem arrise.
 4. give db dump to GP, perodically.
@@ -25,14 +24,13 @@ In future developement.
 1. year wise formula per village - formula2021 formula2022 formula2023. Already, Super Total on Top. Each Formula2021  Total / Pending / In / Out / Remain / Percent collected.
 3. email failures on Siddhaths samsung mobile model.
 4. Make status in approve seciton only one dropdown.
-5. Make language independent add Marathi, make all words in app Marathi, then make change language option.
 9. why search slow
 10. sort as per collector sender.
 12. who wil notify
 13. recyler tile
 14. ternary operator Recycler list
 17. if no entry in db no error.
-19. Check in registeration from main app, if village and pin exist.
+
 20. Auto disapprove all users except admin. admin should approve users after certain period.
 21. Subscrption implementation. stopping process at end of subscription period.
 22. Detailed report at end of year.
@@ -47,6 +45,10 @@ In future developement.
 31. horizontal scrolling feature, Addtion of section health tax, & electricity maintaince tax etc.
 
 # DONE
+19. Check in registeration from main app, if village and pin exist.
+5. Make language independent add Marathi, make all words in app Marathi, then make change language option.
+1. send videos link to C when added person in inputGram admin app or with pending msg.
+1. make video for C(Emphasize getting ack message), type letter of approval from Grampanchayat, 
 18. change access level smartly
 16. forgot password implementation
 15. First transcation no cc bug
