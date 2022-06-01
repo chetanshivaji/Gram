@@ -17,7 +17,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     gContext = context;
     return Scaffold(
-      backgroundColor: Color.fromARGB(221, 243, 230, 88),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -31,14 +30,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   fontSize: 45.0,
                   shadows: [
                     Shadow(
-                      color: Colors.blue,
-                      blurRadius: 10.0,
-                      offset: Offset(5.0, 5.0),
-                    ),
-                    Shadow(
                       color: Colors.red,
-                      blurRadius: 10.0,
-                      offset: Offset(-5.0, 5.0),
+                      blurRadius: 5.0,
+                      offset: Offset(0.0, 5.0),
                     ),
                   ],
                 ),
