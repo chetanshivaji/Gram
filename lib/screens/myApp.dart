@@ -150,6 +150,9 @@ class MyApp extends StatelessWidget {
           ],
         ),
         drawer: Drawer(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -176,6 +179,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
               ListTile(
+                shape: getListTileShapeForDrawer(),
                 leading: Icon(Icons.add_box),
                 //title: Text(dIn),
                 title: Text(
@@ -198,6 +202,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               ListTile(
+                shape: getListTileShapeForDrawer(),
                 leading: Icon(Icons.outbond_outlined),
                 title: Text(AppLocalizations.of(context)!.dOut),
                 tileColor: clrRed, //red
@@ -217,6 +222,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               ListTile(
+                shape: getListTileShapeForDrawer(),
                 leading: Icon(Icons.pending_actions),
                 title: Text(AppLocalizations.of(context)!.dPending),
                 tileColor: clrAmber, //amber
@@ -238,6 +244,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               ListTile(
+                shape: getListTileShapeForDrawer(),
                 leading: Icon(Icons.report),
                 title: Text(AppLocalizations.of(context)!.dReport),
                 tileColor: clrBlue, //amber
