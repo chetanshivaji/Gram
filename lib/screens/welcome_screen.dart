@@ -17,26 +17,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     gContext = context;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(221, 243, 230, 88),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text(
-                  'Grampanchayat',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+            Center(
+              child: Text(
+                'Grampanchayat',
+                style: TextStyle(
+                  fontSize: 45.0,
+                  shadows: [
+                    Shadow(
+                      color: Colors.blue,
+                      blurRadius: 10.0,
+                      offset: Offset(5.0, 5.0),
+                    ),
+                    Shadow(
+                      color: Colors.red,
+                      blurRadius: 10.0,
+                      offset: Offset(-5.0, 5.0),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 48.0,
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -50,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     //Go to login screen.
                     Navigator.pushNamed(context, LoginScreen.id);
                   },
-                  minWidth: 200.0,
+                  minWidth: 150.0,
                   height: 42.0,
                   child: Text(
                     AppLocalizations.of(gContext)!.bLabelLogin,
@@ -70,7 +76,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     //Go to registration screen.
                     Navigator.pushNamed(context, RegistrationScreen.id);
                   },
-                  minWidth: 200.0,
+                  minWidth: 150.0,
                   height: 42.0,
                   child: Text(
                     AppLocalizations.of(gContext)!.bLabelRegiter,
@@ -84,7 +90,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               },
               child: Text(
                 AppLocalizations.of(gContext)!.labelForgotPassword,
-                style: TextStyle(color: Colors.blueGrey),
+                style: TextStyle(
+                    color: Colors.blueGrey,
+                    decoration: TextDecoration.underline),
               ),
             ),
           ],
