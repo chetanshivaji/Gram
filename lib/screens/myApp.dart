@@ -201,6 +201,8 @@ class MyApp extends StatelessWidget {
                   }
                 },
               ),
+              /*
+              //no need of spender as of now.
               ListTile(
                 shape: getListTileShapeForDrawer(),
                 leading: Icon(Icons.outbond_outlined),
@@ -221,6 +223,7 @@ class MyApp extends StatelessWidget {
                   }
                 },
               ),
+              */
               ListTile(
                 shape: getListTileShapeForDrawer(),
                 leading: Icon(Icons.pending_actions),
@@ -232,10 +235,10 @@ class MyApp extends StatelessWidget {
                     onPressedDrawerPending = true;
                     int access = await getUserAccessLevel(context, userMail);
 
-                    if ((access == accessLevel.Spender.index ||
+                    if ((/*access == accessLevel.Spender.index ||*/
                         access == accessLevel.Collector.index ||
-                        access == accessLevel.SuperUser.index ||
-                        access == accessLevel.Viewer.index)) {
+                            access == accessLevel.SuperUser.index ||
+                            access == accessLevel.Viewer.index)) {
                       Navigator.pushNamed(context, pendingMoney.id);
                     } else {
                       onPressedDrawerPending = false;
@@ -255,10 +258,10 @@ class MyApp extends StatelessWidget {
                     int access = await getUserAccessLevel(context,
                         userMail); //admin can change access rights for user any time, although logged in.
 
-                    if ((access == accessLevel.Spender.index ||
+                    if ((/*access == accessLevel.Spender.index ||*/
                         access == accessLevel.Collector.index ||
-                        access == accessLevel.SuperUser.index ||
-                        access == accessLevel.Viewer.index)) {
+                            access == accessLevel.SuperUser.index ||
+                            access == accessLevel.Viewer.index)) {
                       Navigator.pushNamed(context, reportMoney.id);
                     } else {
                       onPressedDrawerReport = false;
