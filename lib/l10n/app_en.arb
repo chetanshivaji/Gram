@@ -675,6 +675,7 @@
     "@txtPleasePay":{
         "description":" Please pay! "
     },
+    
     "txtReminderPending":" reminder for PENDING ",
     "@txtReminderPending":{
         "description":" reminder for PENDING "
@@ -699,27 +700,32 @@
         "description":"Mobile not found in Database"
     },
 
-    
-
-  "labelElectricityTax":"Electricity tax",
+    "labelElectricityTax":"Electricity tax",
     "@labelElectricityTax":{
         "description":"Electricity tax"
     },
 
 
-  "labelHealthTax":"Health tax",
+    "labelHealthTax":"Health tax",
     "@labelHealthTax":{
         "description":"Health tax"
     },
 
-  "labelExtraLandTax":"ExtraLand tax",
+    "labelExtraLandTax":"ExtraLand tax",
     "@labelExtraLandTax":{
         "description":"ExtraLand tax"
     },
-  "labelOtherTax":"Other tax",
+
+    "labelOtherTax":"Other tax",
     "@labelOtherTax":{
         "description":"Other tax"
     },
+
+    "labelTotalTax":"Total Tax",
+    "@labelTotalTax":{
+        "description":"Total Tax"
+    },
+    
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

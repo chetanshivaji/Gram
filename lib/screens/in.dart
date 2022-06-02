@@ -38,6 +38,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
   int electricityTax = 0;
   int healthTax = 0;
+  int totalTaxOtherThanWater = 0;
   int extraLandTax = 0;
   int otherTax = 0;
 
@@ -53,6 +54,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
   int houseelectricityTax = 0;
   int househealthTax = 0;
+  int housetotalTaxOtherThanWater = 0;
   int houseextraLandTax = 0;
   int houseotherTax = 0;
 
@@ -103,6 +105,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         email = '';
         electricityTax = 0;
         healthTax = 0;
+        totalTaxOtherThanWater = 0;
         extraLandTax = 0;
         otherTax = 0;
       },
@@ -149,6 +152,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
               electricityTax = 0;
               healthTax = 0;
+              totalTaxOtherThanWater = 0;
               extraLandTax = 0;
               otherTax = 0;
 
@@ -181,6 +185,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
               houseelectricityTax = y[keyElectricity];
               househealthTax = y[keyHealth];
+              housetotalTaxOtherThanWater = y[keyTotalTaxOtherThanWater];
               houseextraLandTax = y[keyExtraLand];
               houseotherTax = y[keyOtherTax];
             } else {
@@ -203,6 +208,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
           electricityTax = houseelectricityTax;
           healthTax = househealthTax;
+          totalTaxOtherThanWater = housetotalTaxOtherThanWater;
           extraLandTax = houseextraLandTax;
           otherTax = houseotherTax;
         },
@@ -464,6 +470,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   Icon(Icons.movie_creation),
                   AppLocalizations.of(gContext)!.labelOtherTax,
                   otherTax.toString())
+              : SizedBox(),
+
+          (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? getListTile(
+                  Icon(Icons.expand_less_rounded),
+                  AppLocalizations.of(gContext)!.labelTotalTax,
+                  totalTaxOtherThanWater.toString())
               : SizedBox(),
           //END electricity health extra land, other tax
 

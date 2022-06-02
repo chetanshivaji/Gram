@@ -221,5 +221,7 @@
   "labelHouseTax":"घर कर",    
   "labelWaterTax":"पाणी कर",
 
+  "labelTotalTax":"एकूण कर",
+
   "hello":"नमस्कार {randomString}"
 }

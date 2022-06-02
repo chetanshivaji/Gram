@@ -87,6 +87,7 @@ String tableHeadingWater = "Water";
 //String tableHeading = "";
 
 //Form field Lable
+String labelTotalTax = "Total Tax";
 String labelHouseTax = "House Tax";
 String labelWaterTax = "Water Tax";
 String labelElectricityTax = "Electricity Tax";
@@ -171,7 +172,7 @@ String docUids = "uids";
 String docYrsMobileUids = 'yrsMobileUids';
 
 //keys
-
+String keyTotalTaxOtherThanWater = "totalTax";
 String keyElectricity = 'electricity';
 String keyHealth = 'health';
 String keyExtraLand = 'extraLand';
