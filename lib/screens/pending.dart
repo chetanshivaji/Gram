@@ -35,18 +35,18 @@ class _pendingContainerState extends State<pendingContainer> {
       if (dropdownValuePendingSort == AppLocalizations.of(gContext)!.txtLtoH) {
         snapshots = await collection
             .where(keyHouseGiven, isEqualTo: false)
-            .orderBy(keyHouse, descending: false)
+            .orderBy(keyTotalTaxOtherThanWater, descending: false)
             .get();
       } else if (dropdownValuePendingSort ==
           AppLocalizations.of(gContext)!.txtHtoL) {
         snapshots = await collection
             .where(keyHouseGiven, isEqualTo: false)
-            .orderBy(keyHouse, descending: true)
+            .orderBy(keyTotalTaxOtherThanWater, descending: true)
             .get();
       } else {
         snapshots = await collection
             .where(keyHouseGiven, isEqualTo: false)
-            .orderBy(keyHouse, descending: true)
+            .orderBy(keyTotalTaxOtherThanWater, descending: true)
             .get();
       }
     } else {
@@ -87,7 +87,7 @@ class _pendingContainerState extends State<pendingContainer> {
                 mobile: y![keyMobile],
                 uid: y![keyUid],
                 amount: (widget.pendingType == housePendingType)
-                    ? y![keyHouse].toString()
+                    ? y![keyTotalTaxOtherThanWater].toString()
                     : y![keyWater].toString());
             entries.add(pe);
           },

@@ -85,7 +85,7 @@ class _searchScreenState extends State<searchScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        y[keyHouse].toString(),
+                        y[keyTotalTaxOtherThanWater].toString(),
                       ),
                       y[keyHouseGiven]
                           ? getRightIcon(20.0)

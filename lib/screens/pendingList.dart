@@ -94,7 +94,8 @@ class pendingList extends StatelessWidget {
       ldataCell.add(DataCell(Text(l.get(keyMobile))));
       ldataCell.add(DataCell(Text(l.get(keyUid))));
       if (pendingType == housePendingType) {
-        ldataCell.add(DataCell(Text(l.get(keyHouse).toString())));
+        ldataCell
+            .add(DataCell(Text(l.get(keyTotalTaxOtherThanWater).toString())));
       } else {
         ldataCell.add(DataCell(Text(l.get(keyWater).toString())));
       }
@@ -111,7 +112,7 @@ class pendingList extends StatelessWidget {
               String amount = "";
               String notifyTaxType = "";
               if (pendingType == housePendingType) {
-                amount = l.get(keyHouse).toString();
+                amount = l.get(keyTotalTaxOtherThanWater).toString();
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
               } else {
                 amount = l.get(keyWater).toString();
