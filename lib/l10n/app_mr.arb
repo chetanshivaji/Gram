@@ -213,5 +213,9 @@
     "kSubTitleUserNotFound":"दिलेल्या मोबाइल वापरकर्त्यासाठी, दिलेल्या वर्षासाठी (घर/युनिक)नंबर सापडला नाही, वर्ष किंवा (घर/युनिक)नंबर बदलून पहा",
     "kSubTitleNumberNotFoundInDB":"डेटाबेसमध्ये मोबाईल सापडला नाही",
 
+  "labelElectricityTax":"वीज कर",
+  "labelHealthTax":"आरोग्य कर",
+  "labelExtraLandTax":"पडसर कर",    
+  "labelOtherTax":"इतर कर",
     "hello":"नमस्कार {randomString}"
 }

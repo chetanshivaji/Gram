@@ -87,6 +87,10 @@ String tableHeadingWater = "Water";
 //String tableHeading = "";
 
 //Form field Lable
+String labelElectricityTax = "Electricity Tax";
+String labelHealthTax = "Health Tax";
+String labelExtraLandTax = "ExtraLand Tax";
+String labelOtherTax = "Other Tax";
 
 String labelMobile = "Mobile";
 
@@ -104,6 +108,14 @@ String labelUid = "Uid";
 String labelForgotPassword = 'Forgot Password?';
 
 //general Text
+String txtReceived = "Received!";
+String txtThankYou = "Thank you!";
+String txtDear = "Dear";
+String txtReminderPending = " reminder for PENDING ";
+String txtTaxAmount = "tax amount";
+String txtPleasePay = " Please pay! ";
+String txtType = "Type";
+String txtReceipt = 'Receipt';
 String txtStar = "*";
 String txtFwdSlash = "/";
 String txtDateRange = "Date Range";
@@ -157,6 +169,12 @@ String docUids = "uids";
 String docYrsMobileUids = 'yrsMobileUids';
 
 //keys
+
+String keyElectricity = 'electricity';
+String keyHealth = 'health';
+String keyExtraLand = 'extraLand';
+String keyOtherTax = 'otherTax';
+
 String keyUids = 'villageUids';
 String keyUserAppLanguage = 'userAppLanguage';
 String keyAdminAppLanguage = 'adminAppLanguage';

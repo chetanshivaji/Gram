@@ -35,6 +35,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
 
   String name = "";
   String email = "";
+
+  int electricityTax = 0;
+  int healthTax = 0;
+  int extraLandTax = 0;
+  int otherTax = 0;
+
   int amount = 0;
   String mobile = "";
   String uid = "";
@@ -44,6 +50,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   String houseName = "";
   String waterEmail = "";
   String houseEmail = "";
+
+  int houseelectricityTax = 0;
+  int househealthTax = 0;
+  int houseextraLandTax = 0;
+  int houseotherTax = 0;
 
   var _textController_mobile = TextEditingController();
 
@@ -57,16 +68,26 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           mobile: mobile,
           uid: uid,
           userMail: registeredName,
+          /*
+          //Pdf only in english because of Marathi font disturbed.
           taxType: (widget.formType ==
                   AppLocalizations.of(gContext)!.txtTaxTypeHouse)
               ? AppLocalizations.of(gContext)!.txtTaxTypeHouse
               : AppLocalizations.of(gContext)!.txtTaxTypeWater),
+              */
+          taxType: (widget.formType == txtTaxTypeHouse)
+              ? txtTaxTypeHouse
+              : txtTaxTypeWater),
     );
 
+    /*
+    //Pdf only in english because of Marathi font disturbed.
     final pdfFile = await receipt.generate(
         AppLocalizations.of(gContext)!.pageNameIn + dropdownValueYear,
         registeredName);
-
+        */
+    final pdfFile =
+        await receipt.generate(pageNameIn + dropdownValueYear, registeredName);
     //PdfApi.openFile(pdfFile);
     return;
     //END - fetch data to display in pdf
@@ -80,6 +101,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         name = '';
         amount = 0;
         email = '';
+        electricityTax = 0;
+        healthTax = 0;
+        extraLandTax = 0;
+        otherTax = 0;
       },
     );
     return;
@@ -121,6 +146,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               amount = 0;
               email = '';
               mobile = '';
+
+              electricityTax = 0;
+              healthTax = 0;
+              extraLandTax = 0;
+              otherTax = 0;
+
               _textController_mobile.clear();
             },
           );
@@ -147,6 +178,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               houseName = y![keyName];
               houseEmail = y[keyEmail];
               houseAmount = y[keyHouse];
+
+              houseelectricityTax = y[keyElectricity];
+              househealthTax = y[keyHealth];
+              houseextraLandTax = y[keyExtraLand];
+              houseotherTax = y[keyOtherTax];
             } else {
               throw AppLocalizations.of(gContext)!.kSubTitleUserNotFound;
             }
@@ -164,6 +200,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           name = houseName;
           amount = houseAmount;
           email = houseEmail;
+
+          electricityTax = houseelectricityTax;
+          healthTax = househealthTax;
+          extraLandTax = houseextraLandTax;
+          otherTax = houseotherTax;
         },
       );
     } else {
@@ -384,9 +425,41 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           //getPadding(),
           getListTile(Icon(Icons.mail),
               AppLocalizations.of(gContext)!.labelEmail, email),
+
           //getPadding(),
           getListTile(Icon(Icons.attach_money),
               AppLocalizations.of(gContext)!.labelAmount, amount.toString()),
+          //START electricity health extra land, other tax
+
+          (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? getListTile(
+                  Icon(Icons.electrical_services),
+                  AppLocalizations.of(gContext)!.labelElectricityTax,
+                  electricityTax.toString())
+              : SizedBox(),
+
+          (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? getListTile(
+                  Icon(Icons.health_and_safety_outlined),
+                  AppLocalizations.of(gContext)!.labelHealthTax,
+                  healthTax.toString())
+              : SizedBox(),
+
+          (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? getListTile(
+                  Icon(Icons.landscape_outlined),
+                  AppLocalizations.of(gContext)!.labelExtraLandTax,
+                  extraLandTax.toString())
+              : SizedBox(),
+
+          (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? getListTile(
+                  Icon(Icons.movie_creation),
+                  AppLocalizations.of(gContext)!.labelOtherTax,
+                  otherTax.toString())
+              : SizedBox(),
+          //END electricity health extra land, other tax
+
           //getPadding(),
           Expanded(
             child: Center(

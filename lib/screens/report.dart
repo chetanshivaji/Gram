@@ -249,11 +249,17 @@ class _reportContainerState extends State<reportContainer> {
         break;
     }
 
+    /*
+  //Pdf only in english because of Marathi font disturbed.
     final pdfFile = await invoice.generate(
         AppLocalizations.of(gContext)!.pageNameReport,
         registeredName,
         startDate.toString().split(' ')[0],
         endDate.toString().split(' ')[0]);
+    */
+    final pdfFile = await invoice.generate(pageNameReport, registeredName,
+        startDate.toString().split(' ')[0], endDate.toString().split(' ')[0]);
+
     await PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf
   }

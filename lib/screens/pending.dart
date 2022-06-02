@@ -113,8 +113,14 @@ class _pendingContainerState extends State<pendingContainer> {
                 : AppLocalizations.of(gContext)!.txtTaxTypeWater),
         pendingInvoiceItems: entries);
 
+    /*
+    //Pdf only in english because of Marathi font disturbed.
     final pdfFile = await invoice.generate(
         AppLocalizations.of(gContext)!.pageNamePending, registeredName, "", "");
+      */
+
+    final pdfFile =
+        await invoice.generate(pageNamePending, registeredName, "", "");
 
     await PdfApi.openFile(pdfFile);
     //END - fetch data to display in pdf

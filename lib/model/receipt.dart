@@ -78,7 +78,8 @@ abstract class receipt {
         "_" +
         info.taxType +
         "_" +
-        AppLocalizations.of(gContext)!.txtReceipt;
+        //AppLocalizations.of(gContext)!.txtReceipt; //Pdf only in english because of Marathi font disturbed.
+        txtReceipt;
 
     pdfName = pdfName.replaceAll(' ', '_');
     String pdfTitle = pdfName;
@@ -132,6 +133,8 @@ abstract class receipt {
                   myPdfTableCellFontStyle //TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
+          /*
+          //Pdf only in english because of Marathi font disturbed.
           Text(
             AppLocalizations.of(gContext)!.txtTaxType +
                 equals +
@@ -151,13 +154,40 @@ abstract class receipt {
                 endL,
             style: myPdfTableCellFontStyle,
           ),
+          */
+          Text(
+            txtTaxType +
+                equals +
+                info.taxType +
+                endL +
+                tableHeadingName +
+                equals +
+                info.name +
+                endL +
+                tableHeadingMobile +
+                equals +
+                info.mobile +
+                endL +
+                txtSentByUser +
+                equals +
+                info.userMail +
+                endL,
+            style: myPdfTableCellFontStyle,
+          ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
   Widget buildInvoice(String reportType) {
+    /*
+    //Pdf only in english because of Marathi font disturbed.
     return Text(
       AppLocalizations.of(gContext)!.msgInvoidBuildFail,
+      style: myPdfTableCellFontStyle,
+    );
+    */
+    return Text(
+      msgInvoidBuildFail,
       style: myPdfTableCellFontStyle,
     );
   }
@@ -168,11 +198,14 @@ abstract class receipt {
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
-              title: AppLocalizations.of(gContext)!.appMainLabel,
+              //title: AppLocalizations.of(gContext)!.appMainLabel,////Pdf only in english because of Marathi font disturbed.
+              title: appMainLabel,
               value: village + txtFwdSlash + pin),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(
-              title: AppLocalizations.of(gContext)!.txtType, value: reportType),
+              //title: AppLocalizations.of(gContext)!.txtType, value: reportType),//Pdf only in english because of Marathi font disturbed.
+              title: txtType,
+              value: reportType),
         ],
       );
 
@@ -228,6 +261,8 @@ class pendingReceipt extends receipt {
 
   @override
   String getReceipt(receiptInfo info) {
+    /*
+    //Pdf only in english because of Marathi font disturbed.
     return AppLocalizations.of(gContext)!.txtDear +
         " " +
         info.name +
@@ -239,19 +274,40 @@ class pendingReceipt extends receipt {
         info.amount +
         ", " +
         AppLocalizations.of(gContext)!.txtPleasePay;
+        */
+    return txtDear +
+        " " +
+        info.name +
+        ", " +
+        txtReminderPending +
+        info.taxType +
+        txtTaxAmount +
+        " Rs. " +
+        info.amount +
+        ", " +
+        txtPleasePay;
   }
 
   @override
   Widget buildInvoice(String reportType) {
     var headers;
     var data;
-
+/*
+    //Pdf only in english because of Marathi font disturbed.
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingName,
       AppLocalizations.of(gContext)!.tableHeadingMobile,
       AppLocalizations.of(gContext)!.tableHeadingUid,
       AppLocalizations.of(gContext)!.tableHeadingAmount,
       AppLocalizations.of(gContext)!.tableHeadingDate,
+    ];
+    */
+    headers = [
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingUid,
+      tableHeadingAmount,
+      tableHeadingDate,
     ];
     List<List<dynamic>> lld = [
       [info.name, info.mobile, info.uid, info.amount, info.date],
@@ -269,6 +325,8 @@ class receivedReceipt extends receipt {
 
   @override
   String getReceipt(receiptInfo info) {
+    /*
+    //Pdf only in english because of Marathi font disturbed.
     return AppLocalizations.of(gContext)!.txtDear +
         " " +
         info.name +
@@ -280,6 +338,18 @@ class receivedReceipt extends receipt {
         info.amount +
         ", " +
         AppLocalizations.of(gContext)!.txtThankYou;
+        */
+    return txtDear +
+        " " +
+        info.name +
+        ", " +
+        txtReceived +
+        info.taxType +
+        txtTaxAmount +
+        " Rs. " +
+        info.amount +
+        ", " +
+        txtThankYou;
   }
 
   @override
@@ -287,12 +357,22 @@ class receivedReceipt extends receipt {
     var headers;
     var data;
 
+/*
+//Pdf only in english because of Marathi font disturbed.
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingName,
       AppLocalizations.of(gContext)!.tableHeadingMobile,
       AppLocalizations.of(gContext)!.tableHeadingUid,
       AppLocalizations.of(gContext)!.tableHeadingAmount,
       AppLocalizations.of(gContext)!.tableHeadingDate,
+    ];
+    */
+    headers = [
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingUid,
+      tableHeadingAmount,
+      tableHeadingDate,
     ];
     List<List<dynamic>> lld = [
       [info.name, info.mobile, info.uid, info.amount, info.date],

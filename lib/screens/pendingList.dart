@@ -36,10 +36,15 @@ class pendingList extends StatelessWidget {
               : AppLocalizations.of(gContext)!.txtTaxTypeWater),
     );
 
+    /*
+  //Pdf only in english because of Marathi font disturbed.
     final pdfFile = await receipt.generate(
         AppLocalizations.of(gContext)!.pageNamePending + dropdownValueYear,
         registeredName);
+        */
 
+    final pdfFile = await receipt.generate(
+        pageNamePending + dropdownValueYear, registeredName);
     //PdfApi.openFile(pdfFile);
     return;
     //END - fetch data to display in pdf

@@ -92,6 +92,8 @@ abstract class Invoice {
                 myPdfTableCellFontStyle, //TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
+          /*
+          //Pdf only in english because of Marathi font disturbed.
           Text(
               AppLocalizations.of(gContext)!.tableHeadingYear +
                   equals +
@@ -112,6 +114,31 @@ abstract class Invoice {
                   info.formula +
                   endL +
                   AppLocalizations.of(gContext)!.txtDownloadedByUser +
+                  equals +
+                  userMail +
+                  endL,
+              style: myPdfTableCellFontStyle),
+              */
+          Text(
+              tableHeadingYear +
+                  equals +
+                  info.year +
+                  endL +
+                  txtDateRange +
+                  equals +
+                  startDate +
+                  "  :  " +
+                  endDate +
+                  endL +
+                  txtSortingType +
+                  equals +
+                  info.sortingType +
+                  endL +
+                  txtCalculation +
+                  equals +
+                  info.formula +
+                  endL +
+                  txtDownloadedByUser +
                   equals +
                   userMail +
                   endL,
@@ -141,8 +168,12 @@ abstract class Invoice {
       );
 
   Widget buildInvoice(String reportType) {
+    /*
+          //Pdf only in english because of Marathi font disturbed.
     return Text(AppLocalizations.of(gContext)!.msgInvoidBuildFail,
         style: myPdfTableCellFontStyle);
+        */
+    return Text(msgInvoidBuildFail, style: myPdfTableCellFontStyle);
   }
 
   static Widget buildFooter(
@@ -153,12 +184,14 @@ abstract class Invoice {
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
           buildSimpleText(
-              title: AppLocalizations.of(gContext)!.appMainLabel,
+              //title: AppLocalizations.of(gContext)!.appMainLabel,//Pdf only in english because of Marathi font disturbed.
+              title: appMainLabel,
               value: village +
                   txtFwdSlash +
                   pin +
                   "  " +
-                  AppLocalizations.of(gContext)!.txtTaxType +
+                  //AppLocalizations.of(gContext)!.txtTaxType +//Pdf only in english because of Marathi font disturbed.
+                  txtTaxType +
                   " - " +
                   reportType),
           pw.Text('Page $pgNum of $pgCount'),
@@ -226,6 +259,8 @@ class pendingInvoice extends Invoice {
             style: myPdfTableCellFontStyle,
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
+          /*
+          //Pdf only in english because of Marathi font disturbed.
           Text(
             AppLocalizations.of(gContext)!.tableHeadingYear +
                 equals +
@@ -245,6 +280,26 @@ class pendingInvoice extends Invoice {
                 endL,
             style: myPdfTableCellFontStyle,
           ),
+          */
+          Text(
+            tableHeadingYear +
+                equals +
+                info.year +
+                endL +
+                txtSortingType +
+                equals +
+                info.sortingType +
+                endL +
+                txtCalculation +
+                equals +
+                info.formula +
+                endL +
+                txtDownloadedByUser +
+                equals +
+                userMail +
+                endL,
+            style: myPdfTableCellFontStyle,
+          ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
@@ -252,13 +307,22 @@ class pendingInvoice extends Invoice {
   Widget buildInvoice(String reportType) {
     var headers;
     var data;
-
+/*
+          //Pdf only in english because of Marathi font disturbed.
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingSrnum,
       AppLocalizations.of(gContext)!.tableHeadingName,
       AppLocalizations.of(gContext)!.tableHeadingMobile,
       AppLocalizations.of(gContext)!.tableHeadingUid,
       AppLocalizations.of(gContext)!.tableHeadingAmount,
+    ];
+    */
+    headers = [
+      tableHeadingSrnum,
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingUid,
+      tableHeadingAmount,
     ];
     data = pendingInvoiceItems.map(
       (item) {
@@ -290,7 +354,8 @@ class reportHouseWaterInvoice extends Invoice {
   Widget buildInvoice(String reportType) {
     var headers;
     var data;
-
+/*
+          //Pdf only in english because of Marathi font disturbed.
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingSrnum,
       AppLocalizations.of(gContext)!.tableHeadingName,
@@ -299,6 +364,16 @@ class reportHouseWaterInvoice extends Invoice {
       AppLocalizations.of(gContext)!.tableHeadingAmount,
       AppLocalizations.of(gContext)!.tableHeadingDate,
       AppLocalizations.of(gContext)!.tableHeadingUser,
+    ];
+    */
+    headers = [
+      tableHeadingSrnum,
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingUid,
+      tableHeadingAmount,
+      tableHeadingDate,
+      tableHeadingUser,
     ];
     data = houseWaterReportInvoiceItems.map(
       (item) {
@@ -331,13 +406,22 @@ class reportExtraInvoice extends Invoice {
   Widget buildInvoice(String reportType) {
     var headers;
     var data;
-
+/*
+          //Pdf only in english because of Marathi font disturbed.
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingSrnum,
       AppLocalizations.of(gContext)!.tableHeadingAmount,
       AppLocalizations.of(gContext)!.tableHeadingReason,
       AppLocalizations.of(gContext)!.tableHeadingDate,
       AppLocalizations.of(gContext)!.tableHeadingUser,
+    ];
+    */
+    headers = [
+      tableHeadingSrnum,
+      tableHeadingAmount,
+      tableHeadingReason,
+      tableHeadingDate,
+      tableHeadingUser,
     ];
     data = extraIncomeReportInvoiceItems.map((item) {
       return [
@@ -370,6 +454,8 @@ class reportOutInvoice extends Invoice {
     var headers;
     var data;
 
+/*
+          //Pdf only in english because of Marathi font disturbed.
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingSrnum,
       AppLocalizations.of(gContext)!.tableHeadingName,
@@ -378,6 +464,16 @@ class reportOutInvoice extends Invoice {
       AppLocalizations.of(gContext)!.tableHeadingExtraInfo,
       AppLocalizations.of(gContext)!.tableHeadingDate,
       AppLocalizations.of(gContext)!.tableHeadingUser,
+    ];
+    */
+    headers = [
+      tableHeadingSrnum,
+      tableHeadingName,
+      tableHeadingReason,
+      tableHeadingAmount,
+      tableHeadingExtraInfo,
+      tableHeadingDate,
+      tableHeadingUser,
     ];
     data = outReportInvoiceItems.map(
       (item) {

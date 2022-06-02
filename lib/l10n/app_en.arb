@@ -692,6 +692,25 @@
 
     
 
+  "labelElectricityTax":"Electricity tax",
+    "@labelElectricityTax":{
+        "description":"Electricity tax"
+    },
+
+
+  "labelHealthTax":"Health tax",
+    "@labelHealthTax":{
+        "description":"Health tax"
+    },
+
+  "labelExtraLandTax":"ExtraLand tax",
+    "@labelExtraLandTax":{
+        "description":"ExtraLand tax"
+    },
+  "labelOtherTax":"Other tax",
+    "@labelOtherTax":{
+        "description":"Other tax"
+    },
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",
