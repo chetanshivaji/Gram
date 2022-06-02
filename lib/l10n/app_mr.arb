@@ -217,5 +217,9 @@
   "labelHealthTax":"आरोग्य कर",
   "labelExtraLandTax":"पडसर कर",    
   "labelOtherTax":"इतर कर",
-    "hello":"नमस्कार {randomString}"
+
+  "labelHouseTax":"घर कर",    
+  "labelWaterTax":"पाणी कर",
+
+  "hello":"नमस्कार {randomString}"
 }

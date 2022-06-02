@@ -87,6 +87,8 @@ String tableHeadingWater = "Water";
 //String tableHeading = "";
 
 //Form field Lable
+String labelHouseTax = "House Tax";
+String labelWaterTax = "Water Tax";
 String labelElectricityTax = "Electricity Tax";
 String labelHealthTax = "Health Tax";
 String labelExtraLandTax = "ExtraLand Tax";

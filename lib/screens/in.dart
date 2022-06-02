@@ -427,8 +427,15 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               AppLocalizations.of(gContext)!.labelEmail, email),
 
           //getPadding(),
-          getListTile(Icon(Icons.attach_money),
-              AppLocalizations.of(gContext)!.labelAmount, amount.toString()),
+          (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? getListTile(
+                  Icon(Icons.attach_money),
+                  AppLocalizations.of(gContext)!.labelHouseTax,
+                  amount.toString())
+              : getListTile(
+                  Icon(Icons.attach_money),
+                  AppLocalizations.of(gContext)!.labelWaterTax,
+                  amount.toString()),
           //START electricity health extra land, other tax
 
           (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)

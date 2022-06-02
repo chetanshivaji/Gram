@@ -183,6 +183,15 @@
     "@labelAmount":{
         "description":"Amount"
     },
+    "labelHouseTax":"House Tax",
+    "@labelHouseTax":{
+        "description":"House Tax"
+    },
+    "labelWaterTax":"Water Tax",
+    "@labelWaterTax":{
+        "description":"Water Tax"
+    },
+    
 
     "labelEmail":"Mail",
     "@labelEmail":{
