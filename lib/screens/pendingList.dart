@@ -316,7 +316,7 @@ $registeredName
             .doc(docMainDb)
             .collection(docMainDb + yearDropDownValue)
             .where(keyHouseGiven, isEqualTo: false)
-            .orderBy(keyHouse, descending: false)
+            .orderBy(keyTotalTaxOtherThanWater, descending: false)
             .snapshots();
       } else if (orderType == AppLocalizations.of(gContext)!.txtHtoL) {
         stm = FirebaseFirestore.instance
@@ -324,7 +324,7 @@ $registeredName
             .doc(docMainDb)
             .collection(docMainDb + yearDropDownValue)
             .where(keyHouseGiven, isEqualTo: false)
-            .orderBy(keyHouse, descending: true)
+            .orderBy(keyTotalTaxOtherThanWater, descending: true)
             .snapshots();
       } else {
         stm = FirebaseFirestore.instance
@@ -332,7 +332,7 @@ $registeredName
             .doc(docMainDb)
             .collection(docMainDb + yearDropDownValue)
             .where(keyHouseGiven, isEqualTo: false)
-            .orderBy(keyHouse, descending: true)
+            .orderBy(keyTotalTaxOtherThanWater, descending: true)
             .snapshots();
       }
     } else {
