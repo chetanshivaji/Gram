@@ -67,6 +67,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           date: getCurrentDateTimeInDHM(),
           name: name,
           amount: amount.toString(),
+          electricityTax: electricityTax.toString(),
+          healthTax: healthTax.toString(),
+          extraLandTax: extraLandTax.toString(),
+          otherTax: otherTax.toString(),
+          totalTax: totalTaxOtherThanWater.toString(),
           mobile: mobile,
           uid: uid,
           userMail: registeredName,
@@ -77,7 +82,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               ? AppLocalizations.of(gContext)!.txtTaxTypeHouse
               : AppLocalizations.of(gContext)!.txtTaxTypeWater),
               */
-          taxType: (widget.formType == txtTaxTypeHouse)
+          taxType: (widget.formType ==
+                  AppLocalizations.of(gContext)!.txtTaxTypeHouse)
               ? txtTaxTypeHouse
               : txtTaxTypeWater),
     );
@@ -613,16 +619,48 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         String regards =
                             AppLocalizations.of(gContext)!.txtRegards;
 
+                        String keyord_electricityTax =
+                            AppLocalizations.of(gContext)!.labelElectricityTax;
+                        String keyord_healthTax =
+                            AppLocalizations.of(gContext)!.labelHealthTax;
+                        String keyord_extraLandTax =
+                            AppLocalizations.of(gContext)!.labelExtraLandTax;
+                        String keyord_otherTax =
+                            AppLocalizations.of(gContext)!.labelOtherTax;
+                        String keyord_totalTax =
+                            AppLocalizations.of(gContext)!.labelTotalTax;
                         //END - multi linugal string
 
-                        String message = '''$dear $name, 
+                        String message = "";
+                        if (widget.formType ==
+                            AppLocalizations.of(gContext)!.txtTaxTypeHouse) {
+                          message = '''$dear $name,                         
 $mobile,
 $ud-$uid,
-$thanksPaying $typeSubmit $taxAmount $amount
+$thanksPaying 
+$typeSubmit $taxAmount $amount
+$keyord_electricityTax - $electricityTax 
+$keyord_healthTax - $healthTax
+$keyord_extraLandTax - $extraLandTax 
+$keyord_otherTax - $otherTax 
+$keyord_totalTax - $totalTaxOtherThanWater
+
 $yr $dropdownValueYear,
 $received.
 $vlg-$village
 $pn-$pin''';
+                        } else {
+                          message = '''$dear $name,                         
+$mobile,
+$ud-$uid,
+$thanksPaying $typeSubmit 
+$taxAmount $amount
+$yr $dropdownValueYear,
+$received.
+$vlg-$village
+$pn-$pin''';
+                        }
+
                         List<String> recipents = [mobile];
 
                         await createPDFInHouseWaterReceiptEntries();

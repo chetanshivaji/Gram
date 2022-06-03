@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
@@ -11,6 +12,12 @@ class pendingList extends StatelessWidget {
   String pendingType = "";
   String orderType = "";
   String yearDropDownValue = "";
+
+  String electricityTax = "";
+  String healthTax = "";
+  String extraLandTax = "";
+  String otherTax = "";
+  String totalTax = "";
 
   pendingList(
       {Key? key,
@@ -28,12 +35,23 @@ class pendingList extends StatelessWidget {
           date: getCurrentDateTimeInDHM(),
           name: name,
           amount: amount.toString(),
+          electricityTax: electricityTax,
+          healthTax: healthTax,
+          extraLandTax: extraLandTax,
+          otherTax: otherTax,
+          totalTax: totalTax,
           mobile: mobile,
           uid: uid,
           userMail: registeredName,
+          //Pdf only in english because of Marathi font disturbed.
+          /*
           taxType: (taxType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
               ? AppLocalizations.of(gContext)!.txtTaxTypeHouse
               : AppLocalizations.of(gContext)!.txtTaxTypeWater),
+              */
+          taxType: (taxType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+              ? txtTaxTypeHouse
+              : txtTaxTypeWater),
     );
 
     /*
@@ -80,6 +98,14 @@ class pendingList extends StatelessWidget {
 
     String regards = AppLocalizations.of(gContext)!.txtRegards;
 
+    String keyord_electricityTax =
+        AppLocalizations.of(gContext)!.labelElectricityTax;
+    String keyord_healthTax = AppLocalizations.of(gContext)!.labelHealthTax;
+    String keyord_extraLandTax =
+        AppLocalizations.of(gContext)!.labelExtraLandTax;
+    String keyord_otherTax = AppLocalizations.of(gContext)!.labelOtherTax;
+    String keyord_totalTax = AppLocalizations.of(gContext)!.labelTotalTax;
+
     //END - multi linugal string
     List<DataRow> ldataRow = [];
     int srNo = 0;
@@ -110,18 +136,49 @@ class pendingList extends StatelessWidget {
               String email = l.get(keyEmail);
               String uid = l.get(keyUid);
               String amount = "";
+
+              /*
+              String electricityTax = "";
+              String healthTax = "";
+              String extraLandTax = "";
+              String otherTax = "";
+              String totalTax = "";
+              */
+
+              electricityTax = l.get(keyElectricity).toString();
+              healthTax = l.get(keyHealth).toString();
+              extraLandTax = l.get(keyExtraLand).toString();
+              otherTax = l.get(keyOtherTax).toString();
+              totalTax = l.get(keyTotalTaxOtherThanWater).toString();
+
               String notifyTaxType = "";
+              String notificationMessage = "";
+              String videoLinkForCu =
+                  "$youtubeLink https://youtu.be/LPBDvJKDug8";
+
               if (pendingType == housePendingType) {
-                amount = l.get(keyTotalTaxOtherThanWater).toString();
+                amount = l.get(keyHouse).toString();
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
+
+                notificationMessage = '''$dear $name,
+$mobile, 
+$ud-$uid
+$reminder $notifyTaxType
+$taxAmount  - $amount 
+$keyord_electricityTax - $electricityTax 
+$keyord_healthTax - $healthTax
+$keyord_extraLandTax - $extraLandTax 
+$keyord_otherTax - $otherTax 
+$keyord_totalTax - $totalTax
+$yr - $dropdownValueYear
+$toGram.
+$howSystemWorks - $videoLinkForCu'''; //who is reminding
+
               } else {
                 amount = l.get(keyWater).toString();
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
-              }
 
-              String videoLinkForCu =
-                  "$youtubeLink https://youtu.be/LPBDvJKDug8";
-              String notificationMessage = '''$dear $name,
+                notificationMessage = '''$dear $name,
 $mobile, 
 $ud-$uid
 $reminder 
@@ -129,10 +186,12 @@ $notifyTaxType $taxAmount  - $amount
 $yr - $dropdownValueYear
 $toGram.
 $howSystemWorks - $videoLinkForCu'''; //who is reminding
+              }
 
               String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
+
               await createPDFInHouseWaterReceiptEntries(
                   name, amount, mobile, uid, notifyTaxType);
 

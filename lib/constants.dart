@@ -72,7 +72,7 @@ String tableHeadingFontFamily = "RobotoMono";
 String tableHeadingSrnum = 'SrNum';
 String tableHeadingName = 'Name';
 String tableHeadingMobile = 'Mobile';
-String tableHeadingUid = 'Uid';
+String tableHeadingUid = 'house/unique number';
 String tableHeadingAmount = 'Amount';
 String tableHeadingDate = 'Date';
 String tableHeadingUser = 'User';
@@ -107,7 +107,7 @@ String labelAmount = "Amount";
 String labelReason = "Reason";
 
 String labelExtraInfo = "Extra information";
-String labelUid = "Uid";
+String labelUid = "house/unique number";
 String labelForgotPassword = 'Forgot Password?';
 
 //general Text

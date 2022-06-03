@@ -38,6 +38,13 @@ class receiptInfo {
   final String taxType;
   final String name;
   final String amount;
+
+  final String electricityTax;
+  final String healthTax;
+  final String extraLandTax;
+  final String otherTax;
+  final String totalTax;
+
   final String mobile;
   final String uid;
   final String userMail;
@@ -47,6 +54,11 @@ class receiptInfo {
     required this.taxType,
     required this.name,
     required this.amount,
+    required this.electricityTax,
+    required this.healthTax,
+    required this.extraLandTax,
+    required this.otherTax,
+    required this.totalTax,
     required this.mobile,
     required this.uid,
     required this.userMail,
@@ -155,25 +167,69 @@ abstract class receipt {
             style: myPdfTableCellFontStyle,
           ),
           */
-          Text(
-            txtTaxType +
-                equals +
-                info.taxType +
-                endL +
-                tableHeadingName +
-                equals +
-                info.name +
-                endL +
-                tableHeadingMobile +
-                equals +
-                info.mobile +
-                endL +
-                txtSentByUser +
-                equals +
-                info.userMail +
-                endL,
-            style: myPdfTableCellFontStyle,
-          ),
+          (info.taxType == txtTaxTypeHouse)
+              ? Text(
+                  txtTaxType +
+                      equals +
+                      info.taxType +
+                      endL +
+                      tableHeadingName +
+                      equals +
+                      info.name +
+                      endL +
+                      tableHeadingMobile +
+                      equals +
+                      info.mobile +
+                      endL +
+                      txtSentByUser +
+                      equals +
+                      info.userMail +
+                      endL +
+                      labelHouseTax +
+                      equals +
+                      info.amount +
+                      endL +
+                      labelElectricityTax +
+                      equals +
+                      info.electricityTax +
+                      endL +
+                      labelHealthTax +
+                      equals +
+                      info.healthTax +
+                      endL +
+                      labelExtraLandTax +
+                      equals +
+                      info.extraLandTax +
+                      endL +
+                      labelOtherTax +
+                      equals +
+                      info.otherTax +
+                      endL +
+                      labelTotalTax +
+                      equals +
+                      info.totalTax +
+                      endL,
+                  style: myPdfTableCellFontStyle,
+                )
+              : Text(
+                  txtTaxType +
+                      equals +
+                      info.taxType +
+                      endL +
+                      tableHeadingName +
+                      equals +
+                      info.name +
+                      endL +
+                      tableHeadingMobile +
+                      equals +
+                      info.mobile +
+                      endL +
+                      txtSentByUser +
+                      equals +
+                      info.userMail +
+                      endL,
+                  style: myPdfTableCellFontStyle,
+                ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
@@ -275,17 +331,31 @@ class pendingReceipt extends receipt {
         ", " +
         AppLocalizations.of(gContext)!.txtPleasePay;
         */
-    return txtDear +
-        " " +
-        info.name +
-        ", " +
-        txtReminderPending +
-        info.taxType +
-        txtTaxAmount +
-        " Rs. " +
-        info.amount +
-        ", " +
-        txtPleasePay;
+    if (info.taxType == txtTaxTypeHouse) {
+      return txtDear +
+          " " +
+          info.name +
+          ", " +
+          txtReminderPending +
+          info.taxType +
+          txtTaxAmount +
+          " Rs. " +
+          info.totalTax +
+          ", " +
+          txtPleasePay;
+    } else {
+      return txtDear +
+          " " +
+          info.name +
+          ", " +
+          txtReminderPending +
+          info.taxType +
+          txtTaxAmount +
+          " Rs. " +
+          info.amount +
+          ", " +
+          txtPleasePay;
+    }
   }
 
   @override
@@ -309,9 +379,17 @@ class pendingReceipt extends receipt {
       tableHeadingAmount,
       tableHeadingDate,
     ];
-    List<List<dynamic>> lld = [
-      [info.name, info.mobile, info.uid, info.amount, info.date],
-    ];
+    List<List<dynamic>> lld = [];
+    if (info.taxType == txtTaxTypeHouse) {
+      lld = [
+        [info.name, info.mobile, info.uid, info.totalTax, info.date],
+      ];
+    } else {
+      lld = [
+        [info.name, info.mobile, info.uid, info.amount, info.date],
+      ];
+    }
+
     return getTableOnPDF(headers, lld);
   }
 }
@@ -339,17 +417,31 @@ class receivedReceipt extends receipt {
         ", " +
         AppLocalizations.of(gContext)!.txtThankYou;
         */
-    return txtDear +
-        " " +
-        info.name +
-        ", " +
-        txtReceived +
-        info.taxType +
-        txtTaxAmount +
-        " Rs. " +
-        info.amount +
-        ", " +
-        txtThankYou;
+    if (info.taxType == txtTaxTypeHouse) {
+      return txtDear +
+          " " +
+          info.name +
+          ", " +
+          txtReceived +
+          info.taxType +
+          txtTaxAmount +
+          " Rs. " +
+          info.totalTax +
+          ", " +
+          txtThankYou;
+    } else {
+      return txtDear +
+          " " +
+          info.name +
+          ", " +
+          txtReceived +
+          info.taxType +
+          txtTaxAmount +
+          " Rs. " +
+          info.amount +
+          ", " +
+          txtThankYou;
+    }
   }
 
   @override
@@ -374,9 +466,16 @@ class receivedReceipt extends receipt {
       tableHeadingAmount,
       tableHeadingDate,
     ];
-    List<List<dynamic>> lld = [
-      [info.name, info.mobile, info.uid, info.amount, info.date],
-    ];
+    List<List<dynamic>> lld = [];
+    if (info.taxType == txtTaxTypeHouse) {
+      lld = [
+        [info.name, info.mobile, info.uid, info.totalTax, info.date],
+      ];
+    } else {
+      lld = [
+        [info.name, info.mobile, info.uid, info.amount, info.date],
+      ];
+    }
 
     return getTableOnPDF(headers, lld);
   }
