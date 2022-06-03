@@ -143,6 +143,7 @@ String txtFetchFailFromDb = "Fetch Fail From Db";
 const String txtTaxTypeHouse = "House";
 String txtTaxTypeWater = "Water";
 String txtTaxTypeExtraIncome = "ExtraIn";
+String txtTaxTypeOut = 'Out';
 String txtInType = "in";
 
 String txtFIn = "In";

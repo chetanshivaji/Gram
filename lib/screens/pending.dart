@@ -99,18 +99,31 @@ class _pendingContainerState extends State<pendingContainer> {
     }
     srNo = 0;
 
+    /*
+    //Pdf only in english because of Marathi font disturbed.
     String formIn = AppLocalizations.of(gContext)!.txtForumlaIn;
     String formOut = AppLocalizations.of(gContext)!.txtForumlaOut;
     String formRemain = AppLocalizations.of(gContext)!.txtForumlaRemain;
+    */
+    String formIn = txtForumlaIn;
+    String formOut = txtForumlaOut;
+    String formRemain = txtForumlaRemain;
+
     final invoice = pendingInvoice(
         info: InvoiceInfo(
             formula:
                 '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
             year: dropdownValueYear,
             sortingType: dropdownValuePendingSort,
+            //Pdf only in english because of Marathi font disturbed.
+            /*
             taxType: (widget.pendingType == housePendingType)
                 ? AppLocalizations.of(gContext)!.txtTaxTypeHouse
                 : AppLocalizations.of(gContext)!.txtTaxTypeWater),
+                */
+            taxType: (widget.pendingType == housePendingType)
+                ? txtTaxTypeHouse
+                : txtTaxTypeWater),
         pendingInvoiceItems: entries);
 
     /*

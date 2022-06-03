@@ -174,16 +174,24 @@ class _reportContainerState extends State<reportContainer> {
             e.toString(), getWrongIcon(50.0), 1);
       }
     }
+    /*
+    //Pdf only in english because of Marathi font disturbed.
     String formIn = AppLocalizations.of(gContext)!.txtForumlaIn;
     String formOut = AppLocalizations.of(gContext)!.txtForumlaOut;
     String formRemain = AppLocalizations.of(gContext)!.txtForumlaRemain;
+    */
+    String formIn = txtForumlaIn;
+    String formOut = txtForumlaOut;
+    String formRemain = txtForumlaRemain;
 
     String taxType = "";
     var invoice;
     switch (widget.reportType) {
       case collPrefixInHouse:
         {
-          taxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
+          //Pdf only in english because of Marathi font disturbed.
+          //taxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
+          taxType = txtTaxTypeHouse;
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
@@ -198,7 +206,9 @@ class _reportContainerState extends State<reportContainer> {
 
       case collPrefixInWater:
         {
-          taxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
+          //Pdf only in english because of Marathi font disturbed.
+          //taxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
+          taxType = txtTaxTypeWater;
           invoice = reportHouseWaterInvoice(
               info: InvoiceInfo(
                 formula:
@@ -213,7 +223,9 @@ class _reportContainerState extends State<reportContainer> {
 
       case collPrefixInExtra:
         {
-          taxType = AppLocalizations.of(gContext)!.txtTaxTypeExtraIncome;
+          //Pdf only in english because of Marathi font disturbed.
+          //taxType = AppLocalizations.of(gContext)!.txtTaxTypeExtraIncome;
+          taxType = txtTaxTypeExtraIncome;
           invoice = reportExtraInvoice(
               info: InvoiceInfo(
                 formula:
@@ -229,7 +241,9 @@ class _reportContainerState extends State<reportContainer> {
 
       case collPrefixOut:
         {
-          taxType = AppLocalizations.of(gContext)!.txtTaxTypeOut;
+          //Pdf only in english because of Marathi font disturbed.
+          //taxType = AppLocalizations.of(gContext)!.txtTaxTypeOut;
+          taxType = txtTaxTypeOut;
           invoice = reportOutInvoice(
               info: InvoiceInfo(
                 formula:
