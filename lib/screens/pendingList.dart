@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
@@ -18,6 +17,8 @@ class pendingList extends StatelessWidget {
   String extraLandTax = "";
   String otherTax = "";
   String totalTax = "";
+  String discount = "";
+  String fine = "";
 
   pendingList(
       {Key? key,
@@ -40,6 +41,8 @@ class pendingList extends StatelessWidget {
           extraLandTax: extraLandTax,
           otherTax: otherTax,
           totalTax: totalTax,
+          discount: discount,
+          fine: fine,
           mobile: mobile,
           uid: uid,
           userMail: registeredName,

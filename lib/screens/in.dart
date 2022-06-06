@@ -82,6 +82,8 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           otherTax: otherTax.toString(),
           totalTax: totalTaxOtherThanWater.toString(),
           mobile: mobile,
+          discount: discount.toString(),
+          fine: fine.toString(),
           uid: uid,
           userMail: registeredName,
           /*
@@ -842,6 +844,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             AppLocalizations.of(gContext)!.labelOtherTax;
                         String keyord_totalTax =
                             AppLocalizations.of(gContext)!.labelTotalTax;
+
+                        String keyord_discount =
+                            AppLocalizations.of(gContext)!.labelDiscount;
+                        String keyord_fine =
+                            AppLocalizations.of(gContext)!.labelFine;
                         //END - multi linugal string
 
                         String message = "";
@@ -857,6 +864,9 @@ $keyord_healthTax - $healthTax
 $keyord_extraLandTax - $extraLandTax 
 $keyord_otherTax - $otherTax 
 $keyord_totalTax - $totalTaxOtherThanWater
+$keyord_discount - $discount
+$keyord_fine - $fine
+
 
 $yr $dropdownValueYear,
 $received.

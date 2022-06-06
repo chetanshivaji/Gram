@@ -44,6 +44,8 @@ class receiptInfo {
   final String extraLandTax;
   final String otherTax;
   final String totalTax;
+  final String discount;
+  final String fine;
 
   final String mobile;
   final String uid;
@@ -59,6 +61,8 @@ class receiptInfo {
     required this.extraLandTax,
     required this.otherTax,
     required this.totalTax,
+    required this.discount,
+    required this.fine,
     required this.mobile,
     required this.uid,
     required this.userMail,
@@ -204,6 +208,14 @@ abstract class receipt {
                       labelOtherTax +
                       equals +
                       info.otherTax +
+                      endL +
+                      labelDiscount +
+                      equals +
+                      info.discount +
+                      endL +
+                      labelFine +
+                      equals +
+                      info.fine +
                       endL +
                       labelTotalTax +
                       equals +
