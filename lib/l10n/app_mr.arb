@@ -223,5 +223,13 @@
 
   "labelTotalTax":"एकूण कर",
 
+  "msgDiscountPercent":"सूट टक्केवारी प्रविष्ट करा",
+    
+  "msgFinePercent":"दंड टक्केवारी प्रविष्ट करा",
+
+  "labelDiscount":"सूट टक्केवारी",
+  "labelFine":"दंड टक्केवारी",
+
+
   "hello":"नमस्कार {randomString}"
 }

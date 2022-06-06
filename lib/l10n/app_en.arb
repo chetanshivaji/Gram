@@ -725,7 +725,27 @@
     "@labelTotalTax":{
         "description":"Total Tax"
     },
-    
+
+    "msgDiscountPercent":"Enter discount percentage",
+    "@msgDiscountPercent":{
+        "description":"Enter discount percentage"
+    },
+
+    "msgFinePercent":"Enter Fine percentage",
+    "@msgFinePercent":{
+        "description":"Enter Fine percentage"
+    },
+
+    "labelDiscount":"Discount",
+    "@labelDiscount":{
+        "description":"Discount"
+    },
+
+    "labelFine":"Fine",
+    "@labelFine":{
+        "description":"Fine"
+    },
+ 
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

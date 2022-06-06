@@ -140,11 +140,13 @@ Color getColor(String type) {
   }
 }
 
-ListTile getListTile(Icon leadingIcon, String lhs, String rhs) {
-  return ListTile(
-    minLeadingWidth: 0,
-    leading: leadingIcon,
-    title: getPrefilledListTile(lhs, rhs),
+Expanded getListTile(Icon leadingIcon, String lhs, String rhs) {
+  return Expanded(
+    child: ListTile(
+      minLeadingWidth: 0,
+      leading: leadingIcon,
+      title: getPrefilledListTile(lhs, rhs),
+    ),
   );
 }
 

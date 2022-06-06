@@ -341,6 +341,7 @@ class _searchScreenState extends State<searchScreen> {
                 getListTile(Icon(Icons.holiday_village),
                     AppLocalizations.of(gContext)!.labelExtraInfo, extraInfo),
                 Expanded(
+                  flex: 13,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: SingleChildScrollView(

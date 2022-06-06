@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:money/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'formula.dart';
@@ -39,8 +40,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   int electricityTax = 0;
   int healthTax = 0;
   int totalTaxOtherThanWater = 0;
+  int totalTaxOtherThanWater_beforeDiscountFine = 0;
   int extraLandTax = 0;
   int otherTax = 0;
+
+  int discount = 0;
+  int fine = 0;
 
   int amount = 0;
   String mobile = "";
@@ -59,6 +64,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   int houseotherTax = 0;
 
   var _textController_mobile = TextEditingController();
+  var _textController_discount = TextEditingController();
+  var _textController_fine = TextEditingController();
+  bool discountEnabled = true;
+  bool fineEnabled = true;
 
   Future<void> createPDFInHouseWaterReceiptEntries() async {
     //START - fetch data to display in pdf
@@ -112,8 +121,13 @@ class HouseWaterFormState extends State<HouseWaterForm> {
         electricityTax = 0;
         healthTax = 0;
         totalTaxOtherThanWater = 0;
+        totalTaxOtherThanWater_beforeDiscountFine = 0;
         extraLandTax = 0;
         otherTax = 0;
+        _textController_discount.clear();
+        _textController_fine.clear();
+        fineEnabled = true;
+        discountEnabled = true;
       },
     );
     return;
@@ -159,10 +173,15 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               electricityTax = 0;
               healthTax = 0;
               totalTaxOtherThanWater = 0;
+              totalTaxOtherThanWater_beforeDiscountFine = 0;
               extraLandTax = 0;
               otherTax = 0;
 
               _textController_mobile.clear();
+              _textController_discount.clear();
+              _textController_fine.clear();
+              fineEnabled = true;
+              discountEnabled = true;
             },
           );
         },
@@ -219,6 +238,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
           otherTax = houseotherTax;
         },
       );
+      totalTaxOtherThanWater_beforeDiscountFine = totalTaxOtherThanWater;
     } else {
       try {
         await FirebaseFirestore.instance
@@ -389,6 +409,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     amount = 0;
                     email = "";
 
+                    electricityTax = 0;
+                    healthTax = 0;
+                    extraLandTax = 0;
+                    otherTax = 0;
+                    totalTaxOtherThanWater = 0;
+
                     houseName = "";
                     houseAmount = 0;
                     houseEmail = "";
@@ -396,6 +422,10 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                     waterName = "";
                     waterAmount = 0;
                     waterEmail = "";
+                    _textController_discount.clear();
+                    _textController_fine.clear();
+                    fineEnabled = true;
+                    discountEnabled = true;
                   },
                 );
               }
@@ -478,11 +508,184 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                   otherTax.toString())
               : SizedBox(),
 
+          Row(
+            children: <Widget>[
+              (widget.formType ==
+                      AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+                  ? Expanded(
+                      child: TextFormField(
+                        enabled: discountEnabled,
+                        controller: _textController_discount,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            icon: Icon(Icons.discount),
+                            hintText: AppLocalizations.of(gContext)!
+                                .msgDiscountPercent,
+                            labelText:
+                                AppLocalizations.of(gContext)!.labelDiscount +
+                                    txtStar),
+                        onChanged: (String? newValue) {
+                          if (newValue != "") {
+                            totalTaxOtherThanWater =
+                                totalTaxOtherThanWater_beforeDiscountFine;
+                            int totalAfterDiscount = 0;
+                            try {
+                              totalAfterDiscount = (totalTaxOtherThanWater -
+                                      (totalTaxOtherThanWater *
+                                              int.parse(newValue!)) /
+                                          100)
+                                  .ceil();
+                            } catch (e) {
+                              popAlert(
+                                  context,
+                                  AppLocalizations.of(gContext)!
+                                      .kTitleTryCatchFail,
+                                  e.toString(),
+                                  getWrongIcon(50.0),
+                                  1);
+                            }
+
+                            //set state after of total value after discount.
+
+                            setState(
+                              () {
+                                fineEnabled = false;
+                                totalTaxOtherThanWater = totalAfterDiscount;
+                              },
+                            );
+                          } else {
+                            setState(
+                              () {
+                                totalTaxOtherThanWater =
+                                    totalTaxOtherThanWater_beforeDiscountFine;
+                                fineEnabled = true;
+                              },
+                            );
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(gContext)!
+                                .msgDiscountPercent;
+                          }
+                          if (!isNumeric(value)) {
+                            return AppLocalizations.of(gContext)!.msgOnlyNumber;
+                          }
+                          discount = int.parse(value);
+                          return null;
+                        },
+                      ),
+                    )
+                  : SizedBox(),
+              (widget.formType ==
+                      AppLocalizations.of(gContext)!.txtTaxTypeHouse)
+                  ? Expanded(
+                      child: TextFormField(
+                        enabled: fineEnabled,
+                        controller: _textController_fine,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            icon: Icon(Icons.pin_invoke),
+                            hintText:
+                                AppLocalizations.of(gContext)!.msgFinePercent,
+                            labelText:
+                                AppLocalizations.of(gContext)!.labelFine +
+                                    txtStar),
+                        onChanged: (String? newValue) {
+                          if (newValue != "") {
+                            totalTaxOtherThanWater =
+                                totalTaxOtherThanWater_beforeDiscountFine;
+                            int currentYear = DateTime.now().year;
+                            int totalAfterFine = 0;
+                            DateTime firstAprilCY = DateTime(
+                                DateTime.now().year,
+                                4,
+                                1); //first april current year in DateTime Format.
+                            DateTime today = DateTime.now();
+                            if (today.isBefore(firstAprilCY)) {
+                              currentYear = currentYear - 1;
+                            }
+
+                            int yrDiff =
+                                (currentYear - int.parse(dropdownValueYear));
+
+                            try {
+                              totalAfterFine = (totalTaxOtherThanWater *
+                                      pow(
+                                        (1 + (int.parse(newValue!) / 100)),
+                                        yrDiff,
+                                      ))
+                                  .ceil();
+                            } catch (e) {
+                              popAlert(
+                                  context,
+                                  AppLocalizations.of(gContext)!
+                                      .kTitleTryCatchFail,
+                                  e.toString(),
+                                  getWrongIcon(50.0),
+                                  1);
+                            }
+
+                            setState(
+                              () {
+                                discountEnabled = false;
+                                totalTaxOtherThanWater = totalAfterFine;
+                              },
+                            );
+                          } else {
+                            setState(
+                              () {
+                                totalTaxOtherThanWater =
+                                    totalTaxOtherThanWater_beforeDiscountFine;
+                                discountEnabled = true;
+                              },
+                            );
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(gContext)!
+                                .msgFinePercent;
+                          }
+                          if (!isNumeric(value)) {
+                            return AppLocalizations.of(gContext)!.msgOnlyNumber;
+                          }
+                          fine = int.parse(value);
+                          return null;
+                        },
+                      ),
+                    )
+                  : SizedBox(),
+            ],
+          ),
+
           (widget.formType == AppLocalizations.of(gContext)!.txtTaxTypeHouse)
-              ? getListTile(
-                  Icon(Icons.expand_less_rounded),
-                  AppLocalizations.of(gContext)!.labelTotalTax,
-                  totalTaxOtherThanWater.toString())
+              //special treatment to total list tile, size big
+              ? ListTile(
+                  minLeadingWidth: 0,
+                  leading: Icon(Icons.expand_less_rounded),
+                  title: Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(gContext)!.labelTotalTax + " = ",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        totalTaxOtherThanWater.toString(),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               : SizedBox(),
           //END electricity health extra land, other tax
 

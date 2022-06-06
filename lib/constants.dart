@@ -14,6 +14,9 @@ String kTitleForgotPasswordMailSent = "Mail sent to change password";
 String kSubTitleForgotPasswordMailSent = "Please check your login email inbox";
 String kSubTitleNumberNotFoundInDB = "Mobile not found in Database";
 //Msgs
+String msgDiscountPercent = "Enter discount percentage";
+String msgFinePercent = "Enter Fine percentage";
+
 String msgOnlyNumber = "Please enter only numbers";
 String msgEnterUserMail = "Enter email";
 String msgEnterUserName = "Enter name";
@@ -87,6 +90,9 @@ String tableHeadingWater = "Water";
 //String tableHeading = "";
 
 //Form field Lable
+String labelDiscount = "Discount";
+String labelFine = "Fine";
+
 String labelTotalTax = "Total Tax";
 String labelHouseTax = "House Tax";
 String labelWaterTax = "Water Tax";
