@@ -204,6 +204,9 @@ String keyWater = 'water';
 String keyWaterGiven = 'waterGiven';
 String keyMobile = "mobile";
 String keyName = "name";
+String keyDiscount = "discount";
+String keyFine = "fine";
+
 String keyEmail = "email";
 String keyTotalBalance = 'totalBalance';
 String keyTotalIn = 'totalIn';

@@ -773,32 +773,60 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                               .collection(docMainDb + dropdownValueYear)
                               .doc(mobile + uid)
                               .update(
-                            {inTypeGiven: true},
+                            {
+                              inTypeGiven: true,
+                            },
                           );
                         } catch (e) {
                           throw AppLocalizations.of(gContext)!
                               .kSubTitleNumberNotFoundInDB;
                         }
 
-                        await FirebaseFirestore.instance
-                            .collection(village + pin)
-                            .doc(docMainDb)
-                            .collection(
-                                inTypeSubmit + DateTime.now().year.toString())
-                            .add(
-                          {
-                            keyName: name,
-                            keyMobile: mobile,
-                            keyUid: uid,
-                            keyAmount: (widget.formType ==
-                                    AppLocalizations.of(gContext)!
-                                        .txtTaxTypeHouse)
-                                ? totalTaxOtherThanWater
-                                : amount,
-                            keyDate: getCurrentDateTimeInDHM(),
-                            keyRegisteredName: registeredName,
-                          },
-                        );
+                        if (widget.formType ==
+                            AppLocalizations.of(gContext)!.txtTaxTypeHouse) {
+                          //discount and fine added to inHouse2020 in db which may need to be shown in future
+                          await FirebaseFirestore.instance
+                              .collection(village + pin)
+                              .doc(docMainDb)
+                              .collection(
+                                  inTypeSubmit + DateTime.now().year.toString())
+                              .add(
+                            {
+                              keyName: name,
+                              keyMobile: mobile,
+                              keyUid: uid,
+                              keyAmount: (widget.formType ==
+                                      AppLocalizations.of(gContext)!
+                                          .txtTaxTypeHouse)
+                                  ? totalTaxOtherThanWater
+                                  : amount,
+                              keyDate: getCurrentDateTimeInDHM(),
+                              keyRegisteredName: registeredName,
+                              keyDiscount: discount,
+                              keyFine: fine,
+                            },
+                          );
+                        } else {
+                          await FirebaseFirestore.instance
+                              .collection(village + pin)
+                              .doc(docMainDb)
+                              .collection(
+                                  inTypeSubmit + DateTime.now().year.toString())
+                              .add(
+                            {
+                              keyName: name,
+                              keyMobile: mobile,
+                              keyUid: uid,
+                              keyAmount: (widget.formType ==
+                                      AppLocalizations.of(gContext)!
+                                          .txtTaxTypeHouse)
+                                  ? totalTaxOtherThanWater
+                                  : amount,
+                              keyDate: getCurrentDateTimeInDHM(),
+                              keyRegisteredName: registeredName,
+                            },
+                          );
+                        }
 
                         int amountHouseOrWater = (widget.formType ==
                                 AppLocalizations.of(gContext)!.txtTaxTypeHouse)
