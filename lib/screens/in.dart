@@ -433,7 +433,14 @@ class HouseWaterFormState extends State<HouseWaterForm> {
               }
               if (text.length == 10) {
                 mobile = text;
+                _textController_discount.clear();
+                _textController_fine.clear();
+
                 await checkMobileUid(mobile);
+                setState(() {
+                  fineEnabled = true;
+                  discountEnabled = true;
+                });
               }
             },
 
@@ -525,8 +532,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             hintText: AppLocalizations.of(gContext)!
                                 .msgDiscountPercent,
                             labelText:
-                                AppLocalizations.of(gContext)!.labelDiscount +
-                                    txtStar),
+                                AppLocalizations.of(gContext)!.labelDiscount),
                         onChanged: (String? newValue) {
                           if (newValue != "") {
                             totalTaxOtherThanWater =
@@ -567,14 +573,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           }
                         },
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(gContext)!
-                                .msgDiscountPercent;
-                          }
-                          if (!isNumeric(value)) {
+                          if (value!.length != 0 && !isNumeric(value)) {
                             return AppLocalizations.of(gContext)!.msgOnlyNumber;
                           }
-                          discount = int.parse(value);
+                          if (value!.length != 0) {
+                            discount = int.parse(value);
+                          }
                           return null;
                         },
                       ),
@@ -593,8 +597,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             hintText:
                                 AppLocalizations.of(gContext)!.msgFinePercent,
                             labelText:
-                                AppLocalizations.of(gContext)!.labelFine +
-                                    txtStar),
+                                AppLocalizations.of(gContext)!.labelFine),
                         onChanged: (String? newValue) {
                           if (newValue != "") {
                             totalTaxOtherThanWater =
@@ -647,14 +650,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           }
                         },
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(gContext)!
-                                .msgFinePercent;
-                          }
-                          if (!isNumeric(value)) {
+                          if (value!.length != 0 && !isNumeric(value)) {
                             return AppLocalizations.of(gContext)!.msgOnlyNumber;
                           }
-                          fine = int.parse(value);
+                          if (value!.length != 0) {
+                            fine = int.parse(value);
+                          }
                           return null;
                         },
                       ),
@@ -854,32 +855,31 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         String message = "";
                         if (widget.formType ==
                             AppLocalizations.of(gContext)!.txtTaxTypeHouse) {
-                          message = '''$dear $name,                         
+                          message = '''
+$dear $name,
 $mobile,
 $ud-$uid,
-$thanksPaying 
-$typeSubmit $taxAmount $amount
-$keyord_electricityTax - $electricityTax 
-$keyord_healthTax - $healthTax
-$keyord_extraLandTax - $extraLandTax 
-$keyord_otherTax - $otherTax 
-$keyord_totalTax - $totalTaxOtherThanWater
-$keyord_discount - $discount
-$keyord_fine - $fine
+$yr $dropdownValueYear, $received $thanksPaying.
+$taxAmount
+$typeSubmit-$amount
+$keyord_electricityTax-$electricityTax
+$keyord_healthTax-$healthTax
+$keyord_extraLandTax-$extraLandTax
+$keyord_otherTax-$otherTax
+$keyord_totalTax-$totalTaxOtherThanWater
+$keyord_discount-$discount
+$keyord_fine-$fine
 
-
-$yr $dropdownValueYear,
-$received.
 $vlg-$village
 $pn-$pin''';
                         } else {
-                          message = '''$dear $name,                         
+                          message = '''
+$dear $name,
 $mobile,
 $ud-$uid,
-$thanksPaying $typeSubmit 
-$taxAmount $amount
-$yr $dropdownValueYear,
-$received.
+$yr $dropdownValueYear, $received $thanksPaying.
+$typeSubmit $taxAmount $amount
+
 $vlg-$village
 $pn-$pin''';
                         }
@@ -893,7 +893,7 @@ $pn-$pin''';
                         String body = '''
 $message
 $attachedReceipt
-          
+
 $regards,
 $registeredName
 ''';
@@ -906,7 +906,7 @@ $registeredName
                         if (textMsgEnabled) {
                           //first send text then email
                           await sendTextToPhone(
-                              message + "-" + registeredName, recipents);
+                              message + "\n" + "-" + registeredName, recipents);
                         }
                         await sendEmail(subject, body, receipients,
                             attachment); //send mail to user cc admin

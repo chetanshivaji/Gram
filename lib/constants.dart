@@ -93,13 +93,13 @@ String tableHeadingWater = "Water";
 String labelDiscount = "Discount";
 String labelFine = "Fine";
 
-String labelTotalTax = "Total Tax";
-String labelHouseTax = "House Tax";
-String labelWaterTax = "Water Tax";
-String labelElectricityTax = "Electricity Tax";
-String labelHealthTax = "Health Tax";
-String labelExtraLandTax = "ExtraLand Tax";
-String labelOtherTax = "Other Tax";
+String labelTotalTax = "Total";
+String labelHouseTax = "House";
+String labelWaterTax = "Water";
+String labelElectricityTax = "Electricity";
+String labelHealthTax = "Health";
+String labelExtraLandTax = "ExtraLand";
+String labelOtherTax = "Other";
 
 String labelMobile = "Mobile";
 

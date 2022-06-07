@@ -183,13 +183,13 @@
     "@labelAmount":{
         "description":"Amount"
     },
-    "labelHouseTax":"House Tax",
+    "labelHouseTax":"House",
     "@labelHouseTax":{
-        "description":"House Tax"
+        "description":"House"
     },
-    "labelWaterTax":"Water Tax",
+    "labelWaterTax":"Water",
     "@labelWaterTax":{
-        "description":"Water Tax"
+        "description":"Water"
     },
     
 
@@ -700,30 +700,30 @@
         "description":"Mobile not found in Database"
     },
 
-    "labelElectricityTax":"Electricity tax",
+    "labelElectricityTax":"Electricity",
     "@labelElectricityTax":{
-        "description":"Electricity tax"
+        "description":"Electricity"
     },
 
 
-    "labelHealthTax":"Health tax",
+    "labelHealthTax":"Health",
     "@labelHealthTax":{
-        "description":"Health tax"
+        "description":"Health"
     },
 
-    "labelExtraLandTax":"ExtraLand tax",
+    "labelExtraLandTax":"ExtraLand",
     "@labelExtraLandTax":{
-        "description":"ExtraLand tax"
+        "description":"ExtraLand"
     },
 
-    "labelOtherTax":"Other tax",
+    "labelOtherTax":"Other",
     "@labelOtherTax":{
-        "description":"Other tax"
+        "description":"Other"
     },
 
-    "labelTotalTax":"Total Tax",
+    "labelTotalTax":"Total",
     "@labelTotalTax":{
-        "description":"Total Tax"
+        "description":"Total"
     },
 
     "msgDiscountPercent":"Enter discount percentage",
@@ -746,6 +746,16 @@
         "description":"Fine"
     },
  
+    "tax":"{randomString} tax",
+    "@tax":{
+        "description":"tax",
+        "placeholders":{
+            "randomString":{
+                "type":"String"
+            }
+        }
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

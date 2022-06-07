@@ -187,8 +187,8 @@
 
 
     "txtDear":"आदरणीय",    
-    "txtThanksPaying":"पैसे दिल्याबद्दल धन्यवाद",    
-    "txtReceived":"प्राप्त झाले!",
+    "txtThanksPaying":"धन्यवाद!",    
+    "txtReceived":"कर प्राप्त झाले!",
     "txtTaxAmount":"कर रक्कम",
     "txtTaxReceiptYr":"वर्षाची कर पावती",
     "txtAttachedReceipt":"कृपया सोबत जोडलेली पावती पहा",
@@ -213,15 +213,15 @@
     "kSubTitleUserNotFound":"दिलेल्या मोबाइल वापरकर्त्यासाठी, दिलेल्या वर्षासाठी (घर/युनिक)नंबर सापडला नाही, वर्ष किंवा (घर/युनिक)नंबर बदलून पहा",
     "kSubTitleNumberNotFoundInDB":"डेटाबेसमध्ये मोबाईल सापडला नाही",
 
-  "labelElectricityTax":"वीज कर",
-  "labelHealthTax":"आरोग्य कर",
-  "labelExtraLandTax":"पडसर कर",    
-  "labelOtherTax":"इतर कर",
+  "labelElectricityTax":"वीज",
+  "labelHealthTax":"आरोग्य",
+  "labelExtraLandTax":"पडसर",
+  "labelOtherTax":"इतर",
 
-  "labelHouseTax":"घर कर",    
-  "labelWaterTax":"पाणी कर",
+  "labelHouseTax":"घर",
+  "labelWaterTax":"पाणी",
 
-  "labelTotalTax":"एकूण कर",
+  "labelTotalTax":"एकूण",
 
   "msgDiscountPercent":"सूट टक्केवारी प्रविष्ट करा",
     
@@ -230,6 +230,7 @@
   "labelDiscount":"सूट टक्केवारी",
   "labelFine":"दंड टक्केवारी",
 
-
+  "tax":"{randomString} कर",
   "hello":"नमस्कार {randomString}"
+  
 }

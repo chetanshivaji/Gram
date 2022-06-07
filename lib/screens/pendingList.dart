@@ -164,31 +164,33 @@ class pendingList extends StatelessWidget {
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
 
                 notificationMessage = '''$dear $name,
-$mobile, 
+$mobile,
 $ud-$uid
-$reminder $notifyTaxType
-$taxAmount  - $amount 
-$keyord_electricityTax - $electricityTax 
-$keyord_healthTax - $healthTax
-$keyord_extraLandTax - $extraLandTax 
-$keyord_otherTax - $otherTax 
-$keyord_totalTax - $totalTax
-$yr - $dropdownValueYear
-$toGram.
-$howSystemWorks - $videoLinkForCu'''; //who is reminding
+$yr-$dropdownValueYear
+$reminder $toGram.
+$taxAmount,
+$notifyTaxType-$amount
+$keyord_electricityTax-$electricityTax
+$keyord_healthTax-$healthTax
+$keyord_extraLandTax-$extraLandTax
+$keyord_otherTax-$otherTax
+$keyord_totalTax-$totalTax
+
+$howSystemWorks-$videoLinkForCu'''; //who is reminding
 
               } else {
                 amount = l.get(keyWater).toString();
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
 
                 notificationMessage = '''$dear $name,
-$mobile, 
+$mobile,
 $ud-$uid
-$reminder 
-$notifyTaxType $taxAmount  - $amount 
-$yr - $dropdownValueYear
-$toGram.
-$howSystemWorks - $videoLinkForCu'''; //who is reminding
+$yr-$dropdownValueYear
+$reminder $toGram.
+$taxAmount,
+$notifyTaxType-$amount
+
+$howSystemWorks-$videoLinkForCu'''; //who is reminding
               }
 
               String mobileWhatsApp = l.get(keyMobile);
@@ -215,7 +217,8 @@ $registeredName
               ];
               if (textMsgEnabled) {
                 await sendTextToPhone(
-                    notificationMessage + "-" + registeredName, listMobile);
+                    notificationMessage + "\n" + "-" + registeredName,
+                    listMobile);
               }
 
               await sendEmail(subject, body, receipients,
