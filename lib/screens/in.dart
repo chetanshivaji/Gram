@@ -866,9 +866,9 @@ $keyord_electricityTax-$electricityTax
 $keyord_healthTax-$healthTax
 $keyord_extraLandTax-$extraLandTax
 $keyord_otherTax-$otherTax
-$keyord_totalTax-$totalTaxOtherThanWater
 $keyord_discount-$discount
 $keyord_fine-$fine
+$keyord_totalTax-$totalTaxOtherThanWater
 
 $vlg-$village
 $pn-$pin''';
