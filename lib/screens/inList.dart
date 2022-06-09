@@ -70,6 +70,11 @@ class inList extends StatelessWidget {
             ldataCell.add(DataCell(Text(l.get(keyMobile))));
             ldataCell.add(DataCell(Text(l.get(keyUid))));
             ldataCell.add(DataCell(Text(l.get(keyAmount).toString())));
+            if (this.inType == collPrefixInHouse) {
+              //For House, discount and fine columns
+              ldataCell.add(DataCell(Text(l.get(keyDiscount).toString())));
+              ldataCell.add(DataCell(Text(l.get(keyFine).toString())));
+            }
             ldataCell.add(DataCell(Text(l.get(keyDate))));
             ldataCell.add(DataCell(Text(l.get(keyRegisteredName))));
 
@@ -146,50 +151,109 @@ class inList extends StatelessWidget {
           dataTextStyle: TextStyle(
             color: Colors.indigoAccent,
           ),
-          columns: <DataColumn>[
-            DataColumn(
-              label: Text(
-                AppLocalizations.of(gContext)!.tableHeading_srNum,
-                style: getStyle(actIn),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                AppLocalizations.of(gContext)!.tableHeadingName,
-                style: getStyle(actIn),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                AppLocalizations.of(gContext)!.tableHeadingMobile,
-                style: getStyle(actIn),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                AppLocalizations.of(gContext)!.tableHeadingUid,
-                style: getStyle(actIn),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                AppLocalizations.of(gContext)!.tableHeadingAmount,
-                style: getStyle(actIn),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                AppLocalizations.of(gContext)!.tableHeadingDate,
-                style: getStyle(actIn),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                AppLocalizations.of(gContext)!.tableHeadingUser,
-                style: getStyle(actIn),
-              ),
-            ),
-          ],
+          columns: (this.inType == collPrefixInHouse)
+              ? <DataColumn>[
+                  //For House, discount and fine columns
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeading_srNum,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingName,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingMobile,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingUid,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingAmount,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.labelDiscount,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.labelFine,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingDate,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingUser,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                ]
+              : <DataColumn>[
+                  //For Water, NO discount and fine columns
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeading_srNum,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingName,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingMobile,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingUid,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingAmount,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingDate,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      AppLocalizations.of(gContext)!.tableHeadingUser,
+                      style: getStyle(actIn),
+                    ),
+                  ),
+                ],
           rows: _buildList(context, snapshot.data!.docs),
         ),
       ),

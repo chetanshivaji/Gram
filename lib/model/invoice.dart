@@ -342,10 +342,65 @@ class pendingInvoice extends Invoice {
 //********************END pending invoice****************************** */
 
 //********************START HouseWater report invoice****************************** */
-class reportHouseWaterInvoice extends Invoice {
-  final List<houseWaterReportEntry> houseWaterReportInvoiceItems;
+class reportHouseInvoice extends Invoice {
+  final List<houseReportEntry> houseWaterReportInvoiceItems;
 
-  const reportHouseWaterInvoice({
+  const reportHouseInvoice({
+    info,
+    required this.houseWaterReportInvoiceItems,
+  }) : super(info: info);
+
+  @override
+  Widget buildInvoice(String reportType) {
+    var headers;
+    var data;
+/*
+          //Pdf only in english because of Marathi font disturbed.
+    headers = [
+      AppLocalizations.of(gContext)!.tableHeadingSrnum,
+      AppLocalizations.of(gContext)!.tableHeadingName,
+      AppLocalizations.of(gContext)!.tableHeadingMobile,
+      AppLocalizations.of(gContext)!.tableHeadingUid,
+      AppLocalizations.of(gContext)!.tableHeadingAmount,
+      AppLocalizations.of(gContext)!.tableHeadingDate,
+      AppLocalizations.of(gContext)!.tableHeadingUser,
+    ];
+    */
+    headers = [
+      tableHeadingSrnum,
+      tableHeadingName,
+      tableHeadingMobile,
+      tableHeadingUid,
+      tableHeadingAmount,
+      labelDiscount,
+      labelFine,
+      tableHeadingDate,
+      tableHeadingUser,
+    ];
+    data = houseWaterReportInvoiceItems.map(
+      (item) {
+        return [
+          item.srnum,
+          item.name,
+          item.mobile,
+          item.uid,
+          item.amount,
+          item.discount,
+          item.fine,
+          item.date,
+          item.user,
+        ];
+      },
+    ).toList();
+
+    return getTableOnPDF(headers, data);
+  }
+}
+
+class reportWaterInvoice extends Invoice {
+  final List<waterReportEntry> houseWaterReportInvoiceItems;
+
+  const reportWaterInvoice({
     info,
     required this.houseWaterReportInvoiceItems,
   }) : super(info: info);
@@ -513,7 +568,31 @@ class pendingEntry extends entry {
   });
 }
 
-class houseWaterReportEntry extends entry {
+class houseReportEntry extends entry {
+  final String srnum;
+  final String name;
+  final String mobile;
+  final String uid;
+  final String amount;
+  final String discount;
+  final String fine;
+  final String date;
+  final String user;
+
+  houseReportEntry({
+    required this.srnum,
+    required this.name,
+    required this.mobile,
+    required this.uid,
+    required this.amount,
+    required this.discount,
+    required this.fine,
+    required this.date,
+    required this.user,
+  });
+}
+
+class waterReportEntry extends entry {
   final String srnum;
   final String name;
   final String mobile;
@@ -521,8 +600,7 @@ class houseWaterReportEntry extends entry {
   final String amount;
   final String date;
   final String user;
-
-  houseWaterReportEntry({
+  waterReportEntry({
     required this.srnum,
     required this.name,
     required this.mobile,

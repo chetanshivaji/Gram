@@ -68,7 +68,8 @@ class _reportContainerState extends State<reportContainer> {
 
   Future<void> createPDFReportEntries(String dropdownValueReportSort) async {
     //START - fetch data to display in pdf
-    List<houseWaterReportEntry> entriesHouseWater = [];
+    List<houseReportEntry> entriesHouse = [];
+    List<waterReportEntry> entriesWater = [];
     List<extraIncomeReportEntry> entriesExtraIncome = [];
     List<outReportEntry> entriesOut = [];
 
@@ -109,23 +110,25 @@ class _reportContainerState extends State<reportContainer> {
               switch (widget.reportType) {
                 case collPrefixInHouse:
                   {
-                    houseWaterReportEntry pe = houseWaterReportEntry(
+                    houseReportEntry pe = houseReportEntry(
                       srnum: srNo.toString(),
                       name: y![keyName],
                       mobile: y![keyMobile],
                       uid: y![keyUid],
                       amount: y![keyAmount].toString(),
+                      discount: y![keyDiscount].toString(),
+                      fine: y![keyFine].toString(),
                       date: y![keyDate],
                       user: y![keyRegisteredName],
                     );
-                    entriesHouseWater.add(pe);
+                    entriesHouse.add(pe);
 
                     break;
                   }
 
                 case collPrefixInWater:
                   {
-                    houseWaterReportEntry pe = houseWaterReportEntry(
+                    waterReportEntry pe = waterReportEntry(
                       srnum: srNo.toString(),
                       name: y![keyName],
                       mobile: y![keyMobile],
@@ -134,7 +137,7 @@ class _reportContainerState extends State<reportContainer> {
                       date: y![keyDate],
                       user: y![keyRegisteredName],
                     );
-                    entriesHouseWater.add(pe);
+                    entriesWater.add(pe);
 
                     break;
                   }
@@ -192,7 +195,7 @@ class _reportContainerState extends State<reportContainer> {
           //Pdf only in english because of Marathi font disturbed.
           //taxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
           taxType = txtTaxTypeHouse;
-          invoice = reportHouseWaterInvoice(
+          invoice = reportHouseInvoice(
               info: InvoiceInfo(
                 formula:
                     '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
@@ -200,7 +203,7 @@ class _reportContainerState extends State<reportContainer> {
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
               ),
-              houseWaterReportInvoiceItems: entriesHouseWater);
+              houseWaterReportInvoiceItems: entriesHouse);
           break;
         }
 
@@ -209,7 +212,7 @@ class _reportContainerState extends State<reportContainer> {
           //Pdf only in english because of Marathi font disturbed.
           //taxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
           taxType = txtTaxTypeWater;
-          invoice = reportHouseWaterInvoice(
+          invoice = reportWaterInvoice(
               info: InvoiceInfo(
                 formula:
                     '$formIn$equals$inFormula; $formOut$equals$outFormula; $formRemain$equals$remainFormula',
@@ -217,7 +220,7 @@ class _reportContainerState extends State<reportContainer> {
                 sortingType: dropdownValueReportSort,
                 taxType: taxType,
               ),
-              houseWaterReportInvoiceItems: entriesHouseWater);
+              houseWaterReportInvoiceItems: entriesWater);
           break;
         }
 

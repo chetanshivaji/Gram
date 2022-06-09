@@ -576,7 +576,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           if (value!.length != 0 && !isNumeric(value)) {
                             return AppLocalizations.of(gContext)!.msgOnlyNumber;
                           }
-                          if (value!.length != 0) {
+                          if (value.length != 0) {
                             discount = int.parse(value);
                           }
                           return null;
@@ -653,7 +653,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                           if (value!.length != 0 && !isNumeric(value)) {
                             return AppLocalizations.of(gContext)!.msgOnlyNumber;
                           }
-                          if (value!.length != 0) {
+                          if (value.length != 0) {
                             fine = int.parse(value);
                           }
                           return null;
