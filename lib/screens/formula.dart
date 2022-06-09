@@ -4,8 +4,8 @@ import 'package:money/util.dart';
 import 'package:money/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<void> updateYearWiseFormula(
-    int newEntryAmount, String typeInOut, String inType) async {
+Future<void> updateYearWiseFormula(int newEntryAmount, String typeInOut,
+    String inType, int totalTaxOtherThanWater_beforeDiscountFine) async {
   var formulaRef;
   //START create Formula in each year once
   formulaRef = FirebaseFirestore.instance
@@ -18,11 +18,17 @@ Future<void> updateYearWiseFormula(
     (value) async {
       if (value.exists) {
         //if already present get and update.
-        int pendingHouse, collectedHouse, pendingWater, collectedWater;
-        pendingHouse = collectedHouse = pendingWater = collectedWater = 0;
+        int pendingHouse,
+            collectedHouse,
+            pendingWater,
+            collectedWater,
+            totalHouseAfterDiscountFine;
+        pendingHouse = collectedHouse =
+            pendingWater = collectedWater = totalHouseAfterDiscountFine = 0;
 
         var y = value.data();
         collectedHouse = y![keyYfCollectedHouse];
+        totalHouseAfterDiscountFine = y![keyYfTotalHouseAfterDiscountFine];
         pendingHouse = y![keyYfPendingHouse];
         collectedWater = y![keyYfCollectedWater];
         pendingWater = y![keyYfPendingWater];
@@ -32,7 +38,15 @@ Future<void> updateYearWiseFormula(
             await formulaRef.update(
               {
                 keyYfCollectedHouse: collectedHouse + newEntryAmount,
-                keyYfPendingHouse: pendingHouse - newEntryAmount,
+                //First update pending house amount, remvoe beforeDisountFine value, add afterDiscountFine value.
+                //then remove afterDiscountFine value to update pending house.
+                keyYfPendingHouse: (pendingHouse -
+                        totalTaxOtherThanWater_beforeDiscountFine +
+                        newEntryAmount) -
+                    newEntryAmount,
+                keyYfTotalHouseAfterDiscountFine: totalHouseAfterDiscountFine -
+                    totalTaxOtherThanWater_beforeDiscountFine +
+                    newEntryAmount,
               },
             );
           } else {

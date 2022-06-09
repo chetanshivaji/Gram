@@ -836,8 +836,12 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         //user total amount for house - totalTaxOtherThanWater
                         await updateFormulaValues(amountHouseOrWater,
                             txtInType); //fetch exisiting value from formula and update new value.
+
                         await updateYearWiseFormula(
-                            amountHouseOrWater, txtInType, widget.formType);
+                            amountHouseOrWater,
+                            txtInType,
+                            widget.formType,
+                            totalTaxOtherThanWater_beforeDiscountFine);
 
                         //START - multi linugal string
                         String dear = AppLocalizations.of(gContext)!.txtDear;

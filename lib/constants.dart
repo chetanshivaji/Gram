@@ -218,6 +218,7 @@ String keyReason = "reason";
 String keyExtraInfo = "extraInfo";
 
 String keyYfTotalHouse = 'yfTotalHouse';
+String keyYfTotalHouseAfterDiscountFine = 'yfTotalHouseAfterDiscountFine';
 String keyYfCollectedHouse = 'yfCollectedHouse';
 String keyYfPendingHouse = 'yfPendingHouse';
 
