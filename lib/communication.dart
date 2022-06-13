@@ -3,7 +3,6 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'util.dart';
 
 import 'package:http/http.dart' as http;
-import 'dart:convert' show utf8;
 import 'dart:convert';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
