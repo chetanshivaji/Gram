@@ -230,6 +230,7 @@ String keyYfPendingWater = 'yfPendingWater';
 
 String kTitleTryCatchFail =
     "Fail"; //dont know reason. some failure in try catch
+String kTitleTextMessageFail = "Failed to send text message";
 String kTitleMobileNotPresent = "Mobile not Present";
 
 String kTitleMultiUids = "Multiple Uids for mobile, please enter one";

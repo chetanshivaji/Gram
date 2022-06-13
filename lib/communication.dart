@@ -1,8 +1,11 @@
 import 'package:telephony/telephony.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'util.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert' show utf8;
+import 'dart:convert';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 bool whatsUpEnabled = false;
 bool textMsgEnabled = true;
@@ -19,7 +22,18 @@ Future<void> sendSMS(apikey, numbers, sender, message) async {
   };
 
   final response = await http.post(url, body: json);
-
+  //START check failure
+  Map valueMap = jsonDecode(response.body); //convert string to json Map.
+  bool failure = false;
+  if (valueMap["status"] == "failure") {
+    //TODO: check response.statusCode tomorrow for failure
+    failure = true;
+  }
+  if (failure == true) {
+    popAlert(gContext, AppLocalizations.of(gContext)!.kTitleTextMessageFail,
+        valueMap["errors"].toString(), getWrongIcon(50.0), 1);
+  }
+  //END check failure
   print('Status code: ${response.statusCode}');
   print('Headers: ${response.headers}');
   print('Body: ${response.body}');

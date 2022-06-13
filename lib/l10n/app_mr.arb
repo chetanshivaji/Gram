@@ -230,6 +230,8 @@
   "labelDiscount":"सूट टक्केवारी",
   "labelFine":"दंड टक्केवारी",
 
+  "kTitleTextMessageFail":"मजकूर संदेश पाठवण्यात अयशस्वी",
+
   "tax":"{randomString} कर",
   "hello":"नमस्कार {randomString}"
   

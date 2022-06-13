@@ -756,6 +756,11 @@
         }
     },
 
+    "kTitleTextMessageFail":"Failed to send text message",
+    "@kTitleTextMessageFail":{
+        "description":"Failed to send text message"
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",
