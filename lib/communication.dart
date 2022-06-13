@@ -1,9 +1,41 @@
 import 'package:telephony/telephony.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert' show utf8;
+
 bool whatsUpEnabled = false;
 bool textMsgEnabled = true;
 bool receiptPdf = true;
+
+const urlPrefix = 'https://api.textlocal.in/send/?';
+Future<void> sendSMS(apikey, numbers, sender, message) async {
+  final url = Uri.parse(urlPrefix);
+  final json = {
+    'apikey': apikey,
+    'numbers': numbers,
+    'message': message,
+    'sender': sender
+  };
+
+  final response = await http.post(url, body: json);
+
+  print('Status code: ${response.statusCode}');
+  print('Headers: ${response.headers}');
+  print('Body: ${response.body}');
+}
+
+Future<void> sendTextToPhoneThoughTextLocal(
+    String message, List<String> recipents) async {
+  String apiKey = "Njc2NjdhNGQ0MjU5MzA0OTQ2NzE3YTMxMzE1MDYzNDU=";
+  String sender = "600010";
+
+  String message =
+      "Hi there, thank you for sending your first test message from Textlocal. Get 20% off today with our code: shubm.";
+
+  await sendSMS(apiKey, recipents[0], sender, message);
+  return;
+}
 
 Future<void> sendTextToPhone(String message, List<String> recipents) async {
   await Telephony.instance

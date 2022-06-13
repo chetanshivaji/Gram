@@ -216,9 +216,14 @@ $registeredName
                 adminMail,
               ];
               if (textMsgEnabled) {
+                await sendTextToPhoneThoughTextLocal(
+                    notificationMessage + "\n" + "-" + registeredName,
+                    listMobile);
+                /*
                 await sendTextToPhone(
                     notificationMessage + "\n" + "-" + registeredName,
                     listMobile);
+                    */
               }
 
               await sendEmail(subject, body, receipients,
