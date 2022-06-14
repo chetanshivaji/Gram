@@ -855,7 +855,6 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                             AppLocalizations.of(gContext)!.tableHeadingYear;
                         String vlg =
                             AppLocalizations.of(gContext)!.labelVillage;
-                        String pn = AppLocalizations.of(gContext)!.labelPin;
                         String ud =
                             AppLocalizations.of(gContext)!.tableHeadingUid;
 
@@ -887,11 +886,11 @@ class HouseWaterFormState extends State<HouseWaterForm> {
                         String message = "";
                         if (widget.formType ==
                             AppLocalizations.of(gContext)!.txtTaxTypeHouse) {
-                          message = '''
-$dear $name,
-$mobile,
-$ud-$uid,
-$yr $dropdownValueYear, $received $thanksPaying.
+                          message = '''$dear $name,
+$mobile
+$ud-$uid
+$yr $dropdownValueYear
+$received, $thanksPaying.
 $taxAmount
 $typeSubmit-$amount
 $keyord_electricityTax-$electricityTax
@@ -902,18 +901,17 @@ $keyord_discount-$discount
 $keyord_fine-$fine
 $keyord_totalTax-$totalTaxOtherThanWater
 
-$vlg-$village
-$pn-$pin''';
+$vlg-$village $pin''';
                         } else {
-                          message = '''
-$dear $name,
-$mobile,
-$ud-$uid,
-$yr $dropdownValueYear, $received $thanksPaying.
-$typeSubmit $taxAmount $amount
+                          message = '''$dear $name,
+$mobile
+$ud-$uid
+$yr $dropdownValueYear,
+$received, $thanksPaying.
+$taxAmount
+$typeSubmit-$amount
 
-$vlg-$village
-$pn-$pin''';
+$vlg-$village $pin''';
                         }
 
                         List<String> recipents = [mobile];

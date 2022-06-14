@@ -625,9 +625,9 @@
         "description":"Regards"
     },
 
-    "txtReminder":"Reminder notice. Please pay pending ",
+    "txtReminder":"Reminder notice. Please pay pending to Grampanchayat",
     "@txtReminder":{
-        "description":"Reminder notice. Please pay pending "
+        "description":"Reminder notice. Please pay pending to Grampanchayat"
     },
 
     "txtToGram":"to Grampanchayat",

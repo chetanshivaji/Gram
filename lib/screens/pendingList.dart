@@ -76,25 +76,17 @@ class pendingList extends StatelessWidget {
     //START - multi linugal string
     String dear = AppLocalizations.of(gContext)!.txtDear;
     String reminder = AppLocalizations.of(gContext)!.txtReminder;
-    String toGram = AppLocalizations.of(gContext)!.txtToGram;
     String taxPendingReceipt =
         AppLocalizations.of(gContext)!.txtTaxpPendingRecieptForYear;
     String findPendingReceipt =
         AppLocalizations.of(gContext)!.txtFindPendingReceipt;
     String onlinePaymentLink = AppLocalizations.of(gContext)!.txtOnlinePayLink;
-
-    String thanksPaying = AppLocalizations.of(gContext)!.txtThanksPaying;
-    String received = AppLocalizations.of(gContext)!.txtReceived;
     String taxAmount = AppLocalizations.of(gContext)!.txtTaxAmount;
     String yr = AppLocalizations.of(gContext)!.tableHeadingYear;
     String vlg = AppLocalizations.of(gContext)!.labelVillage;
-    String pn = AppLocalizations.of(gContext)!.labelPin;
     String ud = AppLocalizations.of(gContext)!.tableHeadingUid;
     String payOnline = AppLocalizations.of(gContext)!.txtPayOnline;
     String forYear = AppLocalizations.of(gContext)!.txtForYear;
-
-    String taxReceiptYr = AppLocalizations.of(gContext)!.txtTaxReceiptYr;
-    String attachedReceipt = AppLocalizations.of(gContext)!.txtAttachedReceipt;
     String pending = AppLocalizations.of(gContext)!.pageNamePending;
     String youtubeLink = AppLocalizations.of(gContext)!.txtYoutubeLink;
     String howSystemWorks = AppLocalizations.of(gContext)!.txtHowSystemWorks;
@@ -164,10 +156,10 @@ class pendingList extends StatelessWidget {
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
 
                 notificationMessage = '''$dear $name,
-$mobile,
+$mobile
 $ud-$uid
 $yr-$dropdownValueYear
-$reminder $toGram.
+$reminder.
 $taxAmount,
 $notifyTaxType-$amount
 $keyord_electricityTax-$electricityTax
@@ -176,21 +168,25 @@ $keyord_extraLandTax-$extraLandTax
 $keyord_otherTax-$otherTax
 $keyord_totalTax-$totalTax
 
-$howSystemWorks-$videoLinkForCu'''; //who is reminding
+$vlg-$village $pin
+
+$howSystemWorks, $videoLinkForCu'''; //who is reminding
 
               } else {
                 amount = l.get(keyWater).toString();
                 notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
 
                 notificationMessage = '''$dear $name,
-$mobile,
+$mobile
 $ud-$uid
 $yr-$dropdownValueYear
-$reminder $toGram.
+$reminder.
 $taxAmount,
 $notifyTaxType-$amount
 
-$howSystemWorks-$videoLinkForCu'''; //who is reminding
+$vlg-$village $pin
+
+$howSystemWorks, $videoLinkForCu'''; //who is reminding
               }
 
               String mobileWhatsApp = l.get(keyMobile);
@@ -216,14 +212,15 @@ $registeredName
                 adminMail,
               ];
               if (textMsgEnabled) {
+                /*
                 await sendTextToPhoneThoughTextLocal(
                     notificationMessage + "\n" + "-" + registeredName,
                     listMobile);
-                /*
+                    */
+
                 await sendTextToPhone(
                     notificationMessage + "\n" + "-" + registeredName,
                     listMobile);
-                    */
               }
 
               await sendEmail(subject, body, receipients,
