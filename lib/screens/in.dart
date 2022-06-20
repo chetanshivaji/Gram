@@ -891,7 +891,7 @@ $mobile
 $ud-$uid
 $yr $dropdownValueYear
 $received, $thanksPaying.
-$taxAmount
+$taxAmount,
 $typeSubmit-$amount
 $keyord_electricityTax-$electricityTax
 $keyord_healthTax-$healthTax
@@ -906,9 +906,9 @@ $vlg-$village $pin''';
                           message = '''$dear $name,
 $mobile
 $ud-$uid
-$yr $dropdownValueYear,
+$yr $dropdownValueYear
 $received, $thanksPaying.
-$taxAmount
+$taxAmount,
 $typeSubmit-$amount
 
 $vlg-$village $pin''';
@@ -935,9 +935,24 @@ $registeredName
                         ];
                         if (textMsgEnabled) {
                           //first send text then email
-                          await sendTextToPhone(
-                              message + "\n" + "-" + registeredName, recipents);
+                          //For english language content template approval,
+                          // Just to make viVilPower happy with branch name for brandname
+                          if (AppLocalizations.of(gContext)!.language ==
+                              "English") {
+                            await sendTextToPhone(
+                                message +
+                                    "\n" +
+                                    "-" +
+                                    registeredName +
+                                    " -PhlySoft",
+                                recipents);
+                          } else {
+                            await sendTextToPhone(
+                                message + "\n" + "-" + registeredName,
+                                recipents);
+                          }
                         }
+
                         await sendEmail(subject, body, receipients,
                             attachment); //send mail to user cc admin
 

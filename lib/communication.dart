@@ -11,13 +11,14 @@ bool textMsgEnabled = true;
 bool receiptPdf = true;
 
 const urlPrefix = 'https://api.textlocal.in/send/?';
-Future<void> sendSMS(apikey, numbers, sender, message) async {
+Future<void> sendSMS(apikey, numbers, sender, message, unicode) async {
   final url = Uri.parse(urlPrefix);
   final json = {
     'apikey': apikey,
     'numbers': numbers,
     'message': message,
-    'sender': sender
+    'sender': sender,
+    'unicode': unicode
   };
 
   final response = await http.post(url, body: json);
@@ -33,27 +34,35 @@ Future<void> sendSMS(apikey, numbers, sender, message) async {
         valueMap["errors"].toString(), getWrongIcon(50.0), 1);
   }
   //END check failure
+  /*
   print('Status code: ${response.statusCode}');
   print('Headers: ${response.headers}');
   print('Body: ${response.body}');
+  */
 }
 
-Future<void> sendTextToPhoneThoughTextLocal(
+Future<void> sendTextToPhoneThroughTextLocal(
     String message, List<String> recipents) async {
+  //String message =
+  //  "Hi there, thank you for sending your first test message from Textlocal. Get 20% off today with our code: shubm.";
   String apiKey = "Njc2NjdhNGQ0MjU5MzA0OTQ2NzE3YTMxMzE1MDYzNDU=";
-  String sender = "600010";
+  String sender = "PHLSFT";
+  String unicode =
+      "false"; //For regional languages like Hindi Marathi it is true.
+  unicode =
+      (AppLocalizations.of(gContext)!.language == "English") ? "false" : "true";
 
-  String message =
-      "Hi there, thank you for sending your first test message from Textlocal. Get 20% off today with our code: shubm.";
-
-  await sendSMS(apiKey, recipents[0], sender, message);
+  await sendSMS(apiKey, recipents[0], sender, message, unicode);
   return;
 }
 
 Future<void> sendTextToPhone(String message, List<String> recipents) async {
-  await Telephony.instance
-      .sendSms(to: recipents[0], message: message, isMultipart: true);
-
+  if (fromTextLocal == true) {
+    await sendTextToPhoneThroughTextLocal(message, recipents);
+  } else {
+    await Telephony.instance
+        .sendSms(to: recipents[0], message: message, isMultipart: true);
+  }
   return;
 }
 

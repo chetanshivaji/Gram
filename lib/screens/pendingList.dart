@@ -71,6 +71,54 @@ class pendingList extends StatelessWidget {
     //END - fetch data to display in pdf
   }
 
+  bool checkRemindLimit(BuildContext context, int houseRemindCount,
+      int waterRemindCount, String mobile, String uid) {
+    if (pendingType == housePendingType) {
+      if (houseRemindCount == 0) {
+        popAlert(
+          context,
+          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+          AppLocalizations.of(gContext)!.subtitleRemindLimit,
+          getWrongIcon(50.0),
+          1,
+        );
+        return false;
+      }
+      FirebaseFirestore.instance
+          .collection(village + pin)
+          .doc(docMainDb)
+          .collection(docMainDb + yearDropDownValue)
+          .doc(mobile + uid)
+          .update(
+        {
+          keyHouseRemindCount: houseRemindCount - 1,
+        },
+      );
+    } else {
+      if (waterRemindCount == 0) {
+        popAlert(
+          context,
+          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+          AppLocalizations.of(gContext)!.subtitleRemindLimit,
+          getWrongIcon(50.0),
+          1,
+        );
+        return false;
+      }
+      FirebaseFirestore.instance
+          .collection(village + pin)
+          .doc(docMainDb)
+          .collection(docMainDb + yearDropDownValue)
+          .doc(mobile + uid)
+          .update(
+        {
+          keyWaterRemindCount: waterRemindCount - 1,
+        },
+      );
+    }
+    return true;
+  }
+
   List<DataRow> _buildList(
       BuildContext context, List<DocumentSnapshot> docSnapshot) {
     //START - multi linugal string
@@ -126,6 +174,15 @@ class pendingList extends StatelessWidget {
             splashColor: clrIconSpalsh,
             splashRadius: iconSplashRadius,
             onPressed: () async {
+              bool remindLimitCrossed = checkRemindLimit(
+                  context,
+                  l.get(keyHouseRemindCount),
+                  l.get(keyWaterRemindCount),
+                  l.get(keyMobile),
+                  l.get(keyUid));
+
+              if (remindLimitCrossed == false) return;
+
               String name = l.get(keyName);
               String mobile = l.get(keyMobile);
               String email = l.get(keyEmail);
@@ -217,10 +274,22 @@ $registeredName
                     notificationMessage + "\n" + "-" + registeredName,
                     listMobile);
                     */
-
-                await sendTextToPhone(
-                    notificationMessage + "\n" + "-" + registeredName,
-                    listMobile);
+                //For english language content template approval,
+                // Just to make viVilPower happy with branch name for brandname
+                if (AppLocalizations.of(gContext)!.language == "English") {
+                  await sendTextToPhone(
+                      notificationMessage +
+                          "\n" +
+                          "-" +
+                          registeredName +
+                          " -PhlySoft",
+                      listMobile);
+                } else {
+                  //for Marathi as other than branch name is allready approved by vi vilpower
+                  await sendTextToPhone(
+                      notificationMessage + "\n" + "-" + registeredName,
+                      listMobile);
+                }
               }
 
               await sendEmail(subject, body, receipients,

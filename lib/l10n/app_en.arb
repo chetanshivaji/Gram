@@ -761,6 +761,11 @@
         "description":"Failed to send text message"
     },
 
+    "subtitleRemindLimit":"Reminding limit two times is finished",
+    "@subtitleRemindLimit":{
+        "description":"Reminding limit two times is finished"
+    },
+
     "hello":"Hello {randomString}",
     "@hello":{
         "description":"heyoo",

@@ -6,6 +6,12 @@ import 'package:intl/intl.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/*
+String apiKey = "Njc2NjdhNGQ0MjU5MzA0OTQ2NzE3YTMxMzE1MDYzNDU=";
+String sender = "PHLSFT";
+*/
+bool fromTextLocal = false;
+
 Locale gLocale = Locale('en');
 
 late BuildContext gContext;

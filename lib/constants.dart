@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 String titleSuccess = "Success";
+String subtitleRemindLimit = "Reminding limit two times is finished";
 String subtitleSuccess = "Submitted!";
 
 String kTitleNotPresent = "No Present";
@@ -179,6 +180,7 @@ String docUids = "uids";
 String docYrsMobileUids = 'yrsMobileUids';
 
 //keys
+
 String keyTotalTaxOtherThanWater = "totalTax";
 String keyElectricity = 'electricity';
 String keyHealth = 'health';
@@ -203,6 +205,8 @@ const String keyHouseGiven = 'houseGiven';
 String keyWater = 'water';
 String keyWaterGiven = 'waterGiven';
 String keyMobile = "mobile";
+String keyHouseRemindCount = "houseRemindCount";
+String keyWaterRemindCount = "waterRemindCount";
 String keyName = "name";
 String keyDiscount = "discount";
 String keyFine = "fine";
