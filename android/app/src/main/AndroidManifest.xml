@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.money">
    <application
-        android:label="money"
+        android:label="UdayUserGram"
         android:name="${applicationName}"
         android:icon="@mipmap/user_icon">
         <activity

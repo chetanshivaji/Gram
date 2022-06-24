@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 String apiKey = "Njc2NjdhNGQ0MjU5MzA0OTQ2NzE3YTMxMzE1MDYzNDU=";
 String sender = "PHLSFT";
 */
-bool fromTextLocal = false;
+bool fromTextLocal = true;
 
 Locale gLocale = Locale('en');
 
