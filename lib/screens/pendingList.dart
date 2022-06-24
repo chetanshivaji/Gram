@@ -3,9 +3,9 @@ import 'package:money/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/util.dart';
 import 'package:money/communication.dart';
-import 'package:money/model/receipt.dart';
 import 'package:money/api/pdf_api.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:money/model/receipt_pending.dart';
 
 class pendingList extends StatelessWidget {
   String pendingType = "";
@@ -27,22 +27,30 @@ class pendingList extends StatelessWidget {
       this.orderType = keyDate})
       : super(key: key);
 
-  Future<void> createPDFInHouseWaterReceiptEntries(String name, String amount,
-      String mobile, String uid, String taxType) async {
+  Future<void> createPDFInHouseWaterReceiptEntries(
+      String name,
+      bool houseGiven,
+      bool waterGiven,
+      String houseTax,
+      String waterTax,
+      String mobile,
+      String uid,
+      String taxType) async {
     //START - fetch data to display in pdf
 
     final receipt = pendingReceipt(
-      info: receiptInfo(
+      info: pendingReceiptInfo(
           date: getCurrentDateTimeInDHM(),
+          houseGiven: houseGiven,
+          waterGiven: waterGiven,
           name: name,
-          amount: amount.toString(),
+          houseTax: houseTax.toString(),
+          waterTax: waterTax.toString(),
           electricityTax: electricityTax,
           healthTax: healthTax,
           extraLandTax: extraLandTax,
           otherTax: otherTax,
           totalTax: totalTax,
-          discount: discount,
-          fine: fine,
           mobile: mobile,
           uid: uid,
           userMail: registeredName,
@@ -71,52 +79,30 @@ class pendingList extends StatelessWidget {
     //END - fetch data to display in pdf
   }
 
-  bool checkRemindLimit(BuildContext context, int houseRemindCount,
-      int waterRemindCount, String mobile, String uid) {
-    if (pendingType == housePendingType) {
-      if (houseRemindCount == 0) {
-        popAlert(
-          context,
-          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
-          AppLocalizations.of(gContext)!.subtitleRemindLimit,
-          getWrongIcon(50.0),
-          1,
-        );
-        return false;
-      }
-      FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(docMainDb + yearDropDownValue)
-          .doc(mobile + uid)
-          .update(
-        {
-          keyHouseRemindCount: houseRemindCount - 1,
-        },
+  bool remindLimitCrossed(
+      BuildContext context, int remindCount, String mobile, String uid) {
+    if (remindCount == 0) {
+      popAlert(
+        context,
+        AppLocalizations.of(gContext)!.kTitleTryCatchFail,
+        AppLocalizations.of(gContext)!.subtitleRemindLimit,
+        getWrongIcon(50.0),
+        1,
       );
-    } else {
-      if (waterRemindCount == 0) {
-        popAlert(
-          context,
-          AppLocalizations.of(gContext)!.kTitleTryCatchFail,
-          AppLocalizations.of(gContext)!.subtitleRemindLimit,
-          getWrongIcon(50.0),
-          1,
-        );
-        return false;
-      }
-      FirebaseFirestore.instance
-          .collection(village + pin)
-          .doc(docMainDb)
-          .collection(docMainDb + yearDropDownValue)
-          .doc(mobile + uid)
-          .update(
-        {
-          keyWaterRemindCount: waterRemindCount - 1,
-        },
-      );
+      return true;
     }
-    return true;
+    FirebaseFirestore.instance
+        .collection(village + pin)
+        .doc(docMainDb)
+        .collection(docMainDb + yearDropDownValue)
+        .doc(mobile + uid)
+        .update(
+      {
+        keyRemindCount: remindCount - 1,
+      },
+    );
+
+    return false;
   }
 
   List<DataRow> _buildList(
@@ -174,20 +160,19 @@ class pendingList extends StatelessWidget {
             splashColor: clrIconSpalsh,
             splashRadius: iconSplashRadius,
             onPressed: () async {
-              bool remindLimitCrossed = checkRemindLimit(
-                  context,
-                  l.get(keyHouseRemindCount),
-                  l.get(keyWaterRemindCount),
-                  l.get(keyMobile),
-                  l.get(keyUid));
+              bool rLimitCrossed = remindLimitCrossed(context,
+                  l.get(keyRemindCount), l.get(keyMobile), l.get(keyUid));
 
-              if (remindLimitCrossed == false) return;
+              if (rLimitCrossed == true) return;
 
               String name = l.get(keyName);
               String mobile = l.get(keyMobile);
               String email = l.get(keyEmail);
               String uid = l.get(keyUid);
-              String amount = "";
+              String houseAmount = "";
+              String waterAmount = "";
+              houseAmount = l.get(keyHouse).toString();
+              waterAmount = l.get(keyWater).toString();
 
               /*
               String electricityTax = "";
@@ -204,57 +189,81 @@ class pendingList extends StatelessWidget {
               totalTax = l.get(keyTotalTaxOtherThanWater).toString();
 
               String notifyTaxType = "";
+              String houseTaxType = "";
+              String waterTaxType = "";
+              houseTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
+              waterTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
+              String received = AppLocalizations.of(gContext)!.received;
+
               String notificationMessage = "";
               String videoLinkForCu =
                   "$youtubeLink https://youtu.be/LPBDvJKDug8";
 
-              if (pendingType == housePendingType) {
-                amount = l.get(keyHouse).toString();
-                notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
+              String taxRemindInfo = "";
+              if (l.get(keyHouseGiven)) {
+                taxRemindInfo = '''
+$keyord_totalTax-$received
 
-                notificationMessage = '''$dear $name,
-$mobile
-$ud-$uid
-$yr-$dropdownValueYear
-$reminder.
-$taxAmount,
-$notifyTaxType-$amount
+$waterTaxType-$waterAmount
+''';
+              } else if (l.get(keyWaterGiven)) {
+                taxRemindInfo = '''
+$houseTaxType-$houseAmount
 $keyord_electricityTax-$electricityTax
 $keyord_healthTax-$healthTax
 $keyord_extraLandTax-$extraLandTax
 $keyord_otherTax-$otherTax
 $keyord_totalTax-$totalTax
 
-$vlg-$village $pin
-
-$howSystemWorks, $videoLinkForCu'''; //who is reminding
-
+$waterTaxType-$received
+''';
               } else {
-                amount = l.get(keyWater).toString();
-                notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
+                //both house water tax not given. form generic message.
+                taxRemindInfo = '''
+$houseTaxType-$houseAmount
+$keyord_electricityTax-$electricityTax
+$keyord_healthTax-$healthTax
+$keyord_extraLandTax-$extraLandTax
+$keyord_otherTax-$otherTax
+$keyord_totalTax-$totalTax
 
-                notificationMessage = '''$dear $name,
+$waterTaxType-$waterAmount
+''';
+              }
+
+              notifyTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
+
+              notificationMessage = '''$dear $name,
 $mobile
 $ud-$uid
 $yr-$dropdownValueYear
 $reminder.
 $taxAmount,
-$notifyTaxType-$amount
 
+$taxRemindInfo
 $vlg-$village $pin
-
 $howSystemWorks, $videoLinkForCu'''; //who is reminding
-              }
 
               String mobileWhatsApp = l.get(keyMobile);
               List<String> listMobile = [mobileWhatsApp];
 ////////*******************START sending mail************************/////
+              if (l.get(keyHouseGiven)) {
+                houseAmount = "0";
+                totalTax = "0";
+              } else if (l.get(keyWaterGiven)) waterAmount = "0";
 
               await createPDFInHouseWaterReceiptEntries(
-                  name, amount, mobile, uid, notifyTaxType);
+                  name,
+                  l.get(keyHouseGiven),
+                  l.get(keyWaterGiven),
+                  houseAmount,
+                  waterAmount,
+                  mobile,
+                  uid,
+                  notifyTaxType);
 
               String subject =
-                  "$name, $ud $uid, $notifyTaxType, $taxPendingReceipt $dropdownValueYear";
+                  "$name, $ud $uid, $taxPendingReceipt $dropdownValueYear";
               String body = """$notificationMessage
 
 $findPendingReceipt

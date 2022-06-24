@@ -721,9 +721,9 @@
         "description":"Other"
     },
 
-    "labelTotalTax":"Total",
+    "labelTotalTax":"Except water,Total",
     "@labelTotalTax":{
-        "description":"Total"
+        "description":"Except water,Total"
     },
 
     "msgDiscountPercent":"Enter discount percentage",
@@ -764,6 +764,10 @@
     "subtitleRemindLimit":"Reminding limit two times is finished",
     "@subtitleRemindLimit":{
         "description":"Reminding limit two times is finished"
+    },
+    "received":"Received",
+    "@received":{
+        "description":"Received"
     },
 
     "hello":"Hello {randomString}",

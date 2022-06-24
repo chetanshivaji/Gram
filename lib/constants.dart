@@ -94,7 +94,7 @@ String tableHeadingWater = "Water";
 String labelDiscount = "Discount";
 String labelFine = "Fine";
 
-String labelTotalTax = "Total";
+String labelTotalTax = "Except water,Total";
 String labelHouseTax = "House";
 String labelWaterTax = "Water";
 String labelElectricityTax = "Electricity";
@@ -119,6 +119,7 @@ String labelForgotPassword = 'Forgot Password?';
 
 //general Text
 String txtReceived = "Received!";
+String received = "Received";
 String txtThankYou = "Thank you!";
 String txtDear = "Dear";
 String txtReminderPending = " reminder for PENDING ";
@@ -205,8 +206,7 @@ const String keyHouseGiven = 'houseGiven';
 String keyWater = 'water';
 String keyWaterGiven = 'waterGiven';
 String keyMobile = "mobile";
-String keyHouseRemindCount = "houseRemindCount";
-String keyWaterRemindCount = "waterRemindCount";
+String keyRemindCount = "houseRemindCount";
 String keyName = "name";
 String keyDiscount = "discount";
 String keyFine = "fine";

@@ -33,53 +33,50 @@ Widget getTableOnPDF(List<dynamic>? headers, List<List<dynamic>> data) {
 
 //********************END HouseWater report invoice****************************** */
 
-class receiptInfo {
+class pendingReceiptInfo {
   final String date;
+  final bool houseGiven;
+  final bool waterGiven;
   final String taxType;
   final String name;
-  final String amount;
-
+  final String houseTax;
+  final String waterTax;
   final String electricityTax;
   final String healthTax;
   final String extraLandTax;
   final String otherTax;
   final String totalTax;
-  final String discount;
-  final String fine;
-
   final String mobile;
   final String uid;
   final String userMail;
 
-  const receiptInfo({
+  const pendingReceiptInfo({
     required this.date,
+    required this.houseGiven,
+    required this.waterGiven,
     required this.taxType,
     required this.name,
-    required this.amount,
+    required this.houseTax,
+    required this.waterTax,
     required this.electricityTax,
     required this.healthTax,
     required this.extraLandTax,
     required this.otherTax,
     required this.totalTax,
-    required this.discount,
-    required this.fine,
     required this.mobile,
     required this.uid,
     required this.userMail,
   });
 }
 
-abstract class receipt {
-  final receiptInfo info;
-  const receipt({
+class pendingReceipt {
+  final pendingReceiptInfo info;
+  const pendingReceipt({
     required this.info,
   });
   //year date, name, mobile, amount, tax type, userMail(reciver).
   //Gram Details, - village, taluka, district, state, pin,
   //Stamp, Signature
-  String getReceipt(receiptInfo info) {
-    return "Receipt"; //dummy function
-  }
 
   Future<File> generate(String reportType, String userMail) async {
     final pdf = Document();
@@ -92,8 +89,8 @@ abstract class receipt {
         "_" +
         reportType +
         "_" +
-        info.taxType +
-        "_" +
+        //info.taxType +
+        //"_" +
         //AppLocalizations.of(gContext)!.txtReceipt; //Pdf only in english because of Marathi font disturbed.
         txtReceipt;
 
@@ -105,7 +102,7 @@ abstract class receipt {
       MultiPage(
         build: (context) => [
           buildHeader(pdfName),
-          SizedBox(height: 3 * PdfPageFormat.cm),
+          SizedBox(height: 1 * PdfPageFormat.cm),
           buildTitle(pdfTitle),
           buildInvoice(reportType),
           pw.Text(
@@ -171,13 +168,38 @@ abstract class receipt {
             style: myPdfTableCellFontStyle,
           ),
           */
-          (info.taxType == txtTaxTypeHouse)
+          info.houseGiven
               ? Text(
-                  txtTaxType +
+                  tableHeadingName +
                       equals +
-                      info.taxType +
+                      info.name +
                       endL +
-                      tableHeadingName +
+                      tableHeadingMobile +
+                      equals +
+                      info.mobile +
+                      endL +
+                      txtSentByUser +
+                      equals +
+                      info.userMail +
+                      endL +
+                      labelTotalTax +
+                      equals +
+                      info.totalTax +
+                      endL +
+                      labelWaterTax +
+                      equals +
+                      info.waterTax +
+                      endL,
+                  style: myPdfTableCellFontStyle,
+                )
+              : Text(
+                  /*
+            txtTaxType +
+                equals +
+                info.taxType +
+                endL +
+                */
+                  tableHeadingName +
                       equals +
                       info.name +
                       endL +
@@ -191,7 +213,7 @@ abstract class receipt {
                       endL +
                       labelHouseTax +
                       equals +
-                      info.amount +
+                      info.houseTax +
                       endL +
                       labelElectricityTax +
                       equals +
@@ -209,56 +231,19 @@ abstract class receipt {
                       equals +
                       info.otherTax +
                       endL +
-                      labelDiscount +
-                      equals +
-                      info.discount +
-                      endL +
-                      labelFine +
-                      equals +
-                      info.fine +
-                      endL +
                       labelTotalTax +
                       equals +
                       info.totalTax +
-                      endL,
-                  style: myPdfTableCellFontStyle,
-                )
-              : Text(
-                  txtTaxType +
-                      equals +
-                      info.taxType +
                       endL +
-                      tableHeadingName +
+                      labelWaterTax +
                       equals +
-                      info.name +
-                      endL +
-                      tableHeadingMobile +
-                      equals +
-                      info.mobile +
-                      endL +
-                      txtSentByUser +
-                      equals +
-                      info.userMail +
+                      info.waterTax +
                       endL,
                   style: myPdfTableCellFontStyle,
                 ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
-
-  Widget buildInvoice(String reportType) {
-    /*
-    //Pdf only in english because of Marathi font disturbed.
-    return Text(
-      AppLocalizations.of(gContext)!.msgInvoidBuildFail,
-      style: myPdfTableCellFontStyle,
-    );
-    */
-    return Text(
-      msgInvoidBuildFail,
-      style: myPdfTableCellFontStyle,
-    );
-  }
 
   static Widget buildFooter(String userMail, String reportType) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -318,17 +303,8 @@ abstract class receipt {
       ),
     );
   }
-}
 
-//********************START pending invoice****************************** */
-
-class pendingReceipt extends receipt {
-  const pendingReceipt({
-    info,
-  }) : super(info: info);
-
-  @override
-  String getReceipt(receiptInfo info) {
+  String getReceipt(pendingReceiptInfo info) {
     /*
     //Pdf only in english because of Marathi font disturbed.
     return AppLocalizations.of(gContext)!.txtDear +
@@ -343,126 +319,30 @@ class pendingReceipt extends receipt {
         ", " +
         AppLocalizations.of(gContext)!.txtPleasePay;
         */
-    if (info.taxType == txtTaxTypeHouse) {
-      return txtDear +
-          " " +
-          info.name +
-          ", " +
-          txtReminderPending +
-          info.taxType +
-          txtTaxAmount +
-          " Rs. " +
-          info.totalTax +
-          ", " +
-          txtPleasePay;
-    } else {
-      return txtDear +
-          " " +
-          info.name +
-          ", " +
-          txtReminderPending +
-          info.taxType +
-          txtTaxAmount +
-          " Rs. " +
-          info.amount +
-          ", " +
-          txtPleasePay;
-    }
-  }
 
-  @override
-  Widget buildInvoice(String reportType) {
-    var headers;
-    var data;
-/*
-    //Pdf only in english because of Marathi font disturbed.
-    headers = [
-      AppLocalizations.of(gContext)!.tableHeadingName,
-      AppLocalizations.of(gContext)!.tableHeadingMobile,
-      AppLocalizations.of(gContext)!.tableHeadingUid,
-      AppLocalizations.of(gContext)!.tableHeadingAmount,
-      AppLocalizations.of(gContext)!.tableHeadingDate,
-    ];
-    */
-    headers = [
-      tableHeadingName,
-      tableHeadingMobile,
-      tableHeadingUid,
-      tableHeadingAmount,
-      tableHeadingDate,
-    ];
-    List<List<dynamic>> lld = [];
-    if (info.taxType == txtTaxTypeHouse) {
-      lld = [
-        [info.name, info.mobile, info.uid, info.totalTax, info.date],
-      ];
-    } else {
-      lld = [
-        [info.name, info.mobile, info.uid, info.amount, info.date],
-      ];
-    }
-
-    return getTableOnPDF(headers, lld);
-  }
-}
-//********************END pending invoice****************************** */
-
-//********************START HouseWater report invoice****************************** */
-class receivedReceipt extends receipt {
-  const receivedReceipt({
-    info,
-  }) : super(info: info);
-
-  @override
-  String getReceipt(receiptInfo info) {
-    /*
-    //Pdf only in english because of Marathi font disturbed.
-    return AppLocalizations.of(gContext)!.txtDear +
+    return txtDear +
         " " +
         info.name +
         ", " +
-        AppLocalizations.of(gContext)!.txtReceived +
-        info.taxType +
-        AppLocalizations.of(gContext)!.txtTaxAmount +
+        txtReminderPending +
+        txtTaxAmount +
+        " " +
+        txtTaxTypeHouse +
         " Rs. " +
-        info.amount +
+        info.totalTax +
         ", " +
-        AppLocalizations.of(gContext)!.txtThankYou;
-        */
-    if (info.taxType == txtTaxTypeHouse) {
-      return txtDear +
-          " " +
-          info.name +
-          ", " +
-          txtReceived +
-          info.taxType +
-          txtTaxAmount +
-          " Rs. " +
-          info.totalTax +
-          ", " +
-          txtThankYou;
-    } else {
-      return txtDear +
-          " " +
-          info.name +
-          ", " +
-          txtReceived +
-          info.taxType +
-          txtTaxAmount +
-          " Rs. " +
-          info.amount +
-          ", " +
-          txtThankYou;
-    }
+        txtTaxTypeWater +
+        " Rs. " +
+        info.waterTax +
+        ", " +
+        txtPleasePay;
   }
 
-  @override
   Widget buildInvoice(String reportType) {
     var headers;
     var data;
-
 /*
-//Pdf only in english because of Marathi font disturbed.
+    //Pdf only in english because of Marathi font disturbed.
     headers = [
       AppLocalizations.of(gContext)!.tableHeadingName,
       AppLocalizations.of(gContext)!.tableHeadingMobile,
@@ -475,20 +355,27 @@ class receivedReceipt extends receipt {
       tableHeadingName,
       tableHeadingMobile,
       tableHeadingUid,
-      tableHeadingAmount,
+      tableHeadingHouse,
+      tableHeadingWater,
       tableHeadingDate,
     ];
     List<List<dynamic>> lld = [];
-    if (info.taxType == txtTaxTypeHouse) {
-      lld = [
-        [info.name, info.mobile, info.uid, info.totalTax, info.date],
-      ];
-    } else {
-      lld = [
-        [info.name, info.mobile, info.uid, info.amount, info.date],
-      ];
-    }
+
+    lld = [
+      [
+        info.name,
+        info.mobile,
+        info.uid,
+        info.totalTax,
+        info.waterTax,
+        info.date
+      ],
+    ];
 
     return getTableOnPDF(headers, lld);
   }
 }
+
+//********************START pending invoice****************************** */
+
+  

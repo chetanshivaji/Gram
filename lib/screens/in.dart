@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'formula.dart';
 import 'package:money/communication.dart';
 import 'package:money/api/pdf_api.dart';
-import 'package:money/model/receipt.dart';
+
+import 'package:money/model/receipt_received.dart';
 import 'package:money/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -72,7 +73,7 @@ class HouseWaterFormState extends State<HouseWaterForm> {
   Future<void> createPDFInHouseWaterReceiptEntries() async {
     //START - fetch data to display in pdf
     final receipt = receivedReceipt(
-      info: receiptInfo(
+      info: receivedReceiptInfo(
           date: getCurrentDateTimeInDHM(),
           name: name,
           amount: amount.toString(),

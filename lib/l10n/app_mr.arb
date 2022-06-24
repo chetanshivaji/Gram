@@ -221,7 +221,7 @@
   "labelHouseTax":"घर",
   "labelWaterTax":"पाणी",
 
-  "labelTotalTax":"एकूण",
+  "labelTotalTax":"पाण्याव्यतिरिक्त एकूण",
 
   "msgDiscountPercent":"सूट टक्केवारी प्रविष्ट करा",
     
@@ -232,6 +232,7 @@
 
   "kTitleTextMessageFail":"मजकूर संदेश पाठवण्यात अयशस्वी",
   "subtitleRemindLimit":"दोन वेळा आठवण करून देण्याची मर्यादा संपली आहे",
+  "received":"प्राप्त",
 
   "tax":"{randomString} कर",
   "hello":"नमस्कार {randomString}"
