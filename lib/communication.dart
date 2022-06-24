@@ -57,14 +57,13 @@ Future<void> sendTextToPhoneThroughTextLocal(
 }
 
 Future<void> sendTextToPhone(String message, List<String> recipents) async {
-  /*
   if (fromTextLocal == true) {
     await sendTextToPhoneThroughTextLocal(message, recipents);
   } else {
     await Telephony.instance
         .sendSms(to: recipents[0], message: message, isMultipart: true);
   }
-  */
+
   return;
 }
 

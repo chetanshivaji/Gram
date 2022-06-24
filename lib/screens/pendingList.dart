@@ -193,7 +193,7 @@ class pendingList extends StatelessWidget {
               String waterTaxType = "";
               houseTaxType = AppLocalizations.of(gContext)!.txtTaxTypeHouse;
               waterTaxType = AppLocalizations.of(gContext)!.txtTaxTypeWater;
-              String received = AppLocalizations.of(gContext)!.received;
+              String received = "0";
 
               String notificationMessage = "";
               String videoLinkForCu =

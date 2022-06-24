@@ -721,9 +721,9 @@
         "description":"Other"
     },
 
-    "labelTotalTax":"Except water,Total",
+    "labelTotalTax":"Total",
     "@labelTotalTax":{
-        "description":"Except water,Total"
+        "description":"Total"
     },
 
     "msgDiscountPercent":"Enter discount percentage",

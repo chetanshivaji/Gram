@@ -94,7 +94,7 @@ String tableHeadingWater = "Water";
 String labelDiscount = "Discount";
 String labelFine = "Fine";
 
-String labelTotalTax = "Except water,Total";
+String labelTotalTax = "Total";
 String labelHouseTax = "House";
 String labelWaterTax = "Water";
 String labelElectricityTax = "Electricity";
@@ -119,7 +119,6 @@ String labelForgotPassword = 'Forgot Password?';
 
 //general Text
 String txtReceived = "Received!";
-String received = "Received";
 String txtThankYou = "Thank you!";
 String txtDear = "Dear";
 String txtReminderPending = " reminder for PENDING ";
