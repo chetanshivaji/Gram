@@ -168,37 +168,8 @@ class pendingReceipt {
             style: myPdfTableCellFontStyle,
           ),
           */
-          info.houseGiven
+          (!info.houseGiven && !info.waterGiven)
               ? Text(
-                  tableHeadingName +
-                      equals +
-                      info.name +
-                      endL +
-                      tableHeadingMobile +
-                      equals +
-                      info.mobile +
-                      endL +
-                      txtSentByUser +
-                      equals +
-                      info.userMail +
-                      endL +
-                      labelTotalTax +
-                      equals +
-                      info.totalTax +
-                      endL +
-                      labelWaterTax +
-                      equals +
-                      info.waterTax +
-                      endL,
-                  style: myPdfTableCellFontStyle,
-                )
-              : Text(
-                  /*
-            txtTaxType +
-                equals +
-                info.taxType +
-                endL +
-                */
                   tableHeadingName +
                       equals +
                       info.name +
@@ -240,7 +211,66 @@ class pendingReceipt {
                       info.waterTax +
                       endL,
                   style: myPdfTableCellFontStyle,
-                ),
+                )
+              : info.houseGiven
+                  ? Text(
+                      tableHeadingName +
+                          equals +
+                          info.name +
+                          endL +
+                          tableHeadingMobile +
+                          equals +
+                          info.mobile +
+                          endL +
+                          txtSentByUser +
+                          equals +
+                          info.userMail +
+                          endL +
+                          labelWaterTax +
+                          equals +
+                          info.waterTax +
+                          endL,
+                      style: myPdfTableCellFontStyle,
+                    )
+                  : Text(
+                      tableHeadingName +
+                          equals +
+                          info.name +
+                          endL +
+                          tableHeadingMobile +
+                          equals +
+                          info.mobile +
+                          endL +
+                          txtSentByUser +
+                          equals +
+                          info.userMail +
+                          endL +
+                          labelHouseTax +
+                          equals +
+                          info.houseTax +
+                          endL +
+                          labelElectricityTax +
+                          equals +
+                          info.electricityTax +
+                          endL +
+                          labelHealthTax +
+                          equals +
+                          info.healthTax +
+                          endL +
+                          labelExtraLandTax +
+                          equals +
+                          info.extraLandTax +
+                          endL +
+                          labelOtherTax +
+                          equals +
+                          info.otherTax +
+                          endL +
+                          labelTotalTax +
+                          equals +
+                          info.totalTax +
+                          endL,
+                      style: myPdfTableCellFontStyle,
+                    ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
@@ -319,7 +349,21 @@ class pendingReceipt {
         ", " +
         AppLocalizations.of(gContext)!.txtPleasePay;
         */
+    String tax = "";
 
+    if (!info.houseGiven && !info.waterGiven) {
+      tax = txtTaxTypeHouse +
+          " Rs. " +
+          info.totalTax +
+          ", " +
+          txtTaxTypeWater +
+          " Rs. " +
+          info.waterTax;
+    } else if (info.houseGiven) {
+      tax = txtTaxTypeWater + " Rs. " + info.waterTax;
+    } else if (info.waterGiven) {
+      tax = txtTaxTypeHouse + " Rs. " + info.totalTax;
+    }
     return txtDear +
         " " +
         info.name +
@@ -327,20 +371,12 @@ class pendingReceipt {
         txtReminderPending +
         txtTaxAmount +
         " " +
-        txtTaxTypeHouse +
-        " Rs. " +
-        info.totalTax +
-        ", " +
-        txtTaxTypeWater +
-        " Rs. " +
-        info.waterTax +
+        tax +
         ", " +
         txtPleasePay;
   }
 
   Widget buildInvoice(String reportType) {
-    var headers;
-    var data;
 /*
     //Pdf only in english because of Marathi font disturbed.
     headers = [
@@ -351,26 +387,55 @@ class pendingReceipt {
       AppLocalizations.of(gContext)!.tableHeadingDate,
     ];
     */
-    headers = [
-      tableHeadingName,
-      tableHeadingMobile,
-      tableHeadingUid,
-      tableHeadingHouse,
-      tableHeadingWater,
-      tableHeadingDate,
-    ];
+
+    List headers = [];
     List<List<dynamic>> lld = [];
 
-    lld = [
-      [
-        info.name,
-        info.mobile,
-        info.uid,
-        info.totalTax,
-        info.waterTax,
-        info.date
-      ],
-    ];
+    if (!info.houseGiven && !info.waterGiven) {
+      headers = [
+        tableHeadingName,
+        tableHeadingMobile,
+        tableHeadingUid,
+        tableHeadingHouse,
+        tableHeadingWater,
+        tableHeadingDate,
+      ];
+
+      lld = [
+        [
+          info.name,
+          info.mobile,
+          info.uid,
+          info.totalTax,
+          info.waterTax,
+          info.date
+        ],
+      ];
+    } else if (info.houseGiven) {
+      headers = [
+        tableHeadingName,
+        tableHeadingMobile,
+        tableHeadingUid,
+        tableHeadingWater,
+        tableHeadingDate,
+      ];
+
+      lld = [
+        [info.name, info.mobile, info.uid, info.waterTax, info.date],
+      ];
+    } else if (info.waterGiven) {
+      headers = [
+        tableHeadingName,
+        tableHeadingMobile,
+        tableHeadingUid,
+        tableHeadingHouse,
+        tableHeadingDate,
+      ];
+
+      lld = [
+        [info.name, info.mobile, info.uid, info.totalTax, info.date],
+      ];
+    }
 
     return getTableOnPDF(headers, lld);
   }

@@ -202,8 +202,6 @@ class pendingList extends StatelessWidget {
               String taxRemindInfo = "";
               if (l.get(keyHouseGiven)) {
                 taxRemindInfo = '''
-$keyord_totalTax-$received
-
 $waterTaxType-$waterAmount
 ''';
               } else if (l.get(keyWaterGiven)) {
@@ -214,8 +212,6 @@ $keyord_healthTax-$healthTax
 $keyord_extraLandTax-$extraLandTax
 $keyord_otherTax-$otherTax
 $keyord_totalTax-$totalTax
-
-$waterTaxType-$received
 ''';
               } else {
                 //both house water tax not given. form generic message.
