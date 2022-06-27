@@ -281,20 +281,14 @@ $registeredName
                     */
                 //For english language content template approval,
                 // Just to make viVilPower happy with branch name for brandname
-                if (AppLocalizations.of(gContext)!.language == "English") {
-                  await sendTextToPhone(
-                      notificationMessage +
-                          "\n" +
-                          "-" +
-                          registeredName +
-                          " -PhlySoft",
-                      listMobile);
-                } else {
-                  //for Marathi as other than branch name is allready approved by vi vilpower
-                  await sendTextToPhone(
-                      notificationMessage + "\n" + "-" + registeredName,
-                      listMobile);
-                }
+
+                await sendTextToPhone(
+                    notificationMessage +
+                        "\n" +
+                        "-" +
+                        registeredName +
+                        " -PhlySoft",
+                    listMobile);
               }
 
               await sendEmail(subject, body, receipients,
