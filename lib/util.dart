@@ -40,7 +40,7 @@ enum accessLevel {
   SuperUser,
   Viewer,
   Collector,
-  //Spender,//no need of spender as of now.
+  Spender, //no need of spender as of now.
   No,
 }
 List<String> accessItems = [
@@ -48,7 +48,7 @@ List<String> accessItems = [
   "SuperUser",
   "Viewer",
   "Collector",
-  //"Spender",//no need of spender as of now.
+  "Spender", //no need of spender as of now.
   "No"
 ];
 

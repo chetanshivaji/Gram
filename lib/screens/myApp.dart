@@ -201,7 +201,7 @@ class MyApp extends StatelessWidget {
                   }
                 },
               ),
-              /*
+
               //no need of spender as of now.
               ListTile(
                 shape: getListTileShapeForDrawer(),
@@ -223,7 +223,7 @@ class MyApp extends StatelessWidget {
                   }
                 },
               ),
-              */
+
               ListTile(
                 shape: getListTileShapeForDrawer(),
                 leading: Icon(Icons.pending_actions),
