@@ -101,6 +101,12 @@ In future developement.
 1. collect phone and mail ID, Grampanchyat mail id as admin mail ID.
 1. Enter 2021 register to see behaviour	
 
+0. Review PPT. present to CO, test.
+1. blaze plan, and google cloud pay acocunt, set alert on budget.	
+2. Implement free payment interface. Razorpay with limited free options like BHIM RUPAY.
+3. start in kolhapur district.
+	
+
 
 
 # DOCUMENTATION and BEHAVIOUR of app
