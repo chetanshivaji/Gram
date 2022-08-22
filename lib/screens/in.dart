@@ -1162,8 +1162,17 @@ class inMoney extends StatelessWidget {
     lsWidget.add(
       ExtraIncomeForm(),
     );
-    Widget infoIcon = Icon(Icons.info);
-    return tabScffold(context, lsIcons.length, lsText, lsIcons, lsWidget,
-        actType, pageName, clrGreen, infoIcon);
+    //Widget infoIcon = Icon(Icons.info);
+    return tabScffold(
+      context,
+      lsIcons.length,
+      lsText,
+      lsIcons,
+      lsWidget,
+      actType,
+      pageName,
+      clrGreen,
+      //infoIcon,
+    );
   }
 }

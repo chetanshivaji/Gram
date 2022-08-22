@@ -35,6 +35,7 @@ var myPdfTableCellFontStyle;
 var myPdfTableHeaderFontStyle;
 
 int access = accessLevel.No.index; //"No";
+
 enum accessLevel {
   select,
   SuperUser,
@@ -43,6 +44,7 @@ enum accessLevel {
   Spender, //no need of spender as of now.
   No,
 }
+
 List<String> accessItems = [
   "select",
   "SuperUser",
@@ -376,7 +378,7 @@ Widget tabScffold(
   String actType,
   String pageName,
   Color clr,
-  Widget extraWidget,
+  //Widget extraWidget,
 ) {
   List<Tab> lsTabs = [];
   List<Widget> lsTabBarView = [];
@@ -416,7 +418,7 @@ Widget tabScffold(
             color: Colors.black,
           ),
         ),
-        actions: <Widget>[extraWidget],
+        //actions: <Widget>[extraWidget],
       ),
       body: ((actType == actPending) || (actType == actReport))
           ? (TabBarView(

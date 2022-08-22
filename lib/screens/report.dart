@@ -485,7 +485,7 @@ class _reportMoneyState extends State<reportMoney> {
       ),
     );
 
-    Widget formulaWidget = formulaLive();
+    //Widget formulaWidget = formulaLive();
     return tabScffold(
       context,
       lsIcons.length,
@@ -495,7 +495,7 @@ class _reportMoneyState extends State<reportMoney> {
       actType,
       pageName,
       clrBlue,
-      formulaWidget,
+      //formulaWidget,
     );
   }
 }
