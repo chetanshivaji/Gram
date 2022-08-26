@@ -80,7 +80,13 @@ Future<void> sendEmail(String subject, String body, List<String> recipients,
     isHTML: false,
   );
 
-  await FlutterEmailSender.send(email);
+  try {
+    await FlutterEmailSender.send(email);
+  } catch (error) {
+    //print(error);
+    popAlert(gContext, AppLocalizations.of(gContext)!.kTitleTextMessageFail,
+        error.toString(), getWrongIcon(50.0), 1);
+  }
   return;
 }
 
@@ -97,6 +103,12 @@ Future<void> sendEmailNoAttachment(
     isHTML: false,
   );
 
-  await FlutterEmailSender.send(email);
+  try {
+    await FlutterEmailSender.send(email);
+  } catch (error) {
+    //print(error);
+    popAlert(gContext, AppLocalizations.of(gContext)!.kTitleTextMessageFail,
+        error.toString(), getWrongIcon(50.0), 1);
+  }
   return;
 }

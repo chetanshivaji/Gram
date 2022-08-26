@@ -31,4 +31,11 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+     <!-- added below queris tag for email client not found error in sending mail for flutter_send_mail pub dev package -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+    </queries>
 </manifest>
