@@ -36,6 +36,11 @@ void main() async {
         projectId: "gramtry-7a07a",
       ),
     );
+    // Enable offline persistence and set cache size to 50 MB
+  await Firestore.instance.settings(PersistenceSettings(
+    persistenceEnabled: true,
+    cacheSizeBytes: 50000000, // Set cache size to 50 MB
+  ));
     await readFontsFromAssets();
     final prefs = await SharedPreferences.getInstance();
     final String? lang = await prefs
