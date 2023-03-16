@@ -15,6 +15,10 @@ In future developement.
 
 
 # TODO
+1. Test offline persistence cache
+2. create and host website on firebase, create payment gateway. write backend.
+2. send website link to user through text message
+3. Test for scaling.
 0. create videos for B 
 2. send upi reqest link to Cu, if they want to send money through UPI.
 3. create log file with time who what details. for debug purpose when problem arrise.
